@@ -136,6 +136,12 @@ Assert that the function call `fn()` throws an exception.
 
 Assert that the function call `fn()` does not throw an exception.
 
+## t.test(name, cb)
+
+Create a subtest with a new test handle `st` from `cb(st)` inside the current
+test `t`. `cb(st)` will only fire when `t` finishes. Additional tests queued up
+after `t` will not be run until all subtests finish.
+
 ## var htest = test.createHarness()
 
 Create a new test harness instance, which is a function like `test()`, but with
