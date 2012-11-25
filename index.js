@@ -31,6 +31,7 @@ function createHarness () {
         
         process.nextTick(function () {
             if (!piped) out.pipe(createDefaultStream());
+            out.begin();
             
             var run = function () {
                 running = true;
