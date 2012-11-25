@@ -2,6 +2,8 @@
 
 tap-producing test harness for node and browsers
 
+[![build status](https://secure.travis-ci.org/substack/tape.png)](http://travis-ci.org/substack/tape)
+
 # example
 
 ``` js
