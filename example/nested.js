@@ -16,7 +16,7 @@ test('nested array test', function (t) {
         }
     });
     
-    t.test(function (q) {
+    t.test('inside test', function (q) {
         q.plan(2);
         q.ok(true);
         

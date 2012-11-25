@@ -38,13 +38,25 @@ function createHarness () {
             else run();
         });
         
-        t.on('end', function () {
+        t.on('test', function (st) {
+            pending.unshift(function () {
+                running = true;
+                out.push(st);
+                st.run();
+                
+                st.on('end', onend);
+            });
+        });
+        
+        t.on('end', onend);
+        
+        function onend () {
             running = false;
             process.nextTick(function () {
                 if (pending.length) pending.shift()()
                 else out.close()
             });
-        });
+        }
     };
     
     return out;
