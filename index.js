@@ -17,8 +17,7 @@ function createHarness () {
             conf = {};
         }
         var t = new Test;
-        out.push(t);
-        
+        t.name = name;
         var piped = false;
         
         t.pipe = function () {
@@ -35,6 +34,7 @@ function createHarness () {
             
             var run = function () {
                 running = true;
+                out.push(t);
                 cb(t);
             };
             
