@@ -27,11 +27,8 @@ test('skip subtest', function(t) {
 });
 
 test('right number of tests ran', function(t) {
-    // https://github.com/substack/tape/issues/4
-    setTimeout(function() {
-        t.equal(ran, 3, 'ran the right number of tests');
-        t.end();
-    });
+    t.equal(ran, 3, 'ran the right number of tests');
+    t.end();
 });
 
 // vim: set softtabstop=4 shiftwidth=4:

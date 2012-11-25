@@ -31,7 +31,7 @@ function createHarness () {
                 t.run();
             };
             
-            if (running) {
+            if (running || pending.length) {
                 pending.push(run);
             }
             else run();
@@ -61,3 +61,5 @@ function createHarness () {
     test.stream = out;
     return test;
 }
+
+// vim: set softtabstop=4 shiftwidth=4:
