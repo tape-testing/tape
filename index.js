@@ -18,8 +18,7 @@ function createHarness () {
             cb = conf;
             conf = {};
         }
-        var t = new Test;
-        t.name = name;
+        var t = new Test(name, conf, cb);
         
         process.nextTick(function () {
             if (!out.piped) out.pipe(createDefaultStream());
@@ -29,7 +28,7 @@ function createHarness () {
             var run = function () {
                 running = true;
                 out.push(t);
-                cb(t);
+                t.run();
             };
             
             if (running) {
