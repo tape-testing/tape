@@ -1,6 +1,6 @@
 # tape
 
-tap-producing test harness that works in node and browsers
+tap-producing test harness for node and browsers
 
 # example
 
