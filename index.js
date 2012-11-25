@@ -13,7 +13,7 @@ function createHarness () {
     var began = false;
     var out = new Render();
     
-    return function (name, conf, cb) {
+    var test = function (name, conf, cb) {
         if (typeof conf === 'function') {
             cb = conf;
             conf = {};
@@ -59,5 +59,6 @@ function createHarness () {
         }
     };
     
-    return out;
+    test.stream = out;
+    return test;
 }
