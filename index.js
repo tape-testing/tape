@@ -14,10 +14,6 @@ function createHarness () {
     var out = new Render();
     
     var test = function (name, conf, cb) {
-        if (typeof conf === 'function') {
-            cb = conf;
-            conf = {};
-        }
         var t = new Test(name, conf, cb);
         
         process.nextTick(function () {
@@ -37,20 +33,26 @@ function createHarness () {
             else run();
         });
         
-        t.on('test', function (st) {
-            pending.unshift(function () {
-                running = true;
-                out.push(st);
-                st.run();
-                
-                st.on('end', onend);
-            });
+        t.on('test', function sub (st) {
+            st.on('test', sub);
+            st.on('end', onend);
         });
         
         t.on('end', onend);
         
         function onend () {
             running = false;
+            if (this._progeny.length) {
+                var unshifts = this._progeny.map(function (st) {
+                    return function () {
+                        running = true;
+                        out.push(st);
+                        st.run();
+                    };
+                });
+                pending.unshift.apply(pending, unshifts);
+            }
+
             process.nextTick(function () {
                 if (pending.length) pending.shift()()
                 else out.close()
