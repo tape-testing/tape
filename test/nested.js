@@ -25,7 +25,7 @@ tap.test('array test', function (tt) {
             { id: 3, ok: true, name: 'should be equivalent' },
             { id: 4, ok: true, name: 'should be equivalent' },
             { id: 5, ok: true, name: 'should be equivalent' },
-            '# inside test',
+            'inside test',
             { id: 6, ok: true, name: '(unnamed assert)' },
             { id: 7, ok: true, name: '(unnamed assert)' },
             'another',
