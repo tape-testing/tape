@@ -9,6 +9,8 @@ exports.Test = Test;
 function createHarness () {
     var pending = [];
     var running = false;
+    
+    var began = false;
     var out = new Render();
     
     return function (name, conf, cb) {
@@ -18,19 +20,11 @@ function createHarness () {
         }
         var t = new Test;
         t.name = name;
-        var piped = false;
-        
-        t.pipe = function () {
-            piped = true;
-        };
-        
-        t.once('pipe', function () {
-            piped = true;
-        });
         
         process.nextTick(function () {
-            if (!piped) out.pipe(createDefaultStream());
-            out.begin();
+            if (!out.piped) out.pipe(createDefaultStream());
+            if (!began) out.begin();
+            began = true;
             
             var run = function () {
                 running = true;
