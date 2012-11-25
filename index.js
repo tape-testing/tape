@@ -18,8 +18,7 @@ function createHarness () {
             cb = conf;
             conf = {};
         }
-        var t = new Test;
-        t.name = name;
+        var t = new Test(name, conf, cb);
         
         process.nextTick(function () {
             if (!out.piped) out.pipe(createDefaultStream());
@@ -29,10 +28,10 @@ function createHarness () {
             var run = function () {
                 running = true;
                 out.push(t);
-                cb(t);
+                t.run();
             };
             
-            if (running) {
+            if (running || pending.length) {
                 pending.push(run);
             }
             else run();
@@ -62,3 +61,5 @@ function createHarness () {
     test.stream = out;
     return test;
 }
+
+// vim: set softtabstop=4 shiftwidth=4:
