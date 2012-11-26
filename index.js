@@ -40,6 +40,8 @@ function createHarness () {
         
         t.on('end', onend);
         
+        return t
+        
         function onend () {
             running = false;
             if (this._progeny.length) {
