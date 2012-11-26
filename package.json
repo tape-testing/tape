@@ -1,6 +1,6 @@
 {
     "name" : "tape",
-    "version" : "0.0.2",
+    "version" : "0.0.3",
     "description" : "tap-producing test harness for node and browsers",
     "main" : "index.js",
     "bin" : {},
@@ -10,7 +10,8 @@
     },
     "dependencies" : {
         "jsonify" : "~0.0.0",
-        "deep-equal" : "~0.0.0"
+        "deep-equal" : "~0.0.0",
+        "defined" : "~0.0.0"
     },
     "devDependencies" : {
         "tap" : "~0.3.0",
