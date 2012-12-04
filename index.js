@@ -6,6 +6,17 @@ exports = module.exports = createHarness();
 exports.createHarness = createHarness;
 exports.Test = Test;
 
+var canEmitExit = false;
+var canExit = false;
+//*
+var canEmitExit = typeof process !== 'undefined' && process
+    && typeof process.on === 'function'
+;
+var canExit = typeof process !== 'undefined' && process
+    && typeof process.exit === 'function'
+;
+//*/
+        
 function createHarness () {
     var pending = [];
     var running = false;
@@ -15,6 +26,15 @@ function createHarness () {
     
     var test = function (name, conf, cb) {
         var t = new Test(name, conf, cb);
+        if (!conf || typeof conf !== 'object') conf = {};
+        
+        if (conf.exit !== false && canEmitExit) {
+            process.on('exit', function (code) {
+                t._exit();
+                out.close();
+                if (code === 0 && !t._ok) process.exit(1);
+            });
+        }
         
         process.nextTick(function () {
             if (!out.piped) out.pipe(createDefaultStream());
@@ -40,7 +60,7 @@ function createHarness () {
         
         t.on('end', onend);
         
-        return t
+        return t;
         
         function onend () {
             running = false;
@@ -56,8 +76,11 @@ function createHarness () {
             }
 
             process.nextTick(function () {
-                if (pending.length) pending.shift()()
-                else out.close()
+                if (pending.length) return pending.shift()();
+                out.close();
+                if (conf.exit !== false && canExit && !t._ok) {
+                    process.exit(1);
+                }
             });
         }
     };

@@ -93,7 +93,7 @@ tap.test('too few exit', function (t) {
             { id: 3, ok: true, name: 'should be equivalent' },
             { id: 4, ok: true, name: 'should be equivalent' },
             { id: 5, ok: true, name: 'should be equivalent' },
-            { id: 6, ok: false, name: 'too few assertions' },
+            { id: 6, ok: false, name: 'plan != count' },
             'tests 6',
             'pass  5',
             'fail  1'
