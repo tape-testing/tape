@@ -5,7 +5,7 @@ var tap = require('tap');
 tap.test('throw test', function (tt) {
     tt.plan(1);
     
-    var test = tape.createHarness();
+    var test = tape.createHarness({ exit : false });
     var tc = tap.createConsumer();
     
     var rows = [];
@@ -20,11 +20,11 @@ tap.test('throw test', function (tt) {
         tt.same(rs, [
             'TAP version 13',
             'thrower',
-            { id: 1, ok: true, name: 'should be equivalent' },
-            { id: 2, ok: false, name: 'Error: rawr' },
+            { id: 1, ok: true, name: 'should be equal' },
+            { id: 2, ok: false, name: 'rawr' },
             'tests 2',
-            'pass 1',
-            'fail 1',
+            'pass  1',
+            'fail  1',
         ]);
     });
     
