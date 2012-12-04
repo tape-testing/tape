@@ -1,5 +1,5 @@
 var test = require('../');
-var harness = test.createHarness();
+var harness = test.createHarness({ exit : false });
 
 // minimal write stream mockery
 var collector = {

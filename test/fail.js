@@ -5,7 +5,7 @@ var tap = require('tap');
 tap.test('array test', function (tt) {
     tt.plan(1);
     
-    var test = tape.createHarness();
+    var test = tape.createHarness({ exit : false });
     var tc = tap.createConsumer();
     
     var rows = [];
