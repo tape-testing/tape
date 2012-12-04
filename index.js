@@ -6,17 +6,13 @@ exports = module.exports = createHarness();
 exports.createHarness = createHarness;
 exports.Test = Test;
 
-var canEmitExit = false;
-var canExit = false;
-//*
 var canEmitExit = typeof process !== 'undefined' && process
     && typeof process.on === 'function'
 ;
 var canExit = typeof process !== 'undefined' && process
     && typeof process.exit === 'function'
 ;
-//*/
-        
+
 function createHarness () {
     var pending = [];
     var running = false;
