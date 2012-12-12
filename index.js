@@ -52,6 +52,7 @@ function createHarness (conf_) {
         });
 
         t.on('test', function sub (st) {
+            count++;
             st.on('test', sub);
             st.on('end', onend);
         });
@@ -76,6 +77,7 @@ function createHarness (conf_) {
 
             process.nextTick(function () {
                 if (pending.length) return pending.shift()();
+                console.error("count", count)
                 if (count === 0) {
                     out.close();
                 }
