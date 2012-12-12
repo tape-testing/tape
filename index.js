@@ -59,7 +59,6 @@ function createHarness (conf_) {
         return t;
         
         function onend () {
-            running = false;
             if (this._progeny.length) {
                 var unshifts = this._progeny.map(function (st) {
                     return function () {
@@ -72,6 +71,7 @@ function createHarness (conf_) {
             }
 
             process.nextTick(function () {
+                running = false;
                 if (pending.length) return pending.shift()();
                 out.close();
                 if (conf.exit !== false && canExit && !t._ok) {
