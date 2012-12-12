@@ -16,14 +16,16 @@ var canExit = typeof process !== 'undefined' && process
 function createHarness (conf_) {
     var pending = [];
     var running = false;
-    
+    var count = 0;
+
     var began = false;
     var out = new Render();
-    
+
     var test = function (name, conf, cb) {
+        count++;
         var t = new Test(name, conf, cb);
         if (!conf || typeof conf !== 'object') conf = conf_ || {};
-        
+
         if (conf.exit !== false && canEmitExit) {
             process.on('exit', function (code) {
                 t._exit();
@@ -31,34 +33,36 @@ function createHarness (conf_) {
                 if (code === 0 && !t._ok) process.exit(1);
             });
         }
-        
+
         process.nextTick(function () {
             if (!out.piped) out.pipe(createDefaultStream());
             if (!began) out.begin();
             began = true;
-            
+
             var run = function () {
                 running = true;
                 out.push(t);
                 t.run();
             };
-            
+
             if (running || pending.length) {
                 pending.push(run);
             }
             else run();
         });
-        
+
         t.on('test', function sub (st) {
+            count++;
             st.on('test', sub);
             st.on('end', onend);
         });
-        
+
         t.on('end', onend);
-        
+
         return t;
-        
+
         function onend () {
+            count--;
             if (this._progeny.length) {
                 var unshifts = this._progeny.map(function (st) {
                     return function () {
@@ -73,14 +77,16 @@ function createHarness (conf_) {
             process.nextTick(function () {
                 running = false;
                 if (pending.length) return pending.shift()();
-                out.close();
+                if (count === 0) {
+                    out.close();
+                }
                 if (conf.exit !== false && canExit && !t._ok) {
                     process.exit(1);
                 }
             });
         }
     };
-    
+
     test.stream = out;
     return test;
 }
