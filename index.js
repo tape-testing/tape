@@ -28,7 +28,7 @@ function createHarness (conf_) {
             process.on('exit', function (code) {
                 t._exit();
                 out.close();
-                if (code === 0 && !t._ok) process.exit(1);
+                if (!code && !t._ok) process.exit(1);
             });
         }
         
