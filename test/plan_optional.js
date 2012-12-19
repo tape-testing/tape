@@ -9,7 +9,7 @@ test('no plan async', function (t) {
     setTimeout(function() {
         t.pass('ok');
         t.end();
-    });
+    }, 100);
 });
 
 // vim: set softtabstop=4 shiftwidth=4:
