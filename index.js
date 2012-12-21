@@ -12,6 +12,13 @@ var canEmitExit = typeof process !== 'undefined' && process
 var canExit = typeof process !== 'undefined' && process
     && typeof process.exit === 'function'
 ;
+var onexit = (function () {
+    var stack = [];
+    if (canEmitExit) process.on('exit', function (code) {
+        for (var i = 0; i < stack.length; i++) stack[i](code);
+    });
+    return function (cb) { stack.push(cb) };
+})();
 
 function createHarness (conf_) {
     var pending = [];
@@ -26,8 +33,8 @@ function createHarness (conf_) {
         var t = new Test(name, conf, cb);
         if (!conf || typeof conf !== 'object') conf = conf_ || {};
         
-        if (conf.exit !== false && canEmitExit) {
-            process.on('exit', function (code) {
+        if (conf.exit !== false) {
+            onexit(function (code) {
                 t._exit();
                 out.close();
                 if (!code && !t._ok) process.exit(1);
