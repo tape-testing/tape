@@ -4,6 +4,8 @@ tap-producing test harness for node and browsers
 
 [![build status](https://secure.travis-ci.org/substack/tape.png)](http://travis-ci.org/substack/tape)
 
+![tape](http://substack.net/images/tape_drive.png)
+
 # browser compatibility
 
 chrome, firefox, opera, safari, IE6, IE7, IE8, IE9
