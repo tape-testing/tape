@@ -52,6 +52,11 @@ function createHarness (conf_) {
                 t.run();
             };
             
+            if (only && name !== only) {
+                count--;
+                return;
+            }
+            
             if (running || pending.length) {
                 pending.push(run);
             }
@@ -92,6 +97,16 @@ function createHarness (conf_) {
                 }
             });
         }
+    };
+    
+    test.only = function (name) {
+        if (only) {
+            throw new Error("there can only be one only test");
+        }
+
+        only = name;
+
+        return test.apply(null, arguments);
     };
     
     test.stream = out;
