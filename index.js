@@ -37,7 +37,6 @@ function createHarness (conf_) {
         if (conf.exit !== false) {
             onexit(function (code) {
                 t._exit();
-                out.close();
                 if (!code && !t._ok) process.exit(1);
             });
         }
@@ -57,7 +56,6 @@ function createHarness (conf_) {
                 count--;
                 return;
             }
-
             if (running || pending.length) {
                 pending.push(run);
             }
