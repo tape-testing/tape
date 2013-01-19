@@ -24,16 +24,16 @@ function createHarness (conf_) {
     var pending = [];
     var running = false;
     var count = 0;
-
+    
     var began = false;
     var only = false;
     var out = new Render();
-
+    
     var test = function (name, conf, cb) {
         count++;
         var t = new Test(name, conf, cb);
         if (!conf || typeof conf !== 'object') conf = conf_ || {};
-
+        
         if (conf.exit !== false) {
             onexit(function (code) {
                 t._exit();
@@ -43,18 +43,18 @@ function createHarness (conf_) {
                 }
             });
         }
-
+        
         process.nextTick(function () {
             if (!out.piped) out.pipe(createDefaultStream());
             if (!began) out.begin();
             began = true;
-
+            
             var run = function () {
                 running = true;
                 out.push(t);
                 t.run();
             };
-
+            
             if (only && name !== only) {
                 count--;
                 return;
@@ -64,17 +64,17 @@ function createHarness (conf_) {
             }
             else run();
         });
-
+        
         t.on('test', function sub (st) {
             count++;
             st.on('test', sub);
             st.on('end', onend);
         });
-
+        
         t.on('end', onend);
-
+        
         return t;
-
+        
         function onend () {
             count--;
             if (this._progeny.length) {
@@ -87,7 +87,7 @@ function createHarness (conf_) {
                 });
                 pending.unshift.apply(pending, unshifts);
             }
-
+            
             process.nextTick(function () {
                 running = false;
                 if (pending.length) return pending.shift()();
@@ -100,17 +100,17 @@ function createHarness (conf_) {
             });
         }
     };
-
+    
     test.only = function (name) {
         if (only) {
             throw new Error("there can only be one only test");
         }
-
+        
         only = name;
-
+        
         return test.apply(null, arguments);
     };
-
+    
     test.stream = out;
     return test;
 }
