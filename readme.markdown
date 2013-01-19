@@ -161,6 +161,12 @@ By default the TAP output goes to `process.stdout` or `console.log()` if the
 environment doesn't have `process.stdout`. You can pipe the output to someplace
 else if you `test.stream.pipe()` to a destination stream on the first tick.
 
+## test.only(name, cb)
+
+Like `test(name, cb)` except if you use `.only` this is the only test case
+that will run for the entire process, all other test cases using tape will
+be ignored
+
 # install
 
 With [npm](https://npmjs.org) do:
