@@ -26,6 +26,7 @@ function createHarness (conf_) {
     var count = 0;
 
     var began = false;
+    var closed = false;
     var out = new Render();
 
     var test = function (name, conf, cb) {
@@ -36,6 +37,10 @@ function createHarness (conf_) {
         if (conf.exit !== false) {
             onexit(function (code) {
                 t._exit();
+                if (!closed) {
+                    closed = true
+                    out.close();
+                }
                 if (!code && !t._ok) process.exit(1);
             });
         }
@@ -83,7 +88,8 @@ function createHarness (conf_) {
             process.nextTick(function () {
                 running = false;
                 if (pending.length) return pending.shift()();
-                if (count === 0) {
+                if (count === 0 && !closed) {
+                    closed = true
                     out.close();
                 }
                 if (conf.exit !== false && canExit && !t._ok) {
