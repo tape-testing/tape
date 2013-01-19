@@ -26,6 +26,7 @@ function createHarness (conf_) {
     var count = 0;
     
     var began = false;
+    var only = false;
     var out = new Render();
     
     var test = function (name, conf, cb) {
@@ -37,7 +38,9 @@ function createHarness (conf_) {
             onexit(function (code) {
                 t._exit();
                 out.close();
-                if (!code && !t._ok) process.exit(1);
+                if (!code && !t._ok && (!only || name === only)) {
+                    process.exit(1);
+                }
             });
         }
         
@@ -52,6 +55,11 @@ function createHarness (conf_) {
                 t.run();
             };
             
+            if (only && name !== only) {
+                count--;
+                return;
+            }
+
             if (running || pending.length) {
                 pending.push(run);
             }
@@ -92,6 +100,16 @@ function createHarness (conf_) {
                 }
             });
         }
+    };
+    
+    test.only = function (name) {
+        if (only) {
+            throw new Error("there can only be one only test");
+        }
+        
+        only = name;
+        
+        return test.apply(null, arguments);
     };
     
     test.stream = out;
