@@ -37,7 +37,9 @@ function createHarness (conf_) {
         if (conf.exit !== false) {
             onexit(function (code) {
                 t._exit();
-                if (!code && !t._ok) process.exit(1);
+                if (!code && !t._ok && (!only || name === only)) {
+                    process.exit(1);
+                }
             });
         }
 
