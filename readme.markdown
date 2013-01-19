@@ -83,7 +83,7 @@ Generate a failing assertion with a message `msg`.
 Generate a passing assertion with a message `msg`.
 
 ## t.skip(msg)
-
+ 
 Generate an assertion that will be skipped over.
 
 ## t.ok(value, msg)
