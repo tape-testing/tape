@@ -1,5 +1,6 @@
-var test = require('../');
-var harness = test.createHarness({ exit : false });
+var test = require('tap').test;
+var tape = require('../');
+var harness = tape.createHarness({ exit : false });
 
 // minimal write stream mockery
 var collector = {

@@ -1,5 +1,5 @@
 var createDefaultStream = require('./lib/default_stream');
-var Render = require('./lib/render');
+var Render = require('tap-render');
 var Test = require('./lib/test');
 
 exports = module.exports = createHarness();

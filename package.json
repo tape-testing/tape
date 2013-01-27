@@ -10,6 +10,7 @@
     },
     "dependencies" : {
         "jsonify" : "~0.0.0",
+        "tap-render": "~0.1.2",
         "deep-equal" : "~0.0.0",
         "defined" : "~0.0.0"
     },
