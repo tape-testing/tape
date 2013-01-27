@@ -1,4 +1,4 @@
-var createDefaultStream = require('./lib/default_stream');
+var createDefaultStream = require('console-stream');
 var Render = require('./lib/render');
 var Test = require('./lib/test');
 
