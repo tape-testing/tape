@@ -3,7 +3,9 @@
     "version" : "0.2.2",
     "description" : "tap-producing test harness for node and browsers",
     "main" : "index.js",
-    "bin" : {},
+    "bin" : {
+        "tape": "runner.js"
+    },
     "directories" : {
         "example" : "example",
         "test" : "test"
