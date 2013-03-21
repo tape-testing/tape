@@ -11,7 +11,8 @@
     "dependencies" : {
         "jsonify" : "~0.0.0",
         "deep-equal" : "~0.0.0",
-        "defined" : "~0.0.0"
+        "defined" : "~0.0.0",
+        "json-stringify-safe": "~4.0.0"
     },
     "devDependencies" : {
         "tap" : "~0.3.0",
