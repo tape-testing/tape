@@ -20,6 +20,8 @@ exports = module.exports = createHarness();
 exports.createHarness = createHarness;
 exports.Test = Test;
 
+var exitInterval;
+
 function createHarness (conf_) {
     var pending = [];
     var running = false;
@@ -32,7 +34,9 @@ function createHarness (conf_) {
     if (!conf_) conf_ = {};
     
     var tests = [];
-    var exitInterval = conf_.exitInterval !== false && canEmitExit
+    if (conf_.exit === false && exitInterval) clearInterval(exitInterval);
+    
+    exitInterval = !exitInterval && conf_.exit !== false && canEmitExit
     && typeof process._getActiveHandles === 'function'
     && setInterval(function () {
         if (process._getActiveHandles().length === 1) {
@@ -45,7 +49,7 @@ function createHarness (conf_) {
     
     out.on('end', function () {
         clearInterval(exitInterval);
-        process.exit(exitCode);
+        if (conf_.exit !== false) process.exit(exitCode);
     });
     
     var test = function (name, conf, cb) {
@@ -94,6 +98,7 @@ function createHarness (conf_) {
             st.on('test', sub);
             st.on('end', onend);
         });
+        t.on('result', function (r) { if (!r.ok) exitCode = 1 });
         
         t.on('end', onend);
         
