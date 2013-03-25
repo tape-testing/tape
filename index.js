@@ -49,7 +49,7 @@ function createHarness (conf_) {
     
     out.on('end', function () {
         clearInterval(exitInterval);
-        if (conf_.exit !== false) process.exit(exitCode);
+        if (canExit && conf_.exit !== false) process.exit(exitCode);
     });
     
     var test = function (name, conf, cb) {
