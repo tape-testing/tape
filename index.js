@@ -2,10 +2,6 @@ var createDefaultStream = require('./lib/default_stream');
 var Render = require('./lib/render');
 var Test = require('./lib/test');
 
-exports = module.exports = createHarness();
-exports.createHarness = createHarness;
-exports.Test = Test;
-
 var canEmitExit = typeof process !== 'undefined' && process
     && typeof process.on === 'function'
 ;
@@ -20,6 +16,10 @@ var onexit = (function () {
     return function (cb) { stack.push(cb) };
 })();
 
+exports = module.exports = createHarness();
+exports.createHarness = createHarness;
+exports.Test = Test;
+
 function createHarness (conf_) {
     var pending = [];
     var running = false;
@@ -29,11 +29,30 @@ function createHarness (conf_) {
     var only = false;
     var closed = false;
     var out = new Render();
+    if (!conf_) conf_ = {};
+    
+    var tests = [];
+    var exitInterval = conf_.exitInterval !== false && canEmitExit
+    && typeof process._getActiveHandles === 'function'
+    && setInterval(function () {
+        if (process._getActiveHandles().length === 1) {
+            tests.forEach(function (t) { t._exit() });
+        }
+    }, 200);
+    
+    var exitCode = 0;
+    var exit = function (c) { exitCode = c };
+    
+    out.on('end', function () {
+        clearInterval(exitInterval);
+        process.exit(exitCode);
+    });
     
     var test = function (name, conf, cb) {
         count++;
         var t = new Test(name, conf, cb);
-        if (!conf || typeof conf !== 'object') conf = conf_ || {};
+        tests.push(t);
+        if (!conf || typeof conf !== 'object') conf = conf_;
         
         if (conf.exit !== false) {
             onexit(function (code) {
@@ -43,7 +62,7 @@ function createHarness (conf_) {
                     out.close();
                 }
                 if (!code && !t._ok && (!only || name === only)) {
-                    process.exit(1);
+                    exit(1);
                 }
             });
         }
@@ -101,7 +120,7 @@ function createHarness (conf_) {
                     out.close();
                 }
                 if (conf.exit !== false && canExit && !t._ok) {
-                    process.exit(1);
+                    exit(1);
                 }
             });
         }
