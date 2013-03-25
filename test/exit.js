@@ -124,9 +124,10 @@ tap.test('more planned in a second test', function (t) {
         t.same(rs, [
             'TAP version 13',
             'first',
-            { id: 1, ok: true, name: 'should be equivalent' },
+            { id: 1, ok: true, name: '(unnamed assert)' },
             'second',
-            { id: 2, ok: true, name: 'should be equivalent' },
+            { id: 2, ok: true, name: '(unnamed assert)' },
+            { id: 3, ok: false, name: 'plan != count' },
             'tests 3',
             'pass  2',
             'fail  1'
