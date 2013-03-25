@@ -16,6 +16,11 @@ var onexit = (function () {
     return function (cb) { stack.push(cb) };
 })();
 
+var nextTick = typeof setImmediate !== 'undefined'
+    ? setImmediate
+    : process.nextTick
+;
+
 exports = module.exports = createHarness();
 exports.createHarness = createHarness;
 exports.Test = Test;
@@ -71,7 +76,7 @@ function createHarness (conf_) {
             });
         }
         
-        process.nextTick(function () {
+        nextTick(function () {
             if (!out.piped) out.pipe(createDefaultStream());
             if (!began) out.begin();
             began = true;
@@ -117,7 +122,7 @@ function createHarness (conf_) {
                 pending.unshift.apply(pending, unshifts);
             }
             
-            process.nextTick(function () {
+            nextTick(function () {
                 running = false;
                 if (pending.length) return pending.shift()();
                 if (count === 0 && !closed) {
