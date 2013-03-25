@@ -106,3 +106,36 @@ tap.test('too few exit', function (t) {
         t.notEqual(code, 0);
     });
 });
+
+tap.test('more planned in a second test', function (t) {
+    t.plan(2);
+    
+    var tc = tap.createConsumer();
+    
+    var rows = [];
+    tc.on('data', function (r) { rows.push(r) });
+    tc.on('end', function () {
+        var rs = rows.map(function (r) {
+            if (r && typeof r === 'object') {
+                return { id : r.id, ok : r.ok, name : r.name.trim() };
+            }
+            else return r;
+        });
+        t.same(rs, [
+            'TAP version 13',
+            'first',
+            { id: 1, ok: true, name: 'should be equivalent' },
+            'second',
+            { id: 2, ok: true, name: 'should be equivalent' },
+            'tests 3',
+            'pass  2',
+            'fail  1'
+        ]);
+    });
+    
+    var ps = spawn(process.execPath, [ __dirname + '/exit/second.js' ]);
+    ps.stdout.pipe(tc);
+    ps.on('exit', function (code) {
+        t.notEqual(code, 0);
+    });
+});
