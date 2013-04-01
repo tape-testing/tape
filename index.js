@@ -114,7 +114,7 @@ function createHarness (conf_) {
         function onend () {
             count--;
             if (this._progeny.length) {
-                var unshifts = this._progeny.map(function (st) {
+                var unshifts = map(this._progeny, function (st) {
                     return function () {
                         running = true;
                         out.push(st);
@@ -150,6 +150,15 @@ function createHarness (conf_) {
     
     test.stream = out;
     return test;
+}
+
+function map (xs, f) {
+    if (xs.map) return xs.map(f);
+    var res = [];
+    for (var i = 0; i < xs.length; i++) {
+        res.push(f(xs[i]));
+    }
+    return res;
 }
 
 // vim: set softtabstop=4 shiftwidth=4:
