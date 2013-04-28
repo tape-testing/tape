@@ -44,7 +44,8 @@ function createHarness (conf_) {
     exitInterval = !exitInterval && conf_.exit !== false && canEmitExit
     && typeof process._getActiveHandles === 'function'
     && setInterval(function () {
-        if (process._getActiveHandles().length === 1) {
+        if (/^v0\.8\./.test(process.version)
+        && process._getActiveHandles().length === 1) {
             tests.forEach(function (t) { t._exit() });
         }
     }, 200);
@@ -124,7 +125,7 @@ function createHarness (conf_) {
                 pending.unshift.apply(pending, unshifts);
             }
             
-            nextTick(function () {
+            process.nextTick(function () {
                 running = false;
                 if (pending.length) return pending.shift()();
                 if (count === 0 && !closed) {
