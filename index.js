@@ -37,7 +37,6 @@ function createHarness (conf_) {
         })(t);
         
         results.push(t);
-        nextTick(function () { t.run() });
         return t;
     };
     test.stream = results;
