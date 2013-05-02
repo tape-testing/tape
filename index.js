@@ -14,7 +14,11 @@ var nextTick = typeof setImmediate !== 'undefined'
     : process.nextTick
 ;
 
-exports = module.exports = createHarness();
+exports = module.exports = (function () {
+    var harness = createHarness();
+    harness.stream.pipe(createDefaultStream());
+    return harness;
+})();
 exports.createHarness = createHarness;
 exports.Test = Test;
 exports.test = exports; // tap compat
@@ -40,7 +44,5 @@ function createHarness (conf_) {
         return t;
     };
     test.stream = results;
-    results.pipe(createDefaultStream());
-    
     return test;
 }
