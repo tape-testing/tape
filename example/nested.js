@@ -18,10 +18,10 @@ test('nested array test', function (t) {
     
     t.test('inside test', function (q) {
         q.plan(2);
-        q.ok(true);
+        q.ok(true, 'inside ok');
         
         setTimeout(function () {
-            q.ok(true);
+            q.ok(true, 'inside delayed');
         }, 3000);
     });
     
