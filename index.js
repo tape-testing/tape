@@ -61,5 +61,13 @@ function createHarness (conf_) {
         return results;
     };
     
+    var only = false;
+    test.only = function (name) {
+        if (only) throw new Error('there can only be one only test');
+        results.only(name);
+        only = true;
+        return test.apply(null, arguments);
+    };
+    
     return test;
 }
