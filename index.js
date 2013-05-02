@@ -15,9 +15,14 @@ var nextTick = typeof setImmediate !== 'undefined'
 ;
 
 exports = module.exports = (function () {
-    var harness = createHarness();
-    harness.createStream().pipe(createDefaultStream());
-    return harness;
+    var harness;
+    return function () {
+        if (!harness) {
+            harness = createHarness();
+            harness.createStream().pipe(createDefaultStream());
+        }
+        return harness.apply(this, arguments);
+    };
 })();
 
 exports.createHarness = createHarness;
