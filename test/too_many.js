@@ -32,7 +32,7 @@ tap.test('array test', function (tt) {
         ]);
     });
     
-    test.stream.pipe(tc);
+    test.createStream().pipe(tc);
     
     test('array', function (t) {
         t.plan(3);

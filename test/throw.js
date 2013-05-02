@@ -28,7 +28,7 @@ tap.test('throw test', function (tt) {
         ]);
     });
     
-    test.stream.pipe(tc);
+    test.createStream().pipe(tc);
     
     test('thrower', function (t) {
         t.equal(1 + 1, 2);

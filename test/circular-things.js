@@ -32,7 +32,7 @@ tap.test('circular test', function (assert) {
     // tt.equal(10, 10)
     // tt.end()
 
-    test.stream.pipe(tc);
+    test.createStream().pipe(tc);
 
     test("circular", function (t) {
         t.plan(1)

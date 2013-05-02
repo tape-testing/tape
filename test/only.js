@@ -29,7 +29,7 @@ tap.test('tape only test', function (tt) {
         tt.end()
     })
 
-    test.stream.pipe(tc)
+    test.createStream().pipe(tc)
 
     test("never run fail", function (t) {
         t.equal(true, false)

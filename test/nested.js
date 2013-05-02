@@ -36,7 +36,7 @@ tap.test('array test', function (tt) {
         ]);
     });
     
-    test.stream.pipe(tc);
+    test.createStream().pipe(tc);
     
     test('nested array test', function (t) {
         t.plan(5);
