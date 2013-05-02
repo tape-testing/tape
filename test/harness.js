@@ -50,10 +50,11 @@ var wanted =
       '# fail  1',
       '' ];
 
-harness.stream.pipe(collector);
+var stream = harness.createStream();
+stream.pipe(collector);
 
 test('correct output', function (t) {
-    harness.stream.on('end', function () {
+    stream.on('end', function () {
         // accept trailing whitespace, or multiple lines on the same write(),
         var found = collector.written.join('').split(/\n/).map(function (s) {
             return s.replace(/\s+$/, '');
