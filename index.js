@@ -20,6 +20,16 @@ exports = module.exports = (function () {
         if (!harness) {
             harness = createHarness();
             harness.createStream().pipe(createDefaultStream());
+            
+            if (process.exit && process._getActiveHandles) {
+                var iv = setInterval(function () {
+                    if (process._getActiveHandles().length > 1) return;
+                    clearInterval(iv);
+                    setTimeout(function () {
+                        process.exit(harness._exitCode);
+                    }, 100);
+                });
+            }
         }
         return harness.apply(this, arguments);
     };
@@ -32,7 +42,6 @@ exports.test = exports; // tap compat
 var exitInterval;
 
 function createHarness (conf_) {
-    var exitCode = 0;
     var results;
     
     var test = function (name, conf, cb) {
@@ -47,7 +56,7 @@ function createHarness (conf_) {
                 inspectCode(st_);
             });
             st.on('result', function (r) {
-                if (!r.ok) exitCode = 1
+                if (!r.ok) test._exitCode = 1
             });
         })(t);
         
@@ -68,6 +77,7 @@ function createHarness (conf_) {
         only = true;
         return test.apply(null, arguments);
     };
+    test._exitCode = 0;
     
     return test;
 }
