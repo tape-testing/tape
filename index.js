@@ -32,23 +32,16 @@ function createExitHarness (conf) {
     stream.on('end', function () { ended = true });
     
     if (conf.exit === false) return harness;
-    if (!process.exit || !process._getActiveHandles) return harness;
+    if (!canEmitExit || !canExit) return harness;
     
-    var iv = setInterval(function () {
-        if (process._getActiveHandles().length > 1) return;
-        
-        clearInterval(iv);
-        setTimeout(function () {
-            if (ended) return;
+    process.on('exit', function (code) {
+        if (!ended) {
             for (var i = 0; i < harness._tests.length; i++) {
                 var t = harness._tests[i];
                 t._exit();
             }
-        }, 100);
-        
-        setTimeout(function () {
-            process.exit(harness._exitCode);
-        }, 105);
+        }
+        process.exit(code || harness._exitCode);
     });
     return harness;
 }
