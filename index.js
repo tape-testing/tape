@@ -81,7 +81,14 @@ function createHarness (conf_) {
     
     test.createStream = function () {
         if (!results) results = createResultStream();
-        nextTick(function () { results.resume() });
+        
+        var _pause = results.pause;
+        var paused = false;
+        results.pause = function () { paused = true };
+        
+        nextTick(function () {
+            if (!paused) results.resume();
+        });
         return results;
     };
     
