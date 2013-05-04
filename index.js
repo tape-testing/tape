@@ -17,37 +17,39 @@ var nextTick = typeof setImmediate !== 'undefined'
 exports = module.exports = (function () {
     var harness;
     return function () {
-        if (!harness) {
-            harness = createHarness();
-            var stream = harness.createStream();
-            stream.pipe(createDefaultStream());
-            
-            var ended = false;
-            stream.on('end', function () { ended = true });
-            
-            if (process.exit && process._getActiveHandles) {
-                var iv = setInterval(function () {
-                    if (process._getActiveHandles().length > 1) return;
-                    
-                    clearInterval(iv);
-                    setTimeout(function () {
-                        if (!ended) {
-                            for (var i = 0; i < harness._tests.length; i++) {
-                                var t = harness._tests[i];
-                                t._exit();
-                            }
-                        }
-                    }, 100);
-                    
-                    setTimeout(function () {
-                        process.exit(harness._exitCode);
-                    }, 110);
-                });
-            }
-        }
+        if (!harness) harness = createExitHarness();
         return harness.apply(this, arguments);
     };
 })();
+
+function createExitHarness () {
+    var harness = createHarness();
+    var stream = harness.createStream();
+    stream.pipe(createDefaultStream());
+    
+    var ended = false;
+    stream.on('end', function () { ended = true });
+    
+    if (process.exit && process._getActiveHandles) {
+        var iv = setInterval(function () {
+            if (process._getActiveHandles().length > 1) return;
+            
+            clearInterval(iv);
+            setTimeout(function () {
+                if (ended) return;
+                for (var i = 0; i < harness._tests.length; i++) {
+                    var t = harness._tests[i];
+                    t._exit();
+                }
+            }, 100);
+            
+            setTimeout(function () {
+                process.exit(harness._exitCode);
+            }, 105);
+        });
+    }
+    return harness;
+}
 
 exports.createHarness = createHarness;
 exports.Test = Test;
