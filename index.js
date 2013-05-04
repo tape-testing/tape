@@ -22,7 +22,8 @@ exports = module.exports = (function () {
     };
 })();
 
-function createExitHarness () {
+function createExitHarness (conf) {
+    if (!conf) conf = {};
     var harness = createHarness();
     var stream = harness.createStream();
     stream.pipe(createDefaultStream());
@@ -30,24 +31,25 @@ function createExitHarness () {
     var ended = false;
     stream.on('end', function () { ended = true });
     
-    if (process.exit && process._getActiveHandles) {
-        var iv = setInterval(function () {
-            if (process._getActiveHandles().length > 1) return;
-            
-            clearInterval(iv);
-            setTimeout(function () {
-                if (ended) return;
-                for (var i = 0; i < harness._tests.length; i++) {
-                    var t = harness._tests[i];
-                    t._exit();
-                }
-            }, 100);
-            
-            setTimeout(function () {
-                process.exit(harness._exitCode);
-            }, 105);
-        });
-    }
+    if (conf.exit === false) return harness;
+    if (!process.exit || !process._getActiveHandles) return harness;
+    
+    var iv = setInterval(function () {
+        if (process._getActiveHandles().length > 1) return;
+        
+        clearInterval(iv);
+        setTimeout(function () {
+            if (ended) return;
+            for (var i = 0; i < harness._tests.length; i++) {
+                var t = harness._tests[i];
+                t._exit();
+            }
+        }, 100);
+        
+        setTimeout(function () {
+            process.exit(harness._exitCode);
+        }, 105);
+    });
     return harness;
 }
 
