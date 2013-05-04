@@ -37,8 +37,11 @@ exports = module.exports = (function () {
                                 t._exit();
                             }
                         }
-                        process.exit(harness._exitCode);
                     }, 100);
+                    
+                    setTimeout(function () {
+                        process.exit(harness._exitCode);
+                    }, 110);
                 });
             }
         }

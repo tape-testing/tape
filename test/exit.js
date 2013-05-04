@@ -107,7 +107,6 @@ tap.test('too few exit', function (t) {
     });
 });
 
-/*
 tap.test('more planned in a second test', function (t) {
     t.plan(2);
     
@@ -141,4 +140,3 @@ tap.test('more planned in a second test', function (t) {
         t.notEqual(code, 0);
     });
 });
-*/
