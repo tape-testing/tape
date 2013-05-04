@@ -19,13 +19,24 @@ exports = module.exports = (function () {
     return function () {
         if (!harness) {
             harness = createHarness();
-            harness.createStream().pipe(createDefaultStream());
+            var stream = harness.createStream();
+            stream.pipe(createDefaultStream());
+            
+            var ended = false;
+            stream.on('end', function () { ended = true });
             
             if (process.exit && process._getActiveHandles) {
                 var iv = setInterval(function () {
                     if (process._getActiveHandles().length > 1) return;
+                    
                     clearInterval(iv);
                     setTimeout(function () {
+                        if (!ended) {
+                            for (var i = 0; i < harness._tests.length; i++) {
+                                var t = harness._tests[i];
+                                t._exit();
+                            }
+                        }
                         process.exit(harness._exitCode);
                     }, 100);
                 });
@@ -51,6 +62,8 @@ function createHarness (conf_) {
         }
         
         var t = new Test(name, conf, cb);
+        test._tests.push(t);
+        
         (function inspectCode (st) {
             st.on('test', function sub (st_) {
                 inspectCode(st_);
@@ -63,6 +76,8 @@ function createHarness (conf_) {
         results.push(t);
         return t;
     };
+    
+    test._tests = [];
     
     test.createStream = function () {
         if (!results) results = createResultStream();
