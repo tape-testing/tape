@@ -16,10 +16,16 @@ var nextTick = typeof setImmediate !== 'undefined'
 
 exports = module.exports = (function () {
     var harness;
-    return function () {
-        if (!harness) harness = createExitHarness();
+    var lazyLoad = function () {
+        if (!harness) {
+            harness = createExitHarness();
+            lazyLoad.only = harness.only;
+        }
+
         return harness.apply(this, arguments);
     };
+
+    return lazyLoad
 })();
 
 function createExitHarness (conf) {
