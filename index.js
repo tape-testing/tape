@@ -17,13 +17,16 @@ var nextTick = typeof setImmediate !== 'undefined'
 exports = module.exports = (function () {
     var harness;
     var lazyLoad = function () {
-        if (!harness) {
-            harness = createExitHarness();
-            lazyLoad.only = harness.only;
-        }
+        if (!harness) harness = createExitHarness();
 
         return harness.apply(this, arguments);
     };
+
+    lazyLoad.only = function () {
+        if (!harness) harness = createExitHarness();
+
+        return harness.only.apply(this, arguments);
+    }
 
     return lazyLoad
 })();
