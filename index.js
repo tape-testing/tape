@@ -43,7 +43,17 @@ function createExitHarness (conf) {
     if (conf.exit === false) return harness;
     if (!canEmitExit || !canExit) return harness;
     
+    var _error;
+
+    process.on('uncaughtException', function (err) {
+        _error = err
+    })
+
     process.on('exit', function (code) {
+        if (_error) {
+            return
+        }
+
         if (!ended) {
             for (var i = 0; i < harness._tests.length; i++) {
                 var t = harness._tests[i];
