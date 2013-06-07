@@ -1,6 +1,6 @@
 {
     "name" : "tape",
-    "version" : "1.0.2",
+    "version" : "1.0.3",
     "description" : "tap-producing test harness for node and browsers",
     "main" : "index.js",
     "bin" : "./bin/tape",
