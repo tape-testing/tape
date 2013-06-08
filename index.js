@@ -47,6 +47,8 @@ function createExitHarness (conf) {
 
     process.on('uncaughtException', function (err) {
         _error = err
+        
+        throw err
     })
 
     process.on('exit', function (code) {
