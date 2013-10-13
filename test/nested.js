@@ -39,7 +39,7 @@ tap.test('array test', function (tt) {
     test.createStream().pipe(tc);
     
     test('nested array test', function (t) {
-        t.plan(5);
+        t.plan(6);
         
         var src = '(' + function () {
             var xs = [ 1, 2, [ 3, 4 ] ];
