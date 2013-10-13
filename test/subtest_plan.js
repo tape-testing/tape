@@ -15,7 +15,7 @@ test('parent', function (t) {
 
     t.test('second child', function (t) {
         t.plan(2);
-        t.ok(firstChildRan, 'first child ran');
+        t.ok(firstChildRan, 'first child ran first');
         t.pass('pass second child');
     });
 });
