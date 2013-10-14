@@ -10,7 +10,7 @@
     },
     "dependencies" : {
         "jsonify" : "~0.0.0",
-        "deep-equal" : "~0.0.0",
+        "deep-equal" : "~0.1.0",
         "defined" : "~0.0.0",
         "through": "~2.3.4"
     },
