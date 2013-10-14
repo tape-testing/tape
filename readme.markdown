@@ -125,20 +125,37 @@ Aliases: `t.notEquals()`, `t.notStrictEqual()`, `t.notStrictEquals()`,
 
 Assert that `a` and `b` have the same structure and nested values using
 [node's deepEqual() algorithm](https://github.com/substack/node-deep-equal)
-with an optional description `msg`.
+with strict comparisons (`===`) on leaf nodes and an optional description
+`msg`.
 
-Aliases: `t.deepEquals()`, `t.isEquivalent()`, `t.looseEqual()`,
-`t.looseEquals()`, `t.same()`
+Aliases: `t.deepEquals()`, `t.isEquivalent()`, `t.same()`
 
 ## t.notDeepEqual(a, b, msg)
 
 Assert that `a` and `b` do not have the same structure and nested values using
 [node's deepEqual() algorithm](https://github.com/substack/node-deep-equal)
-with an optional description `msg`.
+with strict comparisons (`===`) on leaf nodes and an optional description
+`msg`.
 
 Aliases: `t.notEquivalent()`, `t.notDeeply()`, `t.notSame()`,
 `t.isNotDeepEqual()`, `t.isNotDeeply()`, `t.isNotEquivalent()`,
 `t.isInequivalent()`
+
+## t.deepLooseEqual(a, b, msg)
+
+Assert that `a` and `b` have the same structure and nested values using
+[node's deepEqual() algorithm](https://github.com/substack/node-deep-equal)
+with loose comparisons (`==`) on leaf nodes and an optional description `msg`.
+
+Aliases: `t.looseEqual()`, `t.looseEquals()`
+
+## t.notDeepLooseEqual(a, b, msg)
+
+Assert that `a` and `b` do not have the same structure and nested values using
+[node's deepEqual() algorithm](https://github.com/substack/node-deep-equal)
+with loose comparisons (`==`) on leaf nodes and an optional description `msg`.
+
+Aliases: `t.notLooseEqual()`, `t.notLooseEquals()`
 
 ## t.throws(fn, expected, msg)
 
