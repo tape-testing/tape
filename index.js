@@ -43,7 +43,10 @@ function createExitHarness (conf) {
     });
     
     var stream = harness.createStream();
-    stream.pipe(createDefaultStream());
+    var es = stream.pipe(createDefaultStream());
+    if (canEmitExit) {
+        es.on('error', function (err) { harness._exitCode = 1 });
+    }
     
     var ended = false;
     stream.on('end', function () { ended = true });
@@ -54,6 +57,9 @@ function createExitHarness (conf) {
     var _error;
 
     process.on('uncaughtException', function (err) {
+        if (err && err.code === 'EPIPE' && err.errno === 'EPIPE'
+        && err.syscall === 'write') return;
+        
         _error = err
         
         throw err
@@ -73,6 +79,7 @@ function createExitHarness (conf) {
         harness.close();
         process.exit(code || harness._exitCode);
     });
+    
     return harness;
 }
 
