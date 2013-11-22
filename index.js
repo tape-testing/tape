@@ -1,6 +1,7 @@
+var defined = require('defined');
 var createDefaultStream = require('./lib/default_stream');
 var Test = require('./lib/test');
-var createResultStream = require('./lib/results');
+var createResult = require('./lib/results');
 
 var canEmitExit = typeof process !== 'undefined' && process
     && typeof process.on === 'function'
@@ -17,13 +18,17 @@ var nextTick = typeof setImmediate !== 'undefined'
 exports = module.exports = (function () {
     var harness;
     var lazyLoad = function () {
-        if (!harness) harness = createExitHarness();
+        if (!harness) harness = createExitHarness({
+            autoclose: !canEmitExit
+        });
 
         return harness.apply(this, arguments);
     };
 
     lazyLoad.only = function () {
-        if (!harness) harness = createExitHarness();
+        if (!harness) harness = createExitHarness({
+            autoclose: !canEmitExit
+        });
 
         return harness.only.apply(this, arguments);
     }
@@ -33,7 +38,10 @@ exports = module.exports = (function () {
 
 function createExitHarness (conf) {
     if (!conf) conf = {};
-    var harness = createHarness();
+    var harness = createHarness({
+        autoclose: defined(conf.autoclose, false)
+    });
+    
     var stream = harness.createStream();
     stream.pipe(createDefaultStream());
     
@@ -62,6 +70,7 @@ function createExitHarness (conf) {
                 t._exit();
             }
         }
+        harness.close();
         process.exit(code || harness._exitCode);
     });
     return harness;
@@ -74,14 +83,13 @@ exports.test = exports; // tap compat
 var exitInterval;
 
 function createHarness (conf_) {
-    var results;
+    if (!conf_) conf_ = {};
+    var results = createResult();
+    if (conf_.autoclose !== false) {
+        results.once('done', function () { results.close() });
+    }
     
     var test = function (name, conf, cb) {
-        if (!results) {
-            results = createResultStream();
-            results.pause();
-        }
-        
         var t = new Test(name, conf, cb);
         test._tests.push(t);
         
@@ -101,16 +109,7 @@ function createHarness (conf_) {
     test._tests = [];
     
     test.createStream = function () {
-        if (!results) results = createResultStream();
-        
-        var _pause = results.pause;
-        var paused = false;
-        results.pause = function () { paused = true };
-        
-        nextTick(function () {
-            if (!paused) results.resume();
-        });
-        return results;
+        return results.createStream();
     };
     
     var only = false;
@@ -121,6 +120,8 @@ function createHarness (conf_) {
         return test.apply(null, arguments);
     };
     test._exitCode = 0;
+    
+    test.close = function () { results.close() };
     
     return test;
 }

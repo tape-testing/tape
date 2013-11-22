@@ -14,7 +14,8 @@
         "defined" : "~0.0.0",
         "through": "~2.3.4",
         "stream-combiner": "~0.0.2",
-        "split": "~0.2.10"
+        "split": "~0.2.10",
+        "inherits": "~2.0.1"
     },
     "devDependencies" : {
         "tap" : "~0.3.0",
