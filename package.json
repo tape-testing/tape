@@ -14,7 +14,7 @@
         "defined" : "~0.0.0",
         "through": "~2.3.4",
         "resumer": "~0.0.0",
-        "stream-combiner": "~0.0.2",
+        "stream-combiner": "~0.0.4",
         "split": "~0.2.10",
         "inherits": "~2.0.1"
     },
