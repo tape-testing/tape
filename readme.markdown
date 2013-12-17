@@ -8,12 +8,6 @@ tap-producing test harness for node and browsers
 
 ![tape](http://substack.net/images/tape_drive.png)
 
-# browser compatibility
-
-chrome, firefox, opera, safari, IE6, IE7, IE8, IE9
-
-using browserify@1.16.5
-
 # example
 
 ``` js
