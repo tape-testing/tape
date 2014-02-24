@@ -172,7 +172,7 @@ a new pending stack and test state.
 
 By default the TAP output goes to `process.stdout` or `console.log()` if the
 environment doesn't have `process.stdout`. You can pipe the output to someplace
-else if you `test.stream.pipe()` to a destination stream on the first tick.
+else if you `htest.createStream().pipe()` to a destination stream on the first tick.
 
 ## test.only(name, cb)
 
