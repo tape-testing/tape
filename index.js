@@ -26,13 +26,14 @@ exports = module.exports = (function () {
         return getHarness.only.apply(this, arguments);
     }
     
-    lazyLoad.createStream = function () {
+    lazyLoad.createStream = function (opts) {
+        if (!opts) opts = {};
         if (!harness) {
             var output = through();
-            getHarness({ stream: output });
+            getHarness({ stream: output, objectMode: opts.objectMode });
             return output;
         }
-        return harness.createStream();
+        return harness.createStream(opts);
     };
     
     return lazyLoad
@@ -51,7 +52,7 @@ function createExitHarness (conf) {
         autoclose: defined(conf.autoclose, false)
     });
     
-    var stream = harness.createStream();
+    var stream = harness.createStream({ objectMode: conf.objectMode });
     var es = stream.pipe(conf.stream || createDefaultStream());
     if (canEmitExit) {
         es.on('error', function (err) { harness._exitCode = 1 });
@@ -124,8 +125,8 @@ function createHarness (conf_) {
     
     test._tests = [];
     
-    test.createStream = function () {
-        return results.createStream();
+    test.createStream = function (opts) {
+        return results.createStream(opts);
     };
     
     var only = false;
