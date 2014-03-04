@@ -2,6 +2,7 @@ var defined = require('defined');
 var createDefaultStream = require('./lib/default_stream');
 var Test = require('./lib/test');
 var createResult = require('./lib/results');
+var through = require('through');
 
 var canEmitExit = typeof process !== 'undefined' && process
     && typeof process.on === 'function'
@@ -18,22 +19,30 @@ var nextTick = typeof setImmediate !== 'undefined'
 exports = module.exports = (function () {
     var harness;
     var lazyLoad = function () {
-        if (!harness) harness = createExitHarness({
-            autoclose: !canEmitExit
-        });
-
-        return harness.apply(this, arguments);
+        return getHarness().apply(this, arguments);
     };
-
+    
     lazyLoad.only = function () {
-        if (!harness) harness = createExitHarness({
-            autoclose: !canEmitExit
-        });
-
-        return harness.only.apply(this, arguments);
+        return getHarness.only.apply(this, arguments);
     }
-
+    
+    lazyLoad.createStream = function () {
+        if (!harness) {
+            var output = through();
+            getHarness({ stream: output });
+            return output;
+        }
+        return harness.createStream();
+    };
+    
     return lazyLoad
+    
+    function getHarness (opts) {
+        if (!opts) opts = {};
+        opts.autoclose = !canEmitExit;
+        if (!harness) harness = createExitHarness(opts);
+        return harness;
+    }
 })();
 
 function createExitHarness (conf) {
@@ -43,7 +52,7 @@ function createExitHarness (conf) {
     });
     
     var stream = harness.createStream();
-    var es = stream.pipe(createDefaultStream());
+    var es = stream.pipe(conf.stream || createDefaultStream());
     if (canEmitExit) {
         es.on('error', function (err) { harness._exitCode = 1 });
     }
