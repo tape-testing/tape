@@ -180,6 +180,88 @@ Like `test(name, cb)` except if you use `.only` this is the only test case
 that will run for the entire process, all other test cases using tape will
 be ignored
 
+## var stream = test.createStream(opts)
+
+Create a stream of output, bypassing the default output stream that writes
+messages to `console.log()`. By default `stream` will be a text stream of TAP
+output, but you can get an object stream instead by setting `opts.objectMode` to
+`true`.
+
+### tap stream reporter
+
+You can create your own custom test reporter using this `createStream()` api:
+
+``` js
+var test = require('tape');
+var path = require('path');
+
+test.createStream().pipe(process.stdout);
+
+process.argv.slice(2).forEach(function (file) {
+    require(path.resolve(file));
+});
+```
+
+You could substitute `process.stdout` for whatever other output stream you want,
+like a network connection or a file.
+
+Pass in test files to run as arguments:
+
+```
+$ node tap.js test/x.js test/y.js
+TAP version 13
+# (anonymous)
+not ok 1 should be equal
+  ---
+    operator: equal
+    expected: "boop"
+    actual:   "beep"
+  ...
+# (anonymous)
+ok 2 should be equal
+ok 3 (unnamed assert)
+# wheee
+ok 4 (unnamed assert)
+
+1..4
+# tests 4
+# pass  3
+# fail  1
+```
+
+### object stream reporter
+
+Here's how you can render an object stream instead of TAP:
+
+``` js
+var test = require('tape');
+var path = require('path');
+
+test.createStream({ objectMode: true }).on('data', function (row) {
+    console.log(JSON.stringify(row))
+});
+
+process.argv.slice(2).forEach(function (file) {
+    require(path.resolve(file));
+});
+```
+
+The output for this runner is:
+
+```
+$ node object.js test/x.js test/y.js
+{"type":"test","name":"(anonymous)","id":0}
+{"id":0,"ok":false,"name":"should be equal","operator":"equal","actual":"beep","expected":"boop","error":{},"test":0,"type":"assert"}
+{"type":"end","test":0}
+{"type":"test","name":"(anonymous)","id":1}
+{"id":0,"ok":true,"name":"should be equal","operator":"equal","actual":2,"expected":2,"test":1,"type":"assert"}
+{"id":1,"ok":true,"name":"(unnamed assert)","operator":"ok","actual":true,"expected":true,"test":1,"type":"assert"}
+{"type":"end","test":1}
+{"type":"test","name":"wheee","id":2}
+{"id":0,"ok":true,"name":"(unnamed assert)","operator":"ok","actual":true,"expected":true,"test":2,"type":"assert"}
+{"type":"end","test":2}
+```
+
 # install
 
 With [npm](https://npmjs.org) do:
