@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "tap": "~0.3.0",
-    "concat": "~1.4.1",
+    "concat-stream": "~1.4.1",
     "falafel": "~0.1.4"
   },
   "scripts": {
