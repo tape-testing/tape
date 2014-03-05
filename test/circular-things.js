@@ -20,7 +20,7 @@ tap.test('circular test', function (assert) {
                 , name: " should be equal"
                 , operator: "equal"
                 , expected: "{}"
-                , actual: '{"circular":"[Circular]"}'
+                , actual: '{ circular: [Circular] }'
             }
             , "tests 1"
             , "pass  0"
