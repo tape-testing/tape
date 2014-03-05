@@ -11,6 +11,7 @@
   "dependencies": {
     "deep-equal": "~0.2.0",
     "defined": "~0.0.0",
+    "glob": "~3.2.9",
     "inherits": "~2.0.1",
     "object-inspect": "~0.3.0",
     "resumer": "~0.0.0",
