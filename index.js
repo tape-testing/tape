@@ -23,8 +23,8 @@ exports = module.exports = (function () {
     };
     
     lazyLoad.only = function () {
-        return getHarness.only.apply(this, arguments);
-    }
+        return getHarness().only.apply(this, arguments);
+    };
     
     lazyLoad.createStream = function (opts) {
         if (!opts) opts = {};
@@ -81,8 +81,10 @@ function createExitHarness (conf) {
         }
 
         if (!ended) {
+            var only = harness._results._only;
             for (var i = 0; i < harness._tests.length; i++) {
                 var t = harness._tests[i];
+                if (only && t.name !== only) continue;
                 t._exit();
             }
         }
@@ -122,6 +124,7 @@ function createHarness (conf_) {
         results.push(t);
         return t;
     };
+    test._results = results;
     
     test._tests = [];
     
