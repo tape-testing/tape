@@ -60,6 +60,10 @@ test object `t` once all preceeding tests have finished. Tests execute serially.
 If you forget to `t.plan()` out how many assertions you are going to run and you
 don't call `t.end()` explicitly, your test will hang.
 
+## test.skip(name, cb)
+
+Generate a new test that will be skipped over.
+
 ## t.plan(n)
 
 Declare that `n` assertions should be run. `t.end()` will be called

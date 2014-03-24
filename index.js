@@ -98,6 +98,7 @@ function createExitHarness (conf) {
 exports.createHarness = createHarness;
 exports.Test = Test;
 exports.test = exports; // tap compat
+exports.test.skip = Test.skip;
 
 var exitInterval;
 
