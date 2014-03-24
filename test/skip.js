@@ -9,6 +9,18 @@ test('do not skip this', { skip: false }, function(t) {
 
 test('skip this', { skip: true }, function(t) {
     t.fail('this should not even run');
+	ran++;
+    t.end();
+});
+
+test.skip('skip this too', function(t) {
+    t.fail('this should not even run');
+	ran++;
+    t.end();
+});
+
+test.skip('skip this too', function(t) {
+    t.fail('this should not even run');
     t.end();
 });
 
