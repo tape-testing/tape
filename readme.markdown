@@ -15,10 +15,10 @@ var test = require('tape');
 
 test('timing test', function (t) {
     t.plan(2);
-    
+
     t.equal(typeof Date.now, 'function');
     var start = Date.now();
-    
+
     setTimeout(function () {
         t.equal(Date.now() - start, 100);
     }, 100);
@@ -83,7 +83,7 @@ Generate a failing assertion with a message `msg`.
 Generate a passing assertion with a message `msg`.
 
 ## t.skip(msg)
- 
+
 Generate an assertion that will be skipped over.
 
 ## t.ok(value, msg)
@@ -105,32 +105,32 @@ description message.
 
 Aliases: `t.ifError()`, `t.ifErr()`, `t.iferror()`
 
-## t.equal(a, b, msg)
+## t.equal(actual, expected, msg)
 
-Assert that `a === b` with an optional description `msg`.
+Assert that `actual === expected` with an optional description `msg`.
 
 Aliases: `t.equals()`, `t.isEqual()`, `t.is()`, `t.strictEqual()`,
 `t.strictEquals()`
 
-## t.notEqual(a, b, msg)
+## t.notEqual(actual, expected, msg)
 
-Assert that `a !== b` with an optional description `msg`.
+Assert that `actual !== expected` with an optional description `msg`.
 
 Aliases: `t.notEquals()`, `t.notStrictEqual()`, `t.notStrictEquals()`,
 `t.isNotEqual()`, `t.isNot()`, `t.not()`, `t.doesNotEqual()`, `t.isInequal()`
 
-## t.deepEqual(a, b, msg)
+## t.deepEqual(actual, expected, msg)
 
-Assert that `a` and `b` have the same structure and nested values using
+Assert that `actual` and `expected` have the same structure and nested values using
 [node's deepEqual() algorithm](https://github.com/substack/node-deep-equal)
 with strict comparisons (`===`) on leaf nodes and an optional description
 `msg`.
 
 Aliases: `t.deepEquals()`, `t.isEquivalent()`, `t.same()`
 
-## t.notDeepEqual(a, b, msg)
+## t.notDeepEqual(actual, expected, msg)
 
-Assert that `a` and `b` do not have the same structure and nested values using
+Assert that `actual` and `expected` do not have the same structure and nested values using
 [node's deepEqual() algorithm](https://github.com/substack/node-deep-equal)
 with strict comparisons (`===`) on leaf nodes and an optional description
 `msg`.
@@ -139,17 +139,17 @@ Aliases: `t.notEquivalent()`, `t.notDeeply()`, `t.notSame()`,
 `t.isNotDeepEqual()`, `t.isNotDeeply()`, `t.isNotEquivalent()`,
 `t.isInequivalent()`
 
-## t.deepLooseEqual(a, b, msg)
+## t.deepLooseEqual(actual, expected, msg)
 
-Assert that `a` and `b` have the same structure and nested values using
+Assert that `actual` and `expected` have the same structure and nested values using
 [node's deepEqual() algorithm](https://github.com/substack/node-deep-equal)
 with loose comparisons (`==`) on leaf nodes and an optional description `msg`.
 
 Aliases: `t.looseEqual()`, `t.looseEquals()`
 
-## t.notDeepLooseEqual(a, b, msg)
+## t.notDeepLooseEqual(actual, expected, msg)
 
-Assert that `a` and `b` do not have the same structure and nested values using
+Assert that `actual` and `expected` do not have the same structure and nested values using
 [node's deepEqual() algorithm](https://github.com/substack/node-deep-equal)
 with loose comparisons (`==`) on leaf nodes and an optional description `msg`.
 
