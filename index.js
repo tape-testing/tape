@@ -4,7 +4,7 @@ var Test = require('./lib/test');
 var createResult = require('./lib/results');
 
 var canEmitExit = typeof process !== 'undefined' && process
-    && typeof process.on === 'function'
+    && typeof process.on === 'function' && process.browser !== true
 ;
 var canExit = typeof process !== 'undefined' && process
     && typeof process.exit === 'function'
