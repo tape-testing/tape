@@ -43,6 +43,28 @@ not ok 2 should be equal
 # fail  1
 ```
 
+# pretty reporters
+
+The default TAP output is good for machines and humans that are robots.
+
+If you want a more colorful / pretty output there are lots of modules on npm
+that will output something pretty if you pipe TAP into them:
+
+ - https://github.com/scottcorgan/tap-spec
+ - https://github.com/scottcorgan/tap-dot
+ - https://github.com/substack/faucet
+ - https://github.com/juliangruber/tap-bail
+ - https://github.com/kirbysayshi/tap-browser-color
+ - https://github.com/gummesson/tap-json
+ - https://github.com/gummesson/tap-min
+ - https://github.com/calvinmetcalf/tap-nyan
+ - https://www.npmjs.org/package/tap-pessimist
+ - https://github.com/toolness/tap-prettify
+ - https://github.com/shuhei/colortape
+
+To use them, try `node test/index.js | tap-spec` or pipe it into one
+of the modules of your choice!
+
 # methods
 
 The assertion methods in tape are heavily influenced or copied from the methods
