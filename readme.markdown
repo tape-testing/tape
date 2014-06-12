@@ -60,6 +60,7 @@ that will output something pretty if you pipe TAP into them:
  - https://github.com/calvinmetcalf/tap-nyan
  - https://www.npmjs.org/package/tap-pessimist
  - https://github.com/toolness/tap-prettify
+ - https://github.com/shuhei/colortape
 
 To use them, try `node test/index.js | tap-spec` or pipe it into one
 of the modules of your choice!
