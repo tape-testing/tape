@@ -18,6 +18,7 @@ tap.test('exit ok', function (t) {
         t.same(rs, [
             'TAP version 13',
             'array',
+            'hi',
             { id: 1, ok: true, name: 'should be equivalent' },
             { id: 2, ok: true, name: 'should be equivalent' },
             { id: 3, ok: true, name: 'should be equivalent' },

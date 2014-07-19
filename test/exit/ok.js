@@ -2,6 +2,7 @@ var falafel = require('falafel');
 var test = require('../../');
 
 test('array', function (t) {
+    t.comment('hi');
     t.plan(5);
     
     var src = '(' + function () {
