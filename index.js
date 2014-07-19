@@ -118,7 +118,7 @@ function createHarness (conf_) {
                 inspectCode(st_);
             });
             st.on('result', function (r) {
-                if (!r.ok) test._exitCode = 1
+                if (!r.ok && typeof r !== 'string') test._exitCode = 1
             });
         })(t);
         
