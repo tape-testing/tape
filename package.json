@@ -11,11 +11,12 @@
   "dependencies": {
     "deep-equal": "~0.2.0",
     "defined": "~0.0.0",
-    "glob": "~3.2.9",
-    "inherits": "~2.0.1",
-    "object-inspect": "~0.4.0",
+    "glob": "^3.2.9",
+    "inherits": "^2.0.1",
+    "object-inspect": "^1.0.0",
     "resumer": "~0.0.0",
-    "through": "~2.3.4"
+    "through": "^2.3.4",
+    "has": "~0.0.1"
   },
   "devDependencies": {
     "tap" : "~0.4.8",
