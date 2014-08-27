@@ -179,7 +179,7 @@ Aliases: `t.notLooseEqual()`, `t.notLooseEquals()`
 
 ## t.throws(fn, expected, msg)
 
-Assert that the function call `fn()` throws an exception.
+Assert that the function call `fn()` throws an exception. `expected`, if present, must be a `RegExp`.
 
 ## t.doesNotThrow(fn, expected, msg)
 
