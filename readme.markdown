@@ -82,6 +82,9 @@ test object `t` once all preceeding tests have finished. Tests execute serially.
 If you forget to `t.plan()` out how many assertions you are going to run and you
 don't call `t.end()` explicitly, your test will hang.
 
+Note the `cb` is optional, if the `cb` is not specified then
+  the test will be skipped.
+
 ## test.skip(name, cb)
 
 Generate a new test that will be skipped over.
@@ -96,50 +99,34 @@ the `n`th, or after `t.end()` is called, they will generate errors.
 
 Declare the end of a test explicitly.
 
-## t.fail(msg)
-
-Generate a failing assertion with a message `msg`.
-
-## t.pass(msg)
-
-Generate a passing assertion with a message `msg`.
-
 ## t.skip(msg)
  
 Generate an assertion that will be skipped over.
+
+## t.fail(msg)
+
+Generate a failing assertion with a message `msg`.
 
 ## t.ok(value, msg)
 
 Assert that `value` is truthy with an optional description message `msg`.
 
-Aliases: `t.true()`, `t.assert()`
-
-## t.notOk(value, msg)
-
-Assert that `value` is falsy with an optional description message `msg`.
-
-Aliases: `t.false()`, `t.notok()`
-
-## t.error(err, msg)
+## t.ifError(err, msg)
 
 Assert that `err` is falsy. If `err` is non-falsy, use its `err.message` as the
 description message.
-
-Aliases: `t.ifError()`, `t.ifErr()`, `t.iferror()`
 
 ## t.equal(actual, expected, msg)
 
 Assert that `actual === expected` with an optional description `msg`.
 
-Aliases: `t.equals()`, `t.isEqual()`, `t.is()`, `t.strictEqual()`,
-`t.strictEquals()`
+Aliases: `t.strictEqual()`
 
 ## t.notEqual(actual, expected, msg)
 
 Assert that `actual !== expected` with an optional description `msg`.
 
-Aliases: `t.notEquals()`, `t.notStrictEqual()`, `t.notStrictEquals()`,
-`t.isNotEqual()`, `t.isNot()`, `t.not()`, `t.doesNotEqual()`, `t.isInequal()`
+Aliases: `t.notStrictEqual()`
 
 ## t.deepEqual(actual, expected, msg)
 
@@ -160,22 +147,6 @@ with strict comparisons (`===`) on leaf nodes and an optional description
 Aliases: `t.notEquivalent()`, `t.notDeeply()`, `t.notSame()`,
 `t.isNotDeepEqual()`, `t.isNotDeeply()`, `t.isNotEquivalent()`,
 `t.isInequivalent()`
-
-## t.deepLooseEqual(actual, expected, msg)
-
-Assert that `actual` and `expected` have the same structure and nested values using
-[node's deepEqual() algorithm](https://github.com/substack/node-deep-equal)
-with loose comparisons (`==`) on leaf nodes and an optional description `msg`.
-
-Aliases: `t.looseEqual()`, `t.looseEquals()`
-
-## t.notDeepLooseEqual(actual, expected, msg)
-
-Assert that `actual` and `expected` do not have the same structure and nested values using
-[node's deepEqual() algorithm](https://github.com/substack/node-deep-equal)
-with loose comparisons (`==`) on leaf nodes and an optional description `msg`.
-
-Aliases: `t.notLooseEqual()`, `t.notLooseEquals()`
 
 ## t.throws(fn, expected, msg)
 
