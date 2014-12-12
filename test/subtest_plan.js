@@ -5,17 +5,17 @@ test('parent', function (t) {
 
     var firstChildRan = false;
 
-    t.pass('assertion in parent');
+    t.ok(true, 'assertion in parent');
 
     t.test('first child', function (t) {
         t.plan(1);
-        t.pass('pass first child');
+        t.ok(true, 'pass first child');
         firstChildRan = true;
     });
 
     t.test('second child', function (t) {
         t.plan(2);
         t.ok(firstChildRan, 'first child ran first');
-        t.pass('pass second child');
+        t.ok(true, 'pass second child');
     });
 });

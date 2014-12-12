@@ -17,7 +17,7 @@ tap.test('array test', function (tt) {
             }
             else return r;
         });
-        tt.same(rs, [
+        tt.deepEqual(rs, [
             'TAP version 13',
             'nested array test',
             { id: 1, ok: true, name: 'should be equivalent' },
@@ -71,11 +71,11 @@ tap.test('array test', function (tt) {
         
         Function(['fn','g'], output)(
             function (xs) {
-                t.same(arrays.shift(), xs);
+                t.deepEqual(arrays.shift(), xs);
                 return xs;
             },
             function (xs) {
-                t.same(xs, [ [ 1, 2, [ 3, 4 ] ], [ 5, 6 ] ]);
+                t.deepEqual(xs, [ [ 1, 2, [ 3, 4 ] ], [ 5, 6 ] ]);
             }
         );
     });

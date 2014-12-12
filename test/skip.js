@@ -2,7 +2,7 @@ var test = require('../');
 var ran = 0;
 
 test('do not skip this', { skip: false }, function(t) {
-    t.pass('this should run');
+    t.ok(true, 'this should run');
     ran ++;
     t.end();
 });
@@ -28,7 +28,7 @@ test('skip subtest', function(t) {
     ran ++;
     t.test('do not skip this', { skip: false }, function(t) {
         ran ++;
-        t.pass('this should run');
+        t.ok(true, 'this should run');
         t.end();
     });
     t.test('skip this', { skip: true }, function(t) {
