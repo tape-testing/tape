@@ -63,23 +63,9 @@ function createExitHarness (conf) {
     
     if (conf.exit === false) return harness;
     if (!canEmitExit || !canExit) return harness;
-    
-    var _error;
 
-    process.on('uncaughtException', function (err) {
-        if (err && err.code === 'EPIPE' && err.errno === 'EPIPE'
-        && err.syscall === 'write') return;
-        
-        _error = err
-        
-        throw err
-    })
 
     process.on('exit', function (code) {
-        if (_error) {
-            return
-        }
-
         if (!ended) {
             var only = harness._results._only;
             for (var i = 0; i < harness._tests.length; i++) {
