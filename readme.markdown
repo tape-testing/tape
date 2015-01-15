@@ -105,6 +105,10 @@ Generate a failing assertion with a message `msg`.
 
 Generate a passing assertion with a message `msg`.
 
+## t.timeoutAfter(ms)
+
+Automatically timeout the test after X ms.
+
 ## t.skip(msg)
  
 Generate an assertion that will be skipped over.
