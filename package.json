@@ -1,6 +1,6 @@
 {
   "name": "tape",
-  "version": "3.0.3",
+  "version": "3.1.0",
   "description": "tap-producing test harness for node and browsers",
   "main": "index.js",
   "bin": "./bin/tape",
@@ -18,8 +18,8 @@
     "through": "~2.3.4"
   },
   "devDependencies": {
-    "tap" : "~0.4.8",
-    "falafel" : "~0.3.1",
+    "tap": "~0.4.8",
+    "falafel": "~0.3.1",
     "concat-stream": "~1.4.1"
   },
   "scripts": {
