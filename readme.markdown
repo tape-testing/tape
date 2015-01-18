@@ -75,10 +75,16 @@ in [node-tap](https://github.com/isaacs/node-tap).
 var test = require('tape')
 ```
 
-## test(name, cb)
+## test([name], [opts], cb)
 
-Create a new test with an optional `name` string. `cb(t)` fires with the new
-test object `t` once all preceeding tests have finished. Tests execute serially.
+Create a new test with an optional `name` string and optional `opts` object. 
+`cb(t)` fires with the new test object `t` once all preceeding tests have
+finished. Tests execute serially.
+
+Available `opts` options are:
+- opts.skip = true/false. See test.skip.
+- opts.timeout = 500. Set a timeout for the test, after which it will fail. 
+  See test.timeoutAfter.
 
 If you forget to `t.plan()` out how many assertions you are going to run and you
 don't call `t.end()` explicitly, your test will hang.
