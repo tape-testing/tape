@@ -66,6 +66,10 @@ that will output something pretty if you pipe TAP into them:
 To use them, try `node test/index.js | tap-spec` or pipe it into one
 of the modules of your choice!
 
+# uncaught exceptions
+
+By default, uncaught exceptions in your tests will not be intercepted, and will cause tape to crash. If you find this behavior undesirable, use [tape-catch](https://github.com/michaelrhodes/tape-catch) to report any exceptions as TAP errors.
+
 # methods
 
 The assertion methods in tape are heavily influenced or copied from the methods
