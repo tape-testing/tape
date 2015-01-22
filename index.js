@@ -66,15 +66,9 @@ function createExitHarness (conf) {
 
     var inErrorState = false;
 
-    var $_fatalException = process._fatalException
-    process._fatalException = function fakeFatalException() {
-        inErrorState = true;
-        $_fatalException.apply(this, arguments)
-    }
-
     process.on('exit', function (code) {
         // let the process exit cleanly.
-        if (inErrorState) {
+        if (code !== 0) {
             return
         }
 
