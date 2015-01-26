@@ -103,9 +103,10 @@ Declare that `n` assertions should be run. `t.end()` will be called
 automatically after the `n`th assertion. If there are any more assertions after
 the `n`th, or after `t.end()` is called, they will generate errors.
 
-## t.end()
+## t.end(err)
 
-Declare the end of a test explicitly.
+Declare the end of a test explicitly. If `err` is passed in `t.end` will assert
+that it is non-falsey.
 
 ## t.fail(msg)
 
