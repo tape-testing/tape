@@ -106,7 +106,7 @@ the `n`th, or after `t.end()` is called, they will generate errors.
 ## t.end(err)
 
 Declare the end of a test explicitly. If `err` is passed in `t.end` will assert
-that it is non-falsey.
+that it is falsey.
 
 ## t.fail(msg)
 
