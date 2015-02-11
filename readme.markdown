@@ -159,7 +159,7 @@ Aliases: `t.notEquals()`, `t.notStrictEqual()`, `t.notStrictEquals()`,
 
 ## t.deepEqual(actual, expected, msg)
 
-Assert that `actual` and `bexpected` have the same structure and nested values using
+Assert that `actual` and `expected` have the same structure and nested values using
 [node's deepEqual() algorithm](https://github.com/substack/node-deep-equal)
 with strict comparisons (`===`) on leaf nodes and an optional description
 `msg`.
