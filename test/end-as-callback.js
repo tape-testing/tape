@@ -19,13 +19,12 @@ tap.test("tape assert.end as callback", function (tt) {
             "do a task and write",
             { id: 1, ok: true, name: "null" },
             { id: 2, ok: true, name: "should be equal" },
-            { id: 3, ok: true, name: "null" },
             "do a task and write fail",
-            { id: 4, ok: true, name: "null" },
-            { id: 5, ok: true, name: "should be equal" },
-            { id: 6, ok: false, name: "Error: fail" },
-            "tests 6",
-            "pass  5",
+            { id: 3, ok: true, name: "null" },
+            { id: 4, ok: true, name: "should be equal" },
+            { id: 5, ok: false, name: "Error: fail" },
+            "tests 5",
+            "pass  4",
             "fail  1"
         ])
 
