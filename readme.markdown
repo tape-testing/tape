@@ -217,6 +217,11 @@ By default the TAP output goes to `console.log()`. You can pipe the output to
 someplace else if you `htest.createStream().pipe()` to a destination stream on
 the first tick.
 
+
+## test.comment(message)
+
+Print a message without breaking the tap output. (Useful when using e.g. `tap-colorize` where output is buffered & `console.log` will print in incorrect order vis-a-vis tap output.)
+
 ## test.only(name, cb)
 
 Like `test(name, cb)` except if you use `.only` this is the only test case
