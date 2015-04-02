@@ -43,7 +43,11 @@ not ok 2 should be equal
 # fail  1
 ```
 
-# pretty reporters
+# things that go well with tape
+
+tape maintains a fairly minimal core. Additional features are usually added by using another module alongside tape.
+
+## pretty reporters
 
 The default TAP output is good for machines and humans that are robots.
 
@@ -67,9 +71,14 @@ that will output something pretty if you pipe TAP into them:
 To use them, try `node test/index.js | tap-spec` or pipe it into one
 of the modules of your choice!
 
-# uncaught exceptions
+## uncaught exceptions
 
 By default, uncaught exceptions in your tests will not be intercepted, and will cause tape to crash. If you find this behavior undesirable, use [tape-catch](https://github.com/michaelrhodes/tape-catch) to report any exceptions as TAP errors.
+
+## other
+
+- CoffeeScript support with https://www.npmjs.com/package/coffeetape
+- Promise support with https://www.npmjs.com/package/blue-tape
 
 # methods
 
