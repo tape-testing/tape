@@ -9,17 +9,17 @@
     "test": "test"
   },
   "dependencies": {
-    "deep-equal": "~0.2.0",
+    "deep-equal": "~1.0.0",
     "defined": "~0.0.0",
-    "glob": "~3.2.9",
+    "glob": "~5.0.3",
     "inherits": "~2.0.1",
-    "object-inspect": "~0.4.0",
+    "object-inspect": "~1.0.0",
     "resumer": "~0.0.0",
     "through": "~2.3.4"
   },
   "devDependencies": {
-    "tap": "~0.4.8",
-    "falafel": "~0.3.1",
+    "tap": "~0.7.1",
+    "falafel": "~1.0.1",
     "concat-stream": "~1.4.1"
   },
   "scripts": {
