@@ -43,6 +43,27 @@ not ok 2 should be equal
 # fail  1
 ```
 
+# usage
+
+You always need to `require('tape')` in test files. You can run the tests by
+usual node means (`require('test-file.js')` or `node test-file.js`). You can
+also run tests using the `tape` binary to utilize globbing, on Windows for
+example:
+
+```sh
+$ tape tests/**/*.js
+```
+
+`tape`'s arguments are passed to the
+[`glob`](https://www.npmjs.com/package/glob) module. If you want `glob` to
+perform the expansion on a system where the shell performs such expansion, quote
+the arguments as necessary:
+
+```sh
+$ tape 'tests/**/*.js'
+$ tape "tests/**/*.js"
+```
+
 # things that go well with tape
 
 tape maintains a fairly minimal core. Additional features are usually added by using another module alongside tape.
