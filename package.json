@@ -9,6 +9,7 @@
     "test": "test"
   },
   "dependencies": {
+    "bind-object": "~1.0.0",
     "deep-equal": "~1.0.0",
     "defined": "~0.0.0",
     "glob": "~5.0.3",
