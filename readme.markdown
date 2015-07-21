@@ -344,7 +344,7 @@ $ node object.js test/x.js test/y.js
 With [npm](https://npmjs.org) do:
 
 ```
-npm install tape
+npm install tape --save-dev
 ```
 
 # license
