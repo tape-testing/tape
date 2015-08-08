@@ -35,9 +35,13 @@ exports = module.exports = (function () {
         }
         return harness.createStream(opts);
     };
-    
+
+    lazyLoad.results = function () {
+        return getHarness()._results
+    }
+
     return lazyLoad
-    
+
     function getHarness (opts) {
         if (!opts) opts = {};
         opts.autoclose = !canEmitExit;
