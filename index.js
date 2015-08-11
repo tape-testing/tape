@@ -36,9 +36,7 @@ exports = module.exports = (function () {
         return harness.createStream(opts);
     };
 
-    lazyLoad.results = function () {
-        return getHarness()._results
-    }
+    lazyLoad.getHarness = getHarness
 
     return lazyLoad
 
