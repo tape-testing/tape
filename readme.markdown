@@ -64,6 +64,16 @@ $ tape 'tests/**/*.js'
 $ tape "tests/**/*.js"
 ```
 
+## add tape to your project
+
+You can add `tape` to your project by running:
+
+```sh
+$ tape --init
+```
+
+Which will install and save `tape` to your current project and setup `scripts.test` to run tape. See [`tape-init`](https://www.npmjs.com/package/tape-init) for more info.
+
 # things that go well with tape
 
 tape maintains a fairly minimal core. Additional features are usually added by using another module alongside tape.

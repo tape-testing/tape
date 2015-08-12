@@ -2,6 +2,13 @@
 
 var path = require('path');
 var glob = require('glob');
+var init = require('tape-init');
+var hasFlag = require('has-flag');
+
+if (hasFlag('init')) {
+  init();
+  return;
+}
 
 process.argv.slice(2).forEach(function (arg) {
     glob(arg, function (err, files) {
