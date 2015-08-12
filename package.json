@@ -18,9 +18,11 @@
     "through": "~2.3.4"
   },
   "devDependencies": {
-    "tap": "~0.7.1",
+    "concat-stream": "~1.4.1",
     "falafel": "~1.0.1",
-    "concat-stream": "~1.4.1"
+    "js-yaml": "^3.3.1",
+    "tap": "~0.7.1",
+    "tap-parser": "^1.1.6"
   },
   "scripts": {
     "test": "tap test/*.js"
