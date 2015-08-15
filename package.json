@@ -11,6 +11,7 @@
   "dependencies": {
     "deep-equal": "~1.0.0",
     "defined": "~0.0.0",
+    "function-bind": "~1.0.2",
     "glob": "~5.0.3",
     "has": "~1.0.1",
     "inherits": "~2.0.1",
