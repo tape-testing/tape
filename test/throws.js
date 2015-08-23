@@ -1,7 +1,7 @@
 var test = require('../');
 
 function fn() {
-    throw new TypeError('RegExp');
+    throw new TypeError('Something bad happened!');
 }
 
 test('throws', function (t) {
@@ -10,7 +10,7 @@ test('throws', function (t) {
 });
 
 test('throws (RegExp match)', function (t) {
-    t.throws(fn, /RegExp/);
+    t.throws(fn, /^Something bad happened!$/);
     t.end();
 });
 
