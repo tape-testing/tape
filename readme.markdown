@@ -88,6 +88,7 @@ that will output something pretty if you pipe TAP into them:
  - https://github.com/shuhei/colortape
  - https://github.com/aghassemi/tap-xunit
  - https://github.com/namuol/tap-difflet
+ - https://github.com/gritzko/tape-dom
 
 To use them, try `node test/index.js | tap-spec` or pipe it into one
 of the modules of your choice!
