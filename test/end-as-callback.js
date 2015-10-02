@@ -1,5 +1,6 @@
 var tap = require("tap");
 var tape = require("../");
+var trim = require('string.prototype.trim');
 
 tap.test("tape assert.end as callback", function (tt) {
     var test = tape.createHarness({ exit: false })
@@ -10,7 +11,7 @@ tap.test("tape assert.end as callback", function (tt) {
     tc.on("end", function () {
         var rs = rows.map(function (r) {
             return r && typeof r === "object" ?
-                { id: r.id, ok: r.ok, name: r.name.trim() } :
+                { id: r.id, ok: r.ok, name: trim(r.name) } :
                 r
         })
 

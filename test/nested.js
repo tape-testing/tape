@@ -1,6 +1,7 @@
 var falafel = require('falafel');
 var tape = require('../');
 var tap = require('tap');
+var trim = require('string.prototype.trim');
 
 tap.test('array test', function (tt) {
     tt.plan(1);
@@ -13,7 +14,7 @@ tap.test('array test', function (tt) {
     tc.on('end', function () {
         var rs = rows.map(function (r) {
             if (r && typeof r === 'object') {
-                return { id : r.id, ok : r.ok, name : r.name.trim() };
+                return { id : r.id, ok : r.ok, name : trim(r.name) };
             }
             else return r;
         });

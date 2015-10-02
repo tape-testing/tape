@@ -17,6 +17,7 @@
     "inherits": "~2.0.1",
     "object-inspect": "~1.0.0",
     "resumer": "~0.0.0",
+    "string.prototype.trim": "^1.1.1",
     "through": "~2.3.4"
   },
   "devDependencies": {

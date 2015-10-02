@@ -1,5 +1,6 @@
 var tap = require('tap');
 var tape = require('../');
+var trim = require('string.prototype.trim');
 
 tap.test('tape only test', function (tt) {
     var test = tape.createHarness({ exit: false });
@@ -11,7 +12,7 @@ tap.test('tape only test', function (tt) {
     tc.on('end', function () {
         var rs = rows.map(function (r) {
             if (r && typeof r === 'object') {
-                return { id: r.id, ok: r.ok, name: r.name.trim() };
+                return { id: r.id, ok: r.ok, name: trim(r.name) };
             }
             else {
                 return r;

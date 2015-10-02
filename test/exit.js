@@ -1,5 +1,6 @@
 var tap = require('tap');
 var spawn = require('child_process').spawn;
+var trim = require('string.prototype.trim');
 
 tap.test('exit ok', function (t) {
     t.plan(2);
@@ -11,7 +12,7 @@ tap.test('exit ok', function (t) {
     tc.on('end', function () {
         var rs = rows.map(function (r) {
             if (r && typeof r === 'object') {
-                return { id : r.id, ok : r.ok, name : r.name.trim() };
+                return { id : r.id, ok : r.ok, name : trim(r.name) };
             }
             else return r;
         });
@@ -47,7 +48,7 @@ tap.test('exit fail', function (t) {
     tc.on('end', function () {
         var rs = rows.map(function (r) {
             if (r && typeof r === 'object') {
-                return { id : r.id, ok : r.ok, name : r.name.trim() };
+                return { id : r.id, ok : r.ok, name : trim(r.name) };
             }
             else return r;
         });
@@ -82,7 +83,7 @@ tap.test('too few exit', function (t) {
     tc.on('end', function () {
         var rs = rows.map(function (r) {
             if (r && typeof r === 'object') {
-                return { id : r.id, ok : r.ok, name : r.name.trim() };
+                return { id : r.id, ok : r.ok, name : trim(r.name) };
             }
             else return r;
         });
@@ -118,7 +119,7 @@ tap.test('more planned in a second test', function (t) {
     tc.on('end', function () {
         var rs = rows.map(function (r) {
             if (r && typeof r === 'object') {
-                return { id : r.id, ok : r.ok, name : r.name.trim() };
+                return { id : r.id, ok : r.ok, name : trim(r.name) };
             }
             else return r;
         });
