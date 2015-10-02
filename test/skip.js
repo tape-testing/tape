@@ -28,17 +28,32 @@ tap.test('test SKIP comment', function (assert) {
     });
 });
 
+test('does not skip with { skip: false }', function(t) {
+    t.equal(ran, 1, 'should have run the previous test');
+    t.end();
+})
+
 test('skip this', { skip: true }, function(t) {
     t.fail('this should not even run');
     ran++;
     t.end();
 });
 
+test('does skip with { skip: true }', function(t) {
+    t.equal(ran, 1, 'should not have run the previous test');
+    t.end();
+})
+
 test.skip('skip this too', function(t) {
     t.fail('this should not even run');
     ran++;
     t.end();
 });
+
+test('does skip with test.skip', function(t) {
+    t.equal(ran, 1, 'should not have run the previous test');
+    t.end();
+})
 
 test('skip subtest', function(t) {
     ran++;
