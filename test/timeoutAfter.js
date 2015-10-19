@@ -1,7 +1,6 @@
 var tape = require('../');
 var tap = require('tap');
 var tapParser = require('tap-parser');
-var trim = require('string.prototype.trim');
 
 tap.test('timeoutAfter test', function (tt) {
     tt.plan(1);
