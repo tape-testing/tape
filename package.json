@@ -3,7 +3,10 @@
   "version": "4.2.2",
   "description": "tap-producing test harness for node and browsers",
   "main": "index.js",
-  "bin": "./bin/tape",
+  "bin": {
+    "tape": "./bin/tape",
+    "babel-tape": "./bin/babel-tape"
+  },
   "directories": {
     "example": "example",
     "test": "test"
