@@ -35,6 +35,10 @@ exports = module.exports = (function () {
         }
         return harness.createStream(opts);
     };
+    
+    lazyLoad.tearDown = function () {
+        return getHarness().tearDown.apply(this, arguments);
+    };
 
     lazyLoad.getHarness = getHarness
 
@@ -125,6 +129,10 @@ function createHarness (conf_) {
     
     test.createStream = function (opts) {
         return results.createStream(opts);
+    };
+
+    test.tearDown = function (cb) {
+        results.on('done', cb);
     };
     
     var only = false;
