@@ -36,8 +36,8 @@ exports = module.exports = (function () {
         return harness.createStream(opts);
     };
     
-    lazyLoad.tearDown = function () {
-        return getHarness().tearDown.apply(this, arguments);
+    lazyLoad.onFinish = function () {
+        return getHarness().onFinish.apply(this, arguments);
     };
 
     lazyLoad.getHarness = getHarness
@@ -131,7 +131,7 @@ function createHarness (conf_) {
         return results.createStream(opts);
     };
 
-    test.tearDown = function (cb) {
+    test.onFinish = function (cb) {
         results.on('done', cb);
     };
     
