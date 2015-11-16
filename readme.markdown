@@ -15,10 +15,10 @@ var test = require('tape');
 
 test('timing test', function (t) {
     t.plan(2);
-
+    
     t.equal(typeof Date.now, 'function');
     var start = Date.now();
-
+    
     setTimeout(function () {
         t.equal(Date.now() - start, 100);
     }, 100);
@@ -116,13 +116,13 @@ var test = require('tape')
 
 ## test([name], [opts], cb)
 
-Create a new test with an optional `name` string and optional `opts` object.
+Create a new test with an optional `name` string and optional `opts` object. 
 `cb(t)` fires with the new test object `t` once all preceeding tests have
 finished. Tests execute serially.
 
 Available `opts` options are:
 - opts.skip = true/false. See test.skip.
-- opts.timeout = 500. Set a timeout for the test, after which it will fail.
+- opts.timeout = 500. Set a timeout for the test, after which it will fail. 
   See test.timeoutAfter.
 
 If you forget to `t.plan()` out how many assertions you are going to run and you
@@ -156,7 +156,7 @@ Generate a passing assertion with a message `msg`.
 Automatically timeout the test after X ms.
 
 ## t.skip(msg)
-
+ 
 Generate an assertion that will be skipped over.
 
 ## t.ok(value, msg)
