@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+require('source-map-support/register');
 
 var path = require('path');
 var glob = require('glob');
