@@ -6,9 +6,9 @@ var parseOpts = require('minimist');
 var glob = require('glob');
 
 var opts = parseOpts(process.argv.slice(2), {
-        alias: { 'r': 'require' },
+        alias: { r: 'require' },
         string: 'require',
-        default: {'r': [] }
+        default: { r: [] }
     });
 
 var cwd = process.cwd();
