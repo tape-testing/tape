@@ -20,7 +20,7 @@ if (typeof opts.require === 'string') {
 opts.require.forEach(function(module) {
     if (module) {
       /* This check ensures we ignore `-r ""`, trailing `-r`, or
-       * other silly things the user might (inadvertedly) be doing. */
+       * other silly things the user might (inadvertently) be doing. */
       require(resolveModule(module, { basedir: cwd }));
     }
 });
