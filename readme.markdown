@@ -64,6 +64,26 @@ $ tape 'tests/**/*.js'
 $ tape "tests/**/*.js"
 ```
 
+## Preloading modules
+
+Additionally, it is possible to make `tape` load one or more modules before running any tests, by using the `-r` or `--require` flag. Here's an example that loads [babel-register](http://babeljs.io/docs/usage/require/) before running any tests, to allow for JIT compilation:
+
+```sh
+$ tape -r babel-register tests/**/*.js
+```
+
+Depending on the module you're loading, you may be able to paramaterize it using environment variables or auxiliary files. Babel, for instance, will load options from [`.babelrc`](http://babeljs.io/docs/usage/babelrc/) at runtime.
+
+The `-r` flag behaves exactly like node's `require`, and uses the same module resolution algorithm. This means that if you need to load local modules, you have to prepend their path with `./` or `../` accordingly.
+
+For example:
+
+```sh
+$ tape -r ./my/local/module tests/**/*.js
+```
+
+Please note that modules that all modules loaded using the `-r` flag will run *before* any tests, regardless of when they are specified. For example, `tape -r a b -r c` will actually load `a` and `c` *before` loading `b`, since they are flagged as required modules.
+
 # things that go well with tape
 
 tape maintains a fairly minimal core. Additional features are usually added by using another module alongside tape.
