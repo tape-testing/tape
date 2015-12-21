@@ -13,10 +13,11 @@ var opts = parseOpts(process.argv.slice(2), {
 
 var cwd = process.cwd();
 
-/* If only one require is specified, the value of `opts.require`
- * will be a string. This is why we concatenate.
- */
-;[].concat(opts.require).forEach(function(module) {
+if (typeof opts.require === 'string') {
+  opts.require = [opts.require];
+}
+
+opts.require.forEach(function(module) {
     /* The `module &&` ensures we ignore `-r ""`, trailing `-r` or other
      * silly things the user might (inadvertedly) be doing.
      */
