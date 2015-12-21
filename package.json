@@ -15,7 +15,9 @@
     "glob": "~5.0.3",
     "has": "~1.0.1",
     "inherits": "~2.0.1",
+    "minimist": "1.2.0",
     "object-inspect": "~1.0.0",
+    "resolve": "1.1.6",
     "resumer": "~0.0.0",
     "string.prototype.trim": "^1.1.1",
     "through": "~2.3.4"

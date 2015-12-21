@@ -1,12 +1,32 @@
 #!/usr/bin/env node
 
-var path = require('path');
+var resolveModule = require('resolve').sync;
+var resolvePath = require('path').resolve;
+var parseOpts = require('minimist');
 var glob = require('glob');
 
-process.argv.slice(2).forEach(function (arg) {
+var opts = parseOpts(process.argv.slice(2), {
+        alias: { 'r': 'require' },
+        string: 'require',
+        default: {'r': [] }
+    });
+
+var cwd = process.cwd();
+
+/* If only one require is specified, the value of `opts.require`
+ * will be a string. This is why we concatenate.
+ */
+;[].concat(opts.require).forEach(function(module) {
+    /* The `module &&` ensures we ignore `-r ""`, trailing `-r` or other
+     * silly things the user might (inadvertedly) be doing.
+     */
+    module && require(resolveModule(module, { basedir: cwd }));
+});
+
+opts._.forEach(function (arg) {
     glob(arg, function (err, files) {
         files.forEach(function (file) {
-            require(path.resolve(process.cwd(), file));
+            require(resolvePath(cwd, file));
         });
     });
 });
