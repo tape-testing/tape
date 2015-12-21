@@ -14,7 +14,7 @@ var opts = parseOpts(process.argv.slice(2), {
 var cwd = process.cwd();
 
 if (typeof opts.require === 'string') {
-  opts.require = [opts.require];
+    opts.require = [opts.require];
 }
 
 opts.require.forEach(function(module) {
