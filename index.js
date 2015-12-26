@@ -35,6 +35,10 @@ exports = module.exports = (function () {
         }
         return harness.createStream(opts);
     };
+    
+    lazyLoad.onFinish = function () {
+        return getHarness().onFinish.apply(this, arguments);
+    };
 
     lazyLoad.getHarness = getHarness
 
@@ -125,6 +129,10 @@ function createHarness (conf_) {
     
     test.createStream = function (opts) {
         return results.createStream(opts);
+    };
+
+    test.onFinish = function (cb) {
+        results.on('done', cb);
     };
     
     var only = false;
