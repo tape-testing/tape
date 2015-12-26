@@ -152,6 +152,11 @@ don't call `t.end()` explicitly, your test will hang.
 
 Generate a new test that will be skipped over.
 
+## test.onFinish(fn)
+
+The onFinish hook will get invoked when ALL tape tests have finished
+right before tape is about to print the test summary.
+
 ## t.plan(n)
 
 Declare that `n` assertions should be run. `t.end()` will be called
