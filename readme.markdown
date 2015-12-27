@@ -82,7 +82,7 @@ For example:
 $ tape -r ./my/local/module tests/**/*.js
 ```
 
-Please note that modules that all modules loaded using the `-r` flag will run *before* any tests, regardless of when they are specified. For example, `tape -r a b -r c` will actually load `a` and `c` *before` loading `b`, since they are flagged as required modules.
+Please note that all modules loaded using the `-r` flag will run *before* any tests, regardless of when they are specified. For example, `tape -r a b -r c` will actually load `a` and `c` *before` loading `b`, since they are flagged as required modules.
 
 # things that go well with tape
 
