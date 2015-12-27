@@ -139,3 +139,33 @@ tap.test('non-string types', function (assert) {
         t.end();
     });
 });
+
+tap.test('multiline string', function (assert) {
+    assert.plan(1);
+
+    var verify = function (output) {
+        assert.equal(output.toString('utf8'), [
+                'TAP version 13',
+                '# multiline strings',
+                '# a',
+                '# b',
+                '',
+                '1..0',
+                '# tests 0',
+                '# pass  0',
+                '',
+                '# ok',
+                ''
+        ].join('\n'));
+    };
+
+    var test = tape.createHarness();
+    test.createStream().pipe(concat(verify));
+    test('multiline strings', function (t) {
+        t.comment([
+            'a',
+            'b',
+        ].join('\n'));
+        t.end();
+    });
+});
