@@ -149,6 +149,8 @@ tap.test('multiline string', function (assert) {
                 '# multiline strings',
                 '# a',
                 '# b',
+                '# c',
+                '# d',
                 '',
                 '1..0',
                 '# tests 0',
@@ -166,6 +168,10 @@ tap.test('multiline string', function (assert) {
             'a',
             'b',
         ].join('\n'));
+        t.comment([
+            'c',
+            'd',
+        ].join('\r\n'));
         t.end();
     });
 });
