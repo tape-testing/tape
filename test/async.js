@@ -7,7 +7,12 @@ tap.test('async test calls', function (tt) {
     var test = tape.createHarness();
     var tc = tap.createConsumer();
 
-    test.createStream().pipe(tc);
+    test.createStream({
+        completeWait: function(callback){
+            console.log('x');
+            setTimeout(callback, 20);
+        }
+    }).pipe(tc);
 
     function run1(callback){
         test('first', function (t) {
@@ -15,7 +20,7 @@ tap.test('async test calls', function (tt) {
 
             t.pass();
 
-            setTimeout(callback, 1);
+            setTimeout(callback, 10);
         });
     }
 
@@ -25,7 +30,7 @@ tap.test('async test calls', function (tt) {
 
             t.pass();
 
-            setTimeout(callback, 1);
+            setTimeout(callback, 10);
         });
     }
 
