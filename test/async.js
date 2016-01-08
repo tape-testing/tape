@@ -1,7 +1,5 @@
-var falafel = require('falafel');
 var tape = require('../');
 var tap = require('tap');
-var trim = require('string.prototype.trim');
 
 tap.test('async test calls', function (tt) {
     tt.plan(1);
@@ -17,7 +15,7 @@ tap.test('async test calls', function (tt) {
 
             t.pass();
 
-            setTimeout(callback, 50);
+            setTimeout(callback, 1);
         });
     }
 
@@ -27,15 +25,13 @@ tap.test('async test calls', function (tt) {
 
             t.pass();
 
-            setTimeout(callback, 50);
+            setTimeout(callback, 1);
         });
     }
 
     run1(function(){
-        setTimeout(function(){
-            run2(function(){
-                tt.pass();
-            });
+        run2(function(){
+            tt.pass();
         });
     });
 });
