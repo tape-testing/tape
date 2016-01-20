@@ -130,6 +130,7 @@ By default, uncaught exceptions in your tests will not be intercepted, and will 
 - Promise support with https://www.npmjs.com/package/blue-tape or https://www.npmjs.com/package/tape-promise
 - ES6 support with https://www.npmjs.com/package/babel-tape-runner or https://www.npmjs.com/package/buble-tape-runner
 - Different test syntax with https://github.com/pguth/flip-tape (warning: mutates String.prototype)
+- Electron test runner with https://github.com/tundrax/electron-tap
 
 # methods
 
