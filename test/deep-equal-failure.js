@@ -8,30 +8,41 @@ tap.test('deep equal failure', function (assert) {
     var test = tape.createHarness({ exit : false });
     var stream = test.createStream();
     var parser = tapParser();
-    assert.plan(3);
+    assert.plan(7);
 
     stream.pipe(parser);
     stream.pipe(concat(function (body) {
-        assert.equal(
-            body.toString('utf8'),
-            'TAP version 13\n'
-            + '# deep equal\n'
-            + 'not ok 1 should be equal\n'
-            + '  ---\n'
-            + '    operator: equal\n'
-            + '    expected: |-\n'
-            + '      { b: 2 }\n'
-            + '    actual: |-\n'
-            + '      { a: 1 }\n'
-            + '  ...\n'
-            + '\n'
-            + '1..1\n'
-            + '# tests 1\n'
-            + '# pass  0\n'
-            + '# fail  1\n'
-        );
+        var expectedLines = [
+            'TAP version 13',
+            '# deep equal',
+            'not ok 1 should be equal',
+            '  ---',
+            '    operator: equal',
+            '    expected: |-',
+            '      { b: 2 }',
+            '    actual: |-',
+            '      { a: 1 }'
+        ];
+        var found = body.toString('utf8').split('\n');
+        assert.equal(found.slice(0, expectedLines.length).join('\n'), expectedLines.join('\n'));
+        // The next line will vary depending on where the test is executed. Match it with a regex
+        assert.ok(/    at:.*deep-equal-failure.js:\d+:\d+/.test(found[expectedLines.length]));
+        // Now test the rest
+        found = found.slice(expectedLines.length + 1);
+        expectedLines = [
+            '  ...',
+            '',
+            '1..1',
+            '# tests 1',
+            '# pass  0',
+            '# fail  1\n',
+        ];
+        assert.equal(found.join('\n'), expectedLines.join('\n'));
 
-        assert.deepEqual(getDiag(body), {
+        found = getDiag(body);
+        assert.ok(/.*deep-equal-failure.js:\d+:\d+/.test(found.at));
+        delete found.at;
+        assert.deepEqual(found, {
           operator: 'equal',
           expected: '{ b: 2 }',
           actual: '{ a: 1 }'
@@ -39,6 +50,8 @@ tap.test('deep equal failure', function (assert) {
     }));
 
     parser.once('assert', function (data) {
+        assert.ok(/.*deep-equal-failure.js:\d+:\d+/.test(data.diag.at));
+        delete data.diag.at;
         assert.deepEqual(data, {
             ok: false,
             id: 1,
