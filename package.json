@@ -23,10 +23,10 @@
     "through": "~2.3.4"
   },
   "devDependencies": {
-    "concat-stream": "~1.4.1",
-    "falafel": "~1.0.1",
+    "concat-stream": "~1.5.1",
+    "falafel": "~1.2.0",
     "js-yaml": "^3.3.1",
-    "tap": "~0.7.1",
+    "tap": "~2.1.1",
     "tap-parser": "^1.1.6"
   },
   "scripts": {
