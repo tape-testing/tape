@@ -54,10 +54,7 @@ example:
 $ tape tests/**/*.js
 ```
 
-`tape`'s arguments are passed to the
-[`glob`](https://www.npmjs.com/package/glob) module. If you want `glob` to
-perform the expansion on a system where the shell performs such expansion, quote
-the arguments as necessary:
+`tape`'s arguments are passed to the [`globby`](https://www.npmjs.com/package/globby) module. If you want `globby` to perform the expansion on a system where the shell performs such expansion, quote the arguments as necessary:
 
 ```sh
 $ tape 'tests/**/*.js'

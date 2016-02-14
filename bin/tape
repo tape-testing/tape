@@ -3,7 +3,9 @@
 var resolveModule = require('resolve').sync;
 var resolvePath = require('path').resolve;
 var parseOpts = require('minimist');
-var glob = require('glob');
+var glob = require('globby');
+
+var nextTick = require('../lib/next_tick');
 
 var opts = parseOpts(process.argv.slice(2), {
         alias: { r: 'require' },
@@ -25,11 +27,13 @@ opts.require.forEach(function(module) {
     }
 });
 
-opts._.forEach(function (arg) {
-    glob(arg, function (err, files) {
-        files.forEach(function (file) {
-            require(resolvePath(cwd, file));
-        });
+glob(opts._).then(function (files) {
+    files.forEach(function (file) {
+        require(resolvePath(cwd, file));
+    });
+}).catch(function (err) {
+    nextTick(function () {
+        throw err;
     });
 });
 
