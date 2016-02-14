@@ -30,7 +30,7 @@ tap.test('no comment', function (assert) {
 
 // Exploratory test, can we call t.comment() passing nothing?
 tap.test('missing argument', function (assert) {
-    assert.plan(2);
+    assert.plan(1);
     var test = tape.createHarness();
     test.createStream();
     test('missing argument', function (t) {
@@ -39,7 +39,6 @@ tap.test('missing argument', function (assert) {
             t.end();
         } catch (err) {
             assert.equal(err.constructor, TypeError);
-            assert.equal(err.message, 'Cannot call method on undefined');
         } finally {
             assert.end();
         }
@@ -48,7 +47,7 @@ tap.test('missing argument', function (assert) {
 
 // Exploratory test, can we call t.comment() passing nothing?
 tap.test('null argument', function (assert) {
-    assert.plan(2);
+    assert.plan(1);
     var test = tape.createHarness();
     test.createStream();
     test('null argument', function (t) {
@@ -57,7 +56,6 @@ tap.test('null argument', function (assert) {
             t.end();
         } catch (err) {
             assert.equal(err.constructor, TypeError);
-            assert.equal(err.message, 'Cannot call method on null');
         } finally {
             assert.end();
         }
