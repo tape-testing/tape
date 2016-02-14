@@ -261,11 +261,13 @@ Assert that the function call `fn()` throws an exception. `expected`, if present
 
 Assert that the function call `fn()` does not throw an exception.
 
-## t.test(name, cb)
+## t.test(name, [opts], cb)
 
 Create a subtest with a new test handle `st` from `cb(st)` inside the current
 test `t`. `cb(st)` will only fire when `t` finishes. Additional tests queued up
 after `t` will not be run until all subtests finish.
+
+You may pass the same options that [`test()`](#testname-opts-cb) accepts.
 
 ## t.comment(message)
 
