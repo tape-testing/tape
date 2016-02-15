@@ -2,7 +2,7 @@ var test = require('../');
 
 // These tests contain asynchronous functions, execute them in a specific sequence inside a Promise chain.
 // The chain has to start with a Promise, which is an immediately invoked function expression here.
-Promise.resolve(function () {
+Promise.resolve((function () {
     // To make no mistake, immediately return a Promise for the next step in the chain.
     // Nested Promises are automatically flattened.
     // https://github.com/petkaantonov/bluebird/wiki/Promise-anti-patterns
@@ -25,7 +25,7 @@ Promise.resolve(function () {
                 });
             });
         });
-} ())
+} ()))
     .then(function () {
         // This test is always executed after the previous, because they are wrapped inside a Promise.
         // Since it is the last in the chain, we do not return a Promise.
