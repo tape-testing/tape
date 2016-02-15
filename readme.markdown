@@ -15,10 +15,10 @@ var test = require('tape');
 
 test('timing test', function (t) {
     t.plan(2);
-    
+
     t.equal(typeof Date.now, 'function');
     var start = Date.now();
-    
+
     setTimeout(function () {
         t.equal(Date.now() - start, 100);
     }, 100);
@@ -125,6 +125,62 @@ By default, uncaught exceptions in your tests will not be intercepted, and will 
 - Promise support with https://www.npmjs.com/package/blue-tape
 - ES6 support with https://www.npmjs.com/package/babel-tape-runner
 
+### Example with blue-tape and Koa.js HTTP server
+The following code shows some tests for a Koa.js server which uses JavaScript generators. These tests require three additional steps:
+- Tests are run with `babel-tape-runner` to support the ES6 generator functions of Koa.
+- Convert the generator functions to Promises with `co`.
+- Use `blue-tape` to ease tests with Promises.
+
+Nested Promises execute asynchronous tests and provide an equivalent to nested synchronous tests:
+
+```
+import test from 'blue-tape';
+import co from 'co';
+import supertest from 'co-supertest';
+import { app } from './';
+
+// These functions setup the server. It accepts a flag to change its
+// behaviour during testing. Sometimes this is neccesary.
+const setup = testSwitch => ({ server: app(testSwitch).listen() });
+const teardown = fixtures => fixtures.server.close();
+
+const msg = 'async Koa.js tests: ';
+Promise.resolve(
+
+    // The first test in the Promise chain.
+    test(`${msg}GET cert`, t => co(function* () {
+        const fixture = setup();
+        const response = yield supertest(fixture.server).get('/').end();
+
+        t.equal(response.statusCode, 200, 'code should be 200');
+
+        teardown(fixture);
+    })))
+
+    // Run an array of tests concurrently with a common server next.
+    .then(() => Promise.resolve(setup(true)))
+    .then(fixture => Promise.all([
+
+        Promise.resolve(
+
+            test(`${msg}GET`, t => co(function* () {
+                const response = yield supertest(fixture.server).get('/').end();
+
+                t.equal(response.statusCode, 400, 'code should be 400');
+            }))),
+
+        Promise.resolve(
+
+            test(`${msg}POST`, t => co(function* () {
+                const response = yield supertest(fixture.server).post('/').end();
+
+                t.equal(response.statusCode, 400, 'code should be 400');
+            })))])
+
+        // The array of tests has completed.
+        .then(() => teardown(fixture)));
+```
+
 # methods
 
 The assertion methods in tape are heavily influenced or copied from the methods
@@ -136,13 +192,13 @@ var test = require('tape')
 
 ## test([name], [opts], cb)
 
-Create a new test with an optional `name` string and optional `opts` object. 
+Create a new test with an optional `name` string and optional `opts` object.
 `cb(t)` fires with the new test object `t` once all preceeding tests have
 finished. Tests execute serially.
 
 Available `opts` options are:
 - opts.skip = true/false. See test.skip.
-- opts.timeout = 500. Set a timeout for the test, after which it will fail. 
+- opts.timeout = 500. Set a timeout for the test, after which it will fail.
   See test.timeoutAfter.
 
 If you forget to `t.plan()` out how many assertions you are going to run and you
@@ -181,7 +237,7 @@ Generate a passing assertion with a message `msg`.
 Automatically timeout the test after X ms.
 
 ## t.skip(msg)
- 
+
 Generate an assertion that will be skipped over.
 
 ## t.ok(value, msg)
