@@ -11,6 +11,7 @@ Promise.resolve((function () {
             // These two tests share some context, and their order of execution is not important.
             // Return a Promise again, so the async test can be executed before the third test.
             return new Promise(function (resolve, reject) {
+
                 test('first', function (t) {
                     setTimeout(function () {
                         t.equal(context, 42, 'first test');
