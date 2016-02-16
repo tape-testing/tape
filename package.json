@@ -4,6 +4,7 @@
   "description": "tap-producing test harness for node and browsers",
   "main": "index.js",
   "bin": "./bin/tape",
+  "files": ["index.js", "lib/", "bin/"],
   "directories": {
     "example": "example",
     "test": "test"
