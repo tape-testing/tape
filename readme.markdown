@@ -125,60 +125,52 @@ By default, uncaught exceptions in your tests will not be intercepted, and will 
 - Promise support with https://www.npmjs.com/package/blue-tape
 - ES6 support with https://www.npmjs.com/package/babel-tape-runner
 
-### Example with blue-tape and Koa.js HTTP server
-The following code shows some tests for a Koa.js server which uses JavaScript generators. These tests require three additional steps:
-- Tests are run with `babel-tape-runner` to support the ES6 generator functions of Koa.
-- Convert the generator functions to Promises with `co`.
-- Use `blue-tape` to ease tests with Promises.
-
-Nested Promises execute asynchronous tests and provide an equivalent to nested synchronous tests:
+### Example with blue-tape
+Nested Promises execute asynchronous subtests in a defined order:
 
 ```
-import test from 'blue-tape';
-import co from 'co';
-import supertest from 'co-supertest';
-import { app } from './';
+var test = require('blue-tape');
 
-// These functions setup the server. It accepts a flag to change its
-// behaviour during testing. Sometimes this is neccesary.
-const setup = testSwitch => ({ server: app(testSwitch).listen() });
-const teardown = fixtures => fixtures.server.close();
+// The aynchronous test will execute after its subtest due to the setTimeout();
+test('first', function (t) {
+    return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            t.ok(1, 'first test');
+            resolve();
+        }, 200);
 
-const msg = 'async Koa.js tests: ';
-Promise.resolve(
+        t.test('second', function (t) {
+            t.ok(1, 'second test');
+        });
+    });
+});
 
-    // The first test in the Promise chain.
-    test(`${msg}GET cert`, t => co(function* () {
-        const fixture = setup();
-        const response = yield supertest(fixture.server).get('/').end();
+// This asynchronous test is executed after the previous one.
+test('third', function (t) {
+    return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            t.ok(1, 'third test');
+            resolve();
+        }, 100);
+    });
+});
 
-        t.equal(response.statusCode, 200, 'code should be 200');
+// Order of aynchronous subtests is preserved with a Promise chain.
+test('fourth', function (t) {
+    return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            t.ok(1, 'fourth test');
+            resolve();
+        }, 50);
+    })
 
-        teardown(fixture);
-    })))
-
-    // Run an array of tests concurrently with a common server next.
-    .then(() => Promise.resolve(setup(true)))
-    .then(fixture => Promise.all([
-
-        Promise.resolve(
-
-            test(`${msg}GET`, t => co(function* () {
-                const response = yield supertest(fixture.server).get('/').end();
-
-                t.equal(response.statusCode, 400, 'code should be 400');
-            }))),
-
-        Promise.resolve(
-
-            test(`${msg}POST`, t => co(function* () {
-                const response = yield supertest(fixture.server).post('/').end();
-
-                t.equal(response.statusCode, 400, 'code should be 400');
-            })))])
-
-        // The array of tests has completed.
-        .then(() => teardown(fixture)));
+    .then(function () {
+        t.test('fifth', function (t) {
+            t.ok(1, 'fifth test');
+            t.end();
+        });
+    });
+});
 ```
 
 # methods
