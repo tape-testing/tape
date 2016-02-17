@@ -27,10 +27,10 @@ tap.test('array test', function (tt) {
             { id: 4, ok: true, name: 'should be equivalent' },
             { id: 5, ok: true, name: 'should be equivalent' },
             'inside test',
-            { id: 6, ok: true, name: '(unnamed assert)' },
-            { id: 7, ok: true, name: '(unnamed assert)' },
+            { id: 6, ok: true, name: 'should be truthy' },
+            { id: 7, ok: true, name: 'should be truthy' },
             'another',
-            { id: 8, ok: true, name: '(unnamed assert)' },
+            { id: 8, ok: true, name: 'should be truthy' },
             'tests 8',
             'pass  8',
             'ok'
