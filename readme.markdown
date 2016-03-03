@@ -128,7 +128,8 @@ By default, uncaught exceptions in your tests will not be intercepted, and will 
 # methods
 
 The assertion methods in tape are heavily influenced or copied from the methods
-in [node-tap](https://github.com/isaacs/node-tap).
+in [node-tap](https://github.com/isaacs/node-tap). One notable exception is all
+assertion methods return `true` if the tests passed, and `false` otherwise.
 
 ```
 var test = require('tape')
