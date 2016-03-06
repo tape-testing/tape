@@ -20,7 +20,10 @@ tape('throws', function (t) {
 });
 
 tape('throws (RegExp match)', function (t) {
-    t.throws(fn, /RegExp/);
+    t.throws(fn, /RegExp/, 'regex with no anchors');
+    t.throws(fn, /^TypeError: Reg/, 'regex with starting anchor');
+    t.throws(fn, /RegExp$/, 'regex with ending anchor');
+    t.throws(fn, /^TypeError: RegExp$/, 'regex with both anchors');
     t.end();
 });
 
