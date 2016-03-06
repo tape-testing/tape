@@ -30,8 +30,6 @@ tape('throws (Function match)', function (t) {
 });
 
 tap.test('failures', function (tt) {
-    tt.plan(1);
-
     var test = tape.createHarness();
     test.createStream().pipe(concat(function (body) {
         tt.equal(
@@ -41,73 +39,57 @@ tap.test('failures', function (tt) {
            + 'not ok 1 should throw\n'
            + '  ---\n'
            + '    operator: throws\n'
-           + '    expected: |-\n'
-           + '      undefined\n'
-           + '    actual: |-\n'
-           + "      { [TypeError: " + getNonFunctionMessage() + "] message: '" + getNonFunctionMessage() + "' }\n"
+           + '    expected: \n'
+           + "    actual:   {\"message\":\"" + getNonFunctionMessage() + '"}\n'
            + '  ...\n'
            + 'not ok 2 should throw\n'
            + '  ---\n'
            + '    operator: throws\n'
-           + '    expected: |-\n'
-           + '      undefined\n'
-           + '    actual: |-\n'
-           + "      { [TypeError: " + getNonFunctionMessage(null) + "] message: '" + getNonFunctionMessage(null) + "' }\n"
+           + '    expected: \n'
+           + "    actual:   {\"message\":\"" + getNonFunctionMessage(null) + '"}\n'
            + '  ...\n'
            + 'not ok 3 should throw\n'
            + '  ---\n'
            + '    operator: throws\n'
-           + '    expected: |-\n'
-           + '      undefined\n'
-           + '    actual: |-\n'
-           + "      { [TypeError: " + getNonFunctionMessage(true) + "] message: '" + getNonFunctionMessage(true) + "' }\n"
+           + '    expected: \n'
+           + "    actual:   {\"message\":\"" + getNonFunctionMessage(true) + '"}\n'
            + '  ...\n'
            + 'not ok 4 should throw\n'
            + '  ---\n'
            + '    operator: throws\n'
-           + '    expected: |-\n'
-           + '      undefined\n'
-           + '    actual: |-\n'
-           + "      { [TypeError: " + getNonFunctionMessage(false) + "] message: '" + getNonFunctionMessage(false) + "' }\n"
+           + '    expected: \n'
+           + "    actual:   {\"message\":\"" + getNonFunctionMessage(false) + '"}\n'
            + '  ...\n'
            + 'not ok 5 should throw\n'
            + '  ---\n'
            + '    operator: throws\n'
-           + '    expected: |-\n'
-           + '      undefined\n'
-           + '    actual: |-\n'
-           + "      { [TypeError: " + getNonFunctionMessage('abc') + "] message: '" + getNonFunctionMessage('abc') + "' }\n"
+           + '    expected: \n'
+           + "    actual:   {\"message\":\"" + getNonFunctionMessage('abc') + '"}\n'
            + '  ...\n'
            + 'not ok 6 should throw\n'
            + '  ---\n'
            + '    operator: throws\n'
-           + '    expected: |-\n'
-           + '      undefined\n'
-           + '    actual: |-\n'
-           + "      { [TypeError: " + getNonFunctionMessage(/a/g) + "] message: '" + getNonFunctionMessage(/a/g) + "' }\n"
+           + '    expected: \n'
+           + "    actual:   {\"message\":\"" + getNonFunctionMessage(/a/g) + '"}\n'
            + '  ...\n'
            + 'not ok 7 should throw\n'
            + '  ---\n'
            + '    operator: throws\n'
-           + '    expected: |-\n'
-           + '      undefined\n'
-           + '    actual: |-\n'
-           + "      { [TypeError: " + getNonFunctionMessage([]) + "] message: '" + getNonFunctionMessage([]) + "' }\n"
+           + '    expected: \n'
+           + "    actual:   {\"message\":\"" + getNonFunctionMessage([]) + '"}\n'
            + '  ...\n'
            + 'not ok 8 should throw\n'
            + '  ---\n'
            + '    operator: throws\n'
-           + '    expected: |-\n'
-           + '      undefined\n'
-           + '    actual: |-\n'
-           + "      { [TypeError: " + getNonFunctionMessage({}) + "] message: '" + getNonFunctionMessage({}) + "' }\n"
+           + '    expected: \n'
+           + "    actual:   {\"message\":\"" + getNonFunctionMessage({}) + '"}\n'
            + '  ...\n'
            + '# function\n'
            + 'not ok 9 should throw\n'
            + '  ---\n'
            + '    operator: throws\n'
-           + '    expected: undefined\n'
-           + '    actual:   undefined\n'
+           + '    expected: \n'
+           + '    actual:   \n'
            + '  ...\n\n'
            + '1..9\n'
            + '# tests 9\n'
@@ -117,7 +99,6 @@ tap.test('failures', function (tt) {
     }));
 
     test('non functions', function (t) {
-        t.plan(8);
         t.throws();
         t.throws(null);
         t.throws(true);
@@ -126,10 +107,13 @@ tap.test('failures', function (tt) {
         t.throws(/a/g);
         t.throws([]);
         t.throws({});
+        t.end();
     });
 
     test('function', function (t) {
-        t.plan(1);
         t.throws(function () {});
+        t.end();
     });
+
+    tt.end();
 });
