@@ -41,66 +41,50 @@ tap.test('failures', function (tt) {
            + 'not ok 1 should throw\n'
            + '  ---\n'
            + '    operator: throws\n'
-           + '    expected: |-\n'
-           + '      undefined\n'
-           + '    actual: |-\n'
-           + "      { [TypeError: " + getNonFunctionMessage() + "] message: '" + getNonFunctionMessage() + "' }\n"
+           + '    expected: undefined\n'
+           + "    actual:   { message: '" + getNonFunctionMessage() + "' }\n"
            + '  ...\n'
            + 'not ok 2 should throw\n'
            + '  ---\n'
            + '    operator: throws\n'
-           + '    expected: |-\n'
-           + '      undefined\n'
-           + '    actual: |-\n'
-           + "      { [TypeError: " + getNonFunctionMessage(null) + "] message: '" + getNonFunctionMessage(null) + "' }\n"
+           + '    expected: undefined\n'
+           + "    actual:   { message: '" + getNonFunctionMessage(null) + "' }\n"
            + '  ...\n'
            + 'not ok 3 should throw\n'
            + '  ---\n'
            + '    operator: throws\n'
-           + '    expected: |-\n'
-           + '      undefined\n'
-           + '    actual: |-\n'
-           + "      { [TypeError: " + getNonFunctionMessage(true) + "] message: '" + getNonFunctionMessage(true) + "' }\n"
+           + '    expected: undefined\n'
+           + "    actual:   { message: '" + getNonFunctionMessage(true) + "' }\n"
            + '  ...\n'
            + 'not ok 4 should throw\n'
            + '  ---\n'
            + '    operator: throws\n'
-           + '    expected: |-\n'
-           + '      undefined\n'
-           + '    actual: |-\n'
-           + "      { [TypeError: " + getNonFunctionMessage(false) + "] message: '" + getNonFunctionMessage(false) + "' }\n"
+           + '    expected: undefined\n'
+           + "    actual:   { message: '" + getNonFunctionMessage(false) + "' }\n"
            + '  ...\n'
            + 'not ok 5 should throw\n'
            + '  ---\n'
            + '    operator: throws\n'
-           + '    expected: |-\n'
-           + '      undefined\n'
-           + '    actual: |-\n'
-           + "      { [TypeError: " + getNonFunctionMessage('abc') + "] message: '" + getNonFunctionMessage('abc') + "' }\n"
+           + '    expected: undefined\n'
+           + "    actual:   { message: '" + getNonFunctionMessage('abc') + "' }\n"
            + '  ...\n'
            + 'not ok 6 should throw\n'
            + '  ---\n'
            + '    operator: throws\n'
-           + '    expected: |-\n'
-           + '      undefined\n'
-           + '    actual: |-\n'
-           + "      { [TypeError: " + getNonFunctionMessage(/a/g) + "] message: '" + getNonFunctionMessage(/a/g) + "' }\n"
+           + '    expected: undefined\n'
+           + "    actual:   { message: '" + getNonFunctionMessage(/a/g) + "' }\n"
            + '  ...\n'
            + 'not ok 7 should throw\n'
            + '  ---\n'
            + '    operator: throws\n'
-           + '    expected: |-\n'
-           + '      undefined\n'
-           + '    actual: |-\n'
-           + "      { [TypeError: " + getNonFunctionMessage([]) + "] message: '" + getNonFunctionMessage([]) + "' }\n"
+           + '    expected: undefined\n'
+           + "    actual:   { message: '" + getNonFunctionMessage([]) + "' }\n"
            + '  ...\n'
            + 'not ok 8 should throw\n'
            + '  ---\n'
            + '    operator: throws\n'
-           + '    expected: |-\n'
-           + '      undefined\n'
-           + '    actual: |-\n'
-           + "      { [TypeError: " + getNonFunctionMessage({}) + "] message: '" + getNonFunctionMessage({}) + "' }\n"
+           + '    expected: undefined\n'
+           + "    actual:   { message: '" + getNonFunctionMessage({}) + "' }\n"
            + '  ...\n'
            + '# function\n'
            + 'not ok 9 should throw\n'
