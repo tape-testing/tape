@@ -1,6 +1,6 @@
 var tape = require('../');
 var tap = require('tap');
-var trim = require('string.prototype.trim');
+var trim = require('../lib/util').trim;
 
 tap.test('timeoutAfter test', function (tt) {
     tt.plan(1);

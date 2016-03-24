@@ -1,6 +1,6 @@
 var tap = require('tap');
 var tape = require('../');
-var trim = require('string.prototype.trim');
+var trim = require('../lib/util').trim;
 
 tap.test('tape only test', function (tt) {
     var test = tape.createHarness({ exit: false });
