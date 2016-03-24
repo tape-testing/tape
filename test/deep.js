@@ -7,3 +7,11 @@ test('deep strict equal', function (t) {
     );
     t.end();
 });
+
+test('deep loose equal', function (t) {
+    t.deepLooseEqual(
+        [ { a: '3' } ],
+        [ { a: 3 } ]
+    );
+    t.end();
+});
