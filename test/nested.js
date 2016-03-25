@@ -1,7 +1,7 @@
 var falafel = require('falafel');
 var tape = require('../');
 var tap = require('tap');
-var trim = require('string.prototype.trim');
+var trim = require('../lib/util').trim;
 
 tap.test('array test', function (tt) {
     tt.plan(1);
