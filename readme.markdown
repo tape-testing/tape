@@ -408,6 +408,74 @@ With [npm](https://npmjs.org) do:
 npm install tape --save-dev
 ```
 
+# troubleshooting
+
+Sometimes `t.end()` doesn’t preserve the expected output ordering.
+
+For instance the following:
+
+```js
+var test = require('tape');
+
+test('first', function (t) {
+
+  setTimeout(function () {
+    t.ok(1, 'first test');
+    t.end();
+  }, 200);
+
+  t.test('second', function (t) {
+    t.ok(1, 'second test');
+    t.end();
+  });
+});
+
+test('third', function (t) {
+  setTimeout(function () {
+    t.ok(1, 'third test');
+    t.end();
+  }, 100);
+});
+```
+
+will output:
+
+```
+ok 1 second test
+ok 2 third test
+ok 3 first test
+```
+
+because `second` and `third` assume `first` has ended before it actually does.
+
+Use `t.plan()` instead to let other tests know they should wait:
+
+```diff
+var test = require('tape');
+
+test('first', function (t) {
+
++  t.plan(2);
+
+  setTimeout(function () {
+    t.ok(1, 'first test');
+-    t.end();
+  }, 200);
+
+  t.test('second', function (t) {
+    t.ok(1, 'second test');
+    t.end();
+  });
+});
+
+test('third', function (t) {
+  setTimeout(function () {
+    t.ok(1, 'third test');
+    t.end();
+  }, 100);
+});
+```
+
 # license
 
 MIT
