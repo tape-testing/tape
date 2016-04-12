@@ -95,22 +95,21 @@ The default TAP output is good for machines and humans that are robots.
 If you want a more colorful / pretty output there are lots of modules on npm
 that will output something pretty if you pipe TAP into them:
 
- - https://github.com/scottcorgan/tap-spec
- - https://github.com/scottcorgan/tap-dot
- - https://github.com/substack/faucet
- - https://github.com/juliangruber/tap-bail
- - https://github.com/kirbysayshi/tap-browser-color
- - https://github.com/gummesson/tap-json
- - https://github.com/gummesson/tap-min
- - https://github.com/calvinmetcalf/tap-nyan
- - https://www.npmjs.org/package/tap-pessimist
- - https://github.com/toolness/tap-prettify
- - https://github.com/shuhei/colortape
- - https://github.com/aghassemi/tap-xunit
- - https://github.com/namuol/tap-difflet
- - https://github.com/gritzko/tape-dom
- - https://github.com/axross/tap-diff
- - https://github.com/axross/tap-notify
+ - [tap-spec](https://www.npmjs.com/package/tap-spec) - Formatted TAP output like Mocha's spec reporter
+ - [tap-dot](https://www.npmjs.com/package/tap-dot) - Formatted TAP output with dots ...
+ - [faucet](https://www.npmjs.com/package/faucet) - Human-readable TAP summarizer
+ - [tap-bail](https://www.npmjs.com/package/tap-bail) - Bail out when the first TAP test fails
+ - [tap-browser-color](https://www.npmjs.com/package/tap-browser-color) - A simple reporter for tap/tape that makes the body tag yellow/red/green if pending/failing/passing. Useful for live-coding environments
+ - [tap-min](https://www.npmjs.com/package/tap-min) - Minimal TAP output formatter
+ - [tap-nyan](https://www.npmjs.com/package/tap-nyan) - Formatted TAP output like Mocha's spec reporter
+ - [tap-pessimist](https://www.npmjs.com/package/tap-pessimist) - A tap consumer that filters out all the ok spam, and just focuses on the negatives 
+ - [tap-prettify](https://www.npmjs.com/package/tap-prettify) - Make tap output nicely readable
+ - [colortape](https://www.npmjs.com/package/colortape) - Colorize test results of tape/node-tap
+ - [tap-xunit](https://www.npmjs.com/package/tap-xunit) - TAP to xUnit XML converter
+ - [tap-difflet](https://www.npmjs.com/package/tap-difflet) - TAP output formatter using difflet for inequality errors
+ - [tape-dom](https://www.npmjs.com/package/tape-dom) - Convert tape's TAP output to nicely formatted DOM
+ - [tap-diff](https://www.npmjs.com/package/tap-diff) - Simple TAP reporter shows diffs of failed tests
+ - [tap-notify](https://www.npmjs.com/package/tap-notify) - The Notifier for OS X, Linux and Windows as TAP reporter
 
 To use them, try `node test/index.js | tap-spec` or pipe it into one
 of the modules of your choice!
