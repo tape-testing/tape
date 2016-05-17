@@ -2,7 +2,10 @@ var tape = require('../');
 var tap = require('tap');
 var concat = require('concat-stream');
 var tapParser = require('tap-parser');
-var yaml = require('js-yaml');
+var common = require('./common');
+
+var getDiag = common.getDiag;
+var stripFullStack = common.stripFullStack;
 
 tap.test('deep equal failure', function (assert) {
     var test = tape.createHarness({ exit : false });
@@ -13,7 +16,7 @@ tap.test('deep equal failure', function (assert) {
     stream.pipe(parser);
     stream.pipe(concat(function (body) {
         assert.equal(
-            body.toString('utf8'),
+            stripFullStack(body.toString('utf8')),
             'TAP version 13\n'
             + '# deep equal\n'
             + 'not ok 1 should be equal\n'
@@ -23,6 +26,11 @@ tap.test('deep equal failure', function (assert) {
             + '      { b: 2 }\n'
             + '    actual: |-\n'
             + '      { a: 1 }\n'
+            + '    stack: |-\n'
+            + '      Error: should be equal\n'
+            + '          [... stack stripped ...]\n'
+            + '          at Test.<anonymous> ($TEST/deep-equal-failure.js:$LINE:$COL)\n'
+            + '          [... stack stripped ...]\n'
             + '  ...\n'
             + '\n'
             + '1..1\n'
@@ -39,6 +47,7 @@ tap.test('deep equal failure', function (assert) {
     }));
 
     parser.once('assert', function (data) {
+        delete data.diag.stack;
         assert.deepEqual(data, {
             ok: false,
             id: 1,
@@ -66,7 +75,7 @@ tap.test('deep equal failure, depth 6, with option', function (assert) {
     stream.pipe(parser);
     stream.pipe(concat(function (body) {
         assert.equal(
-            body.toString('utf8'),
+            stripFullStack(body.toString('utf8')),
             'TAP version 13\n'
             + '# deep equal\n'
             + 'not ok 1 should be equal\n'
@@ -76,6 +85,11 @@ tap.test('deep equal failure, depth 6, with option', function (assert) {
             + '      { a: { a1: { a2: { a3: { a4: { a5: 2 } } } } } }\n'
             + '    actual: |-\n'
             + '      { a: { a1: { a2: { a3: { a4: { a5: 1 } } } } } }\n'
+            + '    stack: |-\n'
+            + '      Error: should be equal\n'
+            + '          [... stack stripped ...]\n'
+            + '          at Test.<anonymous> ($TEST/deep-equal-failure.js:$LINE:$COL)\n'
+            + '          [... stack stripped ...]\n'
             + '  ...\n'
             + '\n'
             + '1..1\n'
@@ -92,6 +106,7 @@ tap.test('deep equal failure, depth 6, with option', function (assert) {
     }));
 
     parser.once('assert', function (data) {
+        delete data.diag.stack;
         assert.deepEqual(data, {
             ok: false,
             id: 1,
@@ -119,7 +134,7 @@ tap.test('deep equal failure, depth 6, without option', function (assert) {
     stream.pipe(parser);
     stream.pipe(concat(function (body) {
         assert.equal(
-            body.toString('utf8'),
+            stripFullStack(body.toString('utf8')),
             'TAP version 13\n'
             + '# deep equal\n'
             + 'not ok 1 should be equal\n'
@@ -129,6 +144,11 @@ tap.test('deep equal failure, depth 6, without option', function (assert) {
             + '      { a: { a1: { a2: { a3: { a4: [Object] } } } } }\n'
             + '    actual: |-\n'
             + '      { a: { a1: { a2: { a3: { a4: [Object] } } } } }\n'
+            + '    stack: |-\n'
+            + '      Error: should be equal\n'
+            + '          [... stack stripped ...]\n'
+            + '          at Test.<anonymous> ($TEST/deep-equal-failure.js:$LINE:$COL)\n'
+            + '          [... stack stripped ...]\n'
             + '  ...\n'
             + '\n'
             + '1..1\n'
@@ -145,6 +165,7 @@ tap.test('deep equal failure, depth 6, without option', function (assert) {
     }));
 
     parser.once('assert', function (data) {
+        delete data.diag.stack;
         assert.deepEqual(data, {
             ok: false,
             id: 1,
@@ -162,13 +183,3 @@ tap.test('deep equal failure, depth 6, without option', function (assert) {
         t.equal({ a: { a1: { a2: { a3: { a4: { a5: 1 } } } } } }, { a: { a1: { a2: { a3: { a4: { a5: 2 } } } } } });
     });
 })
-
-function getDiag (body) {
-    var yamlStart = body.indexOf('  ---');
-    var yamlEnd = body.indexOf('  ...\n');
-    var diag = body.slice(yamlStart, yamlEnd).split('\n').map(function (line) {
-        return line.slice(2);
-   }).join('\n');
-
-   return yaml.safeLoad(diag);
-}

@@ -2,13 +2,15 @@ var tape = require('../');
 var tap = require('tap');
 var concat = require('concat-stream');
 
+var stripFullStack = require('./common').stripFullStack;
+
 tap.test('circular test', function (assert) {
     var test = tape.createHarness({ exit : false });
     assert.plan(1);
 
     test.createStream().pipe(concat(function (body) {
         assert.equal(
-            body.toString('utf8'),
+            stripFullStack(body.toString('utf8')),
             'TAP version 13\n'
             + '# circular\n'
             + 'not ok 1 should be equal\n'
@@ -18,6 +20,11 @@ tap.test('circular test', function (assert) {
             + '      {}\n'
             + '    actual: |-\n'
             + '      { circular: [Circular] }\n'
+            + '    stack: |-\n'
+            + '      Error: should be equal\n'
+            + '          [... stack stripped ...]\n'
+            + '          at Test.<anonymous> ($TEST/circular-things.js:$LINE:$COL)\n'
+            + '          [... stack stripped ...]\n'
             + '  ...\n'
             + '\n'
             + '1..1\n'

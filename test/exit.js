@@ -3,6 +3,8 @@ var path = require('path');
 var spawn = require('child_process').spawn;
 var concat = require('concat-stream');
 
+var stripFullStack = require('./common').stripFullStack;
+
 tap.test('exit ok', function (t) {
     t.plan(2);
 
@@ -38,7 +40,7 @@ tap.test('exit fail', function (t) {
     t.plan(2);
 
     var tc = function (rows) {
-        t.same(rows.toString('utf8'), [
+        t.same(stripFullStack(rows.toString('utf8')), [
             'TAP version 13',
             '# array',
             'ok 1 should be equivalent',
@@ -50,6 +52,14 @@ tap.test('exit fail', function (t) {
             '    operator: deepEqual',
             '    expected: [ [ 1, 2, [ 3, 4444 ] ], [ 5, 6 ] ]',
             '    actual:   [ [ 1, 2, [ 3, 4 ] ], [ 5, 6 ] ]',
+            '    stack: |-',
+            '      Error: should be equivalent',
+            '          [... stack stripped ...]',
+            '          at $TEST/exit/fail.js:$LINE:$COL',
+            '          at eval (eval at <anonymous> ($TEST/exit/fail.js:$LINE:$COL), <anonymous>:$LINE:$COL)',
+            '          at eval (eval at <anonymous> ($TEST/exit/fail.js:$LINE:$COL), <anonymous>:$LINE:$COL)',
+            '          at Test.<anonymous> ($TEST/exit/fail.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
             '  ...',
             '',
             '1..5',
@@ -70,7 +80,7 @@ tap.test('too few exit', function (t) {
     t.plan(2);
 
     var tc = function (rows) {
-        t.same(rows.toString('utf8'), [
+        t.same(stripFullStack(rows.toString('utf8')), [
             'TAP version 13',
             '# array',
             'ok 1 should be equivalent',
@@ -83,6 +93,9 @@ tap.test('too few exit', function (t) {
             '    operator: fail',
             '    expected: 6',
             '    actual:   5',
+            '    stack: |-',
+            '      Error: plan != count',
+            '          [... stack stripped ...]',
             '  ...',
             '',
             '1..6',
@@ -103,7 +116,7 @@ tap.test('more planned in a second test', function (t) {
     t.plan(2);
 
     var tc = function (rows) {
-        t.same(rows.toString('utf8'), [
+        t.same(stripFullStack(rows.toString('utf8')), [
             'TAP version 13',
             '# first',
             'ok 1 should be truthy',
@@ -114,6 +127,9 @@ tap.test('more planned in a second test', function (t) {
             '    operator: fail',
             '    expected: 2',
             '    actual:   1',
+            '    stack: |-',
+            '      Error: plan != count',
+            '          [... stack stripped ...]',
             '  ...',
             '',
             '1..3',

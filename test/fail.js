@@ -3,12 +3,14 @@ var tape = require('../');
 var tap = require('tap');
 var concat = require('concat-stream');
 
+var stripFullStack = require('./common').stripFullStack;
+
 tap.test('array test', function (tt) {
     tt.plan(1);
     
     var test = tape.createHarness({ exit : false });
     var tc = function (rows) {
-        tt.same(rows.toString('utf8'), [
+        tt.same(stripFullStack(rows.toString('utf8')), [
             'TAP version 13',
             '# array',
             'ok 1 should be equivalent',
@@ -20,6 +22,14 @@ tap.test('array test', function (tt) {
             '    operator: deepEqual',
             '    expected: [ [ 1, 2, [ 3, 4444 ] ], [ 5, 6 ] ]',
             '    actual:   [ [ 1, 2, [ 3, 4 ] ], [ 5, 6 ] ]',
+            '    stack: |-',
+            '      Error: should be equivalent',
+            '          [... stack stripped ...]',
+            '          at $TEST/fail.js:$LINE:$COL',
+            '          at eval (eval at <anonymous> ($TEST/fail.js:$LINE:$COL), <anonymous>:$LINE:$COL)',
+            '          at eval (eval at <anonymous> ($TEST/fail.js:$LINE:$COL), <anonymous>:$LINE:$COL)',
+            '          at Test.<anonymous> ($TEST/fail.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
             '  ...',
             '',
             '1..5',

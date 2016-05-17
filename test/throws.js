@@ -2,6 +2,8 @@ var tape = require('../');
 var tap = require('tap');
 var concat = require('concat-stream');
 
+var stripFullStack = require('./common').stripFullStack;
+
 function fn() {
     throw new TypeError('RegExp');
 }
@@ -20,7 +22,7 @@ tap.test('failures', function (tt) {
     var test = tape.createHarness();
     test.createStream().pipe(concat(function (body) {
         tt.equal(
-            body.toString('utf8'),
+            stripFullStack(body.toString('utf8')),
             'TAP version 13\n'
            + '# non functions\n'
            + 'not ok 1 should throw\n'
@@ -30,6 +32,11 @@ tap.test('failures', function (tt) {
            + '      undefined\n'
            + '    actual: |-\n'
            + "      { [TypeError: " + getNonFunctionMessage() + "] message: '" + getNonFunctionMessage() + "' }\n"
+           + '    stack: |-\n'
+           + '      TypeError: ' + getNonFunctionMessage(undefined) + '\n'
+           + '          [... stack stripped ...]\n'
+           + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
+           + '          [... stack stripped ...]\n'
            + '  ...\n'
            + 'not ok 2 should throw\n'
            + '  ---\n'
@@ -38,6 +45,11 @@ tap.test('failures', function (tt) {
            + '      undefined\n'
            + '    actual: |-\n'
            + "      { [TypeError: " + getNonFunctionMessage(null) + "] message: '" + getNonFunctionMessage(null) + "' }\n"
+           + '    stack: |-\n'
+           + '      TypeError: ' + getNonFunctionMessage(null) + '\n'
+           + '          [... stack stripped ...]\n'
+           + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
+           + '          [... stack stripped ...]\n'
            + '  ...\n'
            + 'not ok 3 should throw\n'
            + '  ---\n'
@@ -46,6 +58,11 @@ tap.test('failures', function (tt) {
            + '      undefined\n'
            + '    actual: |-\n'
            + "      { [TypeError: " + getNonFunctionMessage(true) + "] message: '" + getNonFunctionMessage(true) + "' }\n"
+           + '    stack: |-\n'
+           + '      TypeError: ' + getNonFunctionMessage(true) + '\n'
+           + '          [... stack stripped ...]\n'
+           + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
+           + '          [... stack stripped ...]\n'
            + '  ...\n'
            + 'not ok 4 should throw\n'
            + '  ---\n'
@@ -54,6 +71,11 @@ tap.test('failures', function (tt) {
            + '      undefined\n'
            + '    actual: |-\n'
            + "      { [TypeError: " + getNonFunctionMessage(false) + "] message: '" + getNonFunctionMessage(false) + "' }\n"
+           + '    stack: |-\n'
+           + '      TypeError: ' + getNonFunctionMessage(false) + '\n'
+           + '          [... stack stripped ...]\n'
+           + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
+           + '          [... stack stripped ...]\n'
            + '  ...\n'
            + 'not ok 5 should throw\n'
            + '  ---\n'
@@ -62,6 +84,11 @@ tap.test('failures', function (tt) {
            + '      undefined\n'
            + '    actual: |-\n'
            + "      { [TypeError: " + getNonFunctionMessage('abc') + "] message: '" + getNonFunctionMessage('abc') + "' }\n"
+           + '    stack: |-\n'
+           + '      TypeError: ' + getNonFunctionMessage('abc') + '\n'
+           + '          [... stack stripped ...]\n'
+           + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
+           + '          [... stack stripped ...]\n'
            + '  ...\n'
            + 'not ok 6 should throw\n'
            + '  ---\n'
@@ -70,6 +97,11 @@ tap.test('failures', function (tt) {
            + '      undefined\n'
            + '    actual: |-\n'
            + "      { [TypeError: " + getNonFunctionMessage(/a/g) + "] message: '" + getNonFunctionMessage(/a/g) + "' }\n"
+           + '    stack: |-\n'
+           + '      TypeError: ' + getNonFunctionMessage(/a/g) + '\n'
+           + '          [... stack stripped ...]\n'
+           + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
+           + '          [... stack stripped ...]\n'
            + '  ...\n'
            + 'not ok 7 should throw\n'
            + '  ---\n'
@@ -78,6 +110,11 @@ tap.test('failures', function (tt) {
            + '      undefined\n'
            + '    actual: |-\n'
            + "      { [TypeError: " + getNonFunctionMessage([]) + "] message: '" + getNonFunctionMessage([]) + "' }\n"
+           + '    stack: |-\n'
+           + '      TypeError: ' + getNonFunctionMessage([]) + '\n'
+           + '          [... stack stripped ...]\n'
+           + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
+           + '          [... stack stripped ...]\n'
            + '  ...\n'
            + 'not ok 8 should throw\n'
            + '  ---\n'
@@ -86,6 +123,11 @@ tap.test('failures', function (tt) {
            + '      undefined\n'
            + '    actual: |-\n'
            + "      { [TypeError: " + getNonFunctionMessage({}) + "] message: '" + getNonFunctionMessage({}) + "' }\n"
+           + '    stack: |-\n'
+           + '      TypeError: ' + getNonFunctionMessage({}) + '\n'
+           + '          [... stack stripped ...]\n'
+           + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
+           + '          [... stack stripped ...]\n'
            + '  ...\n'
            + '# function\n'
            + 'not ok 9 should throw\n'
@@ -93,6 +135,11 @@ tap.test('failures', function (tt) {
            + '    operator: throws\n'
            + '    expected: undefined\n'
            + '    actual:   undefined\n'
+           + '    stack: |-\n'
+           + '      Error: should throw\n'
+           + '          [... stack stripped ...]\n'
+           + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
+           + '          [... stack stripped ...]\n'
            + '  ...\n'
            + '# custom error messages\n'
            + 'ok 10 "message" is enumerable\n'

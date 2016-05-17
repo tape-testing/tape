@@ -3,12 +3,14 @@ var tape = require('../');
 var tap = require('tap');
 var concat = require('concat-stream');
 
+var stripFullStack = require('./common').stripFullStack;
+
 tap.test('array test', function (tt) {
     tt.plan(1);
     
     var test = tape.createHarness({ exit : false });
     var tc = function (rows) {
-        tt.same(rows.toString('utf8'), [
+        tt.same(stripFullStack(rows.toString('utf8')), [
             'TAP version 13',
             '# array',
             'ok 1 should be equivalent',
@@ -20,6 +22,14 @@ tap.test('array test', function (tt) {
             '    operator: fail',
             '    expected: 3',
             '    actual:   4',
+            '    stack: |-',
+            '      Error: plan != count',
+            '          [... stack stripped ...]',
+            '          at $TEST/too_many.js:$LINE:$COL',
+            '          at eval (eval at <anonymous> ($TEST/too_many.js:$LINE:$COL), <anonymous>:$LINE:$COL)',
+            '          at eval (eval at <anonymous> ($TEST/too_many.js:$LINE:$COL), <anonymous>:$LINE:$COL)',
+            '          at Test.<anonymous> ($TEST/too_many.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
             '  ...',
             'ok 6 should be equivalent',
             '',
