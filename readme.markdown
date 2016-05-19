@@ -111,6 +111,7 @@ that will output something pretty if you pipe TAP into them:
  - https://github.com/gritzko/tape-dom
  - https://github.com/axross/tap-diff
  - https://github.com/axross/tap-notify
+ - https://www.npmjs.com/package/tape-worm
 
 To use them, try `node test/index.js | tap-spec` or pipe it into one
 of the modules of your choice!
