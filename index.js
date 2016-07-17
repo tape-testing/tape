@@ -138,9 +138,10 @@ function createHarness (conf_) {
     var only = false;
     test.only = function (name) {
         if (only) throw new Error('there can only be one only test');
-        results.only(name);
+        var t = test.apply(null, arguments);
+        results.only(t.number);
         only = true;
-        return test.apply(null, arguments);
+        return t;
     };
     test._exitCode = 0;
     
