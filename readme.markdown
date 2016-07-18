@@ -68,7 +68,7 @@ $ tape "tests/**/*.js"
 
 There are two ways to run a single test. One way is to modify the test that you want to run by adding the `.only` constraint, so that you are calling `test.only("test name", ...)`, as explained [below](#only). The other way is to use the optional `-n` command line argument.
 
-The `-n` argument runs the tests, prefixing a bracketed test number to the title of each test. For example, if a test named `invalid input` happens to run as the 42nd test of the suite, `-n` will have it display as test `[42] invalid input`. Test numbers change as files order changes and as tests are added and removed.
+The `-n` argument runs the tests, prefixing a bracketed test number to the title of each test. For example, if a test named `invalid input` happens to run as the 42nd test of the suite, `-n` will have it display as test `[42] invalid input`. Test numbers change as file order changes and as tests are added and removed.
 
 ```sh
 $ tape -n tests/**/*.js
