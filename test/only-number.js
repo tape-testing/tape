@@ -21,16 +21,16 @@ tap.test('numbering for -n argument', function (t) {
             '[1] only -n test 1',
             { id: 1, ok: true, name: 'yes 1' },
             '[2] only -n test 2',
-            { id: 1, ok: true, name: 'yes 2' },
-            '[3] only -n test 2',
-            { id: 1, ok: true, name: 'yes 3' },
+            { id: 2, ok: true, name: 'yes 2' },
+            '[3] only -n test 3',
+            { id: 3, ok: true, name: 'yes 3' },
             'tests 3',
             'pass  3',
             'ok'
         ]);
     });
     
-    var ps = tape('-n ./only-number/only-n.js')
+    var ps = tape('-n only-number/only-n.js')
     ps.stdout.pipe(tc);
     ps.on('exit', function (code) {
         t.equal(code, 0);
@@ -51,10 +51,10 @@ tap.test('running only X in -nX argument', function (t) {
             }
             else return r;
         });
-        t.same(rs, expectedResult(2, '[2] only -n2 test 2'));
+        t.same(rs, expectedResult('[2] only -n2 test 2'));
     });
     
-    var ps = tape('-n2 ./only-number/only-n2.js');
+    var ps = tape('-n2 only-number/only-n2.js');
     ps.stdout.pipe(tc);
     ps.on('exit', function (code) {
         t.equal(code, 0);
@@ -75,10 +75,10 @@ tap.test('running only -n2 despite .only on test 1', function (t) {
             }
             else return r;
         });
-        t.same(rs, expectedResult(2, '[2] only -n2 test 2 w/o only'));
+        t.same(rs, expectedResult('[2] only -n2 test 2 w/o only'));
     });
     
-    var ps = tape('-n2 ./only-number/only1-n2.js');
+    var ps = tape('-n2 only-number/only1-n2.js');
     ps.stdout.pipe(tc);
     ps.on('exit', function (code) {
         t.equal(code, 0);
@@ -99,10 +99,10 @@ tap.test('running only -n2 also having .only', function (t) {
             }
             else return r;
         });
-        t.same(rs, expectedResult(2, '[2] only -n2 test 2 w/ only'));
+        t.same(rs, expectedResult('[2] only -n2 test 2 w/ only'));
     });
     
-    var ps = tape('-n2 ./only-number/only2-n2.js');
+    var ps = tape('-n2 only-number/only2-n2.js');
     ps.stdout.pipe(tc);
     ps.on('exit', function (code) {
         t.equal(code, 0);
@@ -123,10 +123,10 @@ tap.test('running only -n2 despite .only on test 3', function (t) {
             }
             else return r;
         });
-        t.same(rs, expectedResult(2, '[2] only -n2 test 2 w/o only'));
+        t.same(rs, expectedResult('[2] only -n2 test 2 w/o only'));
     });
     
-    var ps = tape('-n2 ./only-number/only3-n2.js');
+    var ps = tape('-n2 only-number/only3-n2.js');
     ps.stdout.pipe(tc);
     ps.on('exit', function (code) {
         t.equal(code, 0);
@@ -147,10 +147,10 @@ tap.test('running -nX where X is not in 1st file', function (t) {
             }
             else return r;
         });
-        t.same(rs, expectedResult(5, '[5] multi2 test 2'));
+        t.same(rs, expectedResult('[5] multi2 test 2'));
     });
     
-    var ps = tape('-n5 ./only-number/multi1-n5.js ./only-number/multi2-n5.js');
+    var ps = tape('-n5 only-number/multi1-n5.js only-number/multi2-n5.js');
     ps.stdout.pipe(tc);
     ps.on('exit', function (code) {
         t.equal(code, 0);
@@ -164,11 +164,11 @@ function tape(args) {
   return proc.spawn(bin, args.split(' '), { cwd: __dirname })
 }
 
-function expectedResult(id, testName) {
+function expectedResult(testName) {
     return [
         'TAP version 13',
         testName,
-        { id: id, ok: true, name: 'yes 2' },
+        { id: 1, ok: true, name: 'yes 2' },
         'tests 1',
         'pass  1',
         'ok'

@@ -27,7 +27,13 @@ opts.require.forEach(function(module) {
 });
 
 if (opts.number !== false) {
-    var tape = require(resolveModule("tape", { basedir: cwd }));
+    var tape;
+    try {
+        tape = require(resolveModule("tape", { basedir: cwd }));
+    }
+    catch(err) {
+        tape = require("../"); // assume testing tape module itself
+    }
     tape.setNumbering(opts.number);
 }
 
