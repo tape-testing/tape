@@ -94,6 +94,7 @@ function createExitHarness (conf) {
 }
 
 exports.createHarness = createHarness;
+exports.setNumbering = setNumbering;
 exports.Test = Test;
 exports.test = exports; // tap compat
 exports.test.skip = Test.skip;
@@ -110,7 +111,7 @@ function createHarness (conf_) {
     var test = function (name, conf, cb) {
         var t = new Test(name, conf, cb);
         test._tests.push(t);
-        
+    
         (function inspectCode (st) {
             st.on('test', function sub (st_) {
                 inspectCode(st_);
@@ -119,8 +120,11 @@ function createHarness (conf_) {
                 if (!r.ok && typeof r !== 'string') test._exitCode = 1
             });
         })(t);
-        
+    
         results.push(t);
+        if (t.number === onlyTestNumber)
+            results.only(onlyTestNumber);
+            
         return t;
     };
     test._results = results;
@@ -138,9 +142,10 @@ function createHarness (conf_) {
     var only = false;
     test.only = function (name) {
         if (only) throw new Error('there can only be one only test');
-        var t = test.apply(null, arguments);
-        results.only(t.number);
         only = true;
+        var t = test.apply(null, arguments);
+        if (!onlyTestNumber)
+            results.only(t.number);
         return t;
     };
     test._exitCode = 0;
@@ -148,4 +153,12 @@ function createHarness (conf_) {
     test.close = function () { results.close() };
     
     return test;
+}
+
+var onlyTestNumber = false;
+
+function setNumbering (number) {
+    Test.showTestNumbers();
+    if (typeof number === "number")
+        onlyTestNumber = number;
 }

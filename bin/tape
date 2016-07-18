@@ -6,9 +6,10 @@ var parseOpts = require('minimist');
 var glob = require('glob');
 
 var opts = parseOpts(process.argv.slice(2), {
-        alias: { r: 'require' },
+        alias: { r: 'require', n: 'number' },
         string: 'require',
-        default: { r: [] }
+        boolean: 'n',
+        default: { r: [], n: false }
     });
 
 var cwd = process.cwd();
@@ -24,6 +25,11 @@ opts.require.forEach(function(module) {
       require(resolveModule(module, { basedir: cwd }));
     }
 });
+
+if (opts.number !== false) {
+    var tape = require(resolveModule("tape", { basedir: cwd }));
+    tape.setNumbering(opts.number);
+}
 
 opts._.forEach(function (arg) {
     glob(arg, function (err, files) {
