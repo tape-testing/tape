@@ -70,7 +70,17 @@ There are two ways to run a single test. One way is to modify the test that you 
 
 The `-n` argument runs the tests, prefixing a bracketed test number to the title of each test. For example, if a test named `invalid input` happens to run as the 42nd test of the suite, `-n` will have it display as test `[42] invalid input`. Test numbers may change as tests are added and removed.
 
-The `-nN` argument runs only the Nth test of the test suite, shown as test number N when run with `-n`. The `.only` constraint is ignored when using `-nN`.
+```sh
+$ tape -n tests/**/*.js
+```
+
+The `-nN` argument runs only the Nth test of the test suite, shown as test number N when run with `-n`. For example, this runs the 42nd test:
+
+```sh
+$ tape -n42 tests/**/*.js
+```
+
+The `.only` constraint is ignored when using `-nN`.
 
 ## Preloading modules
 
