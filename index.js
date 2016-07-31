@@ -82,7 +82,7 @@ function createExitHarness (conf) {
             var only = harness._results._only;
             for (var i = 0; i < harness._tests.length; i++) {
                 var t = harness._tests[i];
-                if (only && t.name !== only) continue;
+                if (only && t.number !== only) continue;
                 t._exit();
             }
         }
@@ -107,6 +107,7 @@ function createHarness (conf_) {
     if (conf_.autoclose !== false) {
         results.once('done', function () { results.close() });
     }
+    results.only(onlyTestNumber);
     
     var test = function (name, conf, cb) {
         var t = new Test(name, conf, cb);
@@ -122,8 +123,6 @@ function createHarness (conf_) {
         })(t);
     
         results.push(t);
-        if (t.number === onlyTestNumber)
-            results.only(onlyTestNumber);
             
         return t;
     };
@@ -144,8 +143,9 @@ function createHarness (conf_) {
         if (only) throw new Error('there can only be one only test');
         only = true;
         var t = test.apply(null, arguments);
-        if (!onlyTestNumber)
+        if (!onlyTestNumber) {
             results.only(t.number);
+        }
         return t;
     };
     test._exitCode = 0;
@@ -159,6 +159,7 @@ var onlyTestNumber = false;
 
 function setNumbering (number) {
     Test.showTestNumbers();
-    if (typeof number === "number")
+    if (typeof number === "number") {
         onlyTestNumber = number;
+    }
 }

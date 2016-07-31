@@ -157,6 +157,14 @@ tap.test('running -nX where X is not in 1st file', function (t) {
     });
 });
 
+tap.test('running -nX where X == 0', function (t) {
+    testInvalidNumber(t, 0);
+});
+
+tap.test('running -nX where X > number of tests', function (t) {
+    testInvalidNumber(t, 5);
+});
+
 function tape(args) {
   var proc = require('child_process')
   var bin = __dirname + '/../bin/tape'
@@ -173,4 +181,31 @@ function expectedResult(testName) {
         'pass  1',
         'ok'
     ];
+}
+
+function testInvalidNumber(t, n) {
+    t.plan(2);
+    
+    var tc = tap.createConsumer();
+    
+    var rows = [];
+    tc.on('data', function (r) { rows.push(r) });
+    tc.on('end', function () {
+        var rs = rows.map(function (r) {
+            if (r && typeof r === 'object') {
+                return { id : r.id, ok : r.ok, name : trim(r.name) };
+            }
+            else return r;
+        });
+        t.same(rs, [
+            'TAP version 13',
+            '*** test '+ n +' not found ***'
+        ]);
+    });
+    
+    var ps = tape('-n'+ n +' only-number/multi1-n5.js');
+    ps.stdout.pipe(tc);
+    ps.on('exit', function (code) {
+        t.equal(code, 1);
+    });
 }
