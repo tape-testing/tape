@@ -82,7 +82,7 @@ function createExitHarness (conf) {
             var only = harness._results._only;
             for (var i = 0; i < harness._tests.length; i++) {
                 var t = harness._tests[i];
-                if (only && t.name !== only) continue;
+                if (only && t !== only) continue;
                 t._exit();
             }
         }
@@ -136,11 +136,12 @@ function createHarness (conf_) {
     };
     
     var only = false;
-    test.only = function (name) {
+    test.only = function () {
         if (only) throw new Error('there can only be one only test');
-        results.only(name);
         only = true;
-        return test.apply(null, arguments);
+        t = test.apply(null, arguments);
+        results.only(t);
+        return t;
     };
     test._exitCode = 0;
     
