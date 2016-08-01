@@ -64,6 +64,24 @@ $ tape 'tests/**/*.js'
 $ tape "tests/**/*.js"
 ```
 
+## Running a single test
+
+There are two ways to run a single test. One way is to modify the test that you want to run by adding the `.only` constraint, so that you are calling `test.only("test name", ...)`, as explained [below](#only). The other way is to use the optional `-n` command line argument.
+
+The `-n` argument runs the tests, prefixing a bracketed test number to the title of each test. For example, if a test named `invalid input` happens to run as the 42nd test of the suite, `-n` will have it display as test `[42] invalid input`. Test numbers change as file order changes and as tests are added and removed.
+
+```sh
+$ tape -n tests/**/*.js
+```
+
+The `-nN` argument runs only the Nth test of the test suite, shown as test number N when run with `-n`. For example, this runs the 42nd test:
+
+```sh
+$ tape -n42 tests/**/*.js
+```
+
+The `.only` constraint is ignored when using `-nN`.
+
 ## Preloading modules
 
 Additionally, it is possible to make `tape` load one or more modules before running any tests, by using the `-r` or `--require` flag. Here's an example that loads [babel-register](http://babeljs.io/docs/usage/require/) before running any tests, to allow for JIT compilation:
@@ -284,7 +302,7 @@ By default the TAP output goes to `console.log()`. You can pipe the output to
 someplace else if you `htest.createStream().pipe()` to a destination stream on
 the first tick.
 
-## test.only(name, cb)
+## <a name="only"></a> test.only(name, cb)
 
 Like `test(name, cb)` except if you use `.only` this is the only test case
 that will run for the entire process, all other test cases using tape will
