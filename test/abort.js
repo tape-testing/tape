@@ -9,7 +9,6 @@ tap.test('test abort onStart', function (assert) {
     var verify = function (output) {
         assert.equal(output.toString('utf8'), [
             'TAP version 13',
-            
             '',
             '1..0',
             '# tests 0',

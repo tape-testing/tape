@@ -158,11 +158,11 @@ Generate a new test that will be skipped over.
 
 ## test.onStart(fn)
 
-The onStart hook is called before any tape tests have begun running. The callback `fn` is passed an array of test objects. onStart may rename tests via the `t.name` attribute, remove tests from the array, or otherwise validate the tests before allowing the tests to run. The callback may not employ the methods that are available to the test during its run.
+The onStart hook is called before any tape tests have begun running. The callback `fn` is passed an array of test objects. onStart may rename tests via the `t.name` attribute, remove tests from the array, or otherwise validate the tests before allowing the tests to run. The callback may not employ the methods that are available to the test during its run, except for `test.abort()`.
 
 ## test.onTest(fn)
 
-The onTest hook is called after a test completes. A test completes when `t.end()` is called or the test has reached the planned assertion count. The callback `fn` is passed a reference to the test object that just completed. The callback may examine the test object for `t.name`, `t.assertCount`, and `t.failCount`. `assertCount` is the number of assertions in the test, and `failCount` is the number of assertions that failed. `t.comment()` is also available. 
+The onTest hook is called after a test completes. A test completes when `t.end()` is called or the test has reached the planned assertion count. The callback `fn` is passed a reference to the test object that just completed. The callback may examine the test object for `t.name`, `t.assertCount`, and `t.failCount`. `assertCount` is the number of assertions in the test, and `failCount` is the number of assertions that failed. `t.comment()` and `test.abort()` are also available.
 
 ## test.onFinish(fn)
 
