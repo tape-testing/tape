@@ -93,7 +93,7 @@ function createExitHarness (conf) {
         if (!ended) {
             var only = harness._results._only;
             var awaitTests = harness._results.awaitTests;
-            for (var i = 0; i < harness._results._ran; i++) {
+            for (var i = 0; i < harness._results._runCount; i++) {
                 var t = awaitTests[i];
                 if (only && t !== only) continue;
                 t._exit();
