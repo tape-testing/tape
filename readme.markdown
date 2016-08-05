@@ -156,10 +156,22 @@ don't call `t.end()` explicitly, your test will hang.
 
 Generate a new test that will be skipped over.
 
+## test.onStart(fn)
+
+The onStart hook is called before any tape tests have begun running. The callback `fn` is passed an array of test objects. onStart may rename tests via the `t.name` attribute, remove tests from the array, or otherwise validate the tests before allowing the tests to run. The callback may not employ the methods that are available to the test during its run.
+
+## test.onTest(fn)
+
+The onTest hook is called after each test completes. A test completes when `t.end()` is called or the test has reached the planned assertion count. The callback `fn` is passed a reference to the test object that just completed. The callback may examine the test object for `t.name`, `t.assertCount`, and `t.failCount`. `assertCount` is the number of assertions in the test, and `failCount` is the number of assertions that failed. `t.comment()` is also available. 
+
 ## test.onFinish(fn)
 
 The onFinish hook will get invoked when ALL tape tests have finished
 right before tape is about to print the test summary.
+
+## test.abort(msg)
+
+The `abort` method halts testing. Calling it results the output of a summary of all tests that did run, followed by a TAP "Bail out!" notice line. The provided `msg` is tacked onto the notice line to indicate the reason for the abort. This method may be called at any time during testing, including within the onTest hook.
 
 ## t.plan(n)
 
