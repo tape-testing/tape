@@ -35,8 +35,8 @@ test('skip this', { skip: true }, function(t) {
 });
 
 test.skip('skip this too', function(t) {
-    ran++;
     t.fail('this should not even run');
+    ran++;
     t.end();
 });
 
