@@ -1,33 +1,31 @@
 var tape = require('../');
 var tap = require('tap');
-var trim = require('string.prototype.trim');
+var concat = require('concat-stream');
 
 tap.test('timeoutAfter test', function (tt) {
     tt.plan(1);
     
     var test = tape.createHarness();
-    var tc = tap.createConsumer();
-    
-    var rows = [];
-    tc.on('data', function (r) { rows.push(r) });
-    tc.on('end', function () {
-        var rs = rows.map(function (r) {
-            if (r && typeof r === 'object') {
-                return { id : r.id, ok : r.ok, name : trim(r.name) };
-            }
-            else return r;
-        });
+    var tc = function (rows) {
+
+        var rs = rows.toString('utf8').split('\n');
         tt.same(rs, [
             'TAP version 13',
-            'timeoutAfter',
-            { id: 1, ok: false, name: 'test timed out after 1ms' },
-            'tests 1',
-            'pass  0',
-            'fail  1'
+            '# timeoutAfter',
+            'not ok 1 test timed out after 1ms',
+            '  ---',
+            '    operator: fail',
+            '  ...',
+            '',
+            '1..1',
+            '# tests 1',
+            '# pass  0',
+            '# fail  1',
+            ''
         ]);
-    });
+    };
     
-    test.createStream().pipe(tc);
+    test.createStream().pipe(concat(tc));
     
     test('timeoutAfter', function (t) {
         t.plan(1);

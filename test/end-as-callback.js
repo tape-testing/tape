@@ -67,7 +67,7 @@ function fakeAsyncWriteFail(name, cb) {
  * @param String rows - the tap output lines
  * @returns String stacktrace - just the error stack part
  */
-function getStackTrace (rows) {
+function getStackTrace(rows) {
     var stacktrace = '  ---\n';
     var extract = false;
     rows.split('\n').forEach(function (row) {
