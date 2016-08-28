@@ -33,7 +33,7 @@ tape('throws (Function match)', function (t) {
 });
 
 tap.test('failures', function (tt) {
-    tt.plan(1);
+    // tt.plan(1);
 
     var test = tape.createHarness();
     test.createStream().pipe(concat(function (body) {
@@ -117,6 +117,7 @@ tap.test('failures', function (tt) {
            + '# pass  0\n'
            + '# fail  9\n'
         );
+      tt.end();
     }));
 
     test('non functions', function (t) {
@@ -135,4 +136,5 @@ tap.test('failures', function (tt) {
         t.plan(1);
         t.throws(function () {});
     });
+
 });
