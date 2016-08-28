@@ -1,7 +1,6 @@
 var falafel = require('falafel');
 var tape = require('../');
 var tap = require('tap');
-var trim = require('string.prototype.trim');
 var concat = require('concat-stream');
 
 tap.test('array test', function (tt) {
@@ -11,7 +10,9 @@ tap.test('array test', function (tt) {
     
     test.createStream().pipe(concat(function (rows) {
 
-        tt.same(rows.toString('utf8').split('\n'), [
+        var rs = rows.toString('utf8').split('\n');
+        
+        tt.same(rs, [
             'TAP version 13',
             '# array',
             'ok 1 should be equivalent',

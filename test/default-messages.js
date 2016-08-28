@@ -9,7 +9,9 @@ tap.test('default messages', function (t) {
 
     ps.stdout.pipe(concat(function (rows) {
 
-        t.same(rows.toString('utf8').split('\n'), [
+        var rs = rows.toString('utf8').split('\n');
+
+        t.same(rs, [
             'TAP version 13',
             '# default messages',
             'ok 1 should be truthy',

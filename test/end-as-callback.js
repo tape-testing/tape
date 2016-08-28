@@ -1,38 +1,33 @@
 var tap = require("tap");
 var tape = require("../");
-var trim = require('string.prototype.trim');
+var concat = require('concat-stream');
 
 tap.test("tape assert.end as callback", function (tt) {
     var test = tape.createHarness({ exit: false })
-    var tc = tap.createConsumer()
+    
+    test.createStream().pipe(concat(function (rows) {
 
-    var rows = []
-    tc.on("data", function (r) { rows.push(r) })
-    tc.on("end", function () {
-        var rs = rows.map(function (r) {
-            return r && typeof r === "object" ?
-                { id: r.id, ok: r.ok, name: trim(r.name) } :
-                r
-        })
-
+        var rs = rows.toString('utf8').split('\n');
+        // console.log(rs)
         tt.deepEqual(rs, [
-            "TAP version 13",
-            "do a task and write",
-            { id: 1, ok: true, name: "null" },
-            { id: 2, ok: true, name: "should be equal" },
-            "do a task and write fail",
-            { id: 3, ok: true, name: "null" },
-            { id: 4, ok: true, name: "should be equal" },
-            { id: 5, ok: false, name: "Error: fail" },
-            "tests 5",
-            "pass  4",
-            "fail  1"
+            'TAP version 13',
+            '# do a task and write',
+            'ok 1 null',
+            'ok 2 should be equal',
+            '# do a task and write fail',
+            'ok 3 null',
+            'ok 4 should be equal',
+            'not ok 5 Error: fail',
+            getStackTrace(rs), // see: https://git.io/v6hGG
+            '1..5',
+            '# tests 5',
+            '# pass  4',
+            '# fail  1',
+            ''
         ])
 
         tt.end()
-    })
-
-    test.createStream().pipe(tc)
+    }));
 
     test("do a task and write", function (assert) {
         fakeAsyncTask("foo", function (err, value) {
@@ -63,4 +58,26 @@ function fakeAsyncWrite(name, cb) {
 
 function fakeAsyncWriteFail(name, cb) {
     cb(new Error("fail"))
+}
+
+function getStackTrace (rows) {
+    var stacktrace = '  ---"\n';
+    var error = false;
+    rows.forEach(function (row) {
+        if (!error) {
+            if (row.indexOf('---') > -1) {
+                error = true; // the next line is first line of stack trace
+            }
+        } else {
+            if (row.indexOf('...') > -1) { // the end of the stack trace
+                error = false;
+                stacktrace += '  "  ..."\n  "';
+            } else {
+                stacktrace += '  "' + row + '"\n';
+            }
+
+        }
+    });
+    // stacktrace += ' "\n';
+    return stacktrace;
 }
