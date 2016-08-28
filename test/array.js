@@ -2,37 +2,39 @@ var falafel = require('falafel');
 var tape = require('../');
 var tap = require('tap');
 var trim = require('string.prototype.trim');
+var concat = require('concat-stream');
 
-tap.test('array test', function (tt) {
-    tt.plan(1);
+tap.test('array test', function (assert) {
+    assert.plan(1);
     
     var test = tape.createHarness();
-    var tc = tap.createConsumer();
     
-    var rows = [];
-    tc.on('data', function (r) { rows.push(r) });
-    tc.on('end', function () {
-        var rs = rows.map(function (r) {
+    test.createStream().pipe(concat(function (body) {
+
+        var rs = body.toString('utf8').split('\n').map(function (r) {
             if (r && typeof r === 'object') {
                 return { id : r.id, ok : r.ok, name : trim(r.name) };
             }
             else return r;
         });
-        tt.same(rs, [
+
+        assert.same(rs, [
             'TAP version 13',
-            'array',
-            { id: 1, ok: true, name: 'should be equivalent' },
-            { id: 2, ok: true, name: 'should be equivalent' },
-            { id: 3, ok: true, name: 'should be equivalent' },
-            { id: 4, ok: true, name: 'should be equivalent' },
-            { id: 5, ok: true, name: 'should be equivalent' },
-            'tests 5',
-            'pass  5',
-            'ok'
+            '# array',
+            'ok 1 should be equivalent',
+            'ok 2 should be equivalent',
+            'ok 3 should be equivalent',
+            'ok 4 should be equivalent',
+            'ok 5 should be equivalent',
+            '',
+            '1..5',
+            '# tests 5',
+            '# pass  5',
+            '',
+            '# ok',
+            ''
         ]);
-    });
-    
-    test.createStream().pipe(tc);
+    }));
     
     test('array', function (t) {
         t.plan(5);
