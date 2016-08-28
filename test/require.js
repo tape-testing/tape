@@ -35,7 +35,7 @@ tap.test('requiring multiple modules', function (t) {
     t.plan(2);
     
     var tc = function (rows) {
-        t.same(rows.toString('utf8'), [
+        t.same(rows.toString('utf8').split('\n'), [
             'TAP version 13',
             '# module-a',
             'ok 1 loaded module a',
@@ -55,7 +55,7 @@ tap.test('requiring multiple modules', function (t) {
             '# ok',
             '',
             ''
-        ].join('\n'));
+        ]);
     };
     
     var ps = tape('-r ./require/a -r ./require/b require/test-a.js require/test-b.js');
