@@ -4,21 +4,14 @@ var tap = require('tap');
 var trim = require('string.prototype.trim');
 var concat = require('concat-stream');
 
-tap.test('array test', function (assert) {
-    assert.plan(1);
+tap.test('array test', function (tt) {
+    tt.plan(1);
     
     var test = tape.createHarness();
     
-    test.createStream().pipe(concat(function (body) {
+    test.createStream().pipe(concat(function (rows) {
 
-        var rs = body.toString('utf8').split('\n').map(function (r) {
-            if (r && typeof r === 'object') {
-                return { id : r.id, ok : r.ok, name : trim(r.name) };
-            }
-            else return r;
-        });
-
-        assert.same(rs, [
+        tt.same(rows.toString('utf8').split('\n'), [
             'TAP version 13',
             '# array',
             'ok 1 should be equivalent',
