@@ -14,26 +14,8 @@ function getNonFunctionMessage(fn) {
     }
 }
 
-tape('throws', function (t) {
-    t.throws(fn);
-    t.end();
-});
-
-tape('throws (RegExp match)', function (t) {
-    t.throws(fn, /RegExp/, 'regex with no anchors');
-    t.throws(fn, /^TypeError: Reg/, 'regex with starting anchor');
-    t.throws(fn, /RegExp$/, 'regex with ending anchor');
-    t.throws(fn, /^TypeError: RegExp$/, 'regex with both anchors');
-    t.end();
-});
-
-tape('throws (Function match)', function (t) {
-    t.throws(fn, TypeError);
-    t.end();
-});
-
 tap.test('failures', function (tt) {
-    // tt.plan(1);
+    tt.plan(1);
 
     var test = tape.createHarness();
     test.createStream().pipe(concat(function (body) {
@@ -117,7 +99,6 @@ tap.test('failures', function (tt) {
            + '# pass  0\n'
            + '# fail  9\n'
         );
-      tt.end();
     }));
 
     test('non functions', function (t) {
@@ -136,5 +117,4 @@ tap.test('failures', function (tt) {
         t.plan(1);
         t.throws(function () {});
     });
-
 });
