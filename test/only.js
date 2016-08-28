@@ -1,38 +1,32 @@
 var tap = require('tap');
 var tape = require('../');
-var trim = require('string.prototype.trim');
+var concat = require('concat-stream');
 
 tap.test('tape only test', function (tt) {
     var test = tape.createHarness({ exit: false });
-    var tc = tap.createConsumer();
     var ran = [];
 
-    var rows = []
-    tc.on('data', function (r) { rows.push(r) })
-    tc.on('end', function () {
-        var rs = rows.map(function (r) {
-            if (r && typeof r === 'object') {
-                return { id: r.id, ok: r.ok, name: trim(r.name) };
-            }
-            else {
-                return r;
-            }
-        })
+    var tc = function (rows) {
 
+        var rs = rows.toString('utf8').split('\n');
         tt.deepEqual(rs, [
             'TAP version 13',
-            'run success',
-            { id: 1, ok: true, name: 'assert name'},
-            'tests 1',
-            'pass  1',
-            'ok'
+            '# run success',
+            'ok 1 assert name',
+            '',
+            '1..1',
+            '# tests 1',
+            '# pass  1',
+            '',
+            '# ok',
+            ''
         ])
         tt.deepEqual(ran, [ 3 ]);
 
         tt.end()
-    })
+    };
 
-    test.createStream().pipe(tc)
+    test.createStream().pipe(concat(tc));
 
     test("never run fail", function (t) {
         ran.push(1);
