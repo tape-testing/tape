@@ -7,9 +7,7 @@ tap.test('timeoutAfter test', function (tt) {
     
     var test = tape.createHarness();
     var tc = function (rows) {
-
-        var rs = rows.toString('utf8').split('\n');
-        tt.same(rs, [
+        tt.same(rows.toString('utf8'), [
             'TAP version 13',
             '# timeoutAfter',
             'not ok 1 test timed out after 1ms',
@@ -22,7 +20,7 @@ tap.test('timeoutAfter test', function (tt) {
             '# pass  0',
             '# fail  1',
             ''
-        ]);
+        ].join('\n'));
     };
     
     test.createStream().pipe(concat(tc));

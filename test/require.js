@@ -6,9 +6,7 @@ tap.test('requiring a single module', function (t) {
     t.plan(2);
     
     var tc = function (rows) {
-
-        var rs = rows.toString('utf8').split('\n');
-        t.same(rs, [
+        t.same(rows.toString('utf8'), [
             'TAP version 13',
             '# module-a',
             'ok 1 loaded module a',
@@ -23,7 +21,7 @@ tap.test('requiring a single module', function (t) {
             '# ok',
             '',
             ''
-        ]);
+        ].join('\n'));
     };
     
     var ps = tape('-r ./require/a require/test-a.js');
@@ -37,9 +35,7 @@ tap.test('requiring multiple modules', function (t) {
     t.plan(2);
     
     var tc = function (rows) {
-
-        var rs = rows.toString('utf8').split('\n');
-        t.same(rs, [
+        t.same(rows.toString('utf8'), [
             'TAP version 13',
             '# module-a',
             'ok 1 loaded module a',
@@ -59,7 +55,7 @@ tap.test('requiring multiple modules', function (t) {
             '# ok',
             '',
             ''
-        ]);
+        ].join('\n'));
     };
     
     var ps = tape('-r ./require/a -r ./require/b require/test-a.js require/test-b.js');

@@ -7,9 +7,7 @@ tap.test('tape only test', function (tt) {
     var ran = [];
 
     var tc = function (rows) {
-
-        var rs = rows.toString('utf8').split('\n');
-        tt.deepEqual(rs, [
+        tt.deepEqual(rows.toString('utf8'), [
             'TAP version 13',
             '# run success',
             'ok 1 assert name',
@@ -20,7 +18,7 @@ tap.test('tape only test', function (tt) {
             '',
             '# ok',
             ''
-        ])
+        ].join('\n'));
         tt.deepEqual(ran, [ 3 ]);
 
         tt.end()

@@ -8,9 +8,7 @@ tap.test('array test', function (tt) {
     
     var test = tape.createHarness({ exit : false });
     var tc = function (rows) {
-
-        var rs = rows.toString('utf8').split('\n');
-        tt.same(rs, [
+        tt.same(rows.toString('utf8'), [
             'TAP version 13',
             '# array',
             'ok 1 should be equivalent',
@@ -29,7 +27,7 @@ tap.test('array test', function (tt) {
             '# pass  4',
             '# fail  1',
             ''
-        ]);
+        ].join('\n'));
     };
     
     test.createStream().pipe(concat(tc));

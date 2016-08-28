@@ -6,25 +6,23 @@ tap.test("tape assert.end as callback", function (tt) {
     var test = tape.createHarness({ exit: false })
     
     test.createStream().pipe(concat(function (rows) {
-
-        var rs = rows.toString('utf8');
-
-        tt.equal(rs,
-           'TAP version 13\n'
-           + '# do a task and write\n'
-           + 'ok 1 null\n'
-           + 'ok 2 should be equal\n'
-           + '# do a task and write fail\n'
-           + 'ok 3 null\n'
-           + 'ok 4 should be equal\n'
-           + 'not ok 5 Error: fail\n'
-           + getStackTrace(rs) // tap error stack
-           + '\n'
-           + '1..5\n'
-           + '# tests 5\n'
-           + '# pass  4\n'
-           + '# fail  1\n'
-        )
+        tt.equal(rows.toString('utf8'), [
+        'TAP version 13',
+        '# do a task and write',
+        'ok 1 null',
+        'ok 2 should be equal',
+        '# do a task and write fail',
+        'ok 3 null',
+        'ok 4 should be equal',
+        'not ok 5 Error: fail',
+        getStackTrace(rows), // tap error stack
+        '',
+        '1..5',
+        '# tests 5',
+        '# pass  4',
+        '# fail  1',
+        ''
+        ].join('\n'));
         tt.end()
     }));
 
@@ -70,18 +68,21 @@ function fakeAsyncWriteFail(name, cb) {
 function getStackTrace(rows) {
     var stacktrace = '  ---\n';
     var extract = false;
-    rows.split('\n').forEach(function (row) {
+    rows.toString('utf8').split('\n').forEach(function (row) {
         if (!extract) {
             if (row.indexOf('---') > -1) { // start of stack trace
                 extract = true;
             }
         } else {
-            stacktrace += row + '\n';
             if (row.indexOf('...') > -1) { // end of stack trace
                 extract = false;
+                stacktrace += '  ...';
+            } else {
+                stacktrace += row + '\n';
             }
 
         }
     });
+    // console.log(stacktrace);
     return stacktrace;
 }

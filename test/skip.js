@@ -1,7 +1,8 @@
-var tap = require('tap');
 var test = require('../');
-var concat = require('concat-stream');
 var ran = 0;
+
+var concat = require('concat-stream');
+var tap = require('tap');
 
 tap.test('test SKIP comment', function (assert) {
     assert.plan(1);
@@ -22,7 +23,6 @@ tap.test('test SKIP comment', function (assert) {
 
     var tapeTest = test.createHarness();
     tapeTest.createStream().pipe(concat(verify));
-
     tapeTest('skipped', { skip: true }, function (t) {
         t.end();
     });

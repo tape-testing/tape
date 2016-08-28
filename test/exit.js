@@ -6,9 +6,7 @@ tap.test('exit ok', function (t) {
     t.plan(2);
     
     var tc = function (rows) {
-
-        var rs = rows.toString('utf8').split('\n');
-        t.same(rs, [
+        t.same(rows.toString('utf8'), [
             'TAP version 13',
             '# array',
             '# hi',
@@ -25,7 +23,7 @@ tap.test('exit ok', function (t) {
             '# ok',
             '',
             ''
-        ]);
+        ].join('\n'));
     }
     
     var ps = spawn(process.execPath, [ __dirname + '/exit/ok.js' ]);
@@ -39,9 +37,7 @@ tap.test('exit fail', function (t) {
     t.plan(2);
     
     var tc = function (rows) {
-
-        var rs = rows.toString('utf8').split('\n'); 
-        t.same(rs, [
+        t.same(rows.toString('utf8'), [
             'TAP version 13',
             '# array',
             'ok 1 should be equivalent',
@@ -61,7 +57,7 @@ tap.test('exit fail', function (t) {
             '# fail  1',
             '',
             ''
-        ]);
+        ].join('\n'));
     };
     
     var ps = spawn(process.execPath, [ __dirname + '/exit/fail.js' ]);
@@ -74,10 +70,8 @@ tap.test('exit fail', function (t) {
 tap.test('too few exit', function (t) {
     t.plan(2);
     
-    var tc = function (rows) {
-
-        var rs = rows.toString('utf8').split('\n'); 
-        t.same(rs, [
+    var tc = function (rows) { 
+        t.same(rows.toString('utf8'), [
             'TAP version 13',
             '# array',
             'ok 1 should be equivalent',
@@ -98,7 +92,7 @@ tap.test('too few exit', function (t) {
             '# fail  1',
             '',
             ''
-        ]);
+        ].join('\n'));
     };
     
     var ps = spawn(process.execPath, [ __dirname + '/exit/too_few.js' ]);
@@ -112,9 +106,7 @@ tap.test('more planned in a second test', function (t) {
     t.plan(2);
     
     var tc = function (rows) {
-
-        var rs = rows.toString('utf8').split('\n'); 
-        t.same(rs, [
+        t.same(rows.toString('utf8'), [
             'TAP version 13',
             '# first',
             'ok 1 should be truthy',
@@ -133,7 +125,7 @@ tap.test('more planned in a second test', function (t) {
             '# fail  1',
             '',
             '',
-        ]);
+        ].join('\n'));
     };
     
     var ps = spawn(process.execPath, [ __dirname + '/exit/second.js' ]);

@@ -9,9 +9,7 @@ tap.test('default messages', function (t) {
 
     ps.stdout.pipe(concat(function (rows) {
 
-        var rs = rows.toString('utf8').split('\n');
-
-        t.same(rs, [
+        t.same(rows.toString('utf8'), [
             'TAP version 13',
             '# default messages',
             'ok 1 should be truthy',
@@ -29,6 +27,6 @@ tap.test('default messages', function (t) {
             '# ok',
             '',
             ''
-        ]);
+        ].join('\n'));
     }));
 });
