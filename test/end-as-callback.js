@@ -7,25 +7,24 @@ tap.test("tape assert.end as callback", function (tt) {
     
     test.createStream().pipe(concat(function (rows) {
 
-        var rs = rows.toString('utf8').split('\n');
-        // console.log(rs)
-        tt.deepEqual(rs, [
-            'TAP version 13',
-            '# do a task and write',
-            'ok 1 null',
-            'ok 2 should be equal',
-            '# do a task and write fail',
-            'ok 3 null',
-            'ok 4 should be equal',
-            'not ok 5 Error: fail',
-            getStackTrace(rs), // see: https://git.io/v6hGG
-            '1..5',
-            '# tests 5',
-            '# pass  4',
-            '# fail  1',
-            ''
-        ])
+        var rs = rows.toString('utf8');
 
+        tt.equal(rs,
+           'TAP version 13\n'
+           + '# do a task and write\n'
+           + 'ok 1 null\n'
+           + 'ok 2 should be equal\n'
+           + '# do a task and write fail\n'
+           + 'ok 3 null\n'
+           + 'ok 4 should be equal\n'
+           + 'not ok 5 Error: fail\n'
+           + getStackTrace(rs) // tap error stack
+           + '\n'
+           + '1..5\n'
+           + '# tests 5\n'
+           + '# pass  4\n'
+           + '# fail  1\n'
+        )
         tt.end()
     }));
 
@@ -60,24 +59,29 @@ function fakeAsyncWriteFail(name, cb) {
     cb(new Error("fail"))
 }
 
+/**
+ * extract the stack trace for the failed test.
+ * this will change dependent on the environment
+ * so no point hard-coding it in the test assertion
+ * see: https://git.io/v6hGG for example
+ * @param String rows - the tap output lines
+ * @returns String stacktrace - just the error stack part
+ */
 function getStackTrace (rows) {
-    var stacktrace = '  ---"\n';
-    var error = false;
-    rows.forEach(function (row) {
-        if (!error) {
-            if (row.indexOf('---') > -1) {
-                error = true; // the next line is first line of stack trace
+    var stacktrace = '  ---\n';
+    var extract = false;
+    rows.split('\n').forEach(function (row) {
+        if (!extract) {
+            if (row.indexOf('---') > -1) { // start of stack trace
+                extract = true;
             }
         } else {
-            if (row.indexOf('...') > -1) { // the end of the stack trace
-                error = false;
-                stacktrace += '  "  ..."\n  "';
-            } else {
-                stacktrace += '  "' + row + '"\n';
+            stacktrace += row + '\n';
+            if (row.indexOf('...') > -1) { // end of stack trace
+                extract = false;
             }
 
         }
     });
-    // stacktrace += ' "\n';
     return stacktrace;
 }
