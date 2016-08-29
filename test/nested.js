@@ -26,9 +26,8 @@ tap.test('array test', function (tt) {
             '# tests 8',
             '# pass  8',
             '',
-            '# ok',
-            ''
-        ].join('\n'));
+            '# ok'
+        ].join('\n') + '\n');
     };
     
     test.createStream().pipe(concat(tc));

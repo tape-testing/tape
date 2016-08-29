@@ -20,9 +20,8 @@ tap.test("tape assert.end as callback", function (tt) {
         '1..5',
         '# tests 5',
         '# pass  4',
-        '# fail  1',
-        ''
-        ].join('\n'));
+        '# fail  1'
+        ].join('\n') + '\n');
         tt.end()
     }));
 

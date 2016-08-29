@@ -55,10 +55,8 @@ tap.test('exit fail', function (t) {
             '1..5',
             '# tests 5',
             '# pass  4',
-            '# fail  1',
-            '',
-            ''
-        ].join('\n'));
+            '# fail  1'
+        ].join('\n') + '\n\n');
     };
 
     var ps = spawn(process.execPath,
@@ -91,10 +89,8 @@ tap.test('too few exit', function (t) {
             '1..6',
             '# tests 6',
             '# pass  5',
-            '# fail  1',
-            '',
-            ''
-        ].join('\n'));
+            '# fail  1'
+        ].join('\n') + '\n\n');
     };
 
     var ps = spawn(process.execPath, [ __dirname + '/exit/too_few.js' ]);
@@ -124,10 +120,8 @@ tap.test('more planned in a second test', function (t) {
             '1..3',
             '# tests 3',
             '# pass  2',
-            '# fail  1',
-            '',
-            '',
-        ].join('\n'));
+            '# fail  1'
+        ].join('\n') + '\n\n');
     };
 
     var ps = spawn(process.execPath, [ __dirname + '/exit/second.js' ]);

@@ -16,9 +16,8 @@ tap.test('tape only test', function (tt) {
             '# tests 1',
             '# pass  1',
             '',
-            '# ok',
-            ''
-        ].join('\n'));
+            '# ok'
+        ].join('\n') + '\n');
         tt.deepEqual(ran, [ 3 ]);
 
         tt.end()

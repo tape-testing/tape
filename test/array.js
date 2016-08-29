@@ -22,9 +22,8 @@ tap.test('array test', function (tt) {
             '# tests 5',
             '# pass  5',
             '',
-            '# ok',
-            ''
-        ].join('\n'));
+            '# ok'
+        ].join('\n') + '\n');
     }));
     
     test('array', function (t) {

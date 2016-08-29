@@ -19,9 +19,8 @@ tap.test('nested sync test without plan or end', function (tt) {
             '# tests 2',
             '# pass  2',
             '',
-            '# ok',
-            ''
-        ].join('\n'));
+            '# ok'
+        ].join('\n') + '\n');
     };
 
     test.createStream().pipe(concat(tc));

@@ -25,9 +25,7 @@ tap.test('default messages', function (t) {
             '# tests 7',
             '# pass  7',
             '',
-            '# ok',
-            '',
-            ''
-        ].join('\n'));
+            '# ok'
+        ].join('\n') + '\n\n');
     }));
 });
