@@ -4,7 +4,7 @@ var concat = require('concat-stream');
 
 tap.test('exit ok', function (t) {
     t.plan(2);
-    
+
     var tc = function (rows) {
         t.same(rows.toString('utf8'), [
             'TAP version 13',
@@ -21,12 +21,13 @@ tap.test('exit ok', function (t) {
             '# pass  5',
             '',
             '# ok',
-            '',
-            ''
+            '', // yes, these double-blank-lines at the end are required.
+            ''  // if you can figure out how to remove them, please do!
         ].join('\n'));
     }
-    
-    var ps = spawn(process.execPath, [ __dirname + '/exit/ok.js' ]);
+
+    var ps = spawn(process.execPath,
+        [ require('path').join(__dirname, 'exit', 'ok.js') ]);
     ps.stdout.pipe(concat(tc));
     ps.on('exit', function (code) {
         t.equal(code, 0);
@@ -35,7 +36,7 @@ tap.test('exit ok', function (t) {
 
 tap.test('exit fail', function (t) {
     t.plan(2);
-    
+
     var tc = function (rows) {
         t.same(rows.toString('utf8'), [
             'TAP version 13',
@@ -59,8 +60,9 @@ tap.test('exit fail', function (t) {
             ''
         ].join('\n'));
     };
-    
-    var ps = spawn(process.execPath, [ __dirname + '/exit/fail.js' ]);
+
+    var ps = spawn(process.execPath,
+        [ require('path').join(__dirname, 'exit', 'fail.js') ]);
     ps.stdout.pipe(concat(tc));
     ps.on('exit', function (code) {
         t.notEqual(code, 0);
@@ -69,8 +71,8 @@ tap.test('exit fail', function (t) {
 
 tap.test('too few exit', function (t) {
     t.plan(2);
-    
-    var tc = function (rows) { 
+
+    var tc = function (rows) {
         t.same(rows.toString('utf8'), [
             'TAP version 13',
             '# array',
@@ -94,7 +96,7 @@ tap.test('too few exit', function (t) {
             ''
         ].join('\n'));
     };
-    
+
     var ps = spawn(process.execPath, [ __dirname + '/exit/too_few.js' ]);
     ps.stdout.pipe(concat(tc));
     ps.on('exit', function (code) {
@@ -104,7 +106,7 @@ tap.test('too few exit', function (t) {
 
 tap.test('more planned in a second test', function (t) {
     t.plan(2);
-    
+
     var tc = function (rows) {
         t.same(rows.toString('utf8'), [
             'TAP version 13',
@@ -127,7 +129,7 @@ tap.test('more planned in a second test', function (t) {
             '',
         ].join('\n'));
     };
-    
+
     var ps = spawn(process.execPath, [ __dirname + '/exit/second.js' ]);
     ps.stdout.pipe(concat(tc));
     ps.on('exit', function (code) {
