@@ -88,7 +88,7 @@ Please note that all modules loaded using the `-r` flag will run *before* any te
 
 tape maintains a fairly minimal core. Additional features are usually added by using another module alongside tape.
 
-## reporters for humans
+## pretty reporters
 
 The default TAP output is good for machines and humans that are robots.
 
@@ -98,30 +98,26 @@ that will output something pretty if you pipe TAP into them:
  - https://github.com/scottcorgan/tap-spec
  - https://github.com/scottcorgan/tap-dot
  - https://github.com/substack/faucet
+ - https://github.com/juliangruber/tap-bail
  - https://github.com/kirbysayshi/tap-browser-color
+ - https://github.com/gummesson/tap-json
  - https://github.com/gummesson/tap-min
  - https://github.com/calvinmetcalf/tap-nyan
- - https://github.com/clux/tap-pessimist
+ - https://www.npmjs.org/package/tap-pessimist
  - https://github.com/toolness/tap-prettify
  - https://github.com/shuhei/colortape
+ - https://github.com/aghassemi/tap-xunit
  - https://github.com/namuol/tap-difflet
+ - https://github.com/gritzko/tape-dom
  - https://github.com/axross/tap-diff
  - https://github.com/axross/tap-notify
  - https://github.com/zoubin/tap-summary
- 
-You use these reporters by piping the tape output into them. For example,
-try `node test/index.js | tap-spec`.
-
-## reporters for other file formats
-
- - https://github.com/gummesson/tap-json
- - https://github.com/aghassemi/tap-xunit
- - https://github.com/gritzko/tape-dom
  - https://github.com/Hypercubed/tap-markdown
 
-## failing assertions
+To use them, try `node test/index.js | tap-spec` or pipe it into one
+of the modules of your choice!
 
-If any assertions fail, tape will continue. To terminate on the first failure, see [tap-bail](https://github.com/juliangruber/tap-bail).
+## uncaught exceptions
 
 By default, uncaught exceptions in your tests will not be intercepted, and will cause tape to crash. If you find this behavior undesirable, use [tape-catch](https://github.com/michaelrhodes/tape-catch) to report any exceptions as TAP errors.
 
@@ -130,7 +126,6 @@ By default, uncaught exceptions in your tests will not be intercepted, and will 
 - CoffeeScript support with https://www.npmjs.com/package/coffeetape
 - Promise support with https://www.npmjs.com/package/blue-tape
 - ES6 support with https://www.npmjs.com/package/babel-tape-runner
-- Inclue time information with https://github.com/diasdavid/timed-tape
 
 # methods
 

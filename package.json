@@ -26,8 +26,8 @@
     "concat-stream": "~1.5.1",
     "falafel": "~1.2.0",
     "js-yaml": "~3.6.1",
-    "tap": "~0.7.1",
-    "tap-parser": "~1.2.2"
+    "tap": "~7.0.0",
+    "tap-parser": "~2.0.0"
   },
   "scripts": {
     "test": "tap test/*.js"
