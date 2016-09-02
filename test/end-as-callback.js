@@ -4,7 +4,7 @@ var concat = require('concat-stream');
 
 tap.test("tape assert.end as callback", function (tt) {
     var test = tape.createHarness({ exit: false })
-
+    
     test.createStream().pipe(concat(function (rows) {
         tt.equal(rows.toString('utf8'), [
         'TAP version 13',
