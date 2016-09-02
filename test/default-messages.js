@@ -1,13 +1,13 @@
 var tap = require('tap');
+var path = require('path');
 var spawn = require('child_process').spawn;
 var concat = require('concat-stream');
 
 tap.test('default messages', function (t) {
     t.plan(1);
 
-    var ps = spawn(process.execPath,
-        [ require('path').join(__dirname, 'messages', 'defaults.js') ]);
-
+    var ps = spawn(process.execPath, [path.join(__dirname, 'messages', 'defaults.js')]);
+    
     ps.stdout.pipe(concat(function (rows) {
 
         t.same(rows.toString('utf8'), [
