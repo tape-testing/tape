@@ -28,13 +28,6 @@ tap.test('test SKIP comment', function (assert) {
     });
 });
 
-
-test('do not skip this', { skip: false }, function(t) {
-    t.pass('this should run');
-    ran ++;
-    t.end();
-});
-
 test('skip this', { skip: true }, function(t) {
     t.fail('this should not even run');
 	ran++;
@@ -43,26 +36,16 @@ test('skip this', { skip: true }, function(t) {
 
 test.skip('skip this too', function(t) {
     t.fail('this should not even run');
-	ran++;
+    ran++;
     t.end();
 });
 
 test('skip subtest', function(t) {
-    ran ++;
-    t.test('do not skip this', { skip: false }, function(t) {
-        ran ++;
-        t.pass('this should run');
-        t.end();
-    });
+    ran++;
     t.test('skip this', { skip: true }, function(t) {
         t.fail('this should not even run');
         t.end();
     });
-    t.end();
-});
-
-test('right number of tests ran', function(t) {
-    t.equal(ran, 3, 'ran the right number of tests');
     t.end();
 });
 

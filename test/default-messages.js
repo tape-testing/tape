@@ -1,37 +1,31 @@
 var tap = require('tap');
+var path = require('path');
 var spawn = require('child_process').spawn;
-var trim = require('string.prototype.trim');
+var concat = require('concat-stream');
 
 tap.test('default messages', function (t) {
     t.plan(1);
 
-    var tc = tap.createConsumer();
+    var ps = spawn(process.execPath, [path.join(__dirname, 'messages', 'defaults.js')]);
+    
+    ps.stdout.pipe(concat(function (rows) {
 
-    var rows = [];
-    tc.on('data', function (r) { rows.push(r) });
-    tc.on('end', function () {
-        var rs = rows.map(function (r) {
-            if (r && typeof r === 'object') {
-                return { id : r.id, ok : r.ok, name : trim(r.name) };
-            }
-            else return r;
-        });
-        t.same(rs, [
+        t.same(rows.toString('utf8'), [
             'TAP version 13',
-            'default messages',
-            { id: 1, ok: true, name: 'should be truthy' },
-            { id: 2, ok: true, name: 'should be falsy' },
-            { id: 3, ok: true, name: 'should be equal' },
-            { id: 4, ok: true, name: 'should not be equal' },
-            { id: 5, ok: true, name: 'should be equivalent' },
-            { id: 6, ok: true, name: 'should be equivalent' },
-            { id: 7, ok: true, name: 'should be equivalent' },
-            'tests 7',
-            'pass  7',
-            'ok'
-        ]);
-    });
-
-    var ps = spawn(process.execPath, [ __dirname + '/messages/defaults.js' ]);
-    ps.stdout.pipe(tc);
+            '# default messages',
+            'ok 1 should be truthy',
+            'ok 2 should be falsy',
+            'ok 3 should be equal',
+            'ok 4 should not be equal',
+            'ok 5 should be equivalent',
+            'ok 6 should be equivalent',
+            'ok 7 should be equivalent',
+            '',
+            '1..7',
+            '# tests 7',
+            '# pass  7',
+            '',
+            '# ok'
+        ].join('\n') + '\n\n');
+    }));
 });

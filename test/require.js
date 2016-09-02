@@ -1,36 +1,29 @@
 var tap = require('tap');
 var spawn = require('child_process').spawn;
-var trim = require('string.prototype.trim');
+var concat = require('concat-stream');
 
 tap.test('requiring a single module', function (t) {
     t.plan(2);
     
-    var tc = tap.createConsumer();
-    
-    var rows = [];
-    tc.on('data', function (r) { rows.push(r) });
-    tc.on('end', function () {
-        var rs = rows.map(function (r) {
-            if (r && typeof r === 'object') {
-                return { id : r.id, ok : r.ok, name : trim(r.name) };
-            }
-            else return r;
-        });
-        t.same(rs, [
+    var tc = function (rows) {
+        t.same(rows.toString('utf8'), [
             'TAP version 13',
-            'module-a',
-            { id: 1, ok: true, name: 'loaded module a' },
-            'test-a',
-            { id: 2, ok: true, name: 'module-a loaded in same context'},
-            { id: 3, ok: true, name: 'test ran after module-a was loaded'},
-            'tests 3',
-            'pass  3',
-            'ok'
-        ]);
-    });
+            '# module-a',
+            'ok 1 loaded module a',
+            '# test-a',
+            'ok 2 module-a loaded in same context',
+            'ok 3 test ran after module-a was loaded',
+            '',
+            '1..3',
+            '# tests 3',
+            '# pass  3',
+            '',
+            '# ok'
+        ].join('\n') + '\n\n');
+    };
     
     var ps = tape('-r ./require/a require/test-a.js');
-    ps.stdout.pipe(tc);
+    ps.stdout.pipe(concat(tc));
     ps.on('exit', function (code) {
         t.equal(code, 0);
     });
@@ -39,37 +32,30 @@ tap.test('requiring a single module', function (t) {
 tap.test('requiring multiple modules', function (t) {
     t.plan(2);
     
-    var tc = tap.createConsumer();
-    
-    var rows = [];
-    tc.on('data', function (r) { rows.push(r) });
-    tc.on('end', function () {
-        var rs = rows.map(function (r) {
-            if (r && typeof r === 'object') {
-                return { id : r.id, ok : r.ok, name : trim(r.name) };
-            }
-            else return r;
-        });
-        t.same(rs, [
+    var tc = function (rows) {
+        t.same(rows.toString('utf8'), [
             'TAP version 13',
-            'module-a',
-            { id: 1, ok: true, name: 'loaded module a' },
-            'module-b',
-            { id: 2, ok: true, name: 'loaded module b' },
-            'test-a',
-            { id: 3, ok: true, name: 'module-a loaded in same context'},
-            { id: 4, ok: true, name: 'test ran after module-a was loaded'},
-            'test-b',
-            { id: 5, ok: true, name: 'module-b loaded in same context'},
-            { id: 6, ok: true, name: 'test ran after module-b was loaded'},
-            'tests 6',
-            'pass  6',
-            'ok'
-        ]);
-    });
+            '# module-a',
+            'ok 1 loaded module a',
+            '# module-b',
+            'ok 2 loaded module b',
+            '# test-a',
+            'ok 3 module-a loaded in same context',
+            'ok 4 test ran after module-a was loaded',
+            '# test-b',
+            'ok 5 module-b loaded in same context',
+            'ok 6 test ran after module-b was loaded',
+            '',
+            '1..6',
+            '# tests 6',
+            '# pass  6',
+            '',
+            '# ok'
+        ].join('\n') + '\n\n');
+    };
     
     var ps = tape('-r ./require/a -r ./require/b require/test-a.js require/test-b.js');
-    ps.stdout.pipe(tc);
+    ps.stdout.pipe(concat(tc));
     ps.on('exit', function (code) {
         t.equal(code, 0);
     });

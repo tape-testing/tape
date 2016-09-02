@@ -14,24 +14,6 @@ function getNonFunctionMessage(fn) {
     }
 }
 
-tape('throws', function (t) {
-    t.throws(fn);
-    t.end();
-});
-
-tape('throws (RegExp match)', function (t) {
-    t.throws(fn, /RegExp/, 'regex with no anchors');
-    t.throws(fn, /^TypeError: Reg/, 'regex with starting anchor');
-    t.throws(fn, /RegExp$/, 'regex with ending anchor');
-    t.throws(fn, /^TypeError: RegExp$/, 'regex with both anchors');
-    t.end();
-});
-
-tape('throws (Function match)', function (t) {
-    t.throws(fn, TypeError);
-    t.end();
-});
-
 tap.test('failures', function (tt) {
     tt.plan(1);
 
