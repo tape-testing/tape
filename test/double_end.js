@@ -1,11 +1,11 @@
 var test = require('tap').test;
+var path = require('path');
 var concat = require('concat-stream');
 var spawn = require('child_process').spawn;
 
 test(function (t) {
     t.plan(2);
-    var ps = spawn(process.execPath,
-        [ require('path').join(__dirname, 'double_end', 'double.js') ]);
+    var ps = spawn(process.execPath, [path.join(__dirname, 'double_end', 'double.js')]);
     ps.on('exit', function (code) {
         t.equal(code, 1);
     });

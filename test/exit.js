@@ -1,4 +1,5 @@
 var tap = require('tap');
+var path = require('path');
 var spawn = require('child_process').spawn;
 var concat = require('concat-stream');
 
@@ -26,8 +27,7 @@ tap.test('exit ok', function (t) {
         ].join('\n'));
     }
 
-    var ps = spawn(process.execPath,
-        [ require('path').join(__dirname, 'exit', 'ok.js') ]);
+    var ps = spawn(process.execPath, [path.join(__dirname, 'exit', 'ok.js')]);
     ps.stdout.pipe(concat(tc));
     ps.on('exit', function (code) {
         t.equal(code, 0);
@@ -59,8 +59,7 @@ tap.test('exit fail', function (t) {
         ].join('\n') + '\n\n');
     };
 
-    var ps = spawn(process.execPath,
-        [ require('path').join(__dirname, 'exit', 'fail.js') ]);
+    var ps = spawn(process.execPath, [path.join(__dirname, 'exit', 'fail.js')]);
     ps.stdout.pipe(concat(tc));
     ps.on('exit', function (code) {
         t.notEqual(code, 0);
@@ -93,7 +92,7 @@ tap.test('too few exit', function (t) {
         ].join('\n') + '\n\n');
     };
 
-    var ps = spawn(process.execPath, [ __dirname + '/exit/too_few.js' ]);
+    var ps = spawn(process.execPath, [path.join(__dirname, '/exit/too_few.js')]);
     ps.stdout.pipe(concat(tc));
     ps.on('exit', function (code) {
         t.notEqual(code, 0);
@@ -124,7 +123,7 @@ tap.test('more planned in a second test', function (t) {
         ].join('\n') + '\n\n');
     };
 
-    var ps = spawn(process.execPath, [ __dirname + '/exit/second.js' ]);
+    var ps = spawn(process.execPath, [path.join(__dirname, '/exit/second.js')]);
     ps.stdout.pipe(concat(tc));
     ps.on('exit', function (code) {
         t.notEqual(code, 0);
