@@ -1,38 +1,29 @@
 var tap = require("tap");
 var tape = require("../");
-var trim = require('string.prototype.trim');
+var concat = require('concat-stream');
 
 tap.test("tape assert.end as callback", function (tt) {
     var test = tape.createHarness({ exit: false })
-    var tc = tap.createConsumer()
 
-    var rows = []
-    tc.on("data", function (r) { rows.push(r) })
-    tc.on("end", function () {
-        var rs = rows.map(function (r) {
-            return r && typeof r === "object" ?
-                { id: r.id, ok: r.ok, name: trim(r.name) } :
-                r
-        })
-
-        tt.deepEqual(rs, [
-            "TAP version 13",
-            "do a task and write",
-            { id: 1, ok: true, name: "null" },
-            { id: 2, ok: true, name: "should be equal" },
-            "do a task and write fail",
-            { id: 3, ok: true, name: "null" },
-            { id: 4, ok: true, name: "should be equal" },
-            { id: 5, ok: false, name: "Error: fail" },
-            "tests 5",
-            "pass  4",
-            "fail  1"
-        ])
-
+    test.createStream().pipe(concat(function (rows) {
+        tt.equal(rows.toString('utf8'), [
+        'TAP version 13',
+        '# do a task and write',
+        'ok 1 null',
+        'ok 2 should be equal',
+        '# do a task and write fail',
+        'ok 3 null',
+        'ok 4 should be equal',
+        'not ok 5 Error: fail',
+        getStackTrace(rows), // tap error stack
+        '',
+        '1..5',
+        '# tests 5',
+        '# pass  4',
+        '# fail  1'
+        ].join('\n') + '\n');
         tt.end()
-    })
-
-    test.createStream().pipe(tc)
+    }));
 
     test("do a task and write", function (assert) {
         fakeAsyncTask("foo", function (err, value) {
@@ -63,4 +54,34 @@ function fakeAsyncWrite(name, cb) {
 
 function fakeAsyncWriteFail(name, cb) {
     cb(new Error("fail"))
+}
+
+/**
+ * extract the stack trace for the failed test.
+ * this will change dependent on the environment
+ * so no point hard-coding it in the test assertion
+ * see: https://git.io/v6hGG for example
+ * @param String rows - the tap output lines
+ * @returns String stacktrace - just the error stack part
+ */
+function getStackTrace(rows) {
+    var stacktrace = '  ---\n';
+    var extract = false;
+    rows.toString('utf8').split('\n').forEach(function (row) {
+        if (!extract) {
+            if (row.indexOf('---') > -1) { // start of stack trace
+                extract = true;
+            }
+        } else {
+            if (row.indexOf('...') > -1) { // end of stack trace
+                extract = false;
+                stacktrace += '  ...';
+            } else {
+                stacktrace += row + '\n';
+            }
+
+        }
+    });
+    // console.log(stacktrace);
+    return stacktrace;
 }
