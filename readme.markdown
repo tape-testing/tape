@@ -277,9 +277,9 @@ after `t` will not be run until all subtests finish.
 
 You may pass the same options that [`test()`](#testname-opts-cb) accepts.
 
-## t.comment(message)
+## t.comment(message[, ...])
 
-Print a message without breaking the tap output. (Useful when using e.g. `tap-colorize` where output is buffered & `console.log` will print in incorrect order vis-a-vis tap output.)
+Print a message without breaking the tap output. Accepts optional args for `util.format`-style formatting. Useful when using e.g. `tap-colorize` where output is buffered & `console.log` will print in incorrect order vis-a-vis tap output.
 
 ## var htest = test.createHarness()
 

@@ -173,3 +173,57 @@ tap.test('multiline string', function (assert) {
         t.end();
     });
 });
+
+tap.test('formatted string', function (assert) {
+    assert.plan(1);
+
+    var verify = function (output) {
+         assert.equal(output.toString('utf8'), [
+                'TAP version 13',
+                '# formatted string',
+                '# tip tap tape',
+                '',
+                '1..0',
+                '# tests 0',
+                '# pass  0',
+                '',
+                '# ok',
+                ''
+        ].join('\n'));
+    };
+
+    var test = tape.createHarness();
+    test.createStream().pipe(concat(verify));
+    test('formatted string', function (t) {
+        t.comment("tip %s t%s", "tap", "ape");
+        t.end();
+    });
+});
+
+tap.test('formatted multiline string', function (assert) {
+    assert.plan(1);
+
+    var verify = function (output) {
+         assert.equal(output.toString('utf8'), [
+                'TAP version 13',
+                '# formatted multiline string',
+                '# tip',
+                '# tap',
+                '# tape',
+                '',
+                '1..0',
+                '# tests 0',
+                '# pass  0',
+                '',
+                '# ok',
+                ''
+        ].join('\n'));
+    };
+
+    var test = tape.createHarness();
+    test.createStream().pipe(concat(verify));
+    test('formatted multiline string', function (t) {
+        t.comment("tip\n%s\nt%s", "tap", "ape");
+        t.end();
+    });
+});
