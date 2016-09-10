@@ -93,10 +93,14 @@ tap.test('failures', function (tt) {
            + '    operator: throws\n'
            + '    expected: undefined\n'
            + '    actual:   undefined\n'
-           + '  ...\n\n'
-           + '1..9\n'
-           + '# tests 9\n'
-           + '# pass  0\n'
+           + '  ...\n'
+           + '# custom error messages\n'
+           + 'ok 10 "message" is enumerable\n'
+           + "ok 11 { custom: 'error', message: 'message' }\n"
+           + 'ok 12 getter is still the same\n'
+           + '\n1..12\n'
+           + '# tests 12\n'
+           + '# pass  3\n'
            + '# fail  9\n'
         );
     }));
@@ -116,5 +120,18 @@ tap.test('failures', function (tt) {
     test('function', function (t) {
         t.plan(1);
         t.throws(function () {});
+    });
+
+    test('custom error messages', function (t) {
+        t.plan(3);
+        var getter = function () { return 'message'; };
+        var messageGetterError = Object.defineProperty(
+            { custom: 'error' },
+            'message',
+            { configurable: true, enumerable: true, get: getter }
+        );
+        t.equal(Object.prototype.propertyIsEnumerable.call(messageGetterError, 'message'), true, '"message" is enumerable');
+        t.throws(function () { throw messageGetterError; }, "{ custom: 'error', message: 'message' }");
+        t.equal(Object.getOwnPropertyDescriptor(messageGetterError, 'message').get, getter, 'getter is still the same');
     });
 });
