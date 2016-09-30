@@ -24,10 +24,10 @@
   },
   "devDependencies": {
     "concat-stream": "~1.5.2",
-    "falafel": "~1.2.0",
+    "falafel": "~2.0.0",
     "js-yaml": "~3.6.1",
     "tap": "~7.1.1",
-    "tap-parser": "~2.2.2"
+    "tap-parser": "~3.0.3"
   },
   "scripts": {
     "test": "tap test/*.js"
