@@ -98,9 +98,11 @@ tap.test('failures', function (tt) {
            + 'ok 10 "message" is enumerable\n'
            + "ok 11 { custom: 'error', message: 'message' }\n"
            + 'ok 12 getter is still the same\n'
-           + '\n1..12\n'
-           + '# tests 12\n'
-           + '# pass  3\n'
+           + '# throws null\n'
+           + 'ok 13 throws null\n'
+           + '\n1..13\n'
+           + '# tests 13\n'
+           + '# pass  4\n'
            + '# fail  9\n'
         );
     }));
@@ -133,5 +135,11 @@ tap.test('failures', function (tt) {
         t.equal(Object.prototype.propertyIsEnumerable.call(messageGetterError, 'message'), true, '"message" is enumerable');
         t.throws(function () { throw messageGetterError; }, "{ custom: 'error', message: 'message' }");
         t.equal(Object.getOwnPropertyDescriptor(messageGetterError, 'message').get, getter, 'getter is still the same');
+    });
+
+    test('throws null', function (t) {
+      t.plan(1);
+      t.throws(function () { throw null; }, 'throws null');
+      t.end();
     });
 });
