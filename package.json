@@ -12,7 +12,7 @@
     "deep-equal": "~1.0.1",
     "defined": "~1.0.0",
     "function-bind": "~1.1.0",
-    "glob": "~7.0.6",
+    "glob": "~7.1.0",
     "has": "~1.0.1",
     "inherits": "~2.0.3",
     "minimist": "~1.2.0",
