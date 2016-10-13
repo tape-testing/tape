@@ -128,7 +128,7 @@ By default, uncaught exceptions in your tests will not be intercepted, and will 
 
 - CoffeeScript support with https://www.npmjs.com/package/coffeetape
 - Promise support with https://www.npmjs.com/package/blue-tape
-- ES6 support with https://www.npmjs.com/package/babel-tape-runner
+- ES6 support with https://www.npmjs.com/package/babel-tape-runner or https://www.npmjs.com/package/buble-tape-runner
 
 # methods
 
