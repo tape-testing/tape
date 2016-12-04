@@ -22,6 +22,7 @@ module.exports.getDiag = function (body) {
 //    placeholder $TEST variable.
 // 2) Line positions within the file might change. We handle this by replacing
 //    line and column markers with placeholder $LINE and $COL "variables"
+//   a) node 0.8 does not provide nested eval line numbers, so we remove them
 // 3) Stacks themselves change frequently with refactoring. We've even run into
 //    issues with node library refactorings "breaking" stack traces. Most of
 //    these changes are irrelevant to the tests themselves. To counter this, we
@@ -35,7 +36,8 @@ module.exports.stripFullStack = function (output) {
       var stripChangingData = function (line) {
           var withoutDirectory = line.replace(__dirname, '$TEST');
           var withoutLineNumbers = withoutDirectory.replace(/:\d+:\d+/g, ':$LINE:$COL');
-          return withoutLineNumbers;
+          var withoutNestedLineNumbers = withoutLineNumbers.replace(/, \<anonymous\>:\$LINE:\$COL\)$/, ')');
+          return withoutNestedLineNumbers;
       }
 
       if (m) {
