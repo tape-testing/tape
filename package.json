@@ -27,7 +27,7 @@
     "concat-stream": "~1.5.2",
     "falafel": "~2.0.0",
     "js-yaml": "~3.7.0",
-    "tap": "~7.1.1",
+    "tap": "~8.0.1",
     "tap-parser": "~3.0.4"
   },
   "scripts": {
