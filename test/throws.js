@@ -16,6 +16,14 @@ function getNonFunctionMessage(fn) {
     }
 }
 
+var getter = function () { return 'message'; };
+var messageGetterError = Object.defineProperty(
+    { custom: 'error' },
+    'message',
+    { configurable: true, enumerable: true, get: getter }
+);
+var thrower = function () { throw messageGetterError; };
+
 tap.test('failures', function (tt) {
     tt.plan(1);
 
@@ -173,14 +181,8 @@ tap.test('failures', function (tt) {
 
     test('custom error messages', function (t) {
         t.plan(3);
-        var getter = function () { return 'message'; };
-        var messageGetterError = Object.defineProperty(
-            { custom: 'error' },
-            'message',
-            { configurable: true, enumerable: true, get: getter }
-        );
         t.equal(Object.prototype.propertyIsEnumerable.call(messageGetterError, 'message'), true, '"message" is enumerable');
-        t.throws(function () { throw messageGetterError; }, "{ custom: 'error', message: 'message' }");
+        t.throws(thrower, "{ custom: 'error', message: 'message' }");
         t.equal(Object.getOwnPropertyDescriptor(messageGetterError, 'message').get, getter, 'getter is still the same');
     });
 
