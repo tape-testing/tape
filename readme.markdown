@@ -101,7 +101,7 @@ that will output something pretty if you pipe TAP into them:
  - https://github.com/juliangruber/tap-bail
  - https://github.com/kirbysayshi/tap-browser-color
  - https://github.com/gummesson/tap-json
- - https://github.com/gummesson/tap-min
+ - https://github.com/derhuerst/tap-min
  - https://github.com/calvinmetcalf/tap-nyan
  - https://www.npmjs.org/package/tap-pessimist
  - https://github.com/toolness/tap-prettify
