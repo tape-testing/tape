@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --harmony
 
 var resolveModule = require('resolve').sync;
 var resolvePath = require('path').resolve;
