@@ -155,9 +155,13 @@ tap.test('failures', function (tt) {
            + 'ok 12 getter is still the same\n'
            + '# throws null\n'
            + 'ok 13 throws null\n'
-           + '\n1..13\n'
-           + '# tests 13\n'
-           + '# pass  4\n'
+           + '# throws string\n'
+           + 'ok 14 should throw\n'
+           + '# throws regex error_sync\n'
+           + 'ok 15 should throw\n'
+           + '\n1..15\n'
+           + '# tests 15\n'
+           + '# pass  6\n'
            + '# fail  9\n'
         );
     }));
@@ -191,4 +195,19 @@ tap.test('failures', function (tt) {
       t.throws(function () { throw null; }, 'throws null');
       t.end();
     });
+
+    test('throws string', function (t) {
+      t.plan(1);
+      t.throws(function(){
+        throw 'bad_boy_threw_string'
+      }, /bad_boy_threw_string/)
+    });
+
+    test('throws regex error_sync', function (t) {
+      t.plan(1);
+      t.throws(function(){
+        throw new Error('crufty')
+      }, /crufty/)
+    });
 });
+
