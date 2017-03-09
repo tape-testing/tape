@@ -2,7 +2,8 @@ var tape = require('../');
 var tap = require('tap');
 var concat = require('concat-stream');
 
-tap.test('nested sync test without plan or end', function (tt) {
+tap.test('nested sync test without plan or end', { timeout: Infinity }, function (tt) {
+
     tt.plan(1);
 
     var test = tape.createHarness();
