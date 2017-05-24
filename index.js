@@ -36,6 +36,18 @@ exports = module.exports = (function () {
         return harness.createStream(opts);
     };
     
+    lazyLoad.abort = function () {
+        return getHarness().abort.apply(this, arguments);
+    };
+    
+    lazyLoad.onStart = function () {
+        return getHarness().onStart.apply(this, arguments);
+    };
+
+    lazyLoad.onTest = function () {
+        return getHarness().onTest.apply(this, arguments);
+    };
+
     lazyLoad.onFinish = function () {
         return getHarness().onFinish.apply(this, arguments);
     };
@@ -80,8 +92,9 @@ function createExitHarness (conf) {
 
         if (!ended) {
             var only = harness._results._only;
-            for (var i = 0; i < harness._tests.length; i++) {
-                var t = harness._tests[i];
+            var awaitTests = harness._results.awaitTests;
+            for (var i = 0; i < harness._results._runCount; i++) {
+                var t = awaitTests[i];
                 if (only && t !== only) continue;
                 t._exit();
             }
@@ -109,7 +122,6 @@ function createHarness (conf_) {
     
     var test = function (name, conf, cb) {
         var t = new Test(name, conf, cb);
-        test._tests.push(t);
         
         (function inspectCode (st) {
             st.on('test', function sub (st_) {
@@ -125,12 +137,22 @@ function createHarness (conf_) {
     };
     test._results = results;
     
-    test._tests = [];
-    
     test.createStream = function (opts) {
         return results.createStream(opts);
     };
+    
+    test.abort = function (msg) {
+        results.bailout = msg || "Aborted by test suite";
+    };
 
+    test.onStart = function (cb) {
+        results.on('prep', cb);
+    };
+    
+    test.onTest = function (cb) {
+        results.on('test', cb);
+    };
+    
     test.onFinish = function (cb) {
         results.on('done', cb);
     };
