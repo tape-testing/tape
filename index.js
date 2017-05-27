@@ -4,6 +4,9 @@ var Test = require('./lib/test');
 var createResult = require('./lib/results');
 var through = require('through');
 
+var GLOBAL = typeof window !== 'undefined' ? window :
+    typeof global !== 'undefined' ? global : {};
+
 var canEmitExit = typeof process !== 'undefined' && process
     && typeof process.on === 'function' && process.browser !== true
 ;
@@ -16,7 +19,7 @@ var nextTick = typeof setImmediate !== 'undefined'
     : process.nextTick
 ;
 
-exports = module.exports = (function () {
+exports = module.exports = GLOBAL.__TAPE_CACHED_LAZY_HARNESS || (function () {
     var harness;
     var lazyLoad = function () {
         return getHarness().apply(this, arguments);
@@ -51,6 +54,8 @@ exports = module.exports = (function () {
         return harness;
     }
 })();
+
+GLOBAL.__TAPE_CACHED_LAZY_HARNESS = module.exports;
 
 function createExitHarness (conf) {
     if (!conf) conf = {};
