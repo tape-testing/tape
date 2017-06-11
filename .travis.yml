@@ -1,6 +1,7 @@
 language: node_js
-sudo: true
+sudo: false
 node_js:
+  - "8"
   - "7"
   - "6"
   - "5"
@@ -17,4 +18,6 @@ install:
 matrix:
   fast_finish: true
   allow_failures:
-    - node_js: "0.8"
+    - node_js: "7"
+    - node_js: "5"
+    - node_js: "iojs"
