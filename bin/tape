@@ -26,10 +26,16 @@ opts.require.forEach(function(module) {
 });
 
 opts._.forEach(function (arg) {
-    glob(arg, function (err, files) {
-        files.forEach(function (file) {
-            require(resolvePath(cwd, file));
-        });
+    // If glob does not match, `files` will be an empty array.
+    // Note: `glob.sync` may throw an error and crash the node process.
+    var files = glob.sync(arg);
+
+    if (!Array.isArray(files)) {
+      throw new TypeError('unknown error: glob.sync did not return an array or throw. Please report this.');
+    }
+
+    files.forEach(function (file) {
+        require(resolvePath(cwd, file));
     });
 });
 
