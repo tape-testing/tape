@@ -30,6 +30,10 @@ opts._.forEach(function (arg) {
     // Note: `glob.sync` may throw an error and crash the node process.
     var files = glob.sync(arg);
 
+    if (!Array.isArray(files)) {
+      throw new TypeError('unknown error: glob.sync did not return an array or throw. Please report this.');
+    }
+
     files.forEach(function (file) {
         require(resolvePath(cwd, file));
     });
