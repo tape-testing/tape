@@ -113,6 +113,7 @@ that will output something pretty if you pipe TAP into them:
  - https://github.com/axross/tap-notify
  - https://github.com/zoubin/tap-summary
  - https://github.com/Hypercubed/tap-markdown
+ - https://github.com/gabrielcsapo/tap-html
 
 To use them, try `node test/index.js | tap-spec` or pipe it into one
 of the modules of your choice!
