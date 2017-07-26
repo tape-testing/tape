@@ -25,6 +25,14 @@ exports = module.exports = (function () {
     lazyLoad.only = function () {
         return getHarness().only.apply(this, arguments);
     };
+
+    lazyLoad.before = function() {
+        return getHarness().before.apply(this, arguments);
+    };
+
+    lazyLoad.after = function() {
+        return getHarness().after.apply(this, arguments);
+    };
     
     lazyLoad.createStream = function (opts) {
         if (!opts) opts = {};
@@ -109,6 +117,7 @@ function createHarness (conf_) {
     
     var test = function (name, conf, cb) {
         var t = new Test(name, conf, cb);
+        t._harness = test;
         test._tests.push(t);
         
         (function inspectCode (st) {
@@ -146,6 +155,14 @@ function createHarness (conf_) {
     test._exitCode = 0;
     
     test.close = function () { results.close() };
-    
+
+    test.before = function (beforeHook) {
+        test._before = beforeHook;
+    };
+
+    test.after = function (afterHook) {
+        test._after = afterHook;
+    };
+
     return test;
 }
