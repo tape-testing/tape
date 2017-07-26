@@ -1,7 +1,7 @@
 {
-  "name": "tape",
-  "version": "4.7.0",
-  "description": "tap-producing test harness for node and browsers",
+  "name": "better-tape",
+  "version": "1.0.0",
+  "description": "Feature extension kit for tape",
   "main": "index.js",
   "bin": "./bin/tape",
   "directories": {
@@ -27,6 +27,7 @@
     "concat-stream": "~1.6.0",
     "falafel": "~2.1.0",
     "js-yaml": "~3.8.4",
+    "sinon": "^2.3.8",
     "tap": "~8.0.1",
     "tap-parser": "~3.0.4"
   },
@@ -47,9 +48,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/substack/tape.git"
+    "url": "git://github.com/amrish7/better-tape"
   },
-  "homepage": "https://github.com/substack/tape",
+  "homepage": "https://github.com/amrish7/better-tape",
   "keywords": [
     "tap",
     "test",
@@ -58,9 +59,8 @@
     "browser"
   ],
   "author": {
-    "name": "James Halliday",
-    "email": "mail@substack.net",
-    "url": "http://substack.net"
+    "name": "Amrish Ravidas",
+    "email": "amrishdeep@gmail.com"
   },
   "license": "MIT"
 }
