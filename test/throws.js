@@ -40,6 +40,7 @@ tap.test('failures', function (tt) {
            + '      undefined\n'
            + '    actual: |-\n'
            + "      { [TypeError: " + getNonFunctionMessage() + "] message: '" + getNonFunctionMessage() + "' }\n"
+           + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
            + '    stack: |-\n'
            + '      TypeError: ' + getNonFunctionMessage(undefined) + '\n'
            + '          [... stack stripped ...]\n'
@@ -53,6 +54,7 @@ tap.test('failures', function (tt) {
            + '      undefined\n'
            + '    actual: |-\n'
            + "      { [TypeError: " + getNonFunctionMessage(null) + "] message: '" + getNonFunctionMessage(null) + "' }\n"
+           + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
            + '    stack: |-\n'
            + '      TypeError: ' + getNonFunctionMessage(null) + '\n'
            + '          [... stack stripped ...]\n'
@@ -66,6 +68,7 @@ tap.test('failures', function (tt) {
            + '      undefined\n'
            + '    actual: |-\n'
            + "      { [TypeError: " + getNonFunctionMessage(true) + "] message: '" + getNonFunctionMessage(true) + "' }\n"
+           + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
            + '    stack: |-\n'
            + '      TypeError: ' + getNonFunctionMessage(true) + '\n'
            + '          [... stack stripped ...]\n'
@@ -79,6 +82,7 @@ tap.test('failures', function (tt) {
            + '      undefined\n'
            + '    actual: |-\n'
            + "      { [TypeError: " + getNonFunctionMessage(false) + "] message: '" + getNonFunctionMessage(false) + "' }\n"
+           + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
            + '    stack: |-\n'
            + '      TypeError: ' + getNonFunctionMessage(false) + '\n'
            + '          [... stack stripped ...]\n'
@@ -92,6 +96,7 @@ tap.test('failures', function (tt) {
            + '      undefined\n'
            + '    actual: |-\n'
            + "      { [TypeError: " + getNonFunctionMessage('abc') + "] message: '" + getNonFunctionMessage('abc') + "' }\n"
+           + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
            + '    stack: |-\n'
            + '      TypeError: ' + getNonFunctionMessage('abc') + '\n'
            + '          [... stack stripped ...]\n'
@@ -105,6 +110,7 @@ tap.test('failures', function (tt) {
            + '      undefined\n'
            + '    actual: |-\n'
            + "      { [TypeError: " + getNonFunctionMessage(/a/g) + "] message: '" + getNonFunctionMessage(/a/g) + "' }\n"
+           + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
            + '    stack: |-\n'
            + '      TypeError: ' + getNonFunctionMessage(/a/g) + '\n'
            + '          [... stack stripped ...]\n'
@@ -118,6 +124,7 @@ tap.test('failures', function (tt) {
            + '      undefined\n'
            + '    actual: |-\n'
            + "      { [TypeError: " + getNonFunctionMessage([]) + "] message: '" + getNonFunctionMessage([]) + "' }\n"
+           + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
            + '    stack: |-\n'
            + '      TypeError: ' + getNonFunctionMessage([]) + '\n'
            + '          [... stack stripped ...]\n'
@@ -131,6 +138,7 @@ tap.test('failures', function (tt) {
            + '      undefined\n'
            + '    actual: |-\n'
            + "      { [TypeError: " + getNonFunctionMessage({}) + "] message: '" + getNonFunctionMessage({}) + "' }\n"
+           + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
            + '    stack: |-\n'
            + '      TypeError: ' + getNonFunctionMessage({}) + '\n'
            + '          [... stack stripped ...]\n'
@@ -143,6 +151,7 @@ tap.test('failures', function (tt) {
            + '    operator: throws\n'
            + '    expected: undefined\n'
            + '    actual:   undefined\n'
+           + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
            + '    stack: |-\n'
            + '      Error: should throw\n'
            + '          [... stack stripped ...]\n'

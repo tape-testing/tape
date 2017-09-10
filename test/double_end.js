@@ -41,6 +41,7 @@ test(function (t) {
             'not ok 2 .end() called twice',
             '  ---',
             '    operator: fail',
+            '    at: Timeout.doEnd [as _onTimeout] ($TEST/double_end/double.js:$LINE:$COL)',
             '    stack: |-',
             '      Error: .end() called twice',
             '          [... stack stripped ...]',

@@ -13,6 +13,7 @@ tap.test('preserves stack trace with newlines', function (tt) {
     var stackTrace = 'foo\n  bar';
 
     parser.once('assert', function (data) {
+        delete data.diag.at;
         tt.deepEqual(data, {
             ok: false,
             id: 1,
@@ -27,7 +28,8 @@ tap.test('preserves stack trace with newlines', function (tt) {
     });
 
     stream.pipe(concat(function (body) {
-        var body = body.toString('utf8')
+        var body = body.toString('utf8');
+        body = stripAt(body);
         tt.equal(
             body,
             'TAP version 13\n'
@@ -67,7 +69,7 @@ tap.test('preserves stack trace with newlines', function (tt) {
 });
 
 tap.test('preserves stack trace for failed assertions', function (tt) {
-    tt.plan(5);
+    tt.plan(6);
 
     var test = tape.createHarness();
     var stream = test.createStream();
@@ -75,14 +77,17 @@ tap.test('preserves stack trace for failed assertions', function (tt) {
 
     var stack = ''
     parser.once('assert', function (data) {
-        tt.equal(typeof data.diag.stack, 'string')
-        stack = data.diag.stack || ''
+        tt.equal(typeof data.diag.at, 'string');
+        tt.equal(typeof data.diag.stack, 'string');
+        at = data.diag.at || '';
+        stack = data.diag.stack || '';
         tt.ok(/^Error: false should be true(\n    at .+)+/.exec(stack), 'stack should be a stack')
         tt.deepEqual(data, {
             ok: false,
             id: 1,
             name: "false should be true",
             diag: {
+                at: at,
                 stack: stack,
                 operator: 'equal',
                 expected: false,
@@ -92,7 +97,8 @@ tap.test('preserves stack trace for failed assertions', function (tt) {
     });
 
     stream.pipe(concat(function (body) {
-        var body = body.toString('utf8')
+        var body = body.toString('utf8');
+        body = stripAt(body);
         tt.equal(
             body,
             'TAP version 13\n'
@@ -134,5 +140,13 @@ function getDiag (body) {
         return line.slice(2);
    }).join('\n');
 
-   return yaml.safeLoad(diag);
+   // Get rid of 'at' variable (which has a line number / path of its own that's
+   // difficult to check).
+   var withStack = yaml.safeLoad(diag);
+   delete withStack.at;
+   return withStack;
+}
+
+function stripAt (body) {
+    return body.replace(/^\s*at:\s+Test.*$\n/m, '');
 }

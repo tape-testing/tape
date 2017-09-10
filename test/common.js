@@ -1,3 +1,4 @@
+var path = require('path');
 var yaml = require('js-yaml');
 
 module.exports.getDiag = function (body) {
@@ -7,10 +8,11 @@ module.exports.getDiag = function (body) {
         return line.slice(2);
     }).join('\n');
 
-    // The stack trace will vary depending on where the code is run, so just
-    // strip it out.
+    // The stack trace and at variable will vary depending on where the code
+    // is run, so just strip it out.
     var withStack = yaml.safeLoad(diag);
     delete withStack.stack;
+    delete withStack.at;
     return withStack;
 }
 
@@ -19,7 +21,8 @@ module.exports.getDiag = function (body) {
 // 1) The base checkout directory of tape might change. Because stack traces
 //    include absolute paths, the stack traces will change depending on the
 //    checkout path. We handle this by replacing the base test directory with a
-//    placeholder $TEST variable.
+//    placeholder $TEST variable and the package root with a placehodler
+//    $TAPE variable.
 // 2) Line positions within the file might change. We handle this by replacing
 //    line and column markers with placeholder $LINE and $COL "variables"
 //   a) node 0.8 does not provide nested eval line numbers, so we remove them
@@ -34,8 +37,9 @@ module.exports.stripFullStack = function (output) {
       var m = line.match(/[ ]{8}at .*\((.*)\)/);
 
       var stripChangingData = function (line) {
-          var withoutDirectory = line.replace(__dirname, '$TEST');
-          var withoutLineNumbers = withoutDirectory.replace(/:\d+:\d+/g, ':$LINE:$COL');
+          var withoutTestDir = line.replace(__dirname, '$TEST');
+          var withoutPackageDir = withoutTestDir.replace(path.dirname(__dirname), '$TAPE');
+          var withoutLineNumbers = withoutPackageDir.replace(/:\d+:\d+/g, ':$LINE:$COL');
           var withoutNestedLineNumbers = withoutLineNumbers.replace(/, \<anonymous\>:\$LINE:\$COL\)$/, ')');
           return withoutNestedLineNumbers;
       }
