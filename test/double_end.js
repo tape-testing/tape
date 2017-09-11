@@ -24,6 +24,7 @@ test(function (t) {
         to._onTimeout = doEnd;
 
         var stackExpected;
+        var atExpected;
         try {
           to._onTimeout();
         }
@@ -31,6 +32,7 @@ test(function (t) {
           stackExpected = stripFullStack(e.stack).split('\n')[1];
           stackExpected = stackExpected.replace('double_end.js', 'double_end/double.js');
           stackExpected = stackExpected.trim();
+          atExpected = stackExpected.replace(/^at\s+/, 'at: ');
         }
 
         var stripped = stripFullStack(body.toString('utf8'));
@@ -41,6 +43,7 @@ test(function (t) {
             'not ok 2 .end() called twice',
             '  ---',
             '    operator: fail',
+            '    ' + atExpected,
             '    stack: |-',
             '      Error: .end() called twice',
             '          [... stack stripped ...]',

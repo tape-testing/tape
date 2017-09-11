@@ -20,6 +20,7 @@ tap.test('array test', function (tt) {
             + '      { beep: undefined }\n'
             + '    actual: |-\n'
             + '      {}\n'
+            + '    at: Test.<anonymous> ($TEST/undef.js:$LINE:$COL)\n'
             + '    stack: |-\n'
             + '      Error: should be equivalent\n'
             + '          [... stack stripped ...]\n'

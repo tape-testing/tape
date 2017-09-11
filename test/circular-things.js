@@ -20,6 +20,7 @@ tap.test('circular test', function (assert) {
             + '      {}\n'
             + '    actual: |-\n'
             + '      { circular: [Circular] }\n'
+            + '    at: Test.<anonymous> ($TEST/circular-things.js:$LINE:$COL)\n'
             + '    stack: |-\n'
             + '      Error: should be equal\n'
             + '          [... stack stripped ...]\n'

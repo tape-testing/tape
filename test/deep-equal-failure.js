@@ -26,6 +26,7 @@ tap.test('deep equal failure', function (assert) {
             + '      { b: 2 }\n'
             + '    actual: |-\n'
             + '      { a: 1 }\n'
+            + '    at: Test.<anonymous> ($TEST/deep-equal-failure.js:$LINE:$COL)\n'
             + '    stack: |-\n'
             + '      Error: should be equal\n'
             + '          [... stack stripped ...]\n'
@@ -48,6 +49,7 @@ tap.test('deep equal failure', function (assert) {
 
     parser.once('assert', function (data) {
         delete data.diag.stack;
+        delete data.diag.at;
         assert.deepEqual(data, {
             ok: false,
             id: 1,
@@ -85,6 +87,7 @@ tap.test('deep equal failure, depth 6, with option', function (assert) {
             + '      { a: { a1: { a2: { a3: { a4: { a5: 2 } } } } } }\n'
             + '    actual: |-\n'
             + '      { a: { a1: { a2: { a3: { a4: { a5: 1 } } } } } }\n'
+            + '    at: Test.<anonymous> ($TEST/deep-equal-failure.js:$LINE:$COL)\n'
             + '    stack: |-\n'
             + '      Error: should be equal\n'
             + '          [... stack stripped ...]\n'
@@ -107,6 +110,7 @@ tap.test('deep equal failure, depth 6, with option', function (assert) {
 
     parser.once('assert', function (data) {
         delete data.diag.stack;
+        delete data.diag.at;
         assert.deepEqual(data, {
             ok: false,
             id: 1,
@@ -144,6 +148,7 @@ tap.test('deep equal failure, depth 6, without option', function (assert) {
             + '      { a: { a1: { a2: { a3: { a4: [Object] } } } } }\n'
             + '    actual: |-\n'
             + '      { a: { a1: { a2: { a3: { a4: [Object] } } } } }\n'
+            + '    at: Test.<anonymous> ($TEST/deep-equal-failure.js:$LINE:$COL)\n'
             + '    stack: |-\n'
             + '      Error: should be equal\n'
             + '          [... stack stripped ...]\n'
@@ -166,6 +171,7 @@ tap.test('deep equal failure, depth 6, without option', function (assert) {
 
     parser.once('assert', function (data) {
         delete data.diag.stack;
+        delete data.diag.at;
         assert.deepEqual(data, {
             ok: false,
             id: 1,
