@@ -39,7 +39,8 @@ module.exports.stripFullStack = function (output) {
       var stripChangingData = function (line) {
           var withoutTestDir = line.replace(__dirname, '$TEST');
           var withoutPackageDir = withoutTestDir.replace(path.dirname(__dirname), '$TAPE');
-          var withoutLineNumbers = withoutPackageDir.replace(/:\d+:\d+/g, ':$LINE:$COL');
+          var withoutPathSep = withoutPackageDir.replace(new RegExp('\\' + path.sep, 'g'), '/');
+          var withoutLineNumbers = withoutPathSep.replace(/:\d+:\d+/g, ':$LINE:$COL');
           var withoutNestedLineNumbers = withoutLineNumbers.replace(/, \<anonymous\>:\$LINE:\$COL\)$/, ')');
           return withoutNestedLineNumbers;
       }
