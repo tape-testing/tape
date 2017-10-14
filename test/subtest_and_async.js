@@ -5,19 +5,21 @@ var asyncFunction = function (callback) {
 };
 
 test('master test', function (t) {
-    t.test('subtest 1', function (t) {
-        t.pass('subtest 1 before async call');
+    t.test('subtest 1', function (st) {
+        st.pass('subtest 1 before async call');
         asyncFunction(function () {
-            t.pass('subtest 1 in async callback');
-            t.end();
+            st.pass('subtest 1 in async callback');
+            st.end();
         })
     });
 
-    t.test('subtest 2', function (t) {
-        t.pass('subtest 2 before async call');
+    t.test('subtest 2', function (st) {
+        st.pass('subtest 2 before async call');
         asyncFunction(function () {
-            t.pass('subtest 2 in async callback');
-            t.end();
+            st.pass('subtest 2 in async callback');
+            st.end();
         })
     });
+
+    t.end();
 });
