@@ -375,10 +375,23 @@ $ node object.js test/x.js test/y.js
 
 # install
 
-With [npm](https://npmjs.org) do:
+With [npm](https://npmjs.org) proceed through the following steps:
 
+- run npm init and set up your package.json: this tells you what node modules others need when working on your repo
+```
+npm init
+```
+- install
 ```
 npm install tape --save-dev
+```
+- go to [gitignore.io](https://www.gitignore.io/) and type __NODE__
+- copy all text and paste into your _.gitignore_ file
+- most relevent to be _ignored_ would be:
+```
+# Dependency directories
+node_modules/
+jspm_packages/
 ```
 
 # license
