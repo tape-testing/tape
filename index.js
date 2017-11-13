@@ -39,6 +39,10 @@ exports = module.exports = (function () {
     lazyLoad.onFinish = function () {
         return getHarness().onFinish.apply(this, arguments);
     };
+    
+    lazyLoad.onFailure = function() {
+        return getHarness().onFailure.apply(this, arguments);
+    };
 
     lazyLoad.getHarness = getHarness
 
@@ -133,6 +137,10 @@ function createHarness (conf_) {
 
     test.onFinish = function (cb) {
         results.on('done', cb);
+    };
+
+    test.onFailure = function (cb) {
+        results.on('fail', cb);
     };
     
     var only = false;

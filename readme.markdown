@@ -162,6 +162,10 @@ Generate a new test that will be skipped over.
 The onFinish hook will get invoked when ALL tape tests have finished
 right before tape is about to print the test summary.
 
+## test.onFailure(fn)
+
+The onFailure hook will get invoked whenever any tape tests has failed.
+
 ## t.plan(n)
 
 Declare that `n` assertions should be run. `t.end()` will be called
