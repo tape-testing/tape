@@ -241,7 +241,7 @@ Assert that `actual` and `expected` do not have the same structure and nested va
 [node's deepEqual() algorithm](https://github.com/substack/node-deep-equal)
 with strict comparisons (`===`) on leaf nodes and an optional description of the assertion `msg`.
 
-Aliases: `t.notEquivalent()`, `t.notDeeply()`, `t.notSame()`,
+Aliases: `t.notDeepEquals`, `t.notEquivalent()`, `t.notDeeply()`, `t.notSame()`,
 `t.isNotDeepEqual()`, `t.isNotDeeply()`, `t.isNotEquivalent()`,
 `t.isInequivalent()`
 
