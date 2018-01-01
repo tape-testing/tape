@@ -15,10 +15,10 @@ var test = require('tape');
 
 test('timing test', function (t) {
     t.plan(2);
-    
+
     t.equal(typeof Date.now, 'function');
     var start = Date.now();
-    
+
     setTimeout(function () {
         t.equal(Date.now() - start, 100);
     }, 100);
@@ -148,8 +148,10 @@ Available `opts` options are:
 - opts.timeout = 500. Set a timeout for the test, after which it will fail.
   See test.timeoutAfter.
 - opts.objectPrintDepth = 5. Configure max depth of expected / actual object
-  printing.
-  
+  printing. If set to "-1", entire object will be printed as a well-formatted
+  JSON. Environmental variable `NODE_TAPE_OBJECT_PRINT_DEPTH` can set the
+  desired depth for all tests and overrides any locally-set values.
+
 If you forget to `t.plan()` out how many assertions you are going to run and you
 don't call `t.end()` explicitly, your test will hang.
 
@@ -190,7 +192,7 @@ Generate a passing assertion with a message `msg`.
 Automatically timeout the test after X ms.
 
 ## t.skip(msg)
- 
+
 Generate an assertion that will be skipped over.
 
 ## t.ok(value, msg)
