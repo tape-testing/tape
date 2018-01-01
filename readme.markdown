@@ -149,7 +149,8 @@ Available `opts` options are:
   See test.timeoutAfter.
 - opts.objectPrintDepth = 5. Configure max depth of expected / actual object
   printing. If set to "-1", entire object will be printed as a well-formatted
-  JSON.
+  JSON. Environmental variable `NODE_TAPE_OBJECT_PRINT_DEPTH` can set the
+  desired depth for all tests and overrides any locally-set values.
 
 If you forget to `t.plan()` out how many assertions you are going to run and you
 don't call `t.end()` explicitly, your test will hang.
