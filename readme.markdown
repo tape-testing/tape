@@ -148,8 +148,9 @@ Available `opts` options are:
 - opts.timeout = 500. Set a timeout for the test, after which it will fail.
   See test.timeoutAfter.
 - opts.objectPrintDepth = 5. Configure max depth of expected / actual object
-  printing.
-  
+  printing. Environmental variable `NODE_TAPE_OBJECT_PRINT_DEPTH` can set the
+  desired default depth for all tests; locally-set values will take precedence.
+
 If you forget to `t.plan()` out how many assertions you are going to run and you
 don't call `t.end()` explicitly, your test will hang.
 
