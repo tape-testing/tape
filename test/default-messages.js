@@ -20,10 +20,14 @@ tap.test('default messages', function (t) {
             'ok 5 should be equivalent',
             'ok 6 should be equivalent',
             'ok 7 should be equivalent',
+            'ok 8 should be less than',
+            'ok 9 should be greater than',
+            'ok 10 should be less than or equal',
+            'ok 11 should be greater than or equal',
             '',
-            '1..7',
-            '# tests 7',
-            '# pass  7',
+            '1..11',
+            '# tests 11',
+            '# pass  11',
             '',
             '# ok'
         ].join('\n') + '\n\n');

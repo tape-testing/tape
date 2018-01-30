@@ -76,3 +76,151 @@ tap.test('array test', function (tt) {
         );
     });
 });
+
+tap.test('t.lessThan test', function (tt) {
+    tt.plan(1);
+
+    var test = tape.createHarness({ exit : false });
+    var tc = function (rows) {
+        tt.same(stripFullStack(rows.toString('utf8')), [
+            'TAP version 13',
+            '# t.lessThan',
+            'not ok 1 should be less than',
+            '  ---',
+            '    operator: lessThan',
+            '    expected: \'< 1\'',
+            '    actual:   2',
+            '    at: Test.<anonymous> ($TEST/fail.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: should be less than',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/fail.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            '',
+            '1..1',
+            '# tests 1',
+            '# pass  0',
+            '# fail  1',
+            ''
+        ].join('\n'));
+    };
+
+    test.createStream().pipe(concat(tc));
+
+    test('t.lessThan', function (t) {
+        t.plan(1);
+        t.lessThan(2, 1);
+    });
+});
+
+tap.test('t.greaterThan test', function (tt) {
+    tt.plan(1);
+
+    var test = tape.createHarness({ exit : false });
+    var tc = function (rows) {
+        tt.same(stripFullStack(rows.toString('utf8')), [
+            'TAP version 13',
+            '# t.greaterThan',
+            'not ok 1 should be greater than',
+            '  ---',
+            '    operator: greaterThan',
+            '    expected: \'> 2\'',
+            '    actual:   1',
+            '    at: Test.<anonymous> ($TEST/fail.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: should be greater than',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/fail.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            '',
+            '1..1',
+            '# tests 1',
+            '# pass  0',
+            '# fail  1',
+            ''
+        ].join('\n'));
+    };
+
+    test.createStream().pipe(concat(tc));
+
+    test('t.greaterThan', function (t) {
+        t.plan(1);
+        t.greaterThan(1, 2);
+    });
+});
+
+tap.test('t.lessThanOrEqual test', function (tt) {
+    tt.plan(1);
+
+    var test = tape.createHarness({ exit : false });
+    var tc = function (rows) {
+        tt.same(stripFullStack(rows.toString('utf8')), [
+            'TAP version 13',
+            '# t.lessThanOrEqual',
+            'not ok 1 should be less than or equal',
+            '  ---',
+            '    operator: lessThanOrEqual',
+            '    expected: \'<= 1\'',
+            '    actual:   2',
+            '    at: Test.<anonymous> ($TEST/fail.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: should be less than or equal',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/fail.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            '',
+            '1..1',
+            '# tests 1',
+            '# pass  0',
+            '# fail  1',
+            ''
+        ].join('\n'));
+    };
+
+    test.createStream().pipe(concat(tc));
+
+    test('t.lessThanOrEqual', function (t) {
+        t.plan(1);
+        t.lessThanOrEqual(2, 1);
+    });
+});
+
+tap.test('t.greaterThanOrEqual test', function (tt) {
+    tt.plan(1);
+
+    var test = tape.createHarness({ exit : false });
+    var tc = function (rows) {
+        tt.same(stripFullStack(rows.toString('utf8')), [
+            'TAP version 13',
+            '# t.greaterThanOrEqual',
+            'not ok 1 should be greater than or equal',
+            '  ---',
+            '    operator: greaterThanOrEqual',
+            '    expected: \'>= 2\'',
+            '    actual:   1',
+            '    at: Test.<anonymous> ($TEST/fail.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: should be greater than or equal',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/fail.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            '',
+            '1..1',
+            '# tests 1',
+            '# pass  0',
+            '# fail  1',
+            ''
+        ].join('\n'));
+    };
+
+    test.createStream().pipe(concat(tc));
+
+    test('t.greaterThanOrEqual', function (t) {
+        t.plan(1);
+        t.greaterThanOrEqual(1, 2);
+    });
+});
