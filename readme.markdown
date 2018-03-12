@@ -72,7 +72,7 @@ Additionally, it is possible to make `tape` load one or more modules before runn
 $ tape -r babel-register tests/**/*.js
 ```
 
-Depending on the module you're loading, you may be able to paramaterize it using environment variables or auxiliary files. Babel, for instance, will load options from [`.babelrc`](http://babeljs.io/docs/usage/babelrc/) at runtime.
+Depending on the module you're loading, you may be able to parameterize it using environment variables or auxiliary files. Babel, for instance, will load options from [`.babelrc`](http://babeljs.io/docs/usage/babelrc/) at runtime.
 
 The `-r` flag behaves exactly like node's `require`, and uses the same module resolution algorithm. This means that if you need to load local modules, you have to prepend their path with `./` or `../` accordingly.
 
