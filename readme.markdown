@@ -15,10 +15,10 @@ var test = require('tape');
 
 test('timing test', function (t) {
     t.plan(2);
-    
+
     t.equal(typeof Date.now, 'function');
     var start = Date.now();
-    
+
     setTimeout(function () {
         t.equal(Date.now() - start, 100);
     }, 100);
@@ -114,6 +114,7 @@ that will output something pretty if you pipe TAP into them:
  - https://github.com/zoubin/tap-summary
  - https://github.com/Hypercubed/tap-markdown
  - https://github.com/gabrielcsapo/tap-html
+ - https://github.com/mcnuttandrew/tap-react-browser
 
 To use them, try `node test/index.js | tap-spec` or pipe it into one
 of the modules of your choice!
@@ -191,7 +192,7 @@ Generate a passing assertion with a message `msg`.
 Automatically timeout the test after X ms.
 
 ## t.skip(msg)
- 
+
 Generate an assertion that will be skipped over.
 
 ## t.ok(value, msg)
