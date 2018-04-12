@@ -387,6 +387,12 @@ With [npm](https://npmjs.org) do:
 npm install tape --save-dev
 ```
 
+With [yarn](https://yarnpkg.com) do:
+
+```
+yarn add --dev tape
+```
+
 # license
 
 MIT
