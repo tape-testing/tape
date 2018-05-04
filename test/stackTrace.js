@@ -68,6 +68,42 @@ tap.test('preserves stack trace with newlines', function (tt) {
     });
 });
 
+tap.test('parses function name from original stack', function (tt) {
+    tt.plan(1);
+
+    var test = tape.createHarness();
+    test.createStream();
+
+    test._results._watch = function (t) {
+        t.on('result', function (res) {
+            tt.equal('Test.testFunctionNameParsing', res.functionName)
+        });
+    };
+
+    test('t.equal stack trace', function testFunctionNameParsing(t) {
+        t.equal(true, false, 'true should be false');
+        t.end();
+    });
+});
+
+tap.test('parses function name from original stack for anonymous function', function (tt) {
+    tt.plan(1);
+
+    var test = tape.createHarness();
+    test.createStream();
+
+    test._results._watch = function (t) {
+        t.on('result', function (res) {
+            tt.equal('Test.<anonymous>', res.functionName)
+        });
+    };
+
+    test('t.equal stack trace', function (t) {
+        t.equal(true, false, 'true should be false');
+        t.end();
+    });
+});
+
 tap.test('preserves stack trace for failed assertions', function (tt) {
     tt.plan(6);
 
