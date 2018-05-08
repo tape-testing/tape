@@ -24,7 +24,7 @@
     "through": "~2.3.8"
   },
   "devDependencies": {
-    "concat-stream": "^1.6.1",
+    "concat-stream": "^1.6.2",
     "falafel": "^2.1.0",
     "js-yaml": "^3.11.0",
     "tap": "^8.0.1",
