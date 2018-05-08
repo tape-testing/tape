@@ -1,0 +1,6 @@
+{
+    "root": true,
+    "rules": {
+        "indent": ["error", 4],
+    },
+}

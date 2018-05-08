@@ -30,7 +30,7 @@ tap.test('test SKIP comment', function (assert) {
 
 test('skip this', { skip: true }, function(t) {
     t.fail('this should not even run');
-	ran++;
+    ran++;
     t.end();
 });
 

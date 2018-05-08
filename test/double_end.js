@@ -26,13 +26,13 @@ test(function (t) {
         var stackExpected;
         var atExpected;
         try {
-          to._onTimeout();
+            to._onTimeout();
         }
         catch (e) {
-          stackExpected = stripFullStack(e.stack).split('\n')[1];
-          stackExpected = stackExpected.replace('double_end.js', 'double_end/double.js');
-          stackExpected = stackExpected.trim();
-          atExpected = stackExpected.replace(/^at\s+/, 'at: ');
+            stackExpected = stripFullStack(e.stack).split('\n')[1];
+            stackExpected = stackExpected.replace('double_end.js', 'double_end/double.js');
+            stackExpected = stackExpected.trim();
+            atExpected = stackExpected.replace(/^at\s+/, 'at: ');
         }
 
         var stripped = stripFullStack(body.toString('utf8'));

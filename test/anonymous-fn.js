@@ -7,7 +7,7 @@ var testWrapper = require('./anonymous-fn/test-wrapper');
 
 tap.test('inside anonymous functions', function (tt) {
     tt.plan(1);
-    
+
     var test = tape.createHarness();
     var tc = function (rows) {
         var body = stripFullStack(rows.toString('utf8'));
@@ -39,9 +39,9 @@ tap.test('inside anonymous functions', function (tt) {
             '# fail  1'
         ].join('\n') + '\n');
     };
-    
+
     test.createStream().pipe(concat(tc));
-    
+
     test('wrapped test failure', testWrapper(function (t) {
         t.fail('fail');
         t.end();

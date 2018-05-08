@@ -32,32 +32,32 @@ module.exports.getDiag = function (body) {
 //    strip out all stack frames that aren't directly under our test directory,
 //    and replace them with placeholders.
 module.exports.stripFullStack = function (output) {
-  var stripped = '          [... stack stripped ...]';
-  var withDuplicates = output.split('\n').map(function (line) {
-      var m = line.match(/[ ]{8}at .*\((.*)\)/);
+    var stripped = '          [... stack stripped ...]';
+    var withDuplicates = output.split('\n').map(function (line) {
+        var m = line.match(/[ ]{8}at .*\((.*)\)/);
 
-      var stripChangingData = function (line) {
-          var withoutTestDir = line.replace(__dirname, '$TEST');
-          var withoutPackageDir = withoutTestDir.replace(path.dirname(__dirname), '$TAPE');
-          var withoutPathSep = withoutPackageDir.replace(new RegExp('\\' + path.sep, 'g'), '/');
-          var withoutLineNumbers = withoutPathSep.replace(/:\d+:\d+/g, ':$LINE:$COL');
-          var withoutNestedLineNumbers = withoutLineNumbers.replace(/, \<anonymous\>:\$LINE:\$COL\)$/, ')');
-          return withoutNestedLineNumbers;
-      }
+        var stripChangingData = function (line) {
+            var withoutTestDir = line.replace(__dirname, '$TEST');
+            var withoutPackageDir = withoutTestDir.replace(path.dirname(__dirname), '$TAPE');
+            var withoutPathSep = withoutPackageDir.replace(new RegExp('\\' + path.sep, 'g'), '/');
+            var withoutLineNumbers = withoutPathSep.replace(/:\d+:\d+/g, ':$LINE:$COL');
+            var withoutNestedLineNumbers = withoutLineNumbers.replace(/, \<anonymous\>:\$LINE:\$COL\)$/, ')');
+            return withoutNestedLineNumbers;
+        }
 
-      if (m) {
-          if (m[1].slice(0, __dirname.length) === __dirname) {
-              return stripChangingData(line);
-          }
-          return stripped;
-      }
-      return stripChangingData(line);
-  })
+        if (m) {
+            if (m[1].slice(0, __dirname.length) === __dirname) {
+                return stripChangingData(line);
+            }
+            return stripped;
+        }
+        return stripChangingData(line);
+    })
 
-  var deduped = withDuplicates.filter(function (line, ix) {
-      var hasPrior = line === stripped && withDuplicates[ix - 1] === stripped;
-      return !hasPrior;
-  });
+    var deduped = withDuplicates.filter(function (line, ix) {
+        var hasPrior = line === stripped && withDuplicates[ix - 1] === stripped;
+        return !hasPrior;
+    });
 
-  return deduped.join('\n');
+    return deduped.join('\n');
 }

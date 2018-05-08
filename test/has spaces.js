@@ -6,7 +6,7 @@ var stripFullStack = require('./common').stripFullStack;
 
 tap.test('array test', function (tt) {
     tt.plan(1);
-    
+
     var test = tape.createHarness({ exit : false });
     var tc = function (rows) {
         tt.same(stripFullStack(rows.toString('utf8')), [
@@ -30,9 +30,9 @@ tap.test('array test', function (tt) {
             ''
         ].join('\n'));
     };
-    
+
     test.createStream().pipe(concat(tc));
-    
+
     test('fail', function (t) {
         t.fail('this should fail');
         t.end();

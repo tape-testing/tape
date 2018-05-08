@@ -95,26 +95,26 @@ The default TAP output is good for machines and humans that are robots.
 If you want a more colorful / pretty output there are lots of modules on npm
 that will output something pretty if you pipe TAP into them:
 
- - https://github.com/scottcorgan/tap-spec
- - https://github.com/scottcorgan/tap-dot
- - https://github.com/substack/faucet
- - https://github.com/juliangruber/tap-bail
- - https://github.com/kirbysayshi/tap-browser-color
- - https://github.com/gummesson/tap-json
- - https://github.com/derhuerst/tap-min
- - https://github.com/calvinmetcalf/tap-nyan
- - https://www.npmjs.org/package/tap-pessimist
- - https://github.com/toolness/tap-prettify
- - https://github.com/shuhei/colortape
- - https://github.com/aghassemi/tap-xunit
- - https://github.com/namuol/tap-difflet
- - https://github.com/gritzko/tape-dom
- - https://github.com/axross/tap-diff
- - https://github.com/axross/tap-notify
- - https://github.com/zoubin/tap-summary
- - https://github.com/Hypercubed/tap-markdown
- - https://github.com/gabrielcsapo/tap-html
- - https://github.com/mcnuttandrew/tap-react-browser
+    - https://github.com/scottcorgan/tap-spec
+    - https://github.com/scottcorgan/tap-dot
+    - https://github.com/substack/faucet
+    - https://github.com/juliangruber/tap-bail
+    - https://github.com/kirbysayshi/tap-browser-color
+    - https://github.com/gummesson/tap-json
+    - https://github.com/derhuerst/tap-min
+    - https://github.com/calvinmetcalf/tap-nyan
+    - https://www.npmjs.org/package/tap-pessimist
+    - https://github.com/toolness/tap-prettify
+    - https://github.com/shuhei/colortape
+    - https://github.com/aghassemi/tap-xunit
+    - https://github.com/namuol/tap-difflet
+    - https://github.com/gritzko/tape-dom
+    - https://github.com/axross/tap-diff
+    - https://github.com/axross/tap-notify
+    - https://github.com/zoubin/tap-summary
+    - https://github.com/Hypercubed/tap-markdown
+    - https://github.com/gabrielcsapo/tap-html
+    - https://github.com/mcnuttandrew/tap-react-browser
 
 To use them, try `node test/index.js | tap-spec` or pipe it into one
 of the modules of your choice!
@@ -146,11 +146,8 @@ finished. Tests execute serially.
 
 Available `opts` options are:
 - opts.skip = true/false. See test.skip.
-- opts.timeout = 500. Set a timeout for the test, after which it will fail.
-  See test.timeoutAfter.
-- opts.objectPrintDepth = 5. Configure max depth of expected / actual object
-  printing. Environmental variable `NODE_TAPE_OBJECT_PRINT_DEPTH` can set the
-  desired default depth for all tests; locally-set values will take precedence.
+- opts.timeout = 500. Set a timeout for the test, after which it will fail. See test.timeoutAfter.
+- opts.objectPrintDepth = 5. Configure max depth of expected / actual object printing. Environmental variable `NODE_TAPE_OBJECT_PRINT_DEPTH` can set the desired default depth for all tests; locally-set values will take precedence.
 
 If you forget to `t.plan()` out how many assertions you are going to run and you
 don't call `t.end()` explicitly, your test will hang.

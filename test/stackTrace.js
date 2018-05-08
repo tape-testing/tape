@@ -239,13 +239,13 @@ function getDiag (body) {
     var yamlEnd = body.indexOf('  ...\n');
     var diag = body.slice(yamlStart, yamlEnd).split('\n').map(function (line) {
         return line.slice(2);
-   }).join('\n');
+    }).join('\n');
 
-   // Get rid of 'at' variable (which has a line number / path of its own that's
-   // difficult to check).
-   var withStack = yaml.safeLoad(diag);
-   delete withStack.at;
-   return withStack;
+    // Get rid of 'at' variable (which has a line number / path of its own that's
+    // difficult to check).
+    var withStack = yaml.safeLoad(diag);
+    delete withStack.at;
+    return withStack;
 }
 
 function stripAt (body) {

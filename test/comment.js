@@ -9,15 +9,15 @@ tap.test('no comment', function (assert) {
 
     var verify = function (output) {
         assert.equal(output.toString('utf8'), [
-                'TAP version 13',
-                '# no comment',
-                '',
-                '1..0',
-                '# tests 0',
-                '# pass  0',
-                '',
-                '# ok',
-                ''
+            'TAP version 13',
+            '# no comment',
+            '',
+            '1..0',
+            '# tests 0',
+            '# pass  0',
+            '',
+            '# ok',
+            ''
         ].join('\n'));
     };
 
@@ -69,19 +69,19 @@ tap.test('whitespace', function (assert) {
 
     var verify = function (output) {
         assert.equal(output.toString('utf8'), [
-                'TAP version 13',
-                '# whitespace',
-                '# ',
-                '# a',
-                '# a',
-                '# a',
-                '',
-                '1..0',
-                '# tests 0',
-                '# pass  0',
-                '',
-                '# ok',
-                ''
+            'TAP version 13',
+            '# whitespace',
+            '# ',
+            '# a',
+            '# a',
+            '# a',
+            '',
+            '1..0',
+            '# tests 0',
+            '# pass  0',
+            '',
+            '# ok',
+            ''
         ].join('\n'));
     };
 
@@ -102,23 +102,23 @@ tap.test('non-string types', function (assert) {
 
     var verify = function (output) {
         assert.equal(output.toString('utf8'), [
-                'TAP version 13',
-                '# non-string types',
-                '# true',
-                '# false',
-                '# 42',
-                '# 6.66',
-                '# [object Object]',
-                '# [object Object]',
-                '# [object Object]',
-                '# function ConstructorFunction() {}',
-                '',
-                '1..0',
-                '# tests 0',
-                '# pass  0',
-                '',
-                '# ok',
-                ''
+            'TAP version 13',
+            '# non-string types',
+            '# true',
+            '# false',
+            '# 42',
+            '# 6.66',
+            '# [object Object]',
+            '# [object Object]',
+            '# [object Object]',
+            '# function ConstructorFunction() {}',
+            '',
+            '1..0',
+            '# tests 0',
+            '# pass  0',
+            '',
+            '# ok',
+            ''
         ].join('\n'));
     };
 
@@ -143,19 +143,19 @@ tap.test('multiline string', function (assert) {
 
     var verify = function (output) {
         assert.equal(output.toString('utf8'), [
-                'TAP version 13',
-                '# multiline strings',
-                '# a',
-                '# b',
-                '# c',
-                '# d',
-                '',
-                '1..0',
-                '# tests 0',
-                '# pass  0',
-                '',
-                '# ok',
-                ''
+            'TAP version 13',
+            '# multiline strings',
+            '# a',
+            '# b',
+            '# c',
+            '# d',
+            '',
+            '1..0',
+            '# tests 0',
+            '# pass  0',
+            '',
+            '# ok',
+            ''
         ].join('\n'));
     };
 

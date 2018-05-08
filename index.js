@@ -21,11 +21,11 @@ exports = module.exports = (function () {
     var lazyLoad = function () {
         return getHarness().apply(this, arguments);
     };
-    
+
     lazyLoad.only = function () {
         return getHarness().only.apply(this, arguments);
     };
-    
+
     lazyLoad.createStream = function (opts) {
         if (!opts) opts = {};
         if (!harness) {
@@ -35,11 +35,11 @@ exports = module.exports = (function () {
         }
         return harness.createStream(opts);
     };
-    
+
     lazyLoad.onFinish = function () {
         return getHarness().onFinish.apply(this, arguments);
     };
-    
+
     lazyLoad.onFailure = function() {
         return getHarness().onFailure.apply(this, arguments);
     };
@@ -61,16 +61,16 @@ function createExitHarness (conf) {
     var harness = createHarness({
         autoclose: defined(conf.autoclose, false)
     });
-    
+
     var stream = harness.createStream({ objectMode: conf.objectMode });
     var es = stream.pipe(conf.stream || createDefaultStream());
     if (canEmitExit) {
         es.on('error', function (err) { harness._exitCode = 1 });
     }
-    
+
     var ended = false;
     stream.on('end', function () { ended = true });
-    
+
     if (conf.exit === false) return harness;
     if (!canEmitExit || !canExit) return harness;
 
@@ -93,7 +93,7 @@ function createExitHarness (conf) {
         harness.close();
         process.exit(code || harness._exitCode);
     });
-    
+
     return harness;
 }
 
@@ -110,11 +110,11 @@ function createHarness (conf_) {
     if (conf_.autoclose !== false) {
         results.once('done', function () { results.close() });
     }
-    
+
     var test = function (name, conf, cb) {
         var t = new Test(name, conf, cb);
         test._tests.push(t);
-        
+
         (function inspectCode (st) {
             st.on('test', function sub (st_) {
                 inspectCode(st_);
@@ -123,14 +123,14 @@ function createHarness (conf_) {
                 if (!r.ok && typeof r !== 'string') test._exitCode = 1
             });
         })(t);
-        
+
         results.push(t);
         return t;
     };
     test._results = results;
-    
+
     test._tests = [];
-    
+
     test.createStream = function (opts) {
         return results.createStream(opts);
     };
@@ -142,7 +142,7 @@ function createHarness (conf_) {
     test.onFailure = function (cb) {
         results.on('fail', cb);
     };
-    
+
     var only = false;
     test.only = function () {
         if (only) throw new Error('there can only be one only test');
@@ -152,8 +152,8 @@ function createHarness (conf_) {
         return t;
     };
     test._exitCode = 0;
-    
+
     test.close = function () { results.close() };
-    
+
     return test;
 }

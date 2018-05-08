@@ -6,7 +6,7 @@ var stripFullStack = require('./common').stripFullStack;
 
 tap.test('timeoutAfter test', function (tt) {
     tt.plan(1);
-    
+
     var test = tape.createHarness();
     var tc = function (rows) {
         tt.same(stripFullStack(rows.toString('utf8')), [
@@ -26,9 +26,9 @@ tap.test('timeoutAfter test', function (tt) {
             '# fail  1'
         ].join('\n') + '\n');
     };
-    
+
     test.createStream().pipe(concat(tc));
-    
+
     test('timeoutAfter', function (t) {
         t.plan(1);
         t.timeoutAfter(1);

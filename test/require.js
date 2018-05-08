@@ -4,7 +4,7 @@ var concat = require('concat-stream');
 
 tap.test('requiring a single module', function (t) {
     t.plan(2);
-    
+
     var tc = function (rows) {
         t.same(rows.toString('utf8'), [
             'TAP version 13',
@@ -21,7 +21,7 @@ tap.test('requiring a single module', function (t) {
             '# ok'
         ].join('\n') + '\n\n');
     };
-    
+
     var ps = tape('-r ./require/a require/test-a.js');
     ps.stdout.pipe(concat(tc));
     ps.on('exit', function (code) {
@@ -31,7 +31,7 @@ tap.test('requiring a single module', function (t) {
 
 tap.test('requiring multiple modules', function (t) {
     t.plan(2);
-    
+
     var tc = function (rows) {
         t.same(rows.toString('utf8'), [
             'TAP version 13',
@@ -53,7 +53,7 @@ tap.test('requiring multiple modules', function (t) {
             '# ok'
         ].join('\n') + '\n\n');
     };
-    
+
     var ps = tape('-r ./require/a -r ./require/b require/test-a.js require/test-b.js');
     ps.stdout.pipe(concat(tc));
     ps.on('exit', function (code) {
@@ -62,8 +62,8 @@ tap.test('requiring multiple modules', function (t) {
 });
 
 function tape(args) {
-  var proc = require('child_process')
-  var bin = __dirname + '/../bin/tape'
+    var proc = require('child_process')
+    var bin = __dirname + '/../bin/tape'
 
-  return proc.spawn('node', [bin].concat(args.split(' ')), { cwd: __dirname })
+    return proc.spawn('node', [bin].concat(args.split(' ')), { cwd: __dirname })
 }

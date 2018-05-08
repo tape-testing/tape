@@ -5,23 +5,23 @@ var concat = require('concat-stream');
 
 tap.test("tape assert.end as callback", function (tt) {
     var test = tape.createHarness({ exit: false })
-    
+
     test.createStream().pipe(concat(function (rows) {
         tt.equal(rows.toString('utf8'), [
-        'TAP version 13',
-        '# do a task and write',
-        'ok 1 null',
-        'ok 2 should be equal',
-        '# do a task and write fail',
-        'ok 3 null',
-        'ok 4 should be equal',
-        'not ok 5 Error: fail',
-        getStackTrace(rows), // tap error stack
-        '',
-        '1..5',
-        '# tests 5',
-        '# pass  4',
-        '# fail  1'
+            'TAP version 13',
+            '# do a task and write',
+            'ok 1 null',
+            'ok 2 should be equal',
+            '# do a task and write fail',
+            'ok 3 null',
+            'ok 4 should be equal',
+            'not ok 5 Error: fail',
+            getStackTrace(rows), // tap error stack
+            '',
+            '1..5',
+            '# tests 5',
+            '# pass  4',
+            '# fail  1'
         ].join('\n') + '\n');
         tt.end()
     }));

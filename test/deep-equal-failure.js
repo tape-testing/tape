@@ -41,9 +41,9 @@ tap.test('deep equal failure', function (assert) {
         );
 
         assert.deepEqual(getDiag(body), {
-          operator: 'equal',
-          expected: '{ b: 2 }',
-          actual: '{ a: 1 }'
+            operator: 'equal',
+            expected: '{ b: 2 }',
+            actual: '{ a: 1 }'
         });
     }));
 
@@ -55,9 +55,9 @@ tap.test('deep equal failure', function (assert) {
             id: 1,
             name: 'should be equal',
             diag: {
-              operator: 'equal',
-              expected: '{ b: 2 }',
-              actual: '{ a: 1 }'
+                operator: 'equal',
+                expected: '{ b: 2 }',
+                actual: '{ a: 1 }'
             }
         });
     });
@@ -102,9 +102,9 @@ tap.test('deep equal failure, depth 6, with option', function (assert) {
         );
 
         assert.deepEqual(getDiag(body), {
-          operator: 'equal',
-          expected: '{ a: { a1: { a2: { a3: { a4: { a5: 2 } } } } } }',
-          actual: '{ a: { a1: { a2: { a3: { a4: { a5: 1 } } } } } }'
+            operator: 'equal',
+            expected: '{ a: { a1: { a2: { a3: { a4: { a5: 2 } } } } } }',
+            actual: '{ a: { a1: { a2: { a3: { a4: { a5: 1 } } } } } }'
         });
     }));
 
@@ -116,9 +116,9 @@ tap.test('deep equal failure, depth 6, with option', function (assert) {
             id: 1,
             name: 'should be equal',
             diag: {
-              operator: 'equal',
-              expected: '{ a: { a1: { a2: { a3: { a4: { a5: 2 } } } } } }',
-              actual: '{ a: { a1: { a2: { a3: { a4: { a5: 1 } } } } } }'
+                operator: 'equal',
+                expected: '{ a: { a1: { a2: { a3: { a4: { a5: 2 } } } } } }',
+                actual: '{ a: { a1: { a2: { a3: { a4: { a5: 1 } } } } } }'
             }
         });
     });
@@ -163,9 +163,9 @@ tap.test('deep equal failure, depth 6, without option', function (assert) {
         );
 
         assert.deepEqual(getDiag(body), {
-          operator: 'equal',
-          expected: '{ a: { a1: { a2: { a3: { a4: [Object] } } } } }',
-          actual: '{ a: { a1: { a2: { a3: { a4: [Object] } } } } }'
+            operator: 'equal',
+            expected: '{ a: { a1: { a2: { a3: { a4: [Object] } } } } }',
+            actual: '{ a: { a1: { a2: { a3: { a4: [Object] } } } } }'
         });
     }));
 
@@ -177,9 +177,9 @@ tap.test('deep equal failure, depth 6, without option', function (assert) {
             id: 1,
             name: 'should be equal',
             diag: {
-              operator: 'equal',
-              expected: '{ a: { a1: { a2: { a3: { a4: [Object] } } } } }',
-              actual: '{ a: { a1: { a2: { a3: { a4: [Object] } } } } }'
+                operator: 'equal',
+                expected: '{ a: { a1: { a2: { a3: { a4: [Object] } } } } }',
+                actual: '{ a: { a1: { a2: { a3: { a4: [Object] } } } } }'
             }
         });
     });

@@ -6,7 +6,7 @@ var stripFullStack = require('./common').stripFullStack;
 
 tap.test('array test', function (tt) {
     tt.plan(1);
-    
+
     var test = tape.createHarness();
     test.createStream().pipe(concat(function (body) {
         tt.equal(
@@ -34,7 +34,7 @@ tap.test('array test', function (tt) {
             + '# fail  1\n'
         );
     }));
-    
+
     test('undef', function (t) {
         t.plan(1);
         t.deepEqual({}, { beep: undefined });

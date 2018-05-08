@@ -7,7 +7,7 @@ tap.test('nested sync test without plan or end', function (tt) {
 
     var test = tape.createHarness();
     var tc = function (rows) {
-       tt.same(rows.toString('utf8'), [
+        tt.same(rows.toString('utf8'), [
             'TAP version 13',
             '# nested without plan or end',
             '# first',
@@ -27,15 +27,15 @@ tap.test('nested sync test without plan or end', function (tt) {
 
     test('nested without plan or end', function(t) {
         t.test('first', function(q) {
-            setTimeout(function first() { 
+            setTimeout(function first() {
                 q.ok(true);
-                q.end() 
+                q.end()
             }, 10);
         });
         t.test('second', function(q) {
-            setTimeout(function second() { 
+            setTimeout(function second() {
                 q.ok(true);
-                q.end() 
+                q.end()
             }, 10);
         });
     });

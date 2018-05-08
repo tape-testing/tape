@@ -19,9 +19,10 @@ if (typeof opts.require === 'string') {
 
 opts.require.forEach(function(module) {
     if (module) {
-      /* This check ensures we ignore `-r ""`, trailing `-r`, or
-       * other silly things the user might (inadvertently) be doing. */
-      require(resolveModule(module, { basedir: cwd }));
+        /* This check ensures we ignore `-r ""`, trailing `-r`, or
+         * other silly things the user might (inadvertently) be doing.
+         */
+        require(resolveModule(module, { basedir: cwd }));
     }
 });
 
@@ -31,7 +32,7 @@ opts._.forEach(function (arg) {
     var files = glob.sync(arg);
 
     if (!Array.isArray(files)) {
-      throw new TypeError('unknown error: glob.sync did not return an array or throw. Please report this.');
+        throw new TypeError('unknown error: glob.sync did not return an array or throw. Please report this.');
     }
 
     files.forEach(function (file) {
