@@ -95,26 +95,26 @@ The default TAP output is good for machines and humans that are robots.
 If you want a more colorful / pretty output there are lots of modules on npm
 that will output something pretty if you pipe TAP into them:
 
-    - https://github.com/scottcorgan/tap-spec
-    - https://github.com/scottcorgan/tap-dot
-    - https://github.com/substack/faucet
-    - https://github.com/juliangruber/tap-bail
-    - https://github.com/kirbysayshi/tap-browser-color
-    - https://github.com/gummesson/tap-json
-    - https://github.com/derhuerst/tap-min
-    - https://github.com/calvinmetcalf/tap-nyan
-    - https://www.npmjs.org/package/tap-pessimist
-    - https://github.com/toolness/tap-prettify
-    - https://github.com/shuhei/colortape
-    - https://github.com/aghassemi/tap-xunit
-    - https://github.com/namuol/tap-difflet
-    - https://github.com/gritzko/tape-dom
-    - https://github.com/axross/tap-diff
-    - https://github.com/axross/tap-notify
-    - https://github.com/zoubin/tap-summary
-    - https://github.com/Hypercubed/tap-markdown
-    - https://github.com/gabrielcsapo/tap-html
-    - https://github.com/mcnuttandrew/tap-react-browser
+- [tap-spec](https://github.com/scottcorgan/tap-spec)
+- [tap-dot](https://github.com/scottcorgan/tap-dot)
+- [faucet](https://github.com/substack/faucet)
+- [tap-bail](https://github.com/juliangruber/tap-bail)
+- [tap-browser-color](https://github.com/kirbysayshi/tap-browser-color)
+- [tap-json](https://github.com/gummesson/tap-json)
+- [tap-min](https://github.com/derhuerst/tap-min)
+- [tap-nyan](https://github.com/calvinmetcalf/tap-nyan)
+- [package/tap-pessimist](https://www.npmjs.org/package/tap-pessimist)
+- [tap-prettify](https://github.com/toolness/tap-prettify)
+- [colortape](https://github.com/shuhei/colortape)
+- [tap-xunit](https://github.com/aghassemi/tap-xunit)
+- [tap-difflet](https://github.com/namuol/tap-difflet)
+- [tape-dom](https://github.com/gritzko/tape-dom)
+- [tap-diff](https://github.com/axross/tap-diff)
+- [tap-notify](https://github.com/axross/tap-notify)
+- [tap-summary](https://github.com/zoubin/tap-summary)
+- [tap-markdown](https://github.com/Hypercubed/tap-markdown)
+- [tap-html](https://github.com/gabrielcsapo/tap-html)
+- [tap-react-browser](https://github.com/mcnuttandrew/tap-react-browser)
 
 To use them, try `node test/index.js | tap-spec` or pipe it into one
 of the modules of your choice!
