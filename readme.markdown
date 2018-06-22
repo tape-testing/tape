@@ -103,7 +103,7 @@ that will output something pretty if you pipe TAP into them:
 - [tap-json](https://github.com/gummesson/tap-json)
 - [tap-min](https://github.com/derhuerst/tap-min)
 - [tap-nyan](https://github.com/calvinmetcalf/tap-nyan)
-- [package/tap-pessimist](https://www.npmjs.org/package/tap-pessimist)
+- [tap-pessimist](https://www.npmjs.org/package/tap-pessimist)
 - [tap-prettify](https://github.com/toolness/tap-prettify)
 - [colortape](https://github.com/shuhei/colortape)
 - [tap-xunit](https://github.com/aghassemi/tap-xunit)
