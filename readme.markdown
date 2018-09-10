@@ -6,7 +6,7 @@ tap-producing test harness for node and browsers
 
 [![build status](https://secure.travis-ci.org/substack/tape.svg?branch=master)](http://travis-ci.org/substack/tape)
 
-![tape](http://substack.net/images/tape_drive.png)
+![tape](https://web.archive.org/web/20170612184731if_/http://substack.net/images/tape_drive.png)
 
 # example
 
