@@ -115,6 +115,7 @@ that will output something pretty if you pipe TAP into them:
 - [tap-markdown](https://github.com/Hypercubed/tap-markdown)
 - [tap-html](https://github.com/gabrielcsapo/tap-html)
 - [tap-react-browser](https://github.com/mcnuttandrew/tap-react-browser)
+- [tap-junit](https://github.com/dhershman1/tap-junit)
 
 To use them, try `node test/index.js | tap-spec` or pipe it into one
 of the modules of your choice!
