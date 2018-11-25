@@ -266,7 +266,7 @@ Assert that the function call `fn()` throws an exception. `expected`, if present
 
 ## t.doesNotThrow(fn, expected, msg)
 
-Assert that the function call `fn()` does not throw an exception. `msg` is an optional description of the assertion.
+Assert that the function call `fn()` does not throw an exception. `expected`, if present, limits what should not be thrown. For example, set `expected` to `/user/` to fail the test only if the string representation of the exception contains the word `user`. Any other exception would pass the test. If `expected` is omitted, any exception will fail the test. `msg` is an optional description of the assertion.
 
 ## t.test(name, [opts], cb)
 
