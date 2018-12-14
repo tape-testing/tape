@@ -153,7 +153,7 @@ Available `opts` options are:
 If you forget to `t.plan()` out how many assertions you are going to run and you
 don't call `t.end()` explicitly, your test will hang.
 
-## test.skip(name, cb)
+## test.skip([name], [opts], cb)
 
 Generate a new test that will be skipped over.
 
@@ -289,9 +289,9 @@ By default the TAP output goes to `console.log()`. You can pipe the output to
 someplace else if you `htest.createStream().pipe()` to a destination stream on
 the first tick.
 
-## test.only(name, cb)
+## test.only([name], [opts], cb)
 
-Like `test(name, cb)` except if you use `.only` this is the only test case
+Like `test([name], [opts], cb)` except if you use `.only` this is the only test case
 that will run for the entire process, all other test cases using tape will
 be ignored
 
