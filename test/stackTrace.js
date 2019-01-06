@@ -20,9 +20,7 @@ tap.test('preserves stack trace with newlines', function (tt) {
             name: "Error: Preserve stack",
             diag: {
                 stack: stackTrace,
-                operator: 'error',
-                expected: 'undefined',
-                actual: '[Error: Preserve stack]'
+                operator: 'error'
             }
         });
     });
@@ -37,10 +35,6 @@ tap.test('preserves stack trace with newlines', function (tt) {
             + 'not ok 1 Error: Preserve stack\n'
             + '  ---\n'
             + '    operator: error\n'
-            + '    expected: |-\n'
-            + '      undefined\n'
-            + '    actual: |-\n'
-            + '      [Error: Preserve stack]\n'
             + '    stack: |-\n'
             + '      foo\n'
             + '        bar\n'
@@ -54,9 +48,7 @@ tap.test('preserves stack trace with newlines', function (tt) {
 
         tt.deepEqual(getDiag(body), {
             stack: stackTrace,
-            operator: 'error',
-            expected: 'undefined',
-            actual: '[Error: Preserve stack]'
+            operator: 'error'
         });
     }));
 
