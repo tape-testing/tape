@@ -1,13 +1,13 @@
 var tape = require('../');
 var tap = require('tap');
+var concat = require('concat-stream');
 
 tap.test('async test calls', function (tt) {
     tt.plan(1);
 
     var test = tape.createHarness();
-    var tc = tap.createConsumer();
 
-    test.createStream().pipe(tc);
+    test.createStream().pipe(concat(function(){})); // Ignore output
 
     function run1(callback){
         test('first', function (t) {
