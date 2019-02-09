@@ -20,10 +20,13 @@ var grandParentRan = false;
 var parentRan = false;
 var grandChildRan = false;
 test('grandparent', function(t) {
+    t.ok(!grandParentRan, 'grand parent ran twice');
     grandParentRan = true;
     t.test('parent', function(t) {
+        t.ok(!parentRan, 'parent ran twice');
         parentRan = true;
         t.test('grandchild', function(t) {
+            t.ok(!grandChildRan, 'grand child ran twice');
             grandChildRan = true;
             t.pass('grand child ran');
             t.end();
