@@ -25,14 +25,14 @@ tap.test('nested sync test without plan or end', function (tt) {
 
     test.createStream().pipe(concat(tc));
 
-    test('nested without plan or end', function(t) {
-        t.test('first', function(q) {
+    test('nested without plan or end', function (t) {
+        t.test('first', function (q) {
             setTimeout(function first() {
                 q.ok(true);
                 q.end()
             }, 10);
         });
-        t.test('second', function(q) {
+        t.test('second', function (q) {
             setTimeout(function second() {
                 q.ok(true);
                 q.end()

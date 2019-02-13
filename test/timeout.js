@@ -1,7 +1,7 @@
 var test = require('../');
 var ran = 0;
 
-test('timeout', function(t) {
+test('timeout', function (t) {
     t.pass('this should run');
     ran++;
     setTimeout(function () {
@@ -9,7 +9,7 @@ test('timeout', function(t) {
     }, 100);
 });
 
-test('should still run', { timeout: 50 }, function(t) {
+test('should still run', { timeout: 50 }, function (t) {
     t.equal(ran, 1);
     t.end();
 });

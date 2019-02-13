@@ -17,7 +17,7 @@ if (typeof opts.require === 'string') {
     opts.require = [opts.require];
 }
 
-opts.require.forEach(function(module) {
+opts.require.forEach(function (module) {
     if (module) {
         /* This check ensures we ignore `-r ""`, trailing `-r`, or
          * other silly things the user might (inadvertently) be doing.

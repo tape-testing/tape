@@ -8,8 +8,8 @@ tap.test('only twice error', function (assert) {
         t.end()
     });
 
-    assert.throws(function() {
-        test.only('second only', function(t) {
+    assert.throws(function () {
+        test.only('second only', function (t) {
             t.end();
         });
     }, {

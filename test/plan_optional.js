@@ -6,7 +6,7 @@ test('plan should be optional', function (t) {
 });
 
 test('no plan async', function (t) {
-    setTimeout(function() {
+    setTimeout(function () {
         t.pass('ok');
         t.end();
     }, 100);

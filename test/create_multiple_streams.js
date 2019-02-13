@@ -1,6 +1,6 @@
 var tape = require('../');
 
-tape.test('createMultipleStreams', function(tt) {
+tape.test('createMultipleStreams', function (tt) {
     tt.plan(2);
 
     var th = tape.createHarness();
@@ -11,7 +11,7 @@ tape.test('createMultipleStreams', function(tt) {
 
     th('test one', function (tht) {
         tht.plan(1);
-        setTimeout( function() {
+        setTimeout( function () {
             tht.pass();
             testOneComplete = true;
         }, 100);
@@ -22,7 +22,7 @@ tape.test('createMultipleStreams', function(tt) {
         tht.end();
     });
 
-    th.onFinish(function() {
+    th.onFinish(function () {
         tt.equal(th._results.count, 2, "harness test ran");
         tt.equal(th._results.fail,  0, "harness test didn't fail");
     });

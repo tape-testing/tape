@@ -1,9 +1,9 @@
 var test = require('../');
 
-test(function(t) {
+test(function (t) {
     var i = 0
-    t.test('setup', function(t) {
-        process.nextTick(function() {
+    t.test('setup', function (t) {
+        process.nextTick(function () {
             t.equal(i, 0, 'called once')
             i++
             t.end()
@@ -11,7 +11,7 @@ test(function(t) {
     })
 
 
-    t.test('teardown', function(t) {
+    t.test('teardown', function (t) {
         t.end()
     })
 

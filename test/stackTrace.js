@@ -234,7 +234,7 @@ tap.test('preserves stack trace for failed assertions where actual===falsy', fun
     });
 });
 
-function getDiag (body) {
+function getDiag(body) {
     var yamlStart = body.indexOf('  ---');
     var yamlEnd = body.indexOf('  ...\n');
     var diag = body.slice(yamlStart, yamlEnd).split('\n').map(function (line) {
@@ -248,6 +248,6 @@ function getDiag (body) {
     return withStack;
 }
 
-function stripAt (body) {
+function stripAt(body) {
     return body.replace(/^\s*at:\s+Test.*$\n/m, '');
 }

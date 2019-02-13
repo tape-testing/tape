@@ -40,7 +40,7 @@ exports = module.exports = (function () {
         return getHarness().onFinish.apply(this, arguments);
     };
 
-    lazyLoad.onFailure = function() {
+    lazyLoad.onFailure = function () {
         return getHarness().onFailure.apply(this, arguments);
     };
 
@@ -48,7 +48,7 @@ exports = module.exports = (function () {
 
     return lazyLoad
 
-    function getHarness (opts) {
+    function getHarness(opts) {
         if (!opts) opts = {};
         opts.autoclose = !canEmitExit;
         if (!harness) harness = createExitHarness(opts);
@@ -56,7 +56,7 @@ exports = module.exports = (function () {
     }
 })();
 
-function createExitHarness (conf) {
+function createExitHarness(conf) {
     if (!conf) conf = {};
     var harness = createHarness({
         autoclose: defined(conf.autoclose, false)
@@ -104,7 +104,7 @@ exports.test.skip = Test.skip;
 
 var exitInterval;
 
-function createHarness (conf_) {
+function createHarness(conf_) {
     if (!conf_) conf_ = {};
     var results = createResult();
     if (conf_.autoclose !== false) {
@@ -115,8 +115,8 @@ function createHarness (conf_) {
         var t = new Test(name, conf, cb);
         test._tests.push(t);
 
-        (function inspectCode (st) {
-            st.on('test', function sub (st_) {
+        (function inspectCode(st) {
+            st.on('test', function sub(st_) {
                 inspectCode(st_);
             });
             st.on('result', function (r) {
