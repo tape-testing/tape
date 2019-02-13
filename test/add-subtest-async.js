@@ -7,6 +7,5 @@ test('parent', function (t) {
             st.pass('child');
             st.end();
         });
-        t.end();
     }, 100);
 })
