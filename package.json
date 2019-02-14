@@ -18,7 +18,7 @@
         "inherits": "~2.0.3",
         "minimist": "~1.2.0",
         "object-inspect": "~1.6.0",
-        "resolve": "~1.7.1",
+        "resolve": "~1.10.0",
         "resumer": "~0.0.0",
         "string.prototype.trim": "~1.1.2",
         "through": "~2.3.8"
