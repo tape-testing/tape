@@ -74,8 +74,6 @@ function createExitHarness(conf) {
     if (conf.exit === false) return harness;
     if (!canEmitExit || !canExit) return harness;
 
-    var inErrorState = false;
-
     process.on('exit', function (code) {
         // let the process exit cleanly.
         if (code !== 0) {
