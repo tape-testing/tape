@@ -30,7 +30,7 @@ exports = module.exports = (function () {
         if (!opts) opts = {};
         if (!harness) {
             var output = through();
-            getHarness({ stream: output, objectMode: opts.objectMode });
+            getHarness({ stream: output, objectMode: opts.objectMode, autoclose: opts.autoclose });
             return output;
         }
         return harness.createStream(opts);
@@ -50,7 +50,7 @@ exports = module.exports = (function () {
 
     function getHarness(opts) {
         if (!opts) opts = {};
-        opts.autoclose = !canEmitExit;
+        opts.autoclose = opts.autoclose || !canEmitExit;
         if (!harness) harness = createExitHarness(opts);
         return harness;
     }
@@ -106,7 +106,7 @@ function createHarness(conf_) {
     if (!conf_) conf_ = {};
     var results = createResult();
     if (conf_.autoclose !== false) {
-        results.once('done', function () { results.close() });
+        results.once('done', function () { if (!results.closed) results.close() });
     }
 
     var test = function (name, conf, cb) {
@@ -151,7 +151,7 @@ function createHarness(conf_) {
     };
     test._exitCode = 0;
 
-    test.close = function () { results.close() };
+    test.close = function () { if (!results.closed) results.close() };
 
     return test;
 }
