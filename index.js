@@ -50,7 +50,7 @@ exports = module.exports = (function () {
 
     function getHarness(opts) {
         if (!opts) opts = {};
-        opts.autoclose = opts.autoclose || !canEmitExit;
+        opts.autoclose = typeof opts.autoclose === 'boolean' ? opts.autoclose : !canEmitExit;
         if (!harness) harness = createExitHarness(opts);
         return harness;
     }
