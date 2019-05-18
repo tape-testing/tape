@@ -86,7 +86,7 @@ Please note that all modules loaded using the `-r` flag will run *before* any te
 
 # things that go well with tape
 
-tape maintains a fairly minimal core. Additional features are usually added by using another module alongside tape.
+`tape` maintains a fairly minimal core. Additional features are usually added by using another module alongside `tape`.
 
 ## pretty reporters
 
@@ -122,7 +122,7 @@ of the modules of your choice!
 
 ## uncaught exceptions
 
-By default, uncaught exceptions in your tests will not be intercepted, and will cause tape to crash. If you find this behavior undesirable, use [tape-catch](https://github.com/michaelrhodes/tape-catch) to report any exceptions as TAP errors.
+By default, uncaught exceptions in your tests will not be intercepted, and will cause `tape` to crash. If you find this behavior undesirable, use [`tape-catch`](https://github.com/michaelrhodes/tape-catch) to report any exceptions as TAP errors.
 
 ## other
 
@@ -135,10 +135,10 @@ By default, uncaught exceptions in your tests will not be intercepted, and will 
 
 # methods
 
-The assertion methods in tape are heavily influenced or copied from the methods
+The assertion methods in `tape` are heavily influenced or copied from the methods
 in [node-tap](https://github.com/isaacs/node-tap).
 
-```
+```js
 var test = require('tape')
 ```
 
@@ -163,12 +163,12 @@ Generate a new test that will be skipped over.
 
 ## test.onFinish(fn)
 
-The onFinish hook will get invoked when ALL tape tests have finished
-right before tape is about to print the test summary.
+The onFinish hook will get invoked when ALL `tape` tests have finished
+right before `tape` is about to print the test summary.
 
 ## test.onFailure(fn)
 
-The onFailure hook will get invoked whenever any tape tests has failed.
+The onFailure hook will get invoked whenever any `tape` tests has failed.
 
 ## t.plan(n)
 
@@ -296,8 +296,8 @@ the first tick.
 ## test.only([name], [opts], cb)
 
 Like `test([name], [opts], cb)` except if you use `.only` this is the only test case
-that will run for the entire process, all other test cases using tape will
-be ignored
+that will run for the entire process, all other test cases using `tape` will
+be ignored.
 
 ## var stream = test.createStream(opts)
 
@@ -326,7 +326,7 @@ like a network connection or a file.
 
 Pass in test files to run as arguments:
 
-```
+```sh
 $ node tap.js test/x.js test/y.js
 TAP version 13
 # (anonymous)
@@ -367,7 +367,7 @@ process.argv.slice(2).forEach(function (file) {
 
 The output for this runner is:
 
-```
+```sh
 $ node object.js test/x.js test/y.js
 {"type":"test","name":"(anonymous)","id":0}
 {"id":0,"ok":false,"name":"should be equal","operator":"equal","actual":"beep","expected":"boop","error":{},"test":0,"type":"assert"}
@@ -385,7 +385,7 @@ $ node object.js test/x.js test/y.js
 
 With [npm](https://npmjs.org) do:
 
-```
+```sh
 npm install tape --save-dev
 ```
 
