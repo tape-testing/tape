@@ -148,3 +148,57 @@ tap.test('more planned in a second test', function (t) {
         t.notEqual(code, 0);
     });
 });
+
+tap.test('todo passing', function (t) {
+    t.plan(2);
+
+    var tc = function (rows) {
+        t.same(stripFullStack(rows.toString('utf8')), [
+            'TAP version 13',
+            '# todo pass',
+            'ok 1 should be truthy # TODO',
+            '',
+            '1..1',
+            '# tests 1',
+            '# pass  1',
+            '',
+            '# ok'
+        ].join('\n') + '\n\n');
+    };
+
+    var ps = spawn(process.execPath, [path.join(__dirname, '/exit/todo.js')]);
+    ps.stdout.pipe(concat(tc));
+    ps.on('exit', function (code) {
+        t.equal(code, 0);
+    });
+});
+
+tap.test('todo failing', function (t) {
+    t.plan(2);
+
+    var tc = function (rows) {
+        t.same(stripFullStack(rows.toString('utf8')), [
+            'TAP version 13',
+            '# todo fail',
+            'not ok 1 should be truthy # TODO',
+            '  ---',
+            '    operator: ok',
+            '    expected: true',
+            '    actual:   false',
+            '    at: Test.<anonymous> ($TEST/exit/todo_fail.js:$LINE:$COL)',
+            '  ...',
+            '',
+            '1..1',
+            '# tests 1',
+            '# pass  1',
+            '',
+            '# ok'
+        ].join('\n') + '\n\n');
+    };
+
+    var ps = spawn(process.execPath, [path.join(__dirname, '/exit/todo_fail.js')]);
+    ps.stdout.pipe(concat(tc));
+    ps.on('exit', function (code) {
+        t.equal(code, 0);
+    });
+});
