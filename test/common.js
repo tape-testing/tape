@@ -1,4 +1,6 @@
 var path = require('path');
+var spawn = require('child_process').spawn;
+var concat = require('concat-stream');
 var yaml = require('js-yaml');
 
 module.exports.getDiag = function (body) {
@@ -60,4 +62,27 @@ module.exports.stripFullStack = function (output) {
     });
 
     return deduped.join('\n');
+};
+
+module.exports.runProgram = function (folderName, fileName, cb) {
+    var result = {
+        stdout: null,
+        stderr: null,
+        exitCode: 0
+    };
+    var ps = spawn(process.execPath, [
+        path.join(__dirname, folderName, fileName)
+    ]);
+
+    ps.stdout.pipe(concat(function (stdoutRows) {
+        result.stdout = stdoutRows;
+    }));
+    ps.stderr.pipe(concat(function (stderrRows) {
+        result.stderr = stderrRows;
+    }));
+
+    ps.on('exit', function (code) {
+        result.exitCode = code;
+        cb(result);
+    });
 };
