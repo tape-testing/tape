@@ -13,7 +13,7 @@ tap.test('tape todo test', function (assert) {
         assert.equal(
             stripFullStack(body.toString('utf8')),
             'TAP version 13\n'
-            + '# failure\n'
+            + '# TODO failure\n'
             + 'not ok 1 should be equal # TODO\n'
             + '  ---\n'
             + '    operator: equal\n'

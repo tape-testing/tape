@@ -155,7 +155,7 @@ tap.test('todo passing', function (t) {
     var tc = function (rows) {
         t.same(stripFullStack(rows.toString('utf8')), [
             'TAP version 13',
-            '# todo pass',
+            '# TODO todo pass',
             'ok 1 should be truthy # TODO',
             '',
             '1..1',
@@ -179,7 +179,7 @@ tap.test('todo failing', function (t) {
     var tc = function (rows) {
         t.same(stripFullStack(rows.toString('utf8')), [
             'TAP version 13',
-            '# todo fail',
+            '# TODO todo fail',
             'not ok 1 should be truthy # TODO',
             '  ---',
             '    operator: ok',

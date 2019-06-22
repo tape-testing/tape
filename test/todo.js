@@ -15,7 +15,7 @@ tap.test('tape todo test', function (assert) {
             'TAP version 13\n'
             + '# success\n'
             + 'ok 1 this test runs\n'
-            + '# failure\n'
+            + '# TODO failure\n'
             + 'not ok 2 should never happen # TODO\n'
             + '  ---\n'
             + '    operator: fail\n'
