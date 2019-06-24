@@ -76,7 +76,7 @@ tap.test('parses function name from original stack', function (tt) {
 
     test._results._watch = function (t) {
         t.on('result', function (res) {
-            tt.equal('Test.testFunctionNameParsing', res.functionName)
+            tt.equal('Test.testFunctionNameParsing', res.functionName);
         });
     };
 
@@ -94,7 +94,7 @@ tap.test('parses function name from original stack for anonymous function', func
 
     test._results._watch = function (t) {
         t.on('result', function (res) {
-            tt.equal('Test.<anonymous>', res.functionName)
+            tt.equal('Test.<anonymous>', res.functionName);
         });
     };
 
@@ -111,13 +111,13 @@ tap.test('preserves stack trace for failed assertions', function (tt) {
     var stream = test.createStream();
     var parser = stream.pipe(tapParser());
 
-    var stack = ''
+    var stack = '';
     parser.once('assert', function (data) {
         tt.equal(typeof data.diag.at, 'string');
         tt.equal(typeof data.diag.stack, 'string');
         at = data.diag.at || '';
         stack = data.diag.stack || '';
-        tt.ok(/^Error: true should be false(\n    at .+)+/.exec(stack), 'stack should be a stack')
+        tt.ok(/^Error: true should be false(\n    at .+)+/.exec(stack), 'stack should be a stack');
         tt.deepEqual(data, {
             ok: false,
             id: 1,
@@ -176,13 +176,13 @@ tap.test('preserves stack trace for failed assertions where actual===falsy', fun
     var stream = test.createStream();
     var parser = stream.pipe(tapParser());
 
-    var stack = ''
+    var stack = '';
     parser.once('assert', function (data) {
         tt.equal(typeof data.diag.at, 'string');
         tt.equal(typeof data.diag.stack, 'string');
         at = data.diag.at || '';
         stack = data.diag.stack || '';
-        tt.ok(/^Error: false should be true(\n    at .+)+/.exec(stack), 'stack should be a stack')
+        tt.ok(/^Error: false should be true(\n    at .+)+/.exec(stack), 'stack should be a stack');
         tt.deepEqual(data, {
             ok: false,
             id: 1,

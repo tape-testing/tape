@@ -44,9 +44,9 @@ exports = module.exports = (function () {
         return getHarness().onFailure.apply(this, arguments);
     };
 
-    lazyLoad.getHarness = getHarness
+    lazyLoad.getHarness = getHarness;
 
-    return lazyLoad
+    return lazyLoad;
 
     function getHarness(opts) {
         if (!opts) opts = {};
@@ -65,11 +65,11 @@ function createExitHarness(conf) {
     var stream = harness.createStream({ objectMode: conf.objectMode });
     var es = stream.pipe(conf.stream || createDefaultStream());
     if (canEmitExit) {
-        es.on('error', function (err) { harness._exitCode = 1 });
+        es.on('error', function (err) { harness._exitCode = 1; });
     }
 
     var ended = false;
-    stream.on('end', function () { ended = true });
+    stream.on('end', function () { ended = true; });
 
     if (conf.exit === false) return harness;
     if (!canEmitExit || !canExit) return harness;
@@ -77,7 +77,7 @@ function createExitHarness(conf) {
     process.on('exit', function (code) {
         // let the process exit cleanly.
         if (code !== 0) {
-            return
+            return;
         }
 
         if (!ended) {
@@ -106,7 +106,7 @@ function createHarness(conf_) {
     if (!conf_) conf_ = {};
     var results = createResult();
     if (conf_.autoclose !== false) {
-        results.once('done', function () { results.close() });
+        results.once('done', function () { results.close(); });
     }
 
     var test = function (name, conf, cb) {
@@ -118,7 +118,7 @@ function createHarness(conf_) {
                 inspectCode(st_);
             });
             st.on('result', function (r) {
-                if (!r.todo && !r.ok && typeof r !== 'string') test._exitCode = 1
+                if (!r.todo && !r.ok && typeof r !== 'string') test._exitCode = 1;
             });
         })(t);
 
@@ -151,7 +151,7 @@ function createHarness(conf_) {
     };
     test._exitCode = 0;
 
-    test.close = function () { results.close() };
+    test.close = function () { results.close(); };
 
     return test;
 }

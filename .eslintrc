@@ -2,7 +2,8 @@
     "root": true,
     "rules": {
         "indent": ["error", 4],
-        "space-before-function-paren": [2, {
+        "semi": ["error", "always"],
+        "space-before-function-paren": ["error", {
             "anonymous": "always",
             "named": "never",
         }],

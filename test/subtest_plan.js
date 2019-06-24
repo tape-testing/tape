@@ -1,7 +1,7 @@
 var test = require('../');
 
 test('parent', function (t) {
-    t.plan(3)
+    t.plan(3);
 
     var firstChildRan = false;
 

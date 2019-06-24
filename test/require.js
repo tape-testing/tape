@@ -62,8 +62,8 @@ tap.test('requiring multiple modules', function (t) {
 });
 
 function tape(args) {
-    var proc = require('child_process')
-    var bin = __dirname + '/../bin/tape'
+    var proc = require('child_process');
+    var bin = __dirname + '/../bin/tape';
 
-    return proc.spawn('node', [bin].concat(args.split(' ')), { cwd: __dirname })
+    return proc.spawn('node', [bin].concat(args.split(' ')), { cwd: __dirname });
 }

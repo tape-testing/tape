@@ -1,4 +1,4 @@
-var test = require('../')
+var test = require('../');
 
 test('parent', function (t) {
     t.pass('parent');
@@ -8,4 +8,4 @@ test('parent', function (t) {
             st.end();
         });
     }, 100);
-})
+});

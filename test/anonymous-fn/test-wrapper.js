@@ -5,7 +5,7 @@ module.exports = function (testCase) {
         testCase(t);
         tearDown();
     };
-}
+};
 
 function setUp() {
     // ... example ...

@@ -18,7 +18,7 @@ test(function (t) {
         // This code is unfortunately by necessity highly coupled to node
         // versions, and may require tweaking with future versions of the timers
         // library.
-        function doEnd() { throw new Error() };
+        function doEnd() { throw new Error(); };
         var to = setTimeout(doEnd, 5000);
         clearTimeout(to);
         to._onTimeout = doEnd;

@@ -27,7 +27,7 @@ tap.test('tape todo test', function (assert) {
             + '# pass  2\n'
             + '\n'
             + '# ok\n'
-        )
+        );
     }));
 
     test('success', function (t) {

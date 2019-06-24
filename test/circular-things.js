@@ -40,5 +40,5 @@ tap.test('circular test', function (assert) {
         var circular = {};
         circular.circular = circular;
         t.equal(circular, {});
-    })
-})
+    });
+});

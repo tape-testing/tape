@@ -4,7 +4,7 @@ var tape = require("../");
 var concat = require('concat-stream');
 
 tap.test("tape assert.end as callback", function (tt) {
-    var test = tape.createHarness({ exit: false })
+    var test = tape.createHarness({ exit: false });
 
     test.createStream().pipe(concat(function (rows) {
         tt.equal(rows.toString('utf8'), [
@@ -23,38 +23,38 @@ tap.test("tape assert.end as callback", function (tt) {
             '# pass  4',
             '# fail  1'
         ].join('\n') + '\n');
-        tt.end()
+        tt.end();
     }));
 
     test("do a task and write", function (assert) {
         fakeAsyncTask("foo", function (err, value) {
-            assert.ifError(err)
-            assert.equal(value, "taskfoo")
+            assert.ifError(err);
+            assert.equal(value, "taskfoo");
 
-            fakeAsyncWrite("bar", assert.end)
-        })
-    })
+            fakeAsyncWrite("bar", assert.end);
+        });
+    });
 
     test("do a task and write fail", function (assert) {
         fakeAsyncTask("bar", function (err, value) {
-            assert.ifError(err)
-            assert.equal(value, "taskbar")
+            assert.ifError(err);
+            assert.equal(value, "taskbar");
 
-            fakeAsyncWriteFail("baz", assert.end)
-        })
-    })
-})
+            fakeAsyncWriteFail("baz", assert.end);
+        });
+    });
+});
 
 function fakeAsyncTask(name, cb) {
-    cb(null, "task" + name)
+    cb(null, "task" + name);
 }
 
 function fakeAsyncWrite(name, cb) {
-    cb(null)
+    cb(null);
 }
 
 function fakeAsyncWriteFail(name, cb) {
-    cb(new Error("fail"))
+    cb(new Error("fail"));
 }
 
 /**

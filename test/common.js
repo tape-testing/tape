@@ -14,7 +14,7 @@ module.exports.getDiag = function (body) {
     delete withStack.stack;
     delete withStack.at;
     return withStack;
-}
+};
 
 // There are three challenges associated with checking the stack traces included
 // in errors:
@@ -43,7 +43,7 @@ module.exports.stripFullStack = function (output) {
             var withoutLineNumbers = withoutPathSep.replace(/:\d+:\d+/g, ':$LINE:$COL');
             var withoutNestedLineNumbers = withoutLineNumbers.replace(/, \<anonymous\>:\$LINE:\$COL\)$/, ')');
             return withoutNestedLineNumbers;
-        }
+        };
 
         if (m) {
             if (m[1].slice(0, __dirname.length) === __dirname) {
@@ -52,7 +52,7 @@ module.exports.stripFullStack = function (output) {
             return stripped;
         }
         return stripChangingData(line);
-    })
+    });
 
     var deduped = withDuplicates.filter(function (line, ix) {
         var hasPrior = line === stripped && withDuplicates[ix - 1] === stripped;
@@ -60,4 +60,4 @@ module.exports.stripFullStack = function (output) {
     });
 
     return deduped.join('\n');
-}
+};

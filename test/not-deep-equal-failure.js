@@ -66,7 +66,7 @@ tap.test('deep equal failure', function (assert) {
         t.plan(1);
         t.notDeepEqual({b: 2}, {b: 2});
     });
-})
+});
 
 tap.test('not deep equal failure, depth 6, with option', function (assert) {
     var test = tape.createHarness({ exit : false });
@@ -127,7 +127,7 @@ tap.test('not deep equal failure, depth 6, with option', function (assert) {
         t.plan(1);
         t.notDeepEqual({ a: { a1: { a2: { a3: { a4: { a5: 1 } } } } } }, { a: { a1: { a2: { a3: { a4: { a5: 1 } } } } } });
     });
-})
+});
 
 tap.test('not deep equal failure, depth 6, without option', function (assert) {
     var test = tape.createHarness({ exit : false });
@@ -188,4 +188,4 @@ tap.test('not deep equal failure, depth 6, without option', function (assert) {
         t.plan(1);
         t.notDeepEqual({ a: { a1: { a2: { a3: { a4: { a5: 1 } } } } } }, { a: { a1: { a2: { a3: { a4: { a5: 1 } } } } } });
     });
-})
+});

@@ -5,7 +5,7 @@ tap.test('only twice error', function (assert) {
     var test = tape.createHarness({ exit : false });
 
     test.only("first only", function (t) {
-        t.end()
+        t.end();
     });
 
     assert.throws(function () {

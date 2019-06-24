@@ -10,7 +10,7 @@ test('master test', function (t) {
         asyncFunction(function () {
             st.pass('subtest 1 in async callback');
             st.end();
-        })
+        });
     });
 
     t.test('subtest 2', function (st) {
@@ -18,7 +18,7 @@ test('master test', function (t) {
         asyncFunction(function () {
             st.pass('subtest 2 in async callback');
             st.end();
-        })
+        });
     });
 
     t.end();

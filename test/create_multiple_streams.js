@@ -4,8 +4,8 @@ tape.test('createMultipleStreams', function (tt) {
     tt.plan(2);
 
     var th = tape.createHarness();
-    th.createStream()
-    th.createStream()
+    th.createStream();
+    th.createStream();
 
     var testOneComplete = false;
 

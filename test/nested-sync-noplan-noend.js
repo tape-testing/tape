@@ -29,13 +29,13 @@ tap.test('nested sync test without plan or end', function (tt) {
         t.test('first', function (q) {
             setTimeout(function first() {
                 q.ok(true);
-                q.end()
+                q.end();
             }, 10);
         });
         t.test('second', function (q) {
             setTimeout(function second() {
                 q.ok(true);
-                q.end()
+                q.end();
             }, 10);
         });
     });

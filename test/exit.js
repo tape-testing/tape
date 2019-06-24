@@ -27,7 +27,7 @@ tap.test('exit ok', function (t) {
             '', // yes, these double-blank-lines at the end are required.
             ''  // if you can figure out how to remove them, please do!
         ].join('\n'));
-    }
+    };
 
     var ps = spawn(process.execPath, [path.join(__dirname, 'exit', 'ok.js')]);
     ps.stdout.pipe(concat(tc));
