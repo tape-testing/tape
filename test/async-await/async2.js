@@ -7,9 +7,7 @@ test('async2', async function myTest(t) {
             setTimeout(resolve, 10);
         });
         t.ok(false, 'after await');
-        t.end();
     } catch (err) {
         t.ifError(err);
-        t.end();
     }
 });

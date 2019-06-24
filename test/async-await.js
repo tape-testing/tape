@@ -128,11 +128,10 @@ tap.test('async5', function (t) {
             'ok 4 after request',
             'ok 5 should be equal',
             'ok 6 should be equal',
-            'ok 7 undefined',
             '',
-            '1..7',
-            '# tests 7',
-            '# pass  7',
+            '1..6',
+            '# tests 6',
+            '# pass  6',
             '',
             '# ok'
         ].join('\n') + '\n\n');
@@ -190,7 +189,20 @@ tap.test('async-error', function (t) {
             'TAP version 13',
             '# async-error',
             'ok 1 before throw',
-            ''
+            'not ok 2 Error: oopsie',
+            '  ---',
+            '    operator: fail',
+            '    stack: |-',
+            '      Error: Error: oopsie',
+            '          [... stack stripped ...]',
+            '  ...',
+            '',
+            '1..2',
+            '# tests 2',
+            '# pass  1',
+            '# fail  1',
+            '',
+            '',
         ].join('\n'));
         t.same(r.exitCode, 1);
 
@@ -203,18 +215,7 @@ tap.test('async-error', function (t) {
         });
         stderr = lines.join('\n');
 
-        t.same(stripFullStack(stderr), [
-            '$TAPE/lib/test.js:106',
-            '                throw err',
-            '                ^',
-            '',
-            'Error: oopsie',
-            '    at Test.myTest ($TEST/async-await/async-error.js:$LINE:$COL)',
-            '    at Test.bound [as _cb] ($TAPE/lib/test.js:$LINE:$COL)',
-            '    at Test.run ($TAPE/lib/test.js:$LINE:$COL)',
-            '    at Test.bound [as run] ($TAPE/lib/test.js:$LINE:$COL)',
-            ''
-        ].join('\n'));
+        t.same(stderr, '');
         t.end();
     });
 });

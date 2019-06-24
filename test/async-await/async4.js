@@ -9,9 +9,7 @@ test('async4', async function myTest(t) {
             }, 10);
         });
         t.ok(true, 'after await');
-        t.end();
     } catch (err) {
         t.ifError(err);
-        t.end();
     }
 });

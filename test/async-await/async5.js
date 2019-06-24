@@ -42,14 +42,16 @@ test('async5', async function myTest(t) {
         res.resume();
         t.equal(res.statusCode, 200);
 
-        setTimeout(function () {
-            t.equal(mockDb.state, 'new');
+        await new Promise(function (resolve, reject) {
+            setTimeout(function () {
+                t.equal(mockDb.state, 'new');
 
-            server.close(function (err) {
-                t.ifError(err);
-                t.end();
-            });
-        }, 50);
+                server.close(function (err) {
+                    if (err) { reject(err); }
+                    else { resolve(); }
+                });
+            }, 50);
+        });
     } catch (err) {
         t.ifError(err);
         t.end();

@@ -6,5 +6,4 @@ test('async3', async function myTest(t) {
         setTimeout(resolve, 10);
     });
     t.ok(true, 'after await');
-    t.end();
 });
