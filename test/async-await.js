@@ -119,7 +119,7 @@ tap.test('async4', function (t) {
 
 tap.test('async5', function (t) {
     runProgram('async-await', 'async5.js', function (r) {
-        t.same(r.stdout.toString('utf8'), [
+        t.same(stripFullStack(r.stdout.toString('utf8')), [
             'TAP version 13',
             '# async5',
             'ok 1 before server',
@@ -128,14 +128,24 @@ tap.test('async5', function (t) {
             'ok 4 after request',
             'ok 5 should be equal',
             'ok 6 should be equal',
+            'ok 7 undefined',
+            'not ok 8 .end() called twice',
+            '  ---',
+            '    operator: fail',
+            '    at: Server.<anonymous> ($TEST/async-await/async5.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: .end() called twice',
+            '          [... stack stripped ...]',
+            '          at Server.<anonymous> ($TEST/async-await/async5.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
             '',
-            '1..6',
-            '# tests 6',
-            '# pass  6',
-            '',
-            '# ok'
+            '1..8',
+            '# tests 8',
+            '# pass  7',
+            '# fail  1'
         ].join('\n') + '\n\n');
-        t.same(r.exitCode, 0);
+        t.same(r.exitCode, 1);
         t.same(r.stderr.toString('utf8'), '');
         t.end();
     });
