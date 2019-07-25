@@ -21,8 +21,7 @@ modifyPackageJson(function(packageJson) {
     return clone;
 });
 
-var b = browserify()
-    .add(BUNDLE_INPUT)
+var b = browserify(BUNDLE_INPUT, { standalone: 'tape' })
     .bundle((err, buff) => {
         if(err) { throw err; }
 
