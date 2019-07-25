@@ -24,6 +24,7 @@
         "through": "~2.3.8"
     },
     "devDependencies": {
+        "browserify": "~16.3.0",
         "concat-stream": "^1.6.2",
         "eclint": "^2.8.1",
         "eslint": "^5.16.0",
@@ -37,7 +38,8 @@
         "lint": "eslint .",
         "pretest": "npm run lint",
         "test": "npm run tests-only",
-        "tests-only": "tap test/*.js"
+        "tests-only": "tap test/*.js",
+        "browser-build": "node build-browser.js"
     },
     "testling": {
         "files": "test/browser/*.js",
@@ -68,5 +70,6 @@
         "email": "mail@substack.net",
         "url": "http://substack.net"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "browser": "./dist/bundle.js"
 }
