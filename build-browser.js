@@ -1,7 +1,7 @@
 var browserify = require('browserify');
 var fs = require('fs');
 
-var BUNDLE_INPUT = 'index-browser.js';
+var BUNDLE_INPUT = 'index.js';
 var BUNDLE_OUTPUT = './dist/bundle.js';
 
 //Helper method that modifies package.json on disk.
