@@ -164,10 +164,20 @@ tap.test('failures', function (tt) {
             + 'ok 12 getter is still the same\n'
             + '# throws null\n'
             + 'ok 13 throws null\n'
-            + '\n1..13\n'
-            + '# tests 13\n'
+            + '# wrong type of error\n'
+            + 'not ok 14 throws actual\n'
+            + '  ---\n'
+            + '    operator: throws\n'
+            + '    expected: |-\n'
+            + '      [Function: TypeError]\n'
+            + '    actual: |-\n'
+            + '      [Function: RangeError]\n'
+            + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
+            + '  ...\n'
+            + '\n1..14\n'
+            + '# tests 14\n'
             + '# pass  4\n'
-            + '# fail  9\n'
+            + '# fail  10\n'
         );
     }));
 
@@ -198,6 +208,13 @@ tap.test('failures', function (tt) {
     test('throws null', function (t) {
         t.plan(1);
         t.throws(function () { throw null; }, 'throws null');
+        t.end();
+    });
+
+    test('wrong type of error', function (t) {
+        t.plan(1);
+        var actual = new RangeError('actual!');
+        t.throws(function () { throw actual; }, TypeError, 'throws actual');
         t.end();
     });
 });
