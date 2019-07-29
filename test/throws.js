@@ -171,8 +171,12 @@ tap.test('failures', function (tt) {
             + '    expected: |-\n'
             + '      [Function: TypeError]\n'
             + '    actual: |-\n'
-            + '      [Function: RangeError]\n'
+            + "      { [RangeError: actual!] message: 'actual!' }\n"
             + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
+            + '    stack: |-\n'
+            + '      RangeError: actual!\n'
+            + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
+            + '          [... stack stripped ...]\n'
             + '  ...\n'
             + '\n1..14\n'
             + '# tests 14\n'
