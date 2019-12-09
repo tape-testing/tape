@@ -30,4 +30,4 @@ max_line_length = off
 max_line_length = off
 
 [.travis.yml]
-indent_size = 2
+indent_size = 1
