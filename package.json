@@ -9,19 +9,19 @@
         "test": "test"
     },
     "dependencies": {
-        "deep-equal": "~1.0.1",
+        "deep-equal": "~1.1.1",
         "defined": "~1.0.0",
         "for-each": "~0.3.3",
         "function-bind": "~1.1.1",
-        "glob": "~7.1.4",
+        "glob": "~7.1.6",
         "has": "~1.0.3",
         "inherits": "~2.0.4",
         "is-regex": "~1.0.4",
         "minimist": "~1.2.0",
-        "object-inspect": "~1.6.0",
-        "resolve": "~1.11.1",
+        "object-inspect": "~1.7.0",
+        "resolve": "~1.13.1",
         "resumer": "~0.0.0",
-        "string.prototype.trim": "~1.1.2",
+        "string.prototype.trim": "~1.2.0",
         "through": "~2.3.8"
     },
     "devDependencies": {
