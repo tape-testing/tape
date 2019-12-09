@@ -27,7 +27,7 @@
     "devDependencies": {
         "concat-stream": "^1.6.2",
         "eclint": "^2.8.1",
-        "eslint": "^5.16.0",
+        "eslint": "^6.7.2",
         "falafel": "^2.1.0",
         "js-yaml": "^3.13.1",
         "tap": "^8.0.1",
