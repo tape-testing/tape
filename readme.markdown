@@ -8,6 +8,8 @@ tap-producing test harness for node and browsers
 
 ![tape](https://web.archive.org/web/20170612184731if_/http://substack.net/images/tape_drive.png)
 
+[![run on repl.it](http://repl.it/badge/github/substack/tape)](https://repl.it/github/substack/tape)
+
 # example
 
 ``` js
