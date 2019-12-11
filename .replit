@@ -1,2 +1,2 @@
 language = "nodejs"
-run = "yarn install && cd example && node array.js"
+run = "npm install && cd example && node array.js"
