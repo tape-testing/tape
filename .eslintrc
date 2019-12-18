@@ -8,4 +8,12 @@
             "named": "never",
         }],
     },
+    "overrides": [
+        {
+            "files": ["test/async-await/*"],
+            "parserOptions": {
+                "ecmaVersion": 2017,
+            },
+        },
+    ],
 }
