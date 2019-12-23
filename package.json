@@ -35,7 +35,7 @@
     },
     "scripts": {
         "prelint": "eclint check",
-        "lint": "eslint .",
+        "lint": "eslint . bin/*",
         "pretest": "npm run lint",
         "test": "npm run tests-only",
         "tests-only": "tap test/*.js"
