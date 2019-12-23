@@ -41,7 +41,7 @@
         "prepublishOnly": "safe-publish-latest",
         "prepublish": "not-in-publish || npm run prepublishOnly",
         "prelint": "eclint check",
-        "lint": "eslint .",
+        "lint": "eslint . bin/*",
         "pretest": "npm run lint",
         "test": "npm run tests-only",
         "posttest": "aud --production",
