@@ -31,27 +31,25 @@ module.exports.getDiag = function (body) {
 //    these changes are irrelevant to the tests themselves. To counter this, we
 //    strip out all stack frames that aren't directly under our test directory,
 //    and replace them with placeholders.
+
+var stripChangingData = function (line) {
+    var withoutTestDir = line.replace(__dirname, '$TEST');
+    var withoutPackageDir = withoutTestDir.replace(path.dirname(__dirname), '$TAPE');
+    var withoutPathSep = withoutPackageDir.replace(new RegExp('\\' + path.sep, 'g'), '/');
+    var withoutLineNumbers = withoutPathSep.replace(/:\d+:\d+/g, ':$LINE:$COL');
+    var withoutNestedLineNumbers = withoutLineNumbers.replace(/, \<anonymous\>:\$LINE:\$COL\)$/, ')');
+    return withoutNestedLineNumbers;
+};
+
 module.exports.stripFullStack = function (output) {
     var stripped = '          [... stack stripped ...]';
-    var withDuplicates = output.split('\n').map(function (line) {
+    var withDuplicates = output.split('\n').map(stripChangingData).map(function (line) {
         var m = line.match(/[ ]{8}at .*\((.*)\)/);
 
-        var stripChangingData = function (line) {
-            var withoutTestDir = line.replace(__dirname, '$TEST');
-            var withoutPackageDir = withoutTestDir.replace(path.dirname(__dirname), '$TAPE');
-            var withoutPathSep = withoutPackageDir.replace(new RegExp('\\' + path.sep, 'g'), '/');
-            var withoutLineNumbers = withoutPathSep.replace(/:\d+:\d+/g, ':$LINE:$COL');
-            var withoutNestedLineNumbers = withoutLineNumbers.replace(/, \<anonymous\>:\$LINE:\$COL\)$/, ')');
-            return withoutNestedLineNumbers;
-        };
-
-        if (m) {
-            if (m[1].slice(0, __dirname.length) === __dirname) {
-                return stripChangingData(line);
-            }
+        if (m && m[1].slice(0, 5) !== '$TEST') {
             return stripped;
         }
-        return stripChangingData(line);
+        return line;
     });
 
     var deduped = withDuplicates.filter(function (line, ix) {

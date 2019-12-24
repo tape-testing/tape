@@ -52,7 +52,7 @@ tap.test('exit fail', function (t) {
             '    operator: deepEqual',
             '    expected: [ [ 1, 2, [ 3, 4444 ] ], [ 5, 6 ] ]',
             '    actual:   [ [ 1, 2, [ 3, 4 ] ], [ 5, 6 ] ]',
-            '    at: <anonymous> ($TEST/exit/fail.js:$LINE:$COL)',
+            '    at: Test.<anonymous> ($TEST/exit/fail.js:$LINE:$COL)',
             '    stack: |-',
             '      Error: should be equivalent',
             '          [... stack stripped ...]',
