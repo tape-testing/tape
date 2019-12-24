@@ -14,8 +14,8 @@ tap.test('inside anonymous functions', function (tt) {
 
         // Handle stack trace variation in Node v0.8
         body = body.replace(
-            'at Test.module.exports',
-            'at Test.<anonymous>'
+            /at(:?) Test\.module\.exports/g,
+            'at$1 Test.<anonymous>'
         );
 
         tt.same(body, [
@@ -24,7 +24,7 @@ tap.test('inside anonymous functions', function (tt) {
             'not ok 1 fail',
             '  ---',
             '    operator: fail',
-            '    at: <anonymous> ($TEST/anonymous-fn.js:$LINE:$COL)',
+            '    at: Test.<anonymous> ($TEST/anonymous-fn/test-wrapper.js:$LINE:$COL)',
             '    stack: |-',
             '      Error: fail',
             '          [... stack stripped ...]',

@@ -19,7 +19,7 @@
         "is-regex": "^1.0.5",
         "minimist": "^1.2.0",
         "object-inspect": "^1.7.0",
-        "resolve": "^1.14.0",
+        "resolve": "^1.14.1",
         "resumer": "^0.0.0",
         "string.prototype.trim": "^1.2.1",
         "through": "^2.3.8"
@@ -27,7 +27,7 @@
     "devDependencies": {
         "concat-stream": "^1.6.2",
         "eclint": "^2.8.1",
-        "eslint": "^6.7.2",
+        "eslint": "^6.8.0",
         "falafel": "^2.1.0",
         "js-yaml": "^3.13.1",
         "tap": "^8.0.1",
