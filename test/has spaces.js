@@ -7,7 +7,7 @@ var stripFullStack = require('./common').stripFullStack;
 tap.test('array test', function (tt) {
     tt.plan(1);
 
-    var test = tape.createHarness({ exit : false });
+    var test = tape.createHarness({ exit: false });
     var tc = function (rows) {
         tt.same(stripFullStack(rows.toString('utf8')), [
             'TAP version 13',
