@@ -1,6 +1,8 @@
 var tape = require('../');
 var tap = require('tap');
 var concat = require('concat-stream');
+var inspect = require('object-inspect');
+var assign = require('object.assign');
 
 var stripFullStack = require('./common').stripFullStack;
 
@@ -33,118 +35,14 @@ tap.test('failures', function (tt) {
             stripFullStack(body.toString('utf8')),
             'TAP version 13\n'
             + '# non functions\n'
-            + 'not ok 1 should throw\n'
-            + '  ---\n'
-            + '    operator: throws\n'
-            + '    expected: |-\n'
-            + '      undefined\n'
-            + '    actual: |-\n'
-            + "      { [TypeError: " + getNonFunctionMessage() + "] message: '" + getNonFunctionMessage() + "' }\n"
-            + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      TypeError: ' + getNonFunctionMessage(undefined) + '\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 2 should throw\n'
-            + '  ---\n'
-            + '    operator: throws\n'
-            + '    expected: |-\n'
-            + '      undefined\n'
-            + '    actual: |-\n'
-            + "      { [TypeError: " + getNonFunctionMessage(null) + "] message: '" + getNonFunctionMessage(null) + "' }\n"
-            + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      TypeError: ' + getNonFunctionMessage(null) + '\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 3 should throw\n'
-            + '  ---\n'
-            + '    operator: throws\n'
-            + '    expected: |-\n'
-            + '      undefined\n'
-            + '    actual: |-\n'
-            + "      { [TypeError: " + getNonFunctionMessage(true) + "] message: '" + getNonFunctionMessage(true) + "' }\n"
-            + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      TypeError: ' + getNonFunctionMessage(true) + '\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 4 should throw\n'
-            + '  ---\n'
-            + '    operator: throws\n'
-            + '    expected: |-\n'
-            + '      undefined\n'
-            + '    actual: |-\n'
-            + "      { [TypeError: " + getNonFunctionMessage(false) + "] message: '" + getNonFunctionMessage(false) + "' }\n"
-            + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      TypeError: ' + getNonFunctionMessage(false) + '\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 5 should throw\n'
-            + '  ---\n'
-            + '    operator: throws\n'
-            + '    expected: |-\n'
-            + '      undefined\n'
-            + '    actual: |-\n'
-            + "      { [TypeError: " + getNonFunctionMessage('abc') + "] message: '" + getNonFunctionMessage('abc') + "' }\n"
-            + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      TypeError: ' + getNonFunctionMessage('abc') + '\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 6 should throw\n'
-            + '  ---\n'
-            + '    operator: throws\n'
-            + '    expected: |-\n'
-            + '      undefined\n'
-            + '    actual: |-\n'
-            + "      { [TypeError: " + getNonFunctionMessage(/a/g) + "] message: '" + getNonFunctionMessage(/a/g) + "' }\n"
-            + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      TypeError: ' + getNonFunctionMessage(/a/g) + '\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 7 should throw\n'
-            + '  ---\n'
-            + '    operator: throws\n'
-            + '    expected: |-\n'
-            + '      undefined\n'
-            + '    actual: |-\n'
-            + "      { [TypeError: " + getNonFunctionMessage([]) + "] message: '" + getNonFunctionMessage([]) + "' }\n"
-            + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      TypeError: ' + getNonFunctionMessage([]) + '\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 8 should throw\n'
-            + '  ---\n'
-            + '    operator: throws\n'
-            + '    expected: |-\n'
-            + '      undefined\n'
-            + '    actual: |-\n'
-            + "      { [TypeError: " + getNonFunctionMessage({}) + "] message: '" + getNonFunctionMessage({}) + "' }\n"
-            + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      TypeError: ' + getNonFunctionMessage({}) + '\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
+            + 'ok 1 should throw\n'
+            + 'ok 2 should throw\n'
+            + 'ok 3 should throw\n'
+            + 'ok 4 should throw\n'
+            + 'ok 5 should throw\n'
+            + 'ok 6 should throw\n'
+            + 'ok 7 should throw\n'
+            + 'ok 8 should throw\n'
             + '# function\n'
             + 'not ok 9 should throw\n'
             + '  ---\n'
@@ -178,10 +76,53 @@ tap.test('failures', function (tt) {
             + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
             + '          [... stack stripped ...]\n'
             + '  ...\n'
-            + '\n1..14\n'
-            + '# tests 14\n'
-            + '# pass  4\n'
-            + '# fail  10\n'
+            + '# object\n'
+            + 'ok 15 object properties are validated\n'
+            + '# object with regexes\n'
+            + 'ok 16 object with regex values is validated\n'
+            + '# similar error object\n'
+            + 'ok 17 throwing a similar error\n'
+            + '# validate with regex\n'
+            + 'ok 18 regex against toString of error\n'
+            + '# custom error validation\n'
+            + 'ok 19 error is SyntaxError\n'
+            + 'ok 20 error matches /value/\n'
+            + 'ok 21 unexpected error\n'
+            + '# throwing primitives\n'
+            + 'ok 22 primitive: null\n'
+            + 'ok 23 primitive: undefined\n'
+            + 'ok 24 primitive: 0\n'
+            + 'ok 25 primitive: NaN\n'
+            + 'ok 26 primitive: 42\n'
+            + 'ok 27 primitive: Infinity\n'
+            + 'ok 28 primitive: \'\'\n'
+            + 'ok 29 primitive: \'foo\'\n'
+            + 'ok 30 primitive: true\n'
+            + 'ok 31 primitive: false\n'
+            + '# ambiguous arguments\n'
+            + 'ok 32 Second\n'
+            + 'ok 33 Second\n'
+            + 'ok 34 Second\n'
+            + 'ok 35 should throw\n'
+            + 'not ok 36 should throw\n'
+            + '  ---\n'
+            + '    operator: throws\n'
+            + '    expected: |-\n'
+            + '      \'/Second$/\'\n'
+            + '    actual: |-\n'
+            + '      { [Error: First] message: \'First\' }\n'
+            + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
+            + '    stack: |-\n'
+            + '      Error: First\n'
+            + '          at throwingFirst ($TEST/throws.js:$LINE:$COL)\n'
+            + '          [... stack stripped ...]\n'
+            + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
+            + '          [... stack stripped ...]\n'
+            + '  ...\n'
+            + '\n1..36\n'
+            + '# tests 36\n'
+            + '# pass  33\n'
+            + '# fail  3\n'
         );
     }));
 
@@ -219,6 +160,153 @@ tap.test('failures', function (tt) {
         t.plan(1);
         var actual = new RangeError('actual!');
         t.throws(function () { throw actual; }, TypeError, 'throws actual');
+        t.end();
+    });
+
+    // taken from https://nodejs.org/api/assert.html#assert_assert_throws_fn_error_message
+    var err = new TypeError('Wrong value');
+    err.code = 404;
+    err.foo = 'bar';
+    err.info = {
+        nested: true,
+        baz: 'text'
+    };
+    err.reg = /abc/i;
+
+    test('object', function (t) {
+        t.plan(1);
+
+        t.throws(
+            function () { throw err; },
+            {
+                name: 'TypeError',
+                message: 'Wrong value',
+                info: {
+                    nested: true,
+                    baz: 'text'
+                }
+                // Only properties on the validation object will be tested for.
+                // Using nested objects requires all properties to be present. Otherwise
+                // the validation is going to fail.
+            },
+            'object properties are validated'
+        );
+
+        t.end();
+    });
+
+    test('object with regexes', function (t) {
+        t.plan(1);
+        t.throws(
+            function () { throw err; },
+            {
+                // The `name` and `message` properties are strings and using regular
+                // expressions on those will match against the string. If they fail, an
+                // error is thrown.
+                name: /^TypeError$/,
+                message: /Wrong/,
+                foo: 'bar',
+                info: {
+                    nested: true,
+                    // It is not possible to use regular expressions for nested properties!
+                    baz: 'text'
+                },
+                // The `reg` property contains a regular expression and only if the
+                // validation object contains an identical regular expression, it is going
+                // to pass.
+                reg: /abc/i
+            },
+            'object with regex values is validated'
+        );
+        t.end();
+    });
+
+    test('similar error object', function (t) {
+        t.plan(1);
+        t.throws(
+            function () {
+                var otherErr = new TypeError('Not found');
+                // Copy all enumerable properties from `err` to `otherErr`.
+                assign(otherErr, err);
+                throw otherErr;
+            },
+            // The error's `message` and `name` properties will also be checked when using
+            // an error as validation object.
+            err,
+            'throwing a similar error'
+        );
+        t.end();
+    });
+
+    test('validate with regex', function (t) {
+        t.plan(1);
+        t.throws(
+            function () { throw new Error('Wrong value'); },
+            /^Error: Wrong value$/,
+            'regex against toString of error'
+        );
+        t.end();
+    });
+
+    test('custom error validation', function (t) {
+        t.plan(3);
+        t.throws(
+            function () { throw new SyntaxError('Wrong value'); },
+            function (error) {
+                t.ok(error instanceof SyntaxError, 'error is SyntaxError');
+                t.ok((/value/).test(error), 'error matches /value/');
+                // Avoid returning anything from validation functions besides `true`.
+                // Otherwise, it's not clear what part of the validation failed. Instead,
+                // throw an error about the specific validation that failed (as done in this
+                // example) and add as much helpful debugging information to that error as
+                // possible.
+                return true;
+            },
+            'unexpected error'
+        );
+        t.end();
+    });
+
+    test('throwing primitives', function (t) {
+        [null, undefined, 0, NaN, 42, Infinity, '', 'foo', true, false].forEach(function (primitive) {
+            t.throws(function () { throw primitive; }, 'primitive: ' + inspect(primitive));
+        });
+
+        t.end();
+    });
+
+    test('ambiguous arguments', function (t) {
+        function throwingFirst() {
+            throw new Error('First');
+        }
+
+        function throwingSecond() {
+            throw new Error('Second');
+        }
+
+        function notThrowing() {}
+
+        // The second argument is a string and the input function threw an Error.
+        // The first case will not throw as it does not match for the error message
+        // thrown by the input function!
+        t.throws(throwingFirst, 'Second');
+        // In the next example the message has no benefit over the message from the
+        // error and since it is not clear if the user intended to actually match
+        // against the error message, Node.js throws an `ERR_AMBIGUOUS_ARGUMENT` error.
+        t.throws(throwingSecond, 'Second');
+        // TypeError [ERR_AMBIGUOUS_ARGUMENT]
+
+        // The string is only used (as message) in case the function does not throw:
+        t.doesNotThrow(notThrowing, 'Second');
+        // AssertionError [ERR_ASSERTION]: Missing expected exception: Second
+
+        // If it was intended to match for the error message do this instead:
+        // It does not fail because the error messages match.
+        t.throws(throwingSecond, /Second$/);
+
+        // If the error message does not match, an AssertionError is thrown.
+        t.throws(throwingFirst, /Second$/);
+        // AssertionError [ERR_ASSERTION]
         t.end();
     });
 });
