@@ -59,7 +59,11 @@ module.exports.stripFullStack = function (output) {
         return !hasPrior;
     });
 
-    return deduped.join('\n');
+    return deduped.join('\n').replace(
+        // Handle stack trace variation in Node v0.8
+        /at(:?) Test\.(?:module\.exports|tap\.test\.err\.code)/g,
+        'at$1 Test.<anonymous>'
+    );
 };
 
 module.exports.runProgram = function (folderName, fileName, cb) {

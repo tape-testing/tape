@@ -12,12 +12,6 @@ tap.test('inside anonymous functions', function (tt) {
     var tc = function (rows) {
         var body = stripFullStack(rows.toString('utf8'));
 
-        // Handle stack trace variation in Node v0.8
-        body = body.replace(
-            /at(:?) Test\.module\.exports/g,
-            'at$1 Test.<anonymous>'
-        );
-
         tt.same(body, [
             'TAP version 13',
             '# wrapped test failure',
