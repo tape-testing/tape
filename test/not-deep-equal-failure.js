@@ -8,7 +8,7 @@ var getDiag = common.getDiag;
 var stripFullStack = common.stripFullStack;
 
 tap.test('deep equal failure', function (assert) {
-    var test = tape.createHarness({ exit : false });
+    var test = tape.createHarness({ exit: false });
     var stream = test.createStream();
     var parser = tapParser();
     assert.plan(3);
@@ -69,7 +69,7 @@ tap.test('deep equal failure', function (assert) {
 });
 
 tap.test('not deep equal failure, depth 6, with option', function (assert) {
-    var test = tape.createHarness({ exit : false });
+    var test = tape.createHarness({ exit: false });
     var stream = test.createStream();
     var parser = tapParser();
     assert.plan(3);
@@ -130,7 +130,7 @@ tap.test('not deep equal failure, depth 6, with option', function (assert) {
 });
 
 tap.test('not deep equal failure, depth 6, without option', function (assert) {
-    var test = tape.createHarness({ exit : false });
+    var test = tape.createHarness({ exit: false });
     var stream = test.createStream();
     var parser = tapParser();
     assert.plan(3);

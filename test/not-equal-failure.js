@@ -8,7 +8,7 @@ var getDiag = common.getDiag;
 var stripFullStack = common.stripFullStack;
 
 tap.test('not equal failure', function (assert) {
-    var test = tape.createHarness({ exit : false });
+    var test = tape.createHarness({ exit: false });
     var stream = test.createStream();
     var parser = tapParser();
     assert.plan(3);

@@ -5,7 +5,7 @@ var concat = require('concat-stream');
 var stripFullStack = require('./common').stripFullStack;
 
 tap.test('circular test', function (assert) {
-    var test = tape.createHarness({ exit : false });
+    var test = tape.createHarness({ exit: false });
     assert.plan(1);
 
     test.createStream().pipe(concat(function (body) {
