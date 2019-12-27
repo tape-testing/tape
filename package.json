@@ -3,6 +3,17 @@
     "version": "5.0.0-next.0",
     "description": "tap-producing test harness for node and browsers",
     "main": "index.js",
+    "exports": {
+        ".": [
+            {
+                "default": "./index.js"
+            },
+            "./index.js"
+        ],
+        "./lib/": "./lib/",
+        "./package": "./package.json",
+        "./package.json": "./package.json"
+    },
     "bin": "./bin/tape",
     "directories": {
         "example": "example",
