@@ -40,18 +40,18 @@ test('async5', async function myTest(t) {
         t.ok(true, 'after request');
 
         res.resume();
-        t.equal(res.statusCode, 200);
+        t.equal(res.statusCode, 200, 'res.statusCode is 200');
 
         setTimeout(function () {
-            t.equal(mockDb.state, 'new');
+            t.equal(mockDb.state, 'new', 'mockDb.state is new');
 
             server.close(function (err) {
-                t.ifError(err);
+                t.ifError(err, 'error on close');
                 t.end();
             });
         }, 50);
     } catch (err) {
-        t.ifError(err);
+        t.ifError(err, 'error in catch');
         t.end();
     }
 });
