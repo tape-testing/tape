@@ -107,7 +107,7 @@ tap.test('preserves stack trace for failed assertions', function (tt) {
     parser.once('assert', function (data) {
         tt.equal(typeof data.diag.at, 'string');
         tt.equal(typeof data.diag.stack, 'string');
-        at = data.diag.at || '';
+        var at = data.diag.at || '';
         stack = data.diag.stack || '';
         tt.ok(/^Error: true should be false(\n    at .+)+/.exec(stack), 'stack should be a stack');
         tt.deepEqual(data, {
@@ -172,7 +172,7 @@ tap.test('preserves stack trace for failed assertions where actual===falsy', fun
     parser.once('assert', function (data) {
         tt.equal(typeof data.diag.at, 'string');
         tt.equal(typeof data.diag.stack, 'string');
-        at = data.diag.at || '';
+        var at = data.diag.at || '';
         stack = data.diag.stack || '';
         tt.ok(/^Error: false should be true(\n    at .+)+/.exec(stack), 'stack should be a stack');
         tt.deepEqual(data, {

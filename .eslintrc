@@ -1,5 +1,12 @@
 {
     "root": true,
+    "env": {
+        "browser": true,
+        "node": true,
+    },
+    "globals": {
+        "Promise": false,
+    },
     "rules": {
         "indent": ["error", 4],
         "key-spacing": "error",
@@ -8,12 +15,19 @@
             "anonymous": "always",
             "named": "never",
         }],
+        "no-undef": "error",
     },
     "overrides": [
         {
             "files": ["test/async-await/*"],
             "parserOptions": {
                 "ecmaVersion": 2017,
+            },
+        },
+        {
+            "files": ["example/**", "test/**"],
+            "globals": {
+                "g": false,
             },
         },
     ],
