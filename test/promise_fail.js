@@ -17,7 +17,7 @@ tap.test('callback returning rejected promise should cause that test (and only t
             return tt.pass('the test file indicated it should be skipped');
         }
 
-        strippedString = stripFullStack(rowsString);
+        var strippedString = stripFullStack(rowsString);
 
         // hack for consistency across all versions of node
         // some versions produce a longer stack trace for some reason
@@ -60,7 +60,7 @@ tap.test('subtest callback returning rejected promise should cause that subtest 
             return tt.pass('the test file indicated it should be skipped');
         }
 
-        strippedString = stripFullStack(rowsString);
+        var strippedString = stripFullStack(rowsString);
 
         // hack for consistency across all versions of node
         // some versions produce a longer stack trace for some reason
