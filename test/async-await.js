@@ -1,3 +1,5 @@
+'use strict';
+
 var tap = require('tap');
 
 var stripFullStack = require('./common').stripFullStack;
@@ -185,7 +187,7 @@ tap.test('sync-error', function (t) {
         stderr = lines.join('\n');
 
         t.same(stripFullStack(stderr), [
-            '$TEST/async-await/sync-error.js:5',
+            '$TEST/async-await/sync-error.js:7',
             '    throw new Error(\'oopsie\');',
             '    ^',
             '',

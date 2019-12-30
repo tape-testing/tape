@@ -1,3 +1,5 @@
+'use strict';
+
 var test = require('../');
 
 test('only3 test 1', function (t) {

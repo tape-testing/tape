@@ -1,3 +1,5 @@
+'use strict';
+
 var test = require('../');
 
 test('plan should be optional', function (t) {

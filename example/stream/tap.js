@@ -1,3 +1,5 @@
+'use strict';
+
 var test = require('../../');
 var path = require('path');
 

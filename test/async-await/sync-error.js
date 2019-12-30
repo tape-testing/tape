@@ -1,3 +1,5 @@
+'use strict';
+
 var test = require('../../');
 
 test('sync-error', function myTest(t) {

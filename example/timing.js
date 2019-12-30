@@ -1,3 +1,5 @@
+'use strict';
+
 var test = require('../');
 
 test('timing test', function (t) {

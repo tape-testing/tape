@@ -1,3 +1,5 @@
+'use strict';
+
 var path = require('path');
 var spawn = require('child_process').spawn;
 var concat = require('concat-stream');

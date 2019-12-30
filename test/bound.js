@@ -1,3 +1,5 @@
+'use strict';
+
 var test = require('../');
 
 test('bind works', function (t) {

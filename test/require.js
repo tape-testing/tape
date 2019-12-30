@@ -1,3 +1,5 @@
+'use strict';
+
 var tap = require('tap');
 var spawn = require('child_process').spawn;
 var concat = require('concat-stream');

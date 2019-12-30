@@ -1,3 +1,5 @@
+'use strict';
+
 var tap = require('tap');
 var tape = require('../');
 var forEach = require('for-each');

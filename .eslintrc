@@ -16,6 +16,7 @@
             "named": "never",
         }],
         "no-undef": "error",
+        "strict": "error",
     },
     "overrides": [
         {

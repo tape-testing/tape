@@ -1,3 +1,5 @@
+'use strict';
+
 var tap = require('tap');
 var tape = require('../');
 var concat = require('concat-stream');

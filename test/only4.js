@@ -1,3 +1,5 @@
+'use strict';
+
 var test = require('../');
 
 test('only4 duplicate test name', function (t) {

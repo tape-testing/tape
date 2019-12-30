@@ -1,3 +1,5 @@
+'use strict';
+
 var defined = require('defined');
 var createDefaultStream = require('./lib/default_stream');
 var Test = require('./lib/test');

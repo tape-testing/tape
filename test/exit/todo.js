@@ -1,3 +1,5 @@
+'use strict';
+
 var test = require('../../');
 
 test('todo pass', { todo: true }, function (t) {

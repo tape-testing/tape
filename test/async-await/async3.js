@@ -1,3 +1,5 @@
+'use strict';
+
 var test = require('../../');
 
 test('async3', async function myTest(t) {

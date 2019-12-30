@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+'use strict';
+
 var resolveModule = require('resolve').sync;
 var resolvePath = require('path').resolve;
 var parseOpts = require('minimist');

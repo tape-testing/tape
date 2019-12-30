@@ -1,3 +1,5 @@
+'use strict';
+
 var test = require('../../');
 
 if (typeof Promise === 'function' && typeof Promise.resolve === 'function') {

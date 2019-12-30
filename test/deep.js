@@ -1,3 +1,5 @@
+'use strict';
+
 var test = require('../');
 
 test('deep strict equal', function (t) {
