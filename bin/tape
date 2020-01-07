@@ -2,14 +2,16 @@
 
 var resolveModule = require('resolve').sync;
 var resolvePath = require('path').resolve;
+var readFileSync = require('fs').readFileSync;
 var parseOpts = require('minimist');
 var glob = require('glob');
+var ignore = require('dotignore');
 
 var opts = parseOpts(process.argv.slice(2), {
-        alias: { r: 'require' },
-        string: 'require',
-        default: { r: [] }
-    });
+    alias: { r: 'require', i: 'ignore' },
+    string: ['require', 'ignore'],
+    default: { r: [], i: null }
+});
 
 var cwd = process.cwd();
 
@@ -26,6 +28,16 @@ opts.require.forEach(function (module) {
     }
 });
 
+if (typeof opts.ignore === 'string') {
+    try {
+        var ignoreStr = readFileSync(resolvePath(cwd, opts.ignore || '.gitignore'), 'utf-8');
+    } catch (e) {
+        console.error(e.message);
+        process.exit(2);
+    }
+    var matcher = ignore.createMatcher(ignoreStr);
+}
+
 opts._.forEach(function (arg) {
     // If glob does not match, `files` will be an empty array.
     // Note: `glob.sync` may throw an error and crash the node process.
@@ -35,7 +47,7 @@ opts._.forEach(function (arg) {
         throw new TypeError('unknown error: glob.sync did not return an array or throw. Please report this.');
     }
 
-    files.forEach(function (file) {
+    files.filter(function (file) { return !matcher || !matcher.shouldIgnore(file); }).forEach(function (file) {
         require(resolvePath(cwd, file));
     });
 });
