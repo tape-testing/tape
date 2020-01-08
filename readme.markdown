@@ -285,6 +285,14 @@ You may pass the same options that [`test()`](#testname-opts-cb) accepts.
 
 Print a message without breaking the tap output. (Useful when using e.g. `tap-colorize` where output is buffered & `console.log` will print in incorrect order vis-a-vis tap output.)
 
+## t.match(string, regexp, message)
+
+Assert that `string` matches the RegExp `regexp`. Will throw (not just fail) when the first two arguments are the wrong type.
+
+## t.doesNotMatch(string, regexp, message)
+
+Assert that `string` does not match the RegExp `regexp`. Will throw (not just fail) when the first two arguments are the wrong type.
+
 ## var htest = test.createHarness()
 
 Create a new test harness instance, which is a function like `test()`, but with
