@@ -40,7 +40,7 @@ tap.test('match', function (tt) {
             '          at Test.<anonymous> ($TEST/match.js:$LINE:$COL)',
             '          [... stack stripped ...]',
             '  ...',
-            'ok 5 The input did not match the regular expression /pass$/. Input: \'I will pass\'',
+            'ok 5 The input matched the regular expression /pass$/. Input: \'I will pass\'',
             'ok 6 "I will pass" matches /pass$/',
             '',
             '1..6',
