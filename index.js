@@ -11,11 +11,6 @@ var canExit = typeof process !== 'undefined' && process
     && typeof process.exit === 'function'
 ;
 
-var nextTick = typeof setImmediate !== 'undefined'
-    ? setImmediate
-    : process.nextTick
-;
-
 exports = module.exports = (function () {
     var harness;
     var lazyLoad = function () {
@@ -99,8 +94,6 @@ exports.createHarness = createHarness;
 exports.Test = Test;
 exports.test = exports; // tap compat
 exports.test.skip = Test.skip;
-
-var exitInterval;
 
 function createHarness(conf_) {
     if (!conf_) conf_ = {};

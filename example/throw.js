@@ -1,4 +1,5 @@
-var falafel = require('falafel');
+'use strict';
+
 var test = require('../');
 
 test('throw', function (t) {
