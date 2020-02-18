@@ -32,7 +32,7 @@
         "minimist": "^1.2.0",
         "object-inspect": "^1.7.0",
         "object.assign": "^4.1.0",
-        "resolve": "^1.14.2",
+        "resolve": "^1.15.1",
         "resumer": "^0.0.0",
         "string.prototype.trim": "^1.2.1",
         "through": "^2.3.8"
