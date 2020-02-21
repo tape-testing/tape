@@ -217,17 +217,27 @@ Aliases: `t.ifError()`, `t.ifErr()`, `t.iferror()`
 
 ## t.equal(actual, expected, msg)
 
-Assert that `actual === expected` with an optional description of the assertion `msg`.
+Assert that `actual == expected` with an optional description of the assertion `msg`.
 
-Aliases: `t.equals()`, `t.isEqual()`, `t.is()`, `t.strictEqual()`,
-`t.strictEquals()`
+Aliases: `t.equals()`, `t.isEqual()`
+
+## t.strictEqual(actual, expected, msg)
+
+Assert that `Object.is(actual, expected)` with an optional description of the assertion `msg`.
+
+Aliases: `t.is()`, `t.strictEqual()`, `t.strictEquals()`
 
 ## t.notEqual(actual, expected, msg)
 
-Assert that `actual !== expected` with an optional description of the assertion `msg`.
+Assert that `actual != expected` with an optional description of the assertion `msg`.
 
-Aliases: `t.notEquals()`, `t.notStrictEqual()`, `t.notStrictEquals()`,
-`t.isNotEqual()`, `t.isNot()`, `t.not()`, `t.doesNotEqual()`, `t.isInequal()`
+Aliases: `t.notEquals()`, `t.isNotEqual()`, `t.doesNotEqual()`, `t.isInequal()`
+
+## t.notStrictEqual(actual, expected, msg)
+
+Assert that `!Object.is(actual, expected)` with an optional description of the assertion `msg`.
+
+Aliases: `t.notStrictEqual()`, `t.notStrictEquals()`, `t.isNot()`, `t.not()`
 
 ## t.deepEqual(actual, expected, msg)
 
