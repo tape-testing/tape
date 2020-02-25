@@ -21,14 +21,14 @@ tap.test('not equal failure', function (assert) {
             stripFullStack(body.toString('utf8')),
             'TAP version 13\n'
             + '# not equal\n'
-            + 'not ok 1 should not be equal\n'
+            + 'not ok 1 should not be strictly equal\n'
             + '  ---\n'
             + '    operator: notEqual\n'
             + '    expected: 2\n'
             + '    actual:   2\n'
             + '    at: Test.<anonymous> ($TEST/not-equal-failure.js:$LINE:$COL)\n'
             + '    stack: |-\n'
-            + '      Error: should not be equal\n'
+            + '      Error: should not be strictly equal\n'
             + '          [... stack stripped ...]\n'
             + '          at Test.<anonymous> ($TEST/not-equal-failure.js:$LINE:$COL)\n'
             + '          [... stack stripped ...]\n'
@@ -53,7 +53,7 @@ tap.test('not equal failure', function (assert) {
         assert.deepEqual(data, {
             ok: false,
             id: 1,
-            name: 'should not be equal',
+            name: 'should not be strictly equal',
             diag: {
                 operator: 'notEqual',
                 expected: '2',

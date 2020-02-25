@@ -21,7 +21,7 @@ tap.test('deep equal failure', function (assert) {
             stripFullStack(body.toString('utf8')),
             'TAP version 13\n'
             + '# deep equal\n'
-            + 'not ok 1 should be equal\n'
+            + 'not ok 1 should be strictly equal\n'
             + '  ---\n'
             + '    operator: equal\n'
             + '    expected: |-\n'
@@ -30,7 +30,7 @@ tap.test('deep equal failure', function (assert) {
             + '      { a: 1 }\n'
             + '    at: Test.<anonymous> ($TEST/deep-equal-failure.js:$LINE:$COL)\n'
             + '    stack: |-\n'
-            + '      Error: should be equal\n'
+            + '      Error: should be strictly equal\n'
             + '          [... stack stripped ...]\n'
             + '          at Test.<anonymous> ($TEST/deep-equal-failure.js:$LINE:$COL)\n'
             + '          [... stack stripped ...]\n'
@@ -55,7 +55,7 @@ tap.test('deep equal failure', function (assert) {
         assert.deepEqual(data, {
             ok: false,
             id: 1,
-            name: 'should be equal',
+            name: 'should be strictly equal',
             diag: {
                 operator: 'equal',
                 expected: '{ b: 2 }',
@@ -82,7 +82,7 @@ tap.test('deep equal failure, depth 6, with option', function (assert) {
             stripFullStack(body.toString('utf8')),
             'TAP version 13\n'
             + '# deep equal\n'
-            + 'not ok 1 should be equal\n'
+            + 'not ok 1 should be strictly equal\n'
             + '  ---\n'
             + '    operator: equal\n'
             + '    expected: |-\n'
@@ -91,7 +91,7 @@ tap.test('deep equal failure, depth 6, with option', function (assert) {
             + '      { a: { a1: { a2: { a3: { a4: { a5: 1 } } } } } }\n'
             + '    at: Test.<anonymous> ($TEST/deep-equal-failure.js:$LINE:$COL)\n'
             + '    stack: |-\n'
-            + '      Error: should be equal\n'
+            + '      Error: should be strictly equal\n'
             + '          [... stack stripped ...]\n'
             + '          at Test.<anonymous> ($TEST/deep-equal-failure.js:$LINE:$COL)\n'
             + '          [... stack stripped ...]\n'
@@ -116,7 +116,7 @@ tap.test('deep equal failure, depth 6, with option', function (assert) {
         assert.deepEqual(data, {
             ok: false,
             id: 1,
-            name: 'should be equal',
+            name: 'should be strictly equal',
             diag: {
                 operator: 'equal',
                 expected: '{ a: { a1: { a2: { a3: { a4: { a5: 2 } } } } } }',
@@ -143,7 +143,7 @@ tap.test('deep equal failure, depth 6, without option', function (assert) {
             stripFullStack(body.toString('utf8')),
             'TAP version 13\n'
             + '# deep equal\n'
-            + 'not ok 1 should be equal\n'
+            + 'not ok 1 should be strictly equal\n'
             + '  ---\n'
             + '    operator: equal\n'
             + '    expected: |-\n'
@@ -152,7 +152,7 @@ tap.test('deep equal failure, depth 6, without option', function (assert) {
             + '      { a: { a1: { a2: { a3: { a4: [Object] } } } } }\n'
             + '    at: Test.<anonymous> ($TEST/deep-equal-failure.js:$LINE:$COL)\n'
             + '    stack: |-\n'
-            + '      Error: should be equal\n'
+            + '      Error: should be strictly equal\n'
             + '          [... stack stripped ...]\n'
             + '          at Test.<anonymous> ($TEST/deep-equal-failure.js:$LINE:$COL)\n'
             + '          [... stack stripped ...]\n'
@@ -177,7 +177,7 @@ tap.test('deep equal failure, depth 6, without option', function (assert) {
         assert.deepEqual(data, {
             ok: false,
             id: 1,
-            name: 'should be equal',
+            name: 'should be strictly equal',
             diag: {
                 operator: 'equal',
                 expected: '{ a: { a1: { a2: { a3: { a4: [Object] } } } } }',

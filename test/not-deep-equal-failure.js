@@ -21,7 +21,7 @@ tap.test('deep equal failure', function (assert) {
             stripFullStack(body.toString('utf8')),
             'TAP version 13\n'
             + '# not deep equal\n'
-            + 'not ok 1 should not be equivalent\n'
+            + 'not ok 1 should not be deeply equivalent\n'
             + '  ---\n'
             + '    operator: notDeepEqual\n'
             + '    expected: |-\n'
@@ -30,7 +30,7 @@ tap.test('deep equal failure', function (assert) {
             + '      { b: 2 }\n'
             + '    at: Test.<anonymous> ($TEST/not-deep-equal-failure.js:$LINE:$COL)\n'
             + '    stack: |-\n'
-            + '      Error: should not be equivalent\n'
+            + '      Error: should not be deeply equivalent\n'
             + '          [... stack stripped ...]\n'
             + '          at Test.<anonymous> ($TEST/not-deep-equal-failure.js:$LINE:$COL)\n'
             + '          [... stack stripped ...]\n'
@@ -55,7 +55,7 @@ tap.test('deep equal failure', function (assert) {
         assert.deepEqual(data, {
             ok: false,
             id: 1,
-            name: 'should not be equivalent',
+            name: 'should not be deeply equivalent',
             diag: {
                 operator: 'notDeepEqual',
                 expected: '{ b: 2 }',
@@ -82,7 +82,7 @@ tap.test('not deep equal failure, depth 6, with option', function (assert) {
             stripFullStack(body.toString('utf8')),
             'TAP version 13\n'
             + '# not deep equal\n'
-            + 'not ok 1 should not be equivalent\n'
+            + 'not ok 1 should not be deeply equivalent\n'
             + '  ---\n'
             + '    operator: notDeepEqual\n'
             + '    expected: |-\n'
@@ -91,7 +91,7 @@ tap.test('not deep equal failure, depth 6, with option', function (assert) {
             + '      { a: { a1: { a2: { a3: { a4: { a5: 1 } } } } } }\n'
             + '    at: Test.<anonymous> ($TEST/not-deep-equal-failure.js:$LINE:$COL)\n'
             + '    stack: |-\n'
-            + '      Error: should not be equivalent\n'
+            + '      Error: should not be deeply equivalent\n'
             + '          [... stack stripped ...]\n'
             + '          at Test.<anonymous> ($TEST/not-deep-equal-failure.js:$LINE:$COL)\n'
             + '          [... stack stripped ...]\n'
@@ -116,7 +116,7 @@ tap.test('not deep equal failure, depth 6, with option', function (assert) {
         assert.deepEqual(data, {
             ok: false,
             id: 1,
-            name: 'should not be equivalent',
+            name: 'should not be deeply equivalent',
             diag: {
                 operator: 'notDeepEqual',
                 expected: '{ a: { a1: { a2: { a3: { a4: { a5: 1 } } } } } }',
@@ -143,7 +143,7 @@ tap.test('not deep equal failure, depth 6, without option', function (assert) {
             stripFullStack(body.toString('utf8')),
             'TAP version 13\n'
             + '# not deep equal\n'
-            + 'not ok 1 should not be equivalent\n'
+            + 'not ok 1 should not be deeply equivalent\n'
             + '  ---\n'
             + '    operator: notDeepEqual\n'
             + '    expected: |-\n'
@@ -152,7 +152,7 @@ tap.test('not deep equal failure, depth 6, without option', function (assert) {
             + '      { a: { a1: { a2: { a3: { a4: [Object] } } } } }\n'
             + '    at: Test.<anonymous> ($TEST/not-deep-equal-failure.js:$LINE:$COL)\n'
             + '    stack: |-\n'
-            + '      Error: should not be equivalent\n'
+            + '      Error: should not be deeply equivalent\n'
             + '          [... stack stripped ...]\n'
             + '          at Test.<anonymous> ($TEST/not-deep-equal-failure.js:$LINE:$COL)\n'
             + '          [... stack stripped ...]\n'
@@ -177,7 +177,7 @@ tap.test('not deep equal failure, depth 6, without option', function (assert) {
         assert.deepEqual(data, {
             ok: false,
             id: 1,
-            name: 'should not be equivalent',
+            name: 'should not be deeply equivalent',
             diag: {
                 operator: 'notDeepEqual',
                 expected: '{ a: { a1: { a2: { a3: { a4: [Object] } } } } }',

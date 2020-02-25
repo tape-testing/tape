@@ -16,7 +16,7 @@ tap.test('tape todo test', function (assert) {
             stripFullStack(body.toString('utf8')),
             'TAP version 13\n'
             + '# TODO failure\n'
-            + 'not ok 1 should be equal # TODO\n'
+            + 'not ok 1 should be strictly equal # TODO\n'
             + '  ---\n'
             + '    operator: equal\n'
             + '    expected: false\n'

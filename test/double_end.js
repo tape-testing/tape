@@ -41,7 +41,7 @@ test(function (t) {
         t.equal(stripped, [
             'TAP version 13',
             '# double end',
-            'ok 1 should be equal',
+            'ok 1 should be strictly equal',
             'not ok 2 .end() already called',
             '  ---',
             '    operator: fail',

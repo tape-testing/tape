@@ -15,7 +15,7 @@ tap.test('array test', function (tt) {
             stripFullStack(body.toString('utf8')),
             'TAP version 13\n'
             + '# undef\n'
-            + 'not ok 1 should be equivalent\n'
+            + 'not ok 1 should be deeply equivalent\n'
             + '  ---\n'
             + '    operator: deepEqual\n'
             + '    expected: |-\n'
@@ -24,7 +24,7 @@ tap.test('array test', function (tt) {
             + '      {}\n'
             + '    at: Test.<anonymous> ($TEST/undef.js:$LINE:$COL)\n'
             + '    stack: |-\n'
-            + '      Error: should be equivalent\n'
+            + '      Error: should be deeply equivalent\n'
             + '          [... stack stripped ...]\n'
             + '          at Test.<anonymous> ($TEST/undef.js:$LINE:$COL)\n'
             + '          [... stack stripped ...]\n'

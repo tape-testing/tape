@@ -15,7 +15,7 @@ tap.test('circular test', function (assert) {
             stripFullStack(body.toString('utf8')),
             'TAP version 13\n'
             + '# circular\n'
-            + 'not ok 1 should be equal\n'
+            + 'not ok 1 should be strictly equal\n'
             + '  ---\n'
             + '    operator: equal\n'
             + '    expected: |-\n'
@@ -24,7 +24,7 @@ tap.test('circular test', function (assert) {
             + '      { circular: [Circular] }\n'
             + '    at: Test.<anonymous> ($TEST/circular-things.js:$LINE:$COL)\n'
             + '    stack: |-\n'
-            + '      Error: should be equal\n'
+            + '      Error: should be strictly equal\n'
             + '          [... stack stripped ...]\n'
             + '          at Test.<anonymous> ($TEST/circular-things.js:$LINE:$COL)\n'
             + '          [... stack stripped ...]\n'

@@ -13,10 +13,10 @@ tap.test("tape assert.end as callback", function (tt) {
             'TAP version 13',
             '# do a task and write',
             'ok 1 null',
-            'ok 2 should be equal',
+            'ok 2 should be strictly equal',
             '# do a task and write fail',
             'ok 3 null',
-            'ok 4 should be equal',
+            'ok 4 should be strictly equal',
             'not ok 5 Error: fail',
             getStackTrace(rows), // tap error stack
             '',

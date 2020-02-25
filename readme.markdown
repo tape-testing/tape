@@ -27,8 +27,8 @@ test('timing test', function (t) {
 $ node example/timing.js
 TAP version 13
 # timing test
-ok 1 should be equal
-not ok 2 should be equal
+ok 1 should be strictly equal
+not ok 2 should be strictly equal
   ---
     operator: equal
     expected: 100
@@ -217,27 +217,27 @@ Aliases: `t.ifError()`, `t.ifErr()`, `t.iferror()`
 
 ## t.equal(actual, expected, msg)
 
-Assert that `actual == expected` with an optional description of the assertion `msg`.
-
-Aliases: `t.equals()`, `t.isEqual()`
-
-## t.strictEqual(actual, expected, msg)
-
 Assert that `Object.is(actual, expected)` with an optional description of the assertion `msg`.
 
-Aliases: `t.is()`, `t.strictEqual()`, `t.strictEquals()`
+Aliases: `t.equals()`, `t.isEqual()`, `t.strictEqual()`, `t.strictEquals()`, `t.is()`
 
 ## t.notEqual(actual, expected, msg)
 
-Assert that `actual != expected` with an optional description of the assertion `msg`.
-
-Aliases: `t.notEquals()`, `t.isNotEqual()`, `t.doesNotEqual()`, `t.isInequal()`
-
-## t.notStrictEqual(actual, expected, msg)
-
 Assert that `!Object.is(actual, expected)` with an optional description of the assertion `msg`.
 
-Aliases: `t.notStrictEqual()`, `t.notStrictEquals()`, `t.isNot()`, `t.not()`
+Aliases: `t.notEquals()`, `t.isNotEqual()`, `t.doesNotEqual()`, `t.isInequal()`, `t.notStrictEqual()`, `t.notStrictEquals()`, `t.isNot()`, `t.not()`
+
+## t.looseEqual(actual, expected, msg)
+
+Assert that `actual == expected` with an optional description of the assertion `msg`.
+
+Aliases: `t.looseEquals()`
+
+## t.notLooseEqual(actual, expected, msg)
+
+Assert that `actual != expected` with an optional description of the assertion `msg`.
+
+Aliases: `t.notLooseEquals()`
 
 ## t.deepEqual(actual, expected, msg)
 
@@ -262,8 +262,6 @@ Aliases: `t.notDeepEquals`, `t.notEquivalent()`, `t.notDeeply()`, `t.notSame()`,
 Assert that `actual` and `expected` have the same structure and nested values using
 [node's deepEqual() algorithm](https://github.com/substack/node-deep-equal)
 with loose comparisons (`==`) on leaf nodes and an optional description of the assertion `msg`.
-
-Aliases: `t.looseEqual()`, `t.looseEquals()`
 
 ## t.notDeepLooseEqual(actual, expected, msg)
 
@@ -347,14 +345,14 @@ Pass in test files to run as arguments:
 $ node tap.js test/x.js test/y.js
 TAP version 13
 # (anonymous)
-not ok 1 should be equal
+not ok 1 should be strictly equal
   ---
     operator: equal
     expected: "boop"
     actual:   "beep"
   ...
 # (anonymous)
-ok 2 should be equal
+ok 2 should be strictly equal
 ok 3 (unnamed assert)
 # wheee
 ok 4 (unnamed assert)
@@ -387,10 +385,10 @@ The output for this runner is:
 ```sh
 $ node object.js test/x.js test/y.js
 {"type":"test","name":"(anonymous)","id":0}
-{"id":0,"ok":false,"name":"should be equal","operator":"equal","actual":"beep","expected":"boop","error":{},"test":0,"type":"assert"}
+{"id":0,"ok":false,"name":"should be strictly equal","operator":"equal","actual":"beep","expected":"boop","error":{},"test":0,"type":"assert"}
 {"type":"end","test":0}
 {"type":"test","name":"(anonymous)","id":1}
-{"id":0,"ok":true,"name":"should be equal","operator":"equal","actual":2,"expected":2,"test":1,"type":"assert"}
+{"id":0,"ok":true,"name":"should be strictly equal","operator":"equal","actual":2,"expected":2,"test":1,"type":"assert"}
 {"id":1,"ok":true,"name":"(unnamed assert)","operator":"ok","actual":true,"expected":true,"test":1,"type":"assert"}
 {"type":"end","test":1}
 {"type":"test","name":"wheee","id":2}
