@@ -62,7 +62,7 @@ tap.test('not equal failure', function (assert) {
         });
     });
 
-    test("not equal", function (t) {
+    test('not equal', function (t) {
         t.plan(1);
         t.notEqual(2, 2);
     });
