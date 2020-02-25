@@ -17,7 +17,7 @@ tap.test('preserves stack trace with newlines', function (tt) {
         tt.deepEqual(data, {
             ok: false,
             id: 1,
-            name: "Error: Preserve stack",
+            name: 'Error: Preserve stack',
             diag: {
                 stack: stackTrace,
                 operator: 'error',
@@ -121,7 +121,7 @@ tap.test('preserves stack trace for failed assertions', function (tt) {
         tt.deepEqual(data, {
             ok: false,
             id: 1,
-            name: "true should be false",
+            name: 'true should be false',
             diag: {
                 at: at,
                 stack: stack,
@@ -186,7 +186,7 @@ tap.test('preserves stack trace for failed assertions where actual===falsy', fun
         tt.deepEqual(data, {
             ok: false,
             id: 1,
-            name: "false should be true",
+            name: 'false should be true',
             diag: {
                 at: at,
                 stack: stack,

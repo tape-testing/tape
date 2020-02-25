@@ -23,7 +23,7 @@ tape.test('createMultipleStreams', function (tt) {
     });
 
     th.onFinish(function () {
-        tt.equal(th._results.count, 2, "harness test ran");
+        tt.equal(th._results.count, 2, 'harness test ran');
         tt.equal(th._results.fail,  0, "harness test didn't fail");
     });
 });

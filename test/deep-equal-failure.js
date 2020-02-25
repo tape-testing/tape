@@ -62,7 +62,7 @@ tap.test('deep equal failure', function (assert) {
         });
     });
 
-    test("deep equal", function (t) {
+    test('deep equal', function (t) {
         t.plan(1);
         t.equal({a: 1}, {b: 2});
     });
@@ -123,7 +123,7 @@ tap.test('deep equal failure, depth 6, with option', function (assert) {
         });
     });
 
-    test("deep equal", {objectPrintDepth: 6}, function (t) {
+    test('deep equal', {objectPrintDepth: 6}, function (t) {
         t.plan(1);
         t.equal({ a: { a1: { a2: { a3: { a4: { a5: 1 } } } } } }, { a: { a1: { a2: { a3: { a4: { a5: 2 } } } } } });
     });
@@ -184,7 +184,7 @@ tap.test('deep equal failure, depth 6, without option', function (assert) {
         });
     });
 
-    test("deep equal", function (t) {
+    test('deep equal', function (t) {
         t.plan(1);
         t.equal({ a: { a1: { a2: { a3: { a4: { a5: 1 } } } } } }, { a: { a1: { a2: { a3: { a4: { a5: 2 } } } } } });
     });

@@ -39,7 +39,7 @@ tap.test('failures', function (tt) {
             + '    expected: |-\n'
             + '      undefined\n'
             + '    actual: |-\n'
-            + "      { [TypeError: " + getNonFunctionMessage() + "] message: '" + getNonFunctionMessage() + "' }\n"
+            + '      { [TypeError: ' + getNonFunctionMessage() + "] message: '" + getNonFunctionMessage() + "' }\n"
             + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
             + '    stack: |-\n'
             + '      TypeError: ' + getNonFunctionMessage(undefined) + '\n'
@@ -53,7 +53,7 @@ tap.test('failures', function (tt) {
             + '    expected: |-\n'
             + '      undefined\n'
             + '    actual: |-\n'
-            + "      { [TypeError: " + getNonFunctionMessage(null) + "] message: '" + getNonFunctionMessage(null) + "' }\n"
+            + '      { [TypeError: ' + getNonFunctionMessage(null) + "] message: '" + getNonFunctionMessage(null) + "' }\n"
             + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
             + '    stack: |-\n'
             + '      TypeError: ' + getNonFunctionMessage(null) + '\n'
@@ -67,7 +67,7 @@ tap.test('failures', function (tt) {
             + '    expected: |-\n'
             + '      undefined\n'
             + '    actual: |-\n'
-            + "      { [TypeError: " + getNonFunctionMessage(true) + "] message: '" + getNonFunctionMessage(true) + "' }\n"
+            + '      { [TypeError: ' + getNonFunctionMessage(true) + "] message: '" + getNonFunctionMessage(true) + "' }\n"
             + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
             + '    stack: |-\n'
             + '      TypeError: ' + getNonFunctionMessage(true) + '\n'
@@ -81,7 +81,7 @@ tap.test('failures', function (tt) {
             + '    expected: |-\n'
             + '      undefined\n'
             + '    actual: |-\n'
-            + "      { [TypeError: " + getNonFunctionMessage(false) + "] message: '" + getNonFunctionMessage(false) + "' }\n"
+            + '      { [TypeError: ' + getNonFunctionMessage(false) + "] message: '" + getNonFunctionMessage(false) + "' }\n"
             + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
             + '    stack: |-\n'
             + '      TypeError: ' + getNonFunctionMessage(false) + '\n'
@@ -95,7 +95,7 @@ tap.test('failures', function (tt) {
             + '    expected: |-\n'
             + '      undefined\n'
             + '    actual: |-\n'
-            + "      { [TypeError: " + getNonFunctionMessage('abc') + "] message: '" + getNonFunctionMessage('abc') + "' }\n"
+            + '      { [TypeError: ' + getNonFunctionMessage('abc') + "] message: '" + getNonFunctionMessage('abc') + "' }\n"
             + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
             + '    stack: |-\n'
             + '      TypeError: ' + getNonFunctionMessage('abc') + '\n'
@@ -109,7 +109,7 @@ tap.test('failures', function (tt) {
             + '    expected: |-\n'
             + '      undefined\n'
             + '    actual: |-\n'
-            + "      { [TypeError: " + getNonFunctionMessage(/a/g) + "] message: '" + getNonFunctionMessage(/a/g) + "' }\n"
+            + '      { [TypeError: ' + getNonFunctionMessage(/a/g) + "] message: '" + getNonFunctionMessage(/a/g) + "' }\n"
             + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
             + '    stack: |-\n'
             + '      TypeError: ' + getNonFunctionMessage(/a/g) + '\n'
@@ -123,7 +123,7 @@ tap.test('failures', function (tt) {
             + '    expected: |-\n'
             + '      undefined\n'
             + '    actual: |-\n'
-            + "      { [TypeError: " + getNonFunctionMessage([]) + "] message: '" + getNonFunctionMessage([]) + "' }\n"
+            + '      { [TypeError: ' + getNonFunctionMessage([]) + "] message: '" + getNonFunctionMessage([]) + "' }\n"
             + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
             + '    stack: |-\n'
             + '      TypeError: ' + getNonFunctionMessage([]) + '\n'
@@ -137,7 +137,7 @@ tap.test('failures', function (tt) {
             + '    expected: |-\n'
             + '      undefined\n'
             + '    actual: |-\n'
-            + "      { [TypeError: " + getNonFunctionMessage({}) + "] message: '" + getNonFunctionMessage({}) + "' }\n"
+            + '      { [TypeError: ' + getNonFunctionMessage({}) + "] message: '" + getNonFunctionMessage({}) + "' }\n"
             + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
             + '    stack: |-\n'
             + '      TypeError: ' + getNonFunctionMessage({}) + '\n'

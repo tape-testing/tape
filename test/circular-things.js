@@ -35,7 +35,7 @@ tap.test('circular test', function (assert) {
         );
     }));
 
-    test("circular", function (t) {
+    test('circular', function (t) {
         t.plan(1);
         var circular = {};
         circular.circular = circular;

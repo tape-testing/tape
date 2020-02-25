@@ -25,21 +25,21 @@ tap.test('tape only test', function (tt) {
 
     test.createStream().pipe(concat(tc));
 
-    test("never run fail", function (t) {
+    test('never run fail', function (t) {
         ran.push(1);
         t.equal(true, false);
         t.end();
     });
 
-    test("never run success", function (t) {
+    test('never run success', function (t) {
         ran.push(2);
         t.equal(true, true);
         t.end();
     });
 
-    test.only("run success", function (t) {
+    test.only('run success', function (t) {
         ran.push(3);
-        t.ok(true, "assert name");
+        t.ok(true, 'assert name');
         t.end();
     });
 });
