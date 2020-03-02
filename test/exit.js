@@ -202,3 +202,36 @@ tap.test('todo failing', function (t) {
         t.equal(code, 0);
     });
 });
+
+tap.test('forgot to call t.end()', function (t) {
+    t.plan(2);
+
+    var tc = function (rows) {
+        t.same(stripFullStack(rows.toString('utf8')), [
+            'TAP version 13',
+            '# first',
+            'ok 1 should be truthy',
+            '# oops forgot end',
+            'ok 2 should be truthy',
+            'not ok 3 test exited without ending: oops forgot end',
+            '  ---',
+            '    operator: fail',
+            '    at: process.<anonymous> ($TAPE/index.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: test exited without ending: oops forgot end',
+            '          [... stack stripped ...]',
+            '  ...',
+            '',
+            '1..3',
+            '# tests 3',
+            '# pass  2',
+            '# fail  1'
+        ].join('\n') + '\n\n');
+    };
+
+    var ps = spawn(process.execPath, [path.join(__dirname, '/exit/missing_end.js')]);
+    ps.stdout.pipe(concat(tc));
+    ps.on('exit', function (code) {
+        t.notEqual(code, 0);
+    });
+});
