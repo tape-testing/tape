@@ -21,7 +21,7 @@ module.exports.getDiag = function (body) {
 // 1) The base checkout directory of tape might change. Because stack traces
 //    include absolute paths, the stack traces will change depending on the
 //    checkout path. We handle this by replacing the base test directory with a
-//    placeholder $TEST variable and the package root with a placehodler
+//    placeholder $TEST variable and the package root with a placeholder
 //    $TAPE variable.
 // 2) Line positions within the file might change. We handle this by replacing
 //    line and column markers with placeholder $LINE and $COL "variables"
