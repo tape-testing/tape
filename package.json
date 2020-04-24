@@ -20,7 +20,7 @@
         "test": "test"
     },
     "dependencies": {
-        "deep-equal": "^2.0.1",
+        "deep-equal": "^2.0.3",
         "defined": "^1.0.0",
         "dotignore": "^0.1.2",
         "for-each": "^0.3.3",
@@ -29,11 +29,11 @@
         "has": "^1.0.3",
         "inherits": "^2.0.4",
         "is-regex": "^1.0.5",
-        "minimist": "^1.2.0",
+        "minimist": "^1.2.5",
         "object-inspect": "^1.7.0",
-        "object-is": "^1.0.2",
+        "object-is": "^1.1.2",
         "object.assign": "^4.1.0",
-        "resolve": "^1.15.1",
+        "resolve": "^1.17.0",
         "resumer": "^0.0.0",
         "string.prototype.trim": "^1.2.1",
         "through": "^2.3.8"
