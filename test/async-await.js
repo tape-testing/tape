@@ -32,62 +32,6 @@ tap.test('async1', function (t) {
     });
 });
 
-tap.test('async2', function (t) {
-    runProgram('async-await', 'async2.js', function (r) {
-        var stdout = r.stdout.toString('utf8');
-        var lines = stdout.split('\n');
-        lines = lines.filter(function (line) {
-            return ! /^(\s+)at(\s+)<anonymous>$/.test(line);
-        });
-        stdout = lines.join('\n');
-
-        t.same(stripFullStack(stdout), [
-            'TAP version 13',
-            '# async2',
-            'ok 1 before await',
-            'not ok 2 after await',
-            '  ---',
-            '    operator: ok',
-            '    expected: true',
-            '    actual:   false',
-            '    at: Test.myTest ($TEST/async-await/async2.js:$LINE:$COL)',
-            '    stack: |-',
-            '      Error: after await',
-            '          [... stack stripped ...]',
-            '          at Test.myTest ($TEST/async-await/async2.js:$LINE:$COL)',
-            '  ...',
-            '',
-            '1..2',
-            '# tests 2',
-            '# pass  1',
-            '# fail  1'
-        ].join('\n') + '\n\n');
-        t.same(r.exitCode, 1);
-        t.same(r.stderr.toString('utf8'), '');
-        t.end();
-    });
-});
-
-tap.test('async3', function (t) {
-    runProgram('async-await', 'async3.js', function (r) {
-        t.same(r.stdout.toString('utf8'), [
-            'TAP version 13',
-            '# async3',
-            'ok 1 before await',
-            'ok 2 after await',
-            '',
-            '1..2',
-            '# tests 2',
-            '# pass  2',
-            '',
-            '# ok'
-        ].join('\n') + '\n\n');
-        t.same(r.exitCode, 0);
-        t.same(r.stderr.toString('utf8'), '');
-        t.end();
-    });
-});
-
 tap.test('async4', function (t) {
     runProgram('async-await', 'async4.js', function (r) {
         t.same(stripFullStack(r.stdout.toString('utf8')), [
@@ -96,18 +40,16 @@ tap.test('async4', function (t) {
             'ok 1 before await',
             'not ok 2 Error: oops',
             '  ---',
-            '    operator: error',
-            '    at: Test.myTest ($TEST/async-await/async4.js:$LINE:$COL)',
+            '    operator: fail',
             '    stack: |-',
-            '      Error: oops',
-            '          at Timeout.myTimeout [as _onTimeout] ($TEST/async-await/async4.js:$LINE:$COL)',
+            '      Error: Error: oops',
             '          [... stack stripped ...]',
             '  ...',
             '',
             '1..2',
             '# tests 2',
             '# pass  1',
-            '# fail  1'
+            '# fail  1',
         ].join('\n') + '\n\n');
         t.same(r.exitCode, 1);
         t.same(r.stderr.toString('utf8'), '');
@@ -125,43 +67,35 @@ tap.test('async5', function (t) {
             'ok 3 before request',
             'ok 4 after request',
             'ok 5 res.statusCode is 200',
-            'not ok 6 .end() already called: mockDb.state is new',
-            '  ---',
-            '    operator: fail',
-            '    at: Timeout._onTimeout ($TEST/async-await/async5.js:$LINE:$COL)',
-            '    stack: |-',
-            '      Error: .end() already called: mockDb.state is new',
-            '          [... stack stripped ...]',
-            '          at Timeout._onTimeout ($TEST/async-await/async5.js:$LINE:$COL)',
-            '          [... stack stripped ...]',
-            '  ...',
-            'not ok 7 .end() already called: error on close',
-            '  ---',
-            '    operator: fail',
-            '    at: Server.<anonymous> ($TEST/async-await/async5.js:$LINE:$COL)',
-            '    stack: |-',
-            '      Error: .end() already called: error on close',
-            '          [... stack stripped ...]',
-            '          at Server.<anonymous> ($TEST/async-await/async5.js:$LINE:$COL)',
-            '          [... stack stripped ...]',
-            '  ...',
-            'not ok 8 .end() already called',
-            '  ---',
-            '    operator: fail',
-            '    at: Server.<anonymous> ($TEST/async-await/async5.js:$LINE:$COL)',
-            '    stack: |-',
-            '      Error: .end() already called',
-            '          [... stack stripped ...]',
-            '          at Server.<anonymous> ($TEST/async-await/async5.js:$LINE:$COL)',
-            '          [... stack stripped ...]',
-            '  ...',
+            'ok 6 mockDb.state is new',
+            'ok 7 error on close',
             '',
-            '1..8',
-            '# tests 8',
-            '# pass  5',
-            '# fail  3'
+            '1..7',
+            '# tests 7',
+            '# pass  7',
+            '',
+            '# ok',
         ].join('\n') + '\n\n');
-        t.same(r.exitCode, 1);
+        t.same(r.exitCode, 0);
+        t.same(r.stderr.toString('utf8'), '');
+        t.end();
+    });
+});
+
+tap.test('async6', function (t) {
+    runProgram('async-await', 'async6.js', function (r) {
+        t.same(r.stdout.toString('utf8'), [
+            'TAP version 13',
+            '# async6: double end',
+            'ok 1 good',
+            '',
+            '1..1',
+            '# tests 1',
+            '# pass  1',
+            '',
+            '# ok'
+        ].join('\n') + '\n\n');
+        t.same(r.exitCode, 0);
         t.same(r.stderr.toString('utf8'), '');
         t.end();
     });
