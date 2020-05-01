@@ -116,6 +116,7 @@ that will output something pretty if you pipe TAP into them:
 - [tap-junit](https://github.com/dhershman1/tap-junit)
 - [tap-nyc](https://github.com/MegaArman/tap-nyc)
 - [tap-spec (emoji patch)](https://github.com/Sceat/tap-spec-emoji)
+- [tape-repeater](https://github.com/rgruesbeck/tape-repeater)
 
 To use them, try `node test/index.js | tap-spec` or pipe it into one
 of the modules of your choice!
