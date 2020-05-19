@@ -18,7 +18,7 @@ tap.test('inside anonymous functions', function (tt) {
             'not ok 1 fail',
             '  ---',
             '    operator: fail',
-            '    at: Test.<anonymous> ($TEST/anonymous-fn/test-wrapper.js:$LINE:$COL)',
+            '    at: <anonymous> ($TEST/anonymous-fn.js:$LINE:$COL)',
             '    stack: |-',
             '      Error: fail',
             '          [... stack stripped ...]',

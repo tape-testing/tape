@@ -22,7 +22,7 @@ tap.test('array test', function (tt) {
             '    operator: fail',
             '    expected: 3',
             '    actual:   4',
-            '    at: Test.<anonymous> ($TEST/too_many.js:$LINE:$COL)',
+            '    at: <anonymous> ($TEST/too_many.js:$LINE:$COL)',
             '    stack: |-',
             '      Error: plan != count',
             '          [... stack stripped ...]',

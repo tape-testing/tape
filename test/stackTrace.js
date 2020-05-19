@@ -68,8 +68,8 @@ tap.test('preserves stack trace with newlines', function (tt) {
     });
 });
 
-tap.test('parses function name from original stack', function (tt) {
-    tt.plan(1);
+tap.test('parses function info from original stack', function (tt) {
+    tt.plan(4);
 
     var test = tape.createHarness();
     test.createStream();
@@ -77,6 +77,9 @@ tap.test('parses function name from original stack', function (tt) {
     test._results._watch = function (t) {
         t.on('result', function (res) {
             tt.equal('Test.testFunctionNameParsing', res.functionName);
+            tt.match(res.file, /stackTrace.js/i);
+            tt.ok(Number(res.line) > 0);
+            tt.ok(Number(res.column) > 0);
         });
     };
 
@@ -86,8 +89,8 @@ tap.test('parses function name from original stack', function (tt) {
     });
 });
 
-tap.test('parses function name from original stack for anonymous function', function (tt) {
-    tt.plan(1);
+tap.test('parses function info from original stack for anonymous function', function (tt) {
+    tt.plan(4);
 
     var test = tape.createHarness();
     test.createStream();
@@ -95,6 +98,9 @@ tap.test('parses function name from original stack for anonymous function', func
     test._results._watch = function (t) {
         t.on('result', function (res) {
             tt.equal('Test.<anonymous>', res.functionName);
+            tt.match(res.file, /stackTrace.js/i);
+            tt.ok(Number(res.line) > 0);
+            tt.ok(Number(res.column) > 0);
         });
     };
 
@@ -103,6 +109,60 @@ tap.test('parses function name from original stack for anonymous function', func
         t.end();
     });
 });
+
+if (typeof Promise === 'function' && typeof Promise.resolve === 'function') {
+
+    tap.test('parses function info from original stack for Promise scenario', function (tt) {
+        tt.plan(4);
+
+        var test = tape.createHarness();
+        test.createStream();
+
+        test._results._watch = function (t) {
+            t.on('result', function (res) {
+                tt.equal('onfulfilled', res.functionName);
+                tt.match(res.file, /stackTrace.js/i);
+                tt.ok(Number(res.line) > 0);
+                tt.ok(Number(res.column) > 0);
+            });
+        };
+
+        test('t.equal stack trace', function testFunctionNameParsing(t) {
+            new Promise(function (resolve) {
+                resolve();
+            }).then(function onfulfilled() {
+                t.equal(true, false, 'true should be false');
+                t.end();
+            });
+        });
+    });
+
+    tap.test('parses function info from original stack for Promise scenario with anonymous function', function (tt) {
+        tt.plan(4);
+
+        var test = tape.createHarness();
+        test.createStream();
+
+        test._results._watch = function (t) {
+            t.on('result', function (res) {
+                tt.equal('<anonymous>', res.functionName);
+                tt.match(res.file, /stackTrace.js/i);
+                tt.ok(Number(res.line) > 0);
+                tt.ok(Number(res.column) > 0);
+            });
+        };
+
+        test('t.equal stack trace', function testFunctionNameParsing(t) {
+            new Promise(function (resolve) {
+                resolve();
+            }).then(function () {
+                t.equal(true, false, 'true should be false');
+                t.end();
+            });
+        });
+    });
+
+}
 
 tap.test('preserves stack trace for failed assertions', function (tt) {
     tt.plan(6);

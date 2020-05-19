@@ -22,7 +22,7 @@ tap.test('array test', function (tt) {
             '    operator: deepEqual',
             '    expected: [ [ 1, 2, [ 3, 4444 ] ], [ 5, 6 ] ]',
             '    actual:   [ [ 1, 2, [ 3, 4 ] ], [ 5, 6 ] ]',
-            '    at: Test.<anonymous> ($TEST/fail.js:$LINE:$COL)',
+            '    at: <anonymous> ($TEST/fail.js:$LINE:$COL)',
             '    stack: |-',
             '      Error: should be equivalent',
             '          [... stack stripped ...]',
