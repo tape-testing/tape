@@ -407,6 +407,12 @@ With [npm](https://npmjs.org) do:
 npm install tape --save-dev
 ```
 
+# generating changelog
+
+```sh
+npx ghtags -n -r substack/tape -t <github-token> -o CHANGELOG.md
+```
+
 # license
 
 MIT

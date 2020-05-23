@@ -47,6 +47,7 @@
         "ecstatic": "^4.1.4",
         "eslint": "^7.16.0",
         "falafel": "^2.2.4",
+        "ghtags": "^0.8.0",
         "js-yaml": "^3.14.0",
         "tap": "^8.0.1",
         "tap-parser": "^3.0.5"
