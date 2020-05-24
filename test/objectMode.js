@@ -47,8 +47,7 @@ tap.test('object results', function (assert) {
         assert.end();
     };
 
-    tape.createStream({ objectMode: true })
-        .pipe(printer);
+    tape.createStream({ objectMode: true }).pipe(printer);
 
     tape('parent', function (t1) {
         t1.equal(true, true);
