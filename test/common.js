@@ -37,7 +37,7 @@ var stripChangingData = function (line) {
     var withoutPackageDir = withoutTestDir.replace(path.dirname(__dirname), '$TAPE');
     var withoutPathSep = withoutPackageDir.replace(new RegExp('\\' + path.sep, 'g'), '/');
     var withoutLineNumbers = withoutPathSep.replace(/:\d+:\d+/g, ':$LINE:$COL');
-    var withoutNestedLineNumbers = withoutLineNumbers.replace(/, \<anonymous\>:\$LINE:\$COL\)$/, ')');
+    var withoutNestedLineNumbers = withoutLineNumbers.replace(/, <anonymous>:\$LINE:\$COL\)$/, ')');
     return withoutNestedLineNumbers;
 };
 

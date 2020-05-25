@@ -11,5 +11,6 @@
             "anonymous": "always",
             "named": "never",
         }],
+        "no-useless-escape": "error",
     },
 }
