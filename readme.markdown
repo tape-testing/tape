@@ -134,6 +134,7 @@ By default, uncaught exceptions in your tests will not be intercepted, and will 
 - Electron test runner with https://github.com/tundrax/electron-tap
 - Concurrency support with https://github.com/imsnif/mixed-tape
 - In-process reporting with https://github.com/DavidAnson/tape-player
+- Describe blocks with https://github.com/mattriley/tape-describe
 
 # methods
 
