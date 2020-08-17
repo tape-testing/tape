@@ -12,11 +12,11 @@ tap.test('timeoutAfter test', function (tt) {
         tt.same(stripFullStack(rows.toString('utf8')), [
             'TAP version 13',
             '# timeoutAfter',
-            'not ok 1 test timed out after 1ms',
+            'not ok 1 timeoutAfter timed out after 1ms',
             '  ---',
             '    operator: fail',
             '    stack: |-',
-            '      Error: test timed out after 1ms',
+            '      Error: timeoutAfter timed out after 1ms',
             '          [... stack stripped ...]',
             '  ...',
             '',
