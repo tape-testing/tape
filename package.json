@@ -14,7 +14,8 @@
         "./lib/results": "./lib/results.js",
         "./lib/test": "./lib/test.js",
         "./package": "./package.json",
-        "./package.json": "./package.json"
+        "./package.json": "./package.json",
+		"./bin/tape": "./bin/tape"
     },
     "bin": "./bin/tape",
     "directories": {
