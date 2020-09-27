@@ -175,3 +175,18 @@ tap.test('multiline string', function (assert) {
         t.end();
     });
 });
+
+tap.test('comment with createStream/objectMode', function (assert) {
+    assert.plan(1);
+
+    var test = tape.createHarness();
+    test.createStream({ objectMode: true }).on('data', function (row) {
+        if (typeof row === 'string') {
+            assert.equal(row, 'comment message');
+        }
+    });
+    test('t.comment', function (t) {
+        t.comment('comment message');
+        t.end();
+    });
+});

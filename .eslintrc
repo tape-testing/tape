@@ -19,6 +19,7 @@
             "named": "never",
         }],
         "no-undef": "error",
+        "no-useless-escape": "error",
         "strict": "error",
     },
     "overrides": [
