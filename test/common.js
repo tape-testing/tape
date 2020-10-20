@@ -56,7 +56,11 @@ module.exports.stripFullStack = function (output) {
         return line;
     });
 
-    var deduped = withDuplicates.filter(function (line, ix) {
+    var withoutInternals = withDuplicates.filter(function (line) {
+        return !line.match(/ \(node:[^)]+\)$/);
+    });
+
+    var deduped = withoutInternals.filter(function (line, ix) {
         var hasPrior = line === stripped && withDuplicates[ix - 1] === stripped;
         return !hasPrior;
     });
