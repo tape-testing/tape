@@ -20,21 +20,29 @@ tap.test('callback returning rejected promise should cause that test (and only t
         }
 
         var strippedString = stripFullStack(rowsString);
+        var lines = strippedString.split('\n');
+        lines = lines.filter(function (line) {
+            return !/^(\s+)at(\s+)(?:Test\.)?<anonymous>(?:$|\s)/.test(line);
+        });
+        strippedString = lines.join('\n');
 
         // hack for consistency across all versions of node
         // some versions produce a longer stack trace for some reason
         // since this doesn't affect the validity of the test, the extra line is removed if present
         // the regex just removes the lines "at <anonymous>" and "[... stack stripped ...]" if they occur together
-        strippedString = strippedString.replace(/.+at <anonymous>\n.+\[\.\.\. stack stripped \.\.\.\]\n/, '');
+        strippedString = strippedString
+            .replace(/.+at (?:Test\.)?<anonymous>\n.+\[\.\.\. stack stripped \.\.\.\]\n/g, '')
+            .replace(/(?:(.+)\[\.\.\. stack stripped \.\.\.\]\n)+/g, '$1[... stack stripped ...]\n');
 
         tt.same(strippedString, [
             'TAP version 13',
             '# promise',
             'not ok 1 Error: rejection message',
             '  ---',
-            '    operator: fail',
+            '    operator: error',
             '    stack: |-',
-            '      Error: Error: rejection message',
+            '      Error: rejection message',
+            '          at $TEST/promises/fail.js:$LINE:$COL',
             '          [... stack stripped ...]',
             '  ...',
             '# after',
@@ -63,12 +71,19 @@ tap.test('subtest callback returning rejected promise should cause that subtest 
         }
 
         var strippedString = stripFullStack(rowsString);
+        var lines = strippedString.split('\n');
+        lines = lines.filter(function (line) {
+            return !/^(\s+)at(\s+)(?:Test\.)?<anonymous>(?:$|\s)/.test(line);
+        });
+        strippedString = lines.join('\n');
 
         // hack for consistency across all versions of node
         // some versions produce a longer stack trace for some reason
         // since this doesn't affect the validity of the test, the extra line is removed if present
         // the regex just removes the lines "at <anonymous>" and "[... stack stripped ...]" if they occur together
-        strippedString = strippedString.replace(/.+at <anonymous>\n.+\[\.\.\. stack stripped \.\.\.\]\n/, '');
+        strippedString = strippedString
+            .replace(/.+at (?:Test\.)?<anonymous>\n.+\[\.\.\. stack stripped \.\.\.\]\n/, '')
+            .replace(/(?:(.+)\[\.\.\. stack stripped \.\.\.\]\n)+/g, '$1[... stack stripped ...]\n');
 
         tt.same(strippedString, [
             'TAP version 13',
@@ -76,9 +91,10 @@ tap.test('subtest callback returning rejected promise should cause that subtest 
             '# sub test that should fail',
             'not ok 1 Error: rejection message',
             '  ---',
-            '    operator: fail',
+            '    operator: error',
             '    stack: |-',
-            '      Error: Error: rejection message',
+            '      Error: rejection message',
+            '          at $TEST/promises/subTests.js:$LINE:$COL',
             '          [... stack stripped ...]',
             '  ...',
             '# sub test that should pass',
