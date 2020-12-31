@@ -17,6 +17,7 @@ tap.test('test SKIP comment', function (assert) {
             '1..0',
             '# tests 0',
             '# pass  0',
+            '# skip  1',
             '',
             '# ok',
             ''
