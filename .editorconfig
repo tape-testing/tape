@@ -12,9 +12,16 @@ block_comment_start = /*
 block_comment =  *
 block_comment_end = */
 
+[.nycrc]
+indent_style = tab
+
 [*.md]
 indent_style = space
 indent_size = 4
+
+[*.yml]
+indent_style = space
+indent_size = 2
 
 [readme.markdown]
 indent_size = off
