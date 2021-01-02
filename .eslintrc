@@ -20,6 +20,11 @@
         }],
         "no-undef": "error",
         "no-useless-escape": "error",
+        "operator-linebreak": ["error", "before"],
+        "space-unary-ops": ["error", {
+            "words": false,
+            "nonwords": false,
+        }],
         "strict": "error",
     },
     "overrides": [
