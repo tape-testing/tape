@@ -55,7 +55,7 @@
         "lint": "eslint . bin/*",
         "pretest": "npm run lint",
         "test": "npm run tests-only",
-        "tests-only": "tap test/*.js"
+        "tests-only": "nyc tap test/*.js"
     },
     "testling": {
         "files": "test/browser/*.js",

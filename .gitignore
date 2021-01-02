@@ -5,3 +5,7 @@
 # Only apps should have lockfiles
 yarn.lock
 package-lock.json
+
+# coverage data
+coverage/
+.nyc_output/
