@@ -26,6 +26,7 @@
         "through": "~2.3.8"
     },
     "devDependencies": {
+        "aud": "~1.1.5",
         "concat-stream": "^1.6.2",
         "eclint": "^2.8.1",
         "ecstatic": "^4.1.4",
@@ -40,7 +41,8 @@
         "lint": "eslint .",
         "pretest": "npm run lint",
         "test": "npm run tests-only",
-        "tests-only": "tap test/*.js"
+        "posttest": "aud --production",
+        "tests-only": "nyc tap test/*.js"
     },
     "testling": {
         "files": "test/browser/*.js",
