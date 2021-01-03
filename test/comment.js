@@ -166,11 +166,11 @@ tap.test('multiline string', function (assert) {
     test('multiline strings', function (t) {
         t.comment([
             'a',
-            'b',
+            'b'
         ].join('\n'));
         t.comment([
             'c',
-            'd',
+            'd'
         ].join('\r\n'));
         t.end();
     });

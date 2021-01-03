@@ -28,7 +28,7 @@ tap.test('failures', function (tt) {
             '# tests 1',
             '# pass  0',
             '# fail  1',
-            '',
+            ''
         ]);
     }));
 

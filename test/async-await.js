@@ -233,7 +233,7 @@ tap.test('async-error', function (t) {
             '# pass  1',
             '# fail  1',
             '',
-            '',
+            ''
         ]);
         t.same(r.exitCode, 1);
 
@@ -279,7 +279,7 @@ tap.test('async-bug', function (t) {
             '# pass  2',
             '# fail  1',
             '',
-            '',
+            ''
         ]);
         t.same(r.exitCode, 1);
 

@@ -8,6 +8,7 @@
         "Promise": false,
     },
     "rules": {
+        "comma-dangle": ["error", "never"],
         "indent": ["error", 4],
         "key-spacing": "error",
         "quotes": ["error", "single", {
