@@ -37,7 +37,7 @@ tap.test('timeoutAfter test', function (tt) {
     });
 });
 
-tap.test('timeoutAfter with Promises', function (tt) {
+tap.test('timeoutAfter with Promises', { skip: typeof Promise === 'undefined' }, function (tt) {
     tt.plan(1);
 
     var test = tape.createHarness();
