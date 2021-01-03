@@ -17,28 +17,28 @@ tap.test('not equal failure', function (assert) {
 
     stream.pipe(parser);
     stream.pipe(concat(function (body) {
-        assert.equal(
-            stripFullStack(body.toString('utf8')),
-            'TAP version 13\n'
-            + '# not equal\n'
-            + 'not ok 1 should not be strictly equal\n'
-            + '  ---\n'
-            + '    operator: notEqual\n'
-            + '    expected: 2\n'
-            + '    actual:   2\n'
-            + '    at: Test.<anonymous> ($TEST/not-equal-failure.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: should not be strictly equal\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/not-equal-failure.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + '\n'
-            + '1..1\n'
-            + '# tests 1\n'
-            + '# pass  0\n'
-            + '# fail  1\n'
-        );
+        assert.deepEqual(stripFullStack(body.toString('utf8')), [
+            'TAP version 13',
+            '# not equal',
+            'not ok 1 should not be strictly equal',
+            '  ---',
+            '    operator: notEqual',
+            '    expected: 2',
+            '    actual:   2',
+            '    at: Test.<anonymous> ($TEST/not-equal-failure.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: should not be strictly equal',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/not-equal-failure.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            '',
+            '1..1',
+            '# tests 1',
+            '# pass  0',
+            '# fail  1',
+            ''
+        ]);
 
         assert.deepEqual(getDiag(body), {
             operator: 'notEqual',

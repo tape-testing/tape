@@ -11,30 +11,30 @@ tap.test('circular test', function (assert) {
     assert.plan(1);
 
     test.createStream().pipe(concat(function (body) {
-        assert.equal(
-            stripFullStack(body.toString('utf8')),
-            'TAP version 13\n'
-            + '# circular\n'
-            + 'not ok 1 should be strictly equal\n'
-            + '  ---\n'
-            + '    operator: equal\n'
-            + '    expected: |-\n'
-            + '      {}\n'
-            + '    actual: |-\n'
-            + '      { circular: [Circular] }\n'
-            + '    at: Test.<anonymous> ($TEST/circular-things.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: should be strictly equal\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/circular-things.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + '\n'
-            + '1..1\n'
-            + '# tests 1\n'
-            + '# pass  0\n'
-            + '# fail  1\n'
-        );
+        assert.deepEqual(stripFullStack(body.toString('utf8')), [
+            'TAP version 13',
+            '# circular',
+            'not ok 1 should be strictly equal',
+            '  ---',
+            '    operator: equal',
+            '    expected: |-',
+            '      {}',
+            '    actual: |-',
+            '      { circular: [Circular] }',
+            '    at: Test.<anonymous> ($TEST/circular-things.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: should be strictly equal',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/circular-things.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            '',
+            '1..1',
+            '# tests 1',
+            '# pass  0',
+            '# fail  1',
+            ''
+        ]);
     }));
 
     test('circular', function (t) {

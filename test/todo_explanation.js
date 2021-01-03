@@ -12,7 +12,7 @@ tap.test('tape todo test', { todo: process.versions.node.match(/0\.8\.\d+/) ? 'F
     assert.plan(1);
 
     test.createStream().pipe(concat(function (body) {
-        assert.equal(
+        assert.deepEqual(
             stripFullStack(body.toString('utf8')), [
                 'TAP version 13',
                 '# success',
@@ -46,7 +46,7 @@ tap.test('tape todo test', { todo: process.versions.node.match(/0\.8\.\d+/) ? 'F
                 '',
                 '# ok',
                 ''
-            ].join('\n')
+            ]
         );
     }));
 

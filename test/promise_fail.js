@@ -19,12 +19,9 @@ tap.test('callback returning rejected promise should cause that test (and only t
             return tt.pass('the test file indicated it should be skipped');
         }
 
-        var strippedString = stripFullStack(rowsString);
-        var lines = strippedString.split('\n');
-        lines = lines.filter(function (line) {
+        var strippedString = stripFullStack(rowsString).filter(function (line) {
             return !/^(\s+)at(\s+)(?:Test\.)?<anonymous>(?:$|\s)/.test(line);
-        });
-        strippedString = lines.join('\n');
+        }).join('\n');
 
         // hack for consistency across all versions of node
         // some versions produce a longer stack trace for some reason
@@ -70,12 +67,9 @@ tap.test('subtest callback returning rejected promise should cause that subtest 
             return tt.pass('the test file indicated it should be skipped');
         }
 
-        var strippedString = stripFullStack(rowsString);
-        var lines = strippedString.split('\n');
-        lines = lines.filter(function (line) {
+        var strippedString = stripFullStack(rowsString).filter(function (line) {
             return !/^(\s+)at(\s+)(?:Test\.)?<anonymous>(?:$|\s)/.test(line);
-        });
-        strippedString = lines.join('\n');
+        }).join('\n');
 
         // hack for consistency across all versions of node
         // some versions produce a longer stack trace for some reason

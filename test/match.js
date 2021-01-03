@@ -48,7 +48,7 @@ tap.test('match', function (tt) {
             '# pass  4',
             '# fail  2',
             ''
-        ].join('\n'));
+        ]);
     };
 
     test.createStream().pipe(concat(tc));
@@ -142,7 +142,7 @@ tap.test('doesNotMatch', function (tt) {
             '# pass  2',
             '# fail  4',
             ''
-        ].join('\n'));
+        ]);
     };
 
     test.createStream().pipe(concat(tc));

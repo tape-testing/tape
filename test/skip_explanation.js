@@ -9,7 +9,7 @@ tap.test('test skip explanations', function (assert) {
     assert.plan(1);
 
     var verify = function (output) {
-        assert.equal(stripFullStack(output.toString('utf8')), [
+        assert.deepEqual(stripFullStack(output.toString('utf8')), [
             'TAP version 13',
             '# SKIP (this skips)',
             '# some tests might skip',
@@ -32,7 +32,7 @@ tap.test('test skip explanations', function (assert) {
             '',
             '# ok',
             ''
-        ].join('\n'));
+        ]);
     };
 
     var tapeTest = test.createHarness();

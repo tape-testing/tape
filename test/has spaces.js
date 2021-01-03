@@ -30,7 +30,7 @@ tap.test('array test', function (tt) {
             '# pass  0',
             '# fail  1',
             ''
-        ].join('\n'));
+        ]);
     };
 
     test.createStream().pipe(concat(tc));

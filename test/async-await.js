@@ -35,13 +35,11 @@ tap.test('async1', function (t) {
 tap.test('async2', function (t) {
     runProgram('async-await', 'async2.js', function (r) {
         var stdout = r.stdout.toString('utf8');
-        var lines = stdout.split('\n');
-        lines = lines.filter(function (line) {
+        var lines = stdout.split('\n').filter(function (line) {
             return !/^(\s+)at(\s+)<anonymous>$/.test(line);
         });
-        stdout = lines.join('\n');
 
-        t.same(stripFullStack(stdout), [
+        t.same(stripFullStack(lines.join('\n')), [
             'TAP version 13',
             '# async2',
             'ok 1 before await',
@@ -60,8 +58,10 @@ tap.test('async2', function (t) {
             '1..2',
             '# tests 2',
             '# pass  1',
-            '# fail  1'
-        ].join('\n') + '\n\n');
+            '# fail  1',
+            '',
+            ''
+        ]);
         t.same(r.exitCode, 1);
         t.same(r.stderr.toString('utf8'), '');
         t.end();
@@ -107,8 +107,10 @@ tap.test('async4', function (t) {
             '1..2',
             '# tests 2',
             '# pass  1',
-            '# fail  1'
-        ].join('\n') + '\n\n');
+            '# fail  1',
+            '',
+            ''
+        ]);
         t.same(r.exitCode, 1);
         t.same(r.stderr.toString('utf8'), '');
         t.end();
@@ -159,8 +161,10 @@ tap.test('async5', function (t) {
             '1..8',
             '# tests 8',
             '# pass  5',
-            '# fail  3'
-        ].join('\n') + '\n\n');
+            '# fail  3',
+            '',
+            ''
+        ]);
         t.same(r.exitCode, 1);
         t.same(r.stderr.toString('utf8'), '');
         t.end();
@@ -174,7 +178,7 @@ tap.test('sync-error', function (t) {
             '# sync-error',
             'ok 1 before throw',
             ''
-        ].join('\n'));
+        ]);
         t.same(r.exitCode, 1);
 
         var stderr = r.stderr.toString('utf8');
@@ -197,7 +201,7 @@ tap.test('sync-error', function (t) {
             '    at Test.run ($TAPE/lib/test.js:$LINE:$COL)',
             '    at Test.bound [as run] ($TAPE/lib/test.js:$LINE:$COL)',
             ''
-        ].join('\n'));
+        ]);
         t.end();
     });
 });
@@ -211,7 +215,7 @@ tap.test('async-error', function (t) {
         });
         stdout = lines.join('\n');
 
-        t.same(stripFullStack(stdout.toString('utf8')), [
+        t.same(stripFullStack(stdout), [
             'TAP version 13',
             '# async-error',
             'ok 1 before throw',
@@ -230,7 +234,7 @@ tap.test('async-error', function (t) {
             '# fail  1',
             '',
             '',
-        ].join('\n'));
+        ]);
         t.same(r.exitCode, 1);
 
         var stderr = r.stderr.toString('utf8');
@@ -276,7 +280,7 @@ tap.test('async-bug', function (t) {
             '# fail  1',
             '',
             '',
-        ].join('\n'));
+        ]);
         t.same(r.exitCode, 1);
 
         var stderr = r.stderr.toString('utf8');

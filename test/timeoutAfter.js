@@ -25,8 +25,9 @@ tap.test('timeoutAfter test', function (tt) {
             '1..1',
             '# tests 1',
             '# pass  0',
-            '# fail  1'
-        ].join('\n') + '\n');
+            '# fail  1',
+            ''
+        ]);
     };
 
     test.createStream().pipe(concat(tc));
@@ -65,8 +66,9 @@ tap.test('timeoutAfter with Promises', { skip: typeof Promise === 'undefined' },
             '1..2',
             '# tests 2',
             '# pass  0',
-            '# fail  2'
-        ].join('\n') + '\n');
+            '# fail  2',
+            ''
+        ]);
     };
 
     test.createStream().pipe(concat(tc));

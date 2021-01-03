@@ -12,24 +12,24 @@ tap.test('tape todo test', function (assert) {
     assert.plan(1);
 
     test.createStream().pipe(concat(function (body) {
-        assert.equal(
-            stripFullStack(body.toString('utf8')),
-            'TAP version 13\n'
-            + '# success\n'
-            + 'ok 1 this test runs\n'
-            + '# TODO failure\n'
-            + 'not ok 2 should never happen # TODO\n'
-            + '  ---\n'
-            + '    operator: fail\n'
-            + '    at: Test.<anonymous> ($TEST/todo.js:$LINE:$COL)\n'
-            + '  ...\n'
-            + '\n'
-            + '1..2\n'
-            + '# tests 2\n'
-            + '# pass  2\n'
-            + '\n'
-            + '# ok\n'
-        );
+        assert.deepEqual(stripFullStack(body.toString('utf8')), [
+            'TAP version 13',
+            '# success',
+            'ok 1 this test runs',
+            '# TODO failure',
+            'not ok 2 should never happen # TODO',
+            '  ---',
+            '    operator: fail',
+            '    at: Test.<anonymous> ($TEST/todo.js:$LINE:$COL)',
+            '  ...',
+            '',
+            '1..2',
+            '# tests 2',
+            '# pass  2',
+            '',
+            '# ok',
+            ''
+        ]);
     }));
 
     test('success', function (t) {

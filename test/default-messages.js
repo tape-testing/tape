@@ -13,7 +13,6 @@ tap.test('default messages', function (t) {
     var ps = spawn(process.execPath, [path.join(__dirname, 'messages', 'defaults.js')]);
 
     ps.stdout.pipe(concat(function (rows) {
-
         t.same(stripFullStack(rows.toString('utf8')), [
             'TAP version 13',
             '# default messages',
@@ -44,7 +43,9 @@ tap.test('default messages', function (t) {
             '1..12',
             '# tests 12',
             '# pass  11',
-            '# fail  1'
-        ].join('\n') + '\n\n');
+            '# fail  1',
+            '',
+            ''
+        ]);
     }));
 });

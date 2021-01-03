@@ -11,24 +11,25 @@ tap.test('failures', function (tt) {
 
     var test = tape.createHarness();
     test.createStream().pipe(concat(function (body) {
-        tt.equal(
-            stripFullStack(body.toString('utf8')),
-            'TAP version 13\n'
-            + '# error\n'
-            + 'not ok 1 Error: this is a message\n'
-            + '  ---\n'
-            + '    operator: error\n'
-            + '    at: Test.<anonymous> ($TEST/error.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: this is a message\n'
-            + '          at Test.<anonymous> ($TEST/error.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + '\n1..1\n'
-            + '# tests 1\n'
-            + '# pass  0\n'
-            + '# fail  1\n'
-        );
+        tt.same(stripFullStack(body.toString('utf8')), [
+            'TAP version 13',
+            '# error',
+            'not ok 1 Error: this is a message',
+            '  ---',
+            '    operator: error',
+            '    at: Test.<anonymous> ($TEST/error.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: this is a message',
+            '          at Test.<anonymous> ($TEST/error.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            '',
+            '1..1',
+            '# tests 1',
+            '# pass  0',
+            '# fail  1',
+            '',
+        ]);
     }));
 
     test('error', function (t) {

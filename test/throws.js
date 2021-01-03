@@ -33,99 +33,100 @@ tap.test('failures', function (tt) {
 
     var test = tape.createHarness();
     test.createStream().pipe(concat(function (body) {
-        tt.equal(
-            stripFullStack(body.toString('utf8')),
-            'TAP version 13\n'
-            + '# non functions\n'
-            + 'ok 1 should throw\n'
-            + 'ok 2 should throw\n'
-            + 'ok 3 should throw\n'
-            + 'ok 4 should throw\n'
-            + 'ok 5 should throw\n'
-            + 'ok 6 should throw\n'
-            + 'ok 7 should throw\n'
-            + 'ok 8 should throw\n'
-            + '# function\n'
-            + 'not ok 9 should throw\n'
-            + '  ---\n'
-            + '    operator: throws\n'
-            + '    expected: undefined\n'
-            + '    actual:   undefined\n'
-            + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: should throw\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + '# custom error messages\n'
-            + 'ok 10 "message" is enumerable\n'
-            + "ok 11 { custom: 'error', message: 'message' }\n"
-            + 'ok 12 getter is still the same\n'
-            + '# throws null\n'
-            + 'ok 13 throws null\n'
-            + '# wrong type of error\n'
-            + 'not ok 14 throws actual\n'
-            + '  ---\n'
-            + '    operator: throws\n'
-            + '    expected: |-\n'
-            + '      [Function: TypeError]\n'
-            + '    actual: |-\n'
-            + "      { [RangeError: actual!] message: 'actual!' }\n"
-            + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      RangeError: actual!\n'
-            + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + '# object\n'
-            + 'ok 15 object properties are validated\n'
-            + '# object with regexes\n'
-            + 'ok 16 object with regex values is validated\n'
-            + '# similar error object\n'
-            + 'ok 17 throwing a similar error\n'
-            + '# validate with regex\n'
-            + 'ok 18 regex against toString of error\n'
-            + '# custom error validation\n'
-            + 'ok 19 error is SyntaxError\n'
-            + 'ok 20 error matches /value/\n'
-            + 'ok 21 unexpected error\n'
-            + '# throwing primitives\n'
-            + 'ok 22 primitive: null\n'
-            + 'ok 23 primitive: undefined\n'
-            + 'ok 24 primitive: 0\n'
-            + 'ok 25 primitive: NaN\n'
-            + 'ok 26 primitive: 42\n'
-            + 'ok 27 primitive: Infinity\n'
-            + 'ok 28 primitive: \'\'\n'
-            + 'ok 29 primitive: \'foo\'\n'
-            + 'ok 30 primitive: true\n'
-            + 'ok 31 primitive: false\n'
-            + '# ambiguous arguments\n'
-            + 'ok 32 Second\n'
-            + 'ok 33 Second\n'
-            + 'ok 34 Second\n'
-            + 'ok 35 should throw\n'
-            + 'not ok 36 should throw\n'
-            + '  ---\n'
-            + '    operator: throws\n'
-            + '    expected: |-\n'
-            + '      \'/Second$/\'\n'
-            + '    actual: |-\n'
-            + '      { [Error: First] message: \'First\' }\n'
-            + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: First\n'
-            + '          at throwingFirst ($TEST/throws.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + '\n1..36\n'
-            + '# tests 36\n'
-            + '# pass  33\n'
-            + '# fail  3\n'
-        );
+        tt.same(stripFullStack(body.toString('utf8')), [
+            'TAP version 13',
+            '# non functions',
+            'ok 1 should throw',
+            'ok 2 should throw',
+            'ok 3 should throw',
+            'ok 4 should throw',
+            'ok 5 should throw',
+            'ok 6 should throw',
+            'ok 7 should throw',
+            'ok 8 should throw',
+            '# function',
+            'not ok 9 should throw',
+            '  ---',
+            '    operator: throws',
+            '    expected: undefined',
+            '    actual:   undefined',
+            '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: should throw',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            '# custom error messages',
+            'ok 10 "message" is enumerable',
+            "ok 11 { custom: 'error', message: 'message' }",
+            'ok 12 getter is still the same',
+            '# throws null',
+            'ok 13 throws null',
+            '# wrong type of error',
+            'not ok 14 throws actual',
+            '  ---',
+            '    operator: throws',
+            '    expected: |-',
+            '      [Function: TypeError]',
+            '    actual: |-',
+            "      { [RangeError: actual!] message: 'actual!' }",
+            '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '    stack: |-',
+            '      RangeError: actual!',
+            '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            '# object',
+            'ok 15 object properties are validated',
+            '# object with regexes',
+            'ok 16 object with regex values is validated',
+            '# similar error object',
+            'ok 17 throwing a similar error',
+            '# validate with regex',
+            'ok 18 regex against toString of error',
+            '# custom error validation',
+            'ok 19 error is SyntaxError',
+            'ok 20 error matches /value/',
+            'ok 21 unexpected error',
+            '# throwing primitives',
+            'ok 22 primitive: null',
+            'ok 23 primitive: undefined',
+            'ok 24 primitive: 0',
+            'ok 25 primitive: NaN',
+            'ok 26 primitive: 42',
+            'ok 27 primitive: Infinity',
+            'ok 28 primitive: \'\'',
+            'ok 29 primitive: \'foo\'',
+            'ok 30 primitive: true',
+            'ok 31 primitive: false',
+            '# ambiguous arguments',
+            'ok 32 Second',
+            'ok 33 Second',
+            'ok 34 Second',
+            'ok 35 should throw',
+            'not ok 36 should throw',
+            '  ---',
+            '    operator: throws',
+            '    expected: |-',
+            '      \'/Second$/\'',
+            '    actual: |-',
+            '      { [Error: First] message: \'First\' }',
+            '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: First',
+            '          at throwingFirst ($TEST/throws.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            '',
+            '1..36',
+            '# tests 36',
+            '# pass  33',
+            '# fail  3',
+            ''
+        ]);
     }));
 
     test('non functions', function (t) {
