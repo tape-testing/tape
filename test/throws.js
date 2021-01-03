@@ -29,160 +29,161 @@ tap.test('failures', function (tt) {
 
     var test = tape.createHarness();
     test.createStream().pipe(concat(function (body) {
-        tt.equal(
-            stripFullStack(body.toString('utf8')),
-            'TAP version 13\n'
-            + '# non functions\n'
-            + 'not ok 1 should throw\n'
-            + '  ---\n'
-            + '    operator: throws\n'
-            + '    expected: |-\n'
-            + '      undefined\n'
-            + '    actual: |-\n'
-            + '      { [TypeError: ' + getNonFunctionMessage() + "] message: '" + getNonFunctionMessage() + "' }\n"
-            + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      TypeError: ' + getNonFunctionMessage(undefined) + '\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 2 should throw\n'
-            + '  ---\n'
-            + '    operator: throws\n'
-            + '    expected: |-\n'
-            + '      undefined\n'
-            + '    actual: |-\n'
-            + '      { [TypeError: ' + getNonFunctionMessage(null) + "] message: '" + getNonFunctionMessage(null) + "' }\n"
-            + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      TypeError: ' + getNonFunctionMessage(null) + '\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 3 should throw\n'
-            + '  ---\n'
-            + '    operator: throws\n'
-            + '    expected: |-\n'
-            + '      undefined\n'
-            + '    actual: |-\n'
-            + '      { [TypeError: ' + getNonFunctionMessage(true) + "] message: '" + getNonFunctionMessage(true) + "' }\n"
-            + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      TypeError: ' + getNonFunctionMessage(true) + '\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 4 should throw\n'
-            + '  ---\n'
-            + '    operator: throws\n'
-            + '    expected: |-\n'
-            + '      undefined\n'
-            + '    actual: |-\n'
-            + '      { [TypeError: ' + getNonFunctionMessage(false) + "] message: '" + getNonFunctionMessage(false) + "' }\n"
-            + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      TypeError: ' + getNonFunctionMessage(false) + '\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 5 should throw\n'
-            + '  ---\n'
-            + '    operator: throws\n'
-            + '    expected: |-\n'
-            + '      undefined\n'
-            + '    actual: |-\n'
-            + '      { [TypeError: ' + getNonFunctionMessage('abc') + "] message: '" + getNonFunctionMessage('abc') + "' }\n"
-            + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      TypeError: ' + getNonFunctionMessage('abc') + '\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 6 should throw\n'
-            + '  ---\n'
-            + '    operator: throws\n'
-            + '    expected: |-\n'
-            + '      undefined\n'
-            + '    actual: |-\n'
-            + '      { [TypeError: ' + getNonFunctionMessage(/a/g) + "] message: '" + getNonFunctionMessage(/a/g) + "' }\n"
-            + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      TypeError: ' + getNonFunctionMessage(/a/g) + '\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 7 should throw\n'
-            + '  ---\n'
-            + '    operator: throws\n'
-            + '    expected: |-\n'
-            + '      undefined\n'
-            + '    actual: |-\n'
-            + '      { [TypeError: ' + getNonFunctionMessage([]) + "] message: '" + getNonFunctionMessage([]) + "' }\n"
-            + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      TypeError: ' + getNonFunctionMessage([]) + '\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 8 should throw\n'
-            + '  ---\n'
-            + '    operator: throws\n'
-            + '    expected: |-\n'
-            + '      undefined\n'
-            + '    actual: |-\n'
-            + '      { [TypeError: ' + getNonFunctionMessage({}) + "] message: '" + getNonFunctionMessage({}) + "' }\n"
-            + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      TypeError: ' + getNonFunctionMessage({}) + '\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + '# function\n'
-            + 'not ok 9 should throw\n'
-            + '  ---\n'
-            + '    operator: throws\n'
-            + '    expected: undefined\n'
-            + '    actual:   undefined\n'
-            + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: should throw\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + '# custom error messages\n'
-            + 'ok 10 "message" is enumerable\n'
-            + "ok 11 { custom: 'error', message: 'message' }\n"
-            + 'ok 12 getter is still the same\n'
-            + '# throws null\n'
-            + 'ok 13 throws null\n'
-            + '# wrong type of error\n'
-            + 'not ok 14 throws actual\n'
-            + '  ---\n'
-            + '    operator: throws\n'
-            + '    expected: |-\n'
-            + '      [Function: TypeError]\n'
-            + '    actual: |-\n'
-            + "      { [RangeError: actual!] message: 'actual!' }\n"
-            + '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      RangeError: actual!\n'
-            + '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + '\n1..14\n'
-            + '# tests 14\n'
-            + '# pass  4\n'
-            + '# fail  10\n'
-        );
+        tt.same(stripFullStack(body.toString('utf8')), [
+            'TAP version 13',
+            '# non functions',
+            'not ok 1 should throw',
+            '  ---',
+            '    operator: throws',
+            '    expected: |-',
+            '      undefined',
+            '    actual: |-',
+            '      { [TypeError: ' + getNonFunctionMessage() + "] message: '" + getNonFunctionMessage() + "' }",
+            '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '    stack: |-',
+            '      TypeError: ' + getNonFunctionMessage(undefined) + '',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 2 should throw',
+            '  ---',
+            '    operator: throws',
+            '    expected: |-',
+            '      undefined',
+            '    actual: |-',
+            '      { [TypeError: ' + getNonFunctionMessage(null) + "] message: '" + getNonFunctionMessage(null) + "' }",
+            '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '    stack: |-',
+            '      TypeError: ' + getNonFunctionMessage(null) + '',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 3 should throw',
+            '  ---',
+            '    operator: throws',
+            '    expected: |-',
+            '      undefined',
+            '    actual: |-',
+            '      { [TypeError: ' + getNonFunctionMessage(true) + "] message: '" + getNonFunctionMessage(true) + "' }",
+            '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '    stack: |-',
+            '      TypeError: ' + getNonFunctionMessage(true) + '',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 4 should throw',
+            '  ---',
+            '    operator: throws',
+            '    expected: |-',
+            '      undefined',
+            '    actual: |-',
+            '      { [TypeError: ' + getNonFunctionMessage(false) + "] message: '" + getNonFunctionMessage(false) + "' }",
+            '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '    stack: |-',
+            '      TypeError: ' + getNonFunctionMessage(false) + '',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 5 should throw',
+            '  ---',
+            '    operator: throws',
+            '    expected: |-',
+            '      undefined',
+            '    actual: |-',
+            '      { [TypeError: ' + getNonFunctionMessage('abc') + "] message: '" + getNonFunctionMessage('abc') + "' }",
+            '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '    stack: |-',
+            '      TypeError: ' + getNonFunctionMessage('abc') + '',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 6 should throw',
+            '  ---',
+            '    operator: throws',
+            '    expected: |-',
+            '      undefined',
+            '    actual: |-',
+            '      { [TypeError: ' + getNonFunctionMessage(/a/g) + "] message: '" + getNonFunctionMessage(/a/g) + "' }",
+            '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '    stack: |-',
+            '      TypeError: ' + getNonFunctionMessage(/a/g) + '',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 7 should throw',
+            '  ---',
+            '    operator: throws',
+            '    expected: |-',
+            '      undefined',
+            '    actual: |-',
+            '      { [TypeError: ' + getNonFunctionMessage([]) + "] message: '" + getNonFunctionMessage([]) + "' }",
+            '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '    stack: |-',
+            '      TypeError: ' + getNonFunctionMessage([]) + '',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 8 should throw',
+            '  ---',
+            '    operator: throws',
+            '    expected: |-',
+            '      undefined',
+            '    actual: |-',
+            '      { [TypeError: ' + getNonFunctionMessage({}) + "] message: '" + getNonFunctionMessage({}) + "' }",
+            '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '    stack: |-',
+            '      TypeError: ' + getNonFunctionMessage({}) + '',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            '# function',
+            'not ok 9 should throw',
+            '  ---',
+            '    operator: throws',
+            '    expected: undefined',
+            '    actual:   undefined',
+            '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: should throw',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            '# custom error messages',
+            'ok 10 "message" is enumerable',
+            "ok 11 { custom: 'error', message: 'message' }",
+            'ok 12 getter is still the same',
+            '# throws null',
+            'ok 13 throws null',
+            '# wrong type of error',
+            'not ok 14 throws actual',
+            '  ---',
+            '    operator: throws',
+            '    expected: |-',
+            '      [Function: TypeError]',
+            '    actual: |-',
+            "      { [RangeError: actual!] message: 'actual!' }",
+            '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '    stack: |-',
+            '      RangeError: actual!',
+            '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            '',
+            '1..14',
+            '# tests 14',
+            '# pass  4',
+            '# fail  10',
+            ''
+        ]);
     }));
 
     test('non functions', function (t) {

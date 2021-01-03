@@ -11,231 +11,232 @@ tap.test('edge cases', function (tt) {
 
     var test = tape.createHarness();
     test.createStream().pipe(concat(function (body) {
-        tt.equal(
-            stripFullStack(body.toString('utf8')),
-            'TAP version 13\n'
-            + '# zeroes\n'
-            + 'ok 1 0 equal to -0\n'
-            + 'ok 2 -0 equal to 0\n'
-            + 'not ok 3 0 notEqual to -0\n'
-            + '  ---\n'
-            + '    operator: notEqual\n'
-            + '    expected: |-\n'
-            + '      -0\n'
-            + '    actual: |-\n'
-            + '      0\n'
-            + '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: 0 notEqual to -0\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 4 -0 notEqual to 0\n'
-            + '  ---\n'
-            + '    operator: notEqual\n'
-            + '    expected: |-\n'
-            + '      0\n'
-            + '    actual: |-\n'
-            + '      -0\n'
-            + '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: -0 notEqual to 0\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'ok 5 0 looseEqual to -0\n'
-            + 'ok 6 -0 looseEqual to 0\n'
-            + 'not ok 7 0 notLooseEqual to -0\n'
-            + '  ---\n'
-            + '    operator: notDeepLooseEqual\n'
-            + '    expected: |-\n'
-            + '      -0\n'
-            + '    actual: |-\n'
-            + '      0\n'
-            + '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: 0 notLooseEqual to -0\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 8 -0 notLooseEqual to 0\n'
-            + '  ---\n'
-            + '    operator: notDeepLooseEqual\n'
-            + '    expected: |-\n'
-            + '      0\n'
-            + '    actual: |-\n'
-            + '      -0\n'
-            + '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: -0 notLooseEqual to 0\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'ok 9 0 strictEqual to -0\n'
-            + 'ok 10 -0 strictEqual to 0\n'
-            + 'not ok 11 0 notStrictEqual to -0\n'
-            + '  ---\n'
-            + '    operator: notEqual\n'
-            + '    expected: |-\n'
-            + '      -0\n'
-            + '    actual: |-\n'
-            + '      0\n'
-            + '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: 0 notStrictEqual to -0\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 12 -0 notStrictEqual to 0\n'
-            + '  ---\n'
-            + '    operator: notEqual\n'
-            + '    expected: |-\n'
-            + '      0\n'
-            + '    actual: |-\n'
-            + '      -0\n'
-            + '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: -0 notStrictEqual to 0\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'ok 13 0 deepLooseEqual to -0\n'
-            + 'ok 14 -0 deepLooseEqual to 0\n'
-            + 'not ok 15 0 notDeepLooseEqual to -0\n'
-            + '  ---\n'
-            + '    operator: notDeepLooseEqual\n'
-            + '    expected: |-\n'
-            + '      -0\n'
-            + '    actual: |-\n'
-            + '      0\n'
-            + '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: 0 notDeepLooseEqual to -0\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 16 -0 notDeepLooseEqual to 0\n'
-            + '  ---\n'
-            + '    operator: notDeepLooseEqual\n'
-            + '    expected: |-\n'
-            + '      0\n'
-            + '    actual: |-\n'
-            + '      -0\n'
-            + '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: -0 notDeepLooseEqual to 0\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 17 0 deepEqual to -0\n'
-            + '  ---\n'
-            + '    operator: deepEqual\n'
-            + '    expected: |-\n'
-            + '      -0\n'
-            + '    actual: |-\n'
-            + '      0\n'
-            + '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: 0 deepEqual to -0\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 18 -0 deepEqual to 0\n'
-            + '  ---\n'
-            + '    operator: deepEqual\n'
-            + '    expected: |-\n'
-            + '      0\n'
-            + '    actual: |-\n'
-            + '      -0\n'
-            + '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: -0 deepEqual to 0\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'ok 19 0 notDeepEqual to -0\n'
-            + 'ok 20 -0 notDeepEqual to 0\n'
-            + '# NaNs\n'
-            + 'not ok 21 NaN equal to NaN\n'
-            + '  ---\n'
-            + '    operator: equal\n'
-            + '    expected: NaN\n'
-            + '    actual:   NaN\n'
-            + '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: NaN equal to NaN\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'ok 22 NaN notEqual to NaN\n'
-            + 'not ok 23 NaN looseEqual to NaN\n'
-            + '  ---\n'
-            + '    operator: deepLooseEqual\n'
-            + '    expected: NaN\n'
-            + '    actual:   NaN\n'
-            + '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: NaN looseEqual to NaN\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'ok 24 NaN notLooseEqual to NaN\n'
-            + 'not ok 25 NaN strictEqual to NaN\n'
-            + '  ---\n'
-            + '    operator: equal\n'
-            + '    expected: NaN\n'
-            + '    actual:   NaN\n'
-            + '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: NaN strictEqual to NaN\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'ok 26 NaN notStrictEqual to NaN\n'
-            + 'not ok 27 NaN deepLooseEqual to NaN\n'
-            + '  ---\n'
-            + '    operator: deepLooseEqual\n'
-            + '    expected: NaN\n'
-            + '    actual:   NaN\n'
-            + '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: NaN deepLooseEqual to NaN\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'ok 28 NaN notDeepLooseEqual to NaN\n'
-            + 'ok 29 NaN deepEqual to NaN\n'
-            + 'not ok 30 NaN notDeepEqual to NaN\n'
-            + '  ---\n'
-            + '    operator: notDeepEqual\n'
-            + '    expected: NaN\n'
-            + '    actual:   NaN\n'
-            + '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: NaN notDeepEqual to NaN\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + '\n1..30\n'
-            + '# tests 30\n'
-            + '# pass  15\n'
-            + '# fail  15\n'
-        );
+        tt.same(stripFullStack(body.toString('utf8')), [
+            'TAP version 13',
+            '# zeroes',
+            'ok 1 0 equal to -0',
+            'ok 2 -0 equal to 0',
+            'not ok 3 0 notEqual to -0',
+            '  ---',
+            '    operator: notEqual',
+            '    expected: |-',
+            '      -0',
+            '    actual: |-',
+            '      0',
+            '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: 0 notEqual to -0',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 4 -0 notEqual to 0',
+            '  ---',
+            '    operator: notEqual',
+            '    expected: |-',
+            '      0',
+            '    actual: |-',
+            '      -0',
+            '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: -0 notEqual to 0',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'ok 5 0 looseEqual to -0',
+            'ok 6 -0 looseEqual to 0',
+            'not ok 7 0 notLooseEqual to -0',
+            '  ---',
+            '    operator: notDeepLooseEqual',
+            '    expected: |-',
+            '      -0',
+            '    actual: |-',
+            '      0',
+            '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: 0 notLooseEqual to -0',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 8 -0 notLooseEqual to 0',
+            '  ---',
+            '    operator: notDeepLooseEqual',
+            '    expected: |-',
+            '      0',
+            '    actual: |-',
+            '      -0',
+            '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: -0 notLooseEqual to 0',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'ok 9 0 strictEqual to -0',
+            'ok 10 -0 strictEqual to 0',
+            'not ok 11 0 notStrictEqual to -0',
+            '  ---',
+            '    operator: notEqual',
+            '    expected: |-',
+            '      -0',
+            '    actual: |-',
+            '      0',
+            '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: 0 notStrictEqual to -0',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 12 -0 notStrictEqual to 0',
+            '  ---',
+            '    operator: notEqual',
+            '    expected: |-',
+            '      0',
+            '    actual: |-',
+            '      -0',
+            '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: -0 notStrictEqual to 0',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'ok 13 0 deepLooseEqual to -0',
+            'ok 14 -0 deepLooseEqual to 0',
+            'not ok 15 0 notDeepLooseEqual to -0',
+            '  ---',
+            '    operator: notDeepLooseEqual',
+            '    expected: |-',
+            '      -0',
+            '    actual: |-',
+            '      0',
+            '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: 0 notDeepLooseEqual to -0',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 16 -0 notDeepLooseEqual to 0',
+            '  ---',
+            '    operator: notDeepLooseEqual',
+            '    expected: |-',
+            '      0',
+            '    actual: |-',
+            '      -0',
+            '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: -0 notDeepLooseEqual to 0',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 17 0 deepEqual to -0',
+            '  ---',
+            '    operator: deepEqual',
+            '    expected: |-',
+            '      -0',
+            '    actual: |-',
+            '      0',
+            '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: 0 deepEqual to -0',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 18 -0 deepEqual to 0',
+            '  ---',
+            '    operator: deepEqual',
+            '    expected: |-',
+            '      0',
+            '    actual: |-',
+            '      -0',
+            '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: -0 deepEqual to 0',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'ok 19 0 notDeepEqual to -0',
+            'ok 20 -0 notDeepEqual to 0',
+            '# NaNs',
+            'not ok 21 NaN equal to NaN',
+            '  ---',
+            '    operator: equal',
+            '    expected: NaN',
+            '    actual:   NaN',
+            '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: NaN equal to NaN',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'ok 22 NaN notEqual to NaN',
+            'not ok 23 NaN looseEqual to NaN',
+            '  ---',
+            '    operator: deepLooseEqual',
+            '    expected: NaN',
+            '    actual:   NaN',
+            '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: NaN looseEqual to NaN',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'ok 24 NaN notLooseEqual to NaN',
+            'not ok 25 NaN strictEqual to NaN',
+            '  ---',
+            '    operator: equal',
+            '    expected: NaN',
+            '    actual:   NaN',
+            '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: NaN strictEqual to NaN',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'ok 26 NaN notStrictEqual to NaN',
+            'not ok 27 NaN deepLooseEqual to NaN',
+            '  ---',
+            '    operator: deepLooseEqual',
+            '    expected: NaN',
+            '    actual:   NaN',
+            '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: NaN deepLooseEqual to NaN',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'ok 28 NaN notDeepLooseEqual to NaN',
+            'ok 29 NaN deepEqual to NaN',
+            'not ok 30 NaN notDeepEqual to NaN',
+            '  ---',
+            '    operator: notDeepEqual',
+            '    expected: NaN',
+            '    actual:   NaN',
+            '    at: Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: NaN notDeepEqual to NaN',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/edge-cases.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            '',
+            '1..30',
+            '# tests 30',
+            '# pass  15',
+            '# fail  15',
+            ''
+        ]);
     }));
 
     test('zeroes', function (t) {

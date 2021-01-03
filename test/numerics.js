@@ -11,145 +11,146 @@ tap.test('numerics', function (tt) {
 
     var test = tape.createHarness();
     test.createStream().pipe(concat(function (body) {
-        tt.equal(
-            stripFullStack(body.toString('utf8')),
-            'TAP version 13\n'
-            + '# numeric strings\n'
-            + 'not ok 1 number equal to string\n'
-            + '  ---\n'
-            + '    operator: equal\n'
-            + '    expected: \'3\'\n'
-            + '    actual:   3\n'
-            + '    at: Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: number equal to string\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 2 string equal to number\n'
-            + '  ---\n'
-            + '    operator: equal\n'
-            + '    expected: 3\n'
-            + '    actual:   \'3\'\n'
-            + '    at: Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: string equal to number\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'ok 3 number notEqual to string\n'
-            + 'ok 4 string notEqual to number\n'
-            + 'ok 5 number looseEqual to string\n'
-            + 'ok 6 string looseEqual to number\n'
-            + 'not ok 7 number notLooseEqual to string\n'
-            + '  ---\n'
-            + '    operator: notDeepLooseEqual\n'
-            + '    expected: \'3\'\n'
-            + '    actual:   3\n'
-            + '    at: Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: number notLooseEqual to string\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 8 string notLooseEqual to number\n'
-            + '  ---\n'
-            + '    operator: notDeepLooseEqual\n'
-            + '    expected: 3\n'
-            + '    actual:   \'3\'\n'
-            + '    at: Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: string notLooseEqual to number\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 9 number strictEqual to string\n'
-            + '  ---\n'
-            + '    operator: equal\n'
-            + '    expected: \'3\'\n'
-            + '    actual:   3\n'
-            + '    at: Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: number strictEqual to string\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 10 string strictEqual to number\n'
-            + '  ---\n'
-            + '    operator: equal\n'
-            + '    expected: 3\n'
-            + '    actual:   \'3\'\n'
-            + '    at: Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: string strictEqual to number\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'ok 11 number notStrictEqual to string\n'
-            + 'ok 12 string notStrictEqual to number\n'
-            + 'ok 13 number deepLooseEqual to string\n'
-            + 'ok 14 string deepLooseEqual to number\n'
-            + 'not ok 15 number notDeepLooseEqual to string\n'
-            + '  ---\n'
-            + '    operator: notDeepLooseEqual\n'
-            + '    expected: \'3\'\n'
-            + '    actual:   3\n'
-            + '    at: Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: number notDeepLooseEqual to string\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 16 string notDeepLooseEqual to number\n'
-            + '  ---\n'
-            + '    operator: notDeepLooseEqual\n'
-            + '    expected: 3\n'
-            + '    actual:   \'3\'\n'
-            + '    at: Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: string notDeepLooseEqual to number\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 17 number deepEqual to string\n'
-            + '  ---\n'
-            + '    operator: deepEqual\n'
-            + '    expected: \'3\'\n'
-            + '    actual:   3\n'
-            + '    at: Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: number deepEqual to string\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'not ok 18 string deepEqual to number\n'
-            + '  ---\n'
-            + '    operator: deepEqual\n'
-            + '    expected: 3\n'
-            + '    actual:   \'3\'\n'
-            + '    at: Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)\n'
-            + '    stack: |-\n'
-            + '      Error: string deepEqual to number\n'
-            + '          [... stack stripped ...]\n'
-            + '          at Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)\n'
-            + '          [... stack stripped ...]\n'
-            + '  ...\n'
-            + 'ok 19 number notDeepEqual to string\n'
-            + 'ok 20 string notDeepEqual to number\n'
-            + '\n1..20\n'
-            + '# tests 20\n'
-            + '# pass  10\n'
-            + '# fail  10\n'
-        );
+        tt.same(stripFullStack(body.toString('utf8')), [
+            'TAP version 13',
+            '# numeric strings',
+            'not ok 1 number equal to string',
+            '  ---',
+            '    operator: equal',
+            '    expected: \'3\'',
+            '    actual:   3',
+            '    at: Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: number equal to string',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 2 string equal to number',
+            '  ---',
+            '    operator: equal',
+            '    expected: 3',
+            '    actual:   \'3\'',
+            '    at: Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: string equal to number',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'ok 3 number notEqual to string',
+            'ok 4 string notEqual to number',
+            'ok 5 number looseEqual to string',
+            'ok 6 string looseEqual to number',
+            'not ok 7 number notLooseEqual to string',
+            '  ---',
+            '    operator: notDeepLooseEqual',
+            '    expected: \'3\'',
+            '    actual:   3',
+            '    at: Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: number notLooseEqual to string',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 8 string notLooseEqual to number',
+            '  ---',
+            '    operator: notDeepLooseEqual',
+            '    expected: 3',
+            '    actual:   \'3\'',
+            '    at: Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: string notLooseEqual to number',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 9 number strictEqual to string',
+            '  ---',
+            '    operator: equal',
+            '    expected: \'3\'',
+            '    actual:   3',
+            '    at: Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: number strictEqual to string',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 10 string strictEqual to number',
+            '  ---',
+            '    operator: equal',
+            '    expected: 3',
+            '    actual:   \'3\'',
+            '    at: Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: string strictEqual to number',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'ok 11 number notStrictEqual to string',
+            'ok 12 string notStrictEqual to number',
+            'ok 13 number deepLooseEqual to string',
+            'ok 14 string deepLooseEqual to number',
+            'not ok 15 number notDeepLooseEqual to string',
+            '  ---',
+            '    operator: notDeepLooseEqual',
+            '    expected: \'3\'',
+            '    actual:   3',
+            '    at: Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: number notDeepLooseEqual to string',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 16 string notDeepLooseEqual to number',
+            '  ---',
+            '    operator: notDeepLooseEqual',
+            '    expected: 3',
+            '    actual:   \'3\'',
+            '    at: Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: string notDeepLooseEqual to number',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 17 number deepEqual to string',
+            '  ---',
+            '    operator: deepEqual',
+            '    expected: \'3\'',
+            '    actual:   3',
+            '    at: Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: number deepEqual to string',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 18 string deepEqual to number',
+            '  ---',
+            '    operator: deepEqual',
+            '    expected: 3',
+            '    actual:   \'3\'',
+            '    at: Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: string deepEqual to number',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/numerics.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'ok 19 number notDeepEqual to string',
+            'ok 20 string notDeepEqual to number',
+            '',
+            '1..20',
+            '# tests 20',
+            '# pass  10',
+            '# fail  10',
+            ''
+        ]);
     }));
 
     test('numeric strings', function (t) {

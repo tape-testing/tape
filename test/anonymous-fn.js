@@ -30,8 +30,9 @@ tap.test('inside anonymous functions', function (tt) {
             '1..1',
             '# tests 1',
             '# pass  0',
-            '# fail  1'
-        ].join('\n') + '\n');
+            '# fail  1',
+            ''
+        ]);
     };
 
     test.createStream().pipe(concat(tc));

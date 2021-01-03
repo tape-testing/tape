@@ -66,8 +66,10 @@ tap.test('exit fail', function (t) {
             '1..5',
             '# tests 5',
             '# pass  4',
-            '# fail  1'
-        ].join('\n') + '\n\n');
+            '# fail  1',
+            '',
+            ''
+        ]);
     };
 
     var ps = spawn(process.execPath, [path.join(__dirname, 'exit', 'fail.js')]);
@@ -103,8 +105,10 @@ tap.test('too few exit', function (t) {
             '1..6',
             '# tests 6',
             '# pass  5',
-            '# fail  1'
-        ].join('\n') + '\n\n');
+            '# fail  1',
+            '',
+            ''
+        ]);
     };
 
     var ps = spawn(process.execPath, [path.join(__dirname, '/exit/too_few.js')]);
@@ -138,8 +142,10 @@ tap.test('more planned in a second test', function (t) {
             '1..3',
             '# tests 3',
             '# pass  2',
-            '# fail  1'
-        ].join('\n') + '\n\n');
+            '# fail  1',
+            '',
+            ''
+        ]);
     };
 
     var ps = spawn(process.execPath, [path.join(__dirname, '/exit/second.js')]);
@@ -162,8 +168,10 @@ tap.test('todo passing', function (t) {
             '# tests 1',
             '# pass  1',
             '',
-            '# ok'
-        ].join('\n') + '\n\n');
+            '# ok',
+            '',
+            ''
+        ]);
     };
 
     var ps = spawn(process.execPath, [path.join(__dirname, '/exit/todo.js')]);
@@ -192,8 +200,10 @@ tap.test('todo failing', function (t) {
             '# tests 1',
             '# pass  1',
             '',
-            '# ok'
-        ].join('\n') + '\n\n');
+            '# ok',
+            '',
+            ''
+        ]);
     };
 
     var ps = spawn(process.execPath, [path.join(__dirname, '/exit/todo_fail.js')]);
@@ -225,8 +235,10 @@ tap.test('forgot to call t.end()', function (t) {
             '1..3',
             '# tests 3',
             '# pass  2',
-            '# fail  1'
-        ].join('\n') + '\n\n');
+            '# fail  1',
+            '',
+            ''
+        ]);
     };
 
     var ps = spawn(process.execPath, [path.join(__dirname, '/exit/missing_end.js')]);

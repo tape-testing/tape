@@ -29,14 +29,13 @@ test(function (t) {
             to._onTimeout();
         }
         catch (e) {
-            stackExpected = stripFullStack(e.stack).split('\n')[1];
+            stackExpected = stripFullStack(e.stack)[1];
             stackExpected = stackExpected.replace('double_end.js', 'double_end/double.js');
             stackExpected = stackExpected.trim();
             atExpected = stackExpected.replace(/^at\s+/, 'at: ');
         }
 
-        var stripped = stripFullStack(body.toString('utf8'));
-        t.equal(stripped, [
+        t.same(stripFullStack(body.toString('utf8')), [
             'TAP version 13',
             '# double end',
             'ok 1 should be equal',
@@ -55,6 +54,8 @@ test(function (t) {
             '# tests 2',
             '# pass  1',
             '# fail  1',
-        ].join('\n') + '\n\n');
+            '',
+            ''
+        ]);
     }));
 });
