@@ -57,7 +57,8 @@
         "pretest": "npm run lint",
         "test": "npm run tests-only",
         "posttest": "aud --production",
-        "tests-only": "nyc tap test/*.js"
+        "tests-only": "nyc tap test/*.js",
+        "test:example": "find example -name '*.js' | grep -v fail | grep -v static | xargs tap"
     },
     "testling": {
         "files": "test/browser/*.js",
