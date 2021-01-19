@@ -45,7 +45,7 @@
         "concat-stream": "^1.6.2",
         "eclint": "^2.8.1",
         "ecstatic": "^4.1.4",
-        "eslint": "^7.16.0",
+        "eslint": "^7.18.0",
         "falafel": "^2.2.4",
         "js-yaml": "^3.14.0",
         "tap": "^8.0.1",
