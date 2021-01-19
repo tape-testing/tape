@@ -22,7 +22,7 @@
         "test": "test"
     },
     "dependencies": {
-        "call-bind": "^1.0.0",
+        "call-bind": "^1.0.2",
         "deep-equal": "^2.0.5",
         "defined": "^1.0.0",
         "dotignore": "^0.1.2",
