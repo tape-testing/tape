@@ -165,6 +165,10 @@ don't call `t.end()` explicitly, your test will hang.
 
 Generate a new test that will be skipped over.
 
+## test.teardown(cb)
+
+Register a callback to run after the individual test has completed. Multiple registered teardown callbacks will run in order. Useful for undoing side effects, closing network connections, etc.
+
 ## test.onFinish(fn)
 
 The onFinish hook will get invoked when ALL `tape` tests have finished
