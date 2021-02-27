@@ -113,18 +113,22 @@ tap.test('teardowns', function (tt) {
                 );
             }),
             typeof Promise === 'function' ? [
+                '# teardown is only ever called once, even when async',
+                'ok ' + (11 + v.nonFunctions.length) + ' passes',
+                '# teardown: once?',
                 '# success (promise)',
-                'ok ' + (11 + v.nonFunctions.length) + ' should be truthy',
+                'ok ' + (12 + v.nonFunctions.length) + ' should be truthy',
                 '# success (promise) teardown: 1',
                 '# success (promise) teardown: 2',
                 '# success (promise) teardown: 3'
             ] : [
+                '# SKIP teardown is only ever called once, even when async',
                 '# SKIP success (promise)'
             ], [
                 '',
-                '1..' + ((typeof Promise === 'function' ? 1 : 0) + 10 + v.nonFunctions.length),
-                '# tests ' + ((typeof Promise === 'function' ? 1 : 0) + 10 + v.nonFunctions.length),
-                '# pass  ' + ((typeof Promise === 'function' ? 1 : 0) + 5),
+                '1..' + ((typeof Promise === 'function' ? 2 : 0) + 10 + v.nonFunctions.length),
+                '# tests ' + ((typeof Promise === 'function' ? 2 : 0) + 10 + v.nonFunctions.length),
+                '# pass  ' + ((typeof Promise === 'function' ? 2 : 0) + 5),
                 '# fail  ' + (5 + v.nonFunctions.length),
                 ''
             ]));
@@ -226,6 +230,18 @@ tap.test('teardowns', function (tt) {
         });
     });
 
+    test('teardown is only ever called once, even when async', { skip: typeof Promise !== 'function' }, function (t) {
+        t.plan(1);
+
+        t.teardown(function () {
+            t.comment('teardown: once?');
+        });
+
+        t.pass('passes');
+
+        return Promise.resolve();
+    });
+
     test('success (promise)', { skip: typeof Promise !== 'function' }, function (t) {
         t.plan(1);
 
@@ -263,5 +279,38 @@ tap.test('teardown with promise', { skip: typeof Promise !== 'function', timeout
             tt.is(resolved, true);
         });
         t.end();
+    });
+});
+
+tap.test('teardown only runs once', { skip: typeof Promise !== 'function', timeout: 1e3 }, function (tt) {
+    tt.plan(1);
+
+    var test = tape.createHarness();
+    test.createStream().pipe(concat(function (body) {
+        tt.same(stripFullStack(body.toString('utf8')), [].concat(
+            'TAP version 13',
+            '# teardown is only called once, even with a plan',
+            'ok 1 passes',
+            '# Tearing down!',
+            '',
+            '1..1',
+            '# tests 1',
+            '# pass  1',
+            '',
+            '# ok',
+            ''
+        ));
+    }));
+
+    test('teardown is only called once, even with a plan', function (t) {
+        t.plan(1);
+
+        t.teardown(function () {
+            t.comment('Tearing down!');
+        });
+
+        t.pass('passes');
+
+        return Promise.resolve();
     });
 });
