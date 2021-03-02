@@ -73,7 +73,7 @@ function createExitHarness(conf) {
 
     process.on('exit', function (code) {
         // let the process exit cleanly.
-        if (code !== 0) {
+        if (typeof code === 'number' && code !== 0) {
             return;
         }
 
@@ -86,6 +86,8 @@ function createExitHarness(conf) {
             }
         }
         harness.close();
+
+        process.removeAllListeners('exit'); // necessary for node v0.6
         process.exit(code || harness._exitCode);
     });
 
