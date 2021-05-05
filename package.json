@@ -54,6 +54,8 @@
         "tap-parser": "^3.0.5"
     },
     "scripts": {
+        "prepublishOnly": "safe-publish-latest",
+        "prepublish": "not-in-publish || npm run prepublishOnly",
         "prelint": "eclint check",
         "lint": "eslint . bin/*",
         "pretest": "npm run lint",
