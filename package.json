@@ -33,10 +33,13 @@
         "eslint": "^7.31.0",
         "falafel": "^2.2.4",
         "js-yaml": "^3.14.0",
+        "safe-publish-latest": "^1.1.4",
         "tap": "^8.0.1",
         "tap-parser": "^3.0.5"
     },
     "scripts": {
+        "prepublishOnly": "safe-publish-latest",
+        "prepublish": "not-in-publish || npm run prepublishOnly",
         "prelint": "eclint check",
         "lint": "eslint .",
         "pretest": "npm run lint",
