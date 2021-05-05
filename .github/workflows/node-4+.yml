@@ -20,15 +20,18 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix: ${{ fromJson(needs.matrix.outputs.latest) }}
 
     steps:
       - uses: actions/checkout@v2
-      - uses: ljharb/actions/node/run@main
-        name: 'npm install && npm run tests-only'
+      - uses: ljharb/actions/node/install@main
+        name: 'nvm install ${{ matrix.node-version }} && npm install'
         with:
           node-version: ${{ matrix.node-version }}
-          command: 'tests-only'
+      - run: npm run tests-only
+      - uses: codecov/codecov-action@v1
+
   minors:
     needs: [matrix, latest]
     name: 'non-latest minors'
@@ -37,14 +40,17 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix: ${{ fromJson(needs.matrix.outputs.minors) }}
 
     steps:
       - uses: actions/checkout@v2
-      - uses: ljharb/actions/node/run@main
+      - uses: ljharb/actions/node/install@main
+        name: 'nvm install ${{ matrix.node-version }} && npm install'
         with:
           node-version: ${{ matrix.node-version }}
-          command: 'tests-only'
+      - run: npm run tests-only
+      - uses: codecov/codecov-action@v1
 
   node:
     name: 'node 4+'

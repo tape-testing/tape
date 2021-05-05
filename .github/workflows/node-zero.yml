@@ -12,7 +12,6 @@ jobs:
       - uses: ljharb/actions/node/matrix@main
         id: set-matrix
         with:
-          versionsAsRoot: true
           preset: '0.x'
 
   stable:
@@ -21,17 +20,19 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
-      matrix:
-        node-version: ${{ fromJson(needs.matrix.outputs.stable) }}
+      fail-fast: false
+      matrix: ${{ fromJson(needs.matrix.outputs.stable) }}
 
     steps:
       - uses: actions/checkout@v2
-      - uses: ljharb/actions/node/run@main
+      - uses: ljharb/actions/node/install@main
+        name: 'nvm install ${{ matrix.node-version }} && npm install'
         with:
           node-version: ${{ matrix.node-version }}
-          command: 'tests-only'
           cache-node-modules-key: node_modules-${{ github.workflow }}-${{ github.action }}-${{ github.run_id }}
           skip-ls-check: true
+      - run: npm run tests-only
+      - uses: codecov/codecov-action@v1
 
   unstable:
     needs: [matrix, stable]
@@ -41,19 +42,19 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
-      matrix:
-        node-version: ${{ fromJson(needs.matrix.outputs.unstable) }}
-        exclude:
-          - node-version: '0.6'
+      fail-fast: false
+      matrix: ${{ fromJson(needs.matrix.outputs.unstable) }}
 
     steps:
       - uses: actions/checkout@v2
-      - uses: ljharb/actions/node/run@main
+      - uses: ljharb/actions/node/install@main
+        name: 'nvm install ${{ matrix.node-version }} && npm install'
         with:
           node-version: ${{ matrix.node-version }}
-          command: 'tests-only'
           cache-node-modules-key: node_modules-${{ github.workflow }}-${{ github.action }}-${{ github.run_id }}
           skip-ls-check: true
+      - run: npm run tests-only
+      - uses: codecov/codecov-action@v1
 
   node:
     name: 'node 0.x'

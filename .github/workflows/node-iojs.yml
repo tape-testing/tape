@@ -20,16 +20,18 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix: ${{ fromJson(needs.matrix.outputs.latest) }}
 
     steps:
       - uses: actions/checkout@v2
-      - uses: ljharb/actions/node/run@main
-        name: 'npm install && npm run tests-only'
+      - uses: ljharb/actions/node/install@main
+        name: 'nvm install ${{ matrix.node-version }} && npm install'
         with:
           node-version: ${{ matrix.node-version }}
-          command: 'tests-only'
           skip-ls-check: true
+      - run: npm run tests-only
+      - uses: codecov/codecov-action@v1
 
   minors:
     needs: [matrix, latest]
@@ -39,16 +41,18 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix: ${{ fromJson(needs.matrix.outputs.minors) }}
 
     steps:
       - uses: actions/checkout@v2
-      - uses: ljharb/actions/node/run@main
-        name: 'npm install && npm run tests-only'
+      - uses: ljharb/actions/node/install@main
+        name: 'nvm install ${{ matrix.node-version }} && npm install'
         with:
           node-version: ${{ matrix.node-version }}
-          command: 'tests-only'
           skip-ls-check: true
+      - run: npm run tests-only
+      - uses: codecov/codecov-action@v1
 
   node:
     name: 'io.js'
