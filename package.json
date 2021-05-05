@@ -39,7 +39,7 @@
     },
     "scripts": {
         "prepublishOnly": "safe-publish-latest",
-        "prepublish": "not-in-publish || npm run prepublishOnly",
+        "prepublish": "!(type not-in-publish) || not-in-publish || npm run prepublishOnly",
         "prelint": "eclint check",
         "lint": "eslint . bin/*",
         "pretest": "npm run lint",
