@@ -2,7 +2,8 @@
 
 tap-producing test harness for node and browsers
 
-[![build status](https://secure.travis-ci.org/substack/tape.svg?branch=master)](http://travis-ci.org/substack/tape)
+[![github actions][actions-image]][actions-url]
+[![coverage][codecov-image]][codecov-url]
 
 ![tape](https://web.archive.org/web/20170612184731if_/http://substack.net/images/tape_drive.png)
 
@@ -403,3 +404,8 @@ npm install tape --save-dev
 # license
 
 MIT
+
+[codecov-image]: https://codecov.io/gh/substack/tape/branch/master/graphs/badge.svg
+[codecov-url]: https://app.codecov.io/gh/substack/tape/
+[actions-image]: https://img.shields.io/endpoint?url=https://github-actions-badge-u3jn4tfpocch.runkit.sh/substack/tape
+[actions-url]: https://github.com/substack/tape/actions
