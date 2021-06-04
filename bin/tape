@@ -41,7 +41,7 @@ if (typeof opts.ignore === 'string') {
     var matcher = ignore.createMatcher(ignoreStr);
 }
 
-opts._.forEach(function (arg) {
+var files = opts._.reduce(function (result, arg) {
     // If glob does not match, `files` will be an empty array.
     // Note: `glob.sync` may throw an error and crash the node process.
     var files = glob.sync(arg);
@@ -50,9 +50,13 @@ opts._.forEach(function (arg) {
         throw new TypeError('unknown error: glob.sync did not return an array or throw. Please report this.');
     }
 
-    files.filter(function (file) { return !matcher || !matcher.shouldIgnore(file); }).forEach(function (file) {
-        require(resolvePath(cwd, file));
-    });
+    return result.concat(files);
+}, []).filter(function (file) {
+    return !matcher || !matcher.shouldIgnore(file);
+}).map(function (file) {
+    return resolvePath(cwd, file);
 });
+
+files.forEach(function (x) { require(x); });
 
 // vim: ft=javascript
