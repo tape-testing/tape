@@ -47,7 +47,7 @@
         "eclint": "^2.8.1",
         "ecstatic": "^4.1.4",
         "es-value-fixtures": "^1.2.1",
-        "eslint": "^7.25.0",
+        "eslint": "^7.27.0",
         "falafel": "^2.2.4",
         "js-yaml": "^3.14.0",
         "tap": "^8.0.1",
