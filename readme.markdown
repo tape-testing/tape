@@ -447,6 +447,20 @@ $ node object.js test/x.js test/y.js
 {"type":"end","test":2}
 ```
 
+A convenient alternative to achieve the same:
+```js
+// report.js
+var test = require('tape');
+
+test.createStream({ objectMode: true }).on('data', function (row) {
+    console.log(JSON.stringify(row)) // for example
+});
+```
+and then:
+```sh
+$ tape -r ./report.js **/*.test.js
+```
+
 # install
 
 With [npm](https://npmjs.org) do:
