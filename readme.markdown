@@ -171,10 +171,6 @@ If `cb` returns a Promise, it will be implicitly awaited. If that promise reject
 
 Generate a new test that will be skipped over.
 
-## test.teardown(cb)
-
-Register a callback to run after the individual test has completed. Multiple registered teardown callbacks will run in order. Useful for undoing side effects, closing network connections, etc.
-
 ## test.onFinish(fn)
 
 The onFinish hook will get invoked when ALL `tape` tests have finished right before `tape` is about to print the test summary.
@@ -198,6 +194,10 @@ the `n`th, or after `t.end()` is called, they will generate errors.
 Declare the end of a test explicitly. If `err` is passed in `t.end` will assert that it is falsy.
 
 Do not call `t.end()` if your test callback returns a Promise.
+
+## t.teardown(cb)
+
+Register a callback to run after the individual test has completed. Multiple registered teardown callbacks will run in order. Useful for undoing side effects, closing network connections, etc.
 
 ## t.fail(msg)
 
