@@ -11,7 +11,8 @@ var canExit = typeof process !== 'undefined' && process
     && typeof process.exit === 'function'
 ;
 
-exports = module.exports = (function () {
+module.exports = (function () {
+    var wait = false;
     var harness;
     var lazyLoad = function () {
         return getHarness().apply(this, arguments);
@@ -90,10 +91,10 @@ function createExitHarness(conf) {
     return harness;
 }
 
-exports.createHarness = createHarness;
-exports.Test = Test;
-exports.test = exports; // tap compat
-exports.test.skip = Test.skip;
+module.exports.createHarness = createHarness;
+module.exports.Test = Test;
+module.exports.test = module.exports; // tap compat
+module.exports.test.skip = Test.skip;
 
 function createHarness(conf_) {
     if (!conf_) conf_ = {};
