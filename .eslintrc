@@ -14,6 +14,8 @@
             "after": true,
         }],
         "curly": ["error", "all"],
+        "function-paren-newline": ["error", "multiline"],
+        "function-call-argument-newline": ["error", "consistent"],
         "indent": ["error", 4],
         "key-spacing": "error",
         "quotes": ["error", "single", {
