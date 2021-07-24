@@ -59,6 +59,7 @@
         "wrap-iife": ["error", "outside", {
             "functionPrototypeMethods": true,
         }],
+        "wrap-regex": "error",
     },
     "ignorePatterns": [ "syntax-error.*" ],
     "overrides": [
