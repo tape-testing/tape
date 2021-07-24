@@ -23,13 +23,13 @@ module.exports = (function () {
     };
 
     lazyLoad.createStream = function (opts) {
-        if (!opts) opts = {};
+        var options = opts || {};
         if (!harness) {
             var output = through();
-            getHarness({ stream: output, objectMode: opts.objectMode });
+            getHarness({ stream: output, objectMode: options.objectMode });
             return output;
         }
-        return harness.createStream(opts);
+        return harness.createStream(options);
     };
 
     lazyLoad.onFinish = function () {
@@ -53,9 +53,9 @@ module.exports = (function () {
 })();
 
 function createExitHarness(conf) {
-    if (!conf) conf = {};
+    var config = conf || {};
     var harness = createHarness({
-        autoclose: defined(conf.autoclose, false)
+        autoclose: defined(config.autoclose, false)
     });
 
     var stream = harness.createStream({ objectMode: conf.objectMode });
@@ -67,7 +67,7 @@ function createExitHarness(conf) {
     var ended = false;
     stream.on('end', function () { ended = true; });
 
-    if (conf.exit === false) return harness;
+    if (config.exit === false) return harness;
     if (!canEmitExit || !canExit) return harness;
 
     process.on('exit', function (code) {
@@ -97,9 +97,8 @@ module.exports.test = module.exports; // tap compat
 module.exports.test.skip = Test.skip;
 
 function createHarness(conf_) {
-    if (!conf_) conf_ = {};
     var results = createResult();
-    if (conf_.autoclose !== false) {
+    if (!conf_ || conf_.autoclose !== false) {
         results.once('done', function () { results.close(); });
     }
 
