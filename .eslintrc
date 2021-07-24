@@ -32,6 +32,9 @@
             "nonwords": false,
         }],
         "strict": "error",
+        "wrap-iife": ["error", "outside", {
+            "functionPrototypeMethods": true,
+        }],
     },
     "ignorePatterns": [ "syntax-error.*" ],
     "overrides": [

@@ -62,7 +62,7 @@ module.exports = (function () {
         if (!harness) harness = createExitHarness(opts, wait);
         return harness;
     }
-})();
+}());
 
 function createExitHarness(conf, wait) {
     var config = conf || {};
@@ -137,7 +137,7 @@ function createHarness(conf_) {
             st.on('result', function (r) {
                 if (!r.todo && !r.ok && typeof r !== 'string') test._exitCode = 1;
             });
-        })(t);
+        }(t));
 
         results.push(t);
         return t;
