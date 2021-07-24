@@ -35,13 +35,13 @@ module.exports = (function () {
     };
 
     lazyLoad.createStream = function (opts) {
-        if (!opts) opts = {};
+        var options = opts || {};
         if (!harness) {
             var output = through();
-            getHarness({ stream: output, objectMode: opts.objectMode });
+            getHarness({ stream: output, objectMode: options.objectMode });
             return output;
         }
-        return harness.createStream(opts);
+        return harness.createStream(options);
     };
 
     lazyLoad.onFinish = function () {
@@ -65,9 +65,9 @@ module.exports = (function () {
 })();
 
 function createExitHarness(conf, wait) {
-    if (!conf) conf = {};
+    var config = conf || {};
     var harness = createHarness({
-        autoclose: defined(conf.autoclose, false)
+        autoclose: defined(config.autoclose, false)
     });
     var running = false;
     var ended = false;
@@ -78,7 +78,7 @@ function createExitHarness(conf, wait) {
         run();
     }
 
-    if (conf.exit === false) return harness;
+    if (config.exit === false) return harness;
     if (!canEmitExit || !canExit) return harness;
 
     process.on('exit', function (code) {
@@ -106,8 +106,8 @@ function createExitHarness(conf, wait) {
     function run() {
         if (running) return;
         running = true;
-        var stream = harness.createStream({ objectMode: conf.objectMode });
-        var es = stream.pipe(conf.stream || createDefaultStream());
+        var stream = harness.createStream({ objectMode: config.objectMode });
+        var es = stream.pipe(config.stream || createDefaultStream());
         if (canEmitExit) {
             es.on('error', function (err) { harness._exitCode = 1; });
         }
@@ -121,9 +121,8 @@ module.exports.test = module.exports; // tap compat
 module.exports.test.skip = Test.skip;
 
 function createHarness(conf_) {
-    if (!conf_) conf_ = {};
     var results = createResult();
-    if (conf_.autoclose !== false) {
+    if (!conf_ || conf_.autoclose !== false) {
         results.once('done', function () { results.close(); });
     }
 
