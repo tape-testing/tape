@@ -4,79 +4,27 @@
         "browser": true,
         "node": true,
     },
+    "extends": "@ljharb",
     "globals": {
         "Promise": false,
     },
     "rules": {
-        "brace-style": ["error", "1tbs", {
-            "allowSingleLine": true,
-        }],
-        "comma-dangle": ["error", "never"],
-        "comma-spacing": [2, {
-            "before": false,
-            "after": true,
-        }],
-        "consistent-return": "error",
-        "curly": ["error", "all"],
-        "function-paren-newline": ["error", "multiline"],
-        "function-call-argument-newline": ["error", "consistent"],
+        "array-bracket-spacing": "off",
+        "complexity": "off",
+        "eqeqeq": ["error", "always", { "null": "ignore" }],
+        "func-style": "warn",
         "indent": ["error", 4],
-        "key-spacing": "error",
-        "quotes": ["error", "single", {
-            "avoidEscape": true,
-        }],
-        "semi": ["error", "always"],
-        "space-before-function-paren": ["error", {
-            "anonymous": "always",
-            "named": "never",
-        }],
-        "no-extra-parens": ["error", "all", {
-            "conditionalAssign": false,
-            "nestedBinaryExpressions": false,
-            "returnAssign": false,
-            "ignoreJSX": "all",
-            "enforceForArrowConditionals": false,
-            "enforceForSequenceExpressions": true,
-            "enforceForNewInMemberExpressions": false,
-        }],
-        "no-extra-semi": "error",
-        "no-shadow": ["error", {
-            "builtinGlobals": false,
-            "hoist": "functions",
-            "allow": []
-        }],
-        "no-undef": "error",
-        "no-unused-vars": ["error", {
-            "vars": "all",
-            "args": "after-used"
-        }],
-        "no-useless-escape": "error",
-        "object-curly-newline": ["error", {
-            "ObjectExpression": {
-                "multiline": true,
-                "consistent": true,
-                "minProperties": 3,
-            },
-            "ObjectPattern": {
-                "multiline": true,
-                "consistent": true,
-                "minProperties": 3,
-            },
-        }],
-        "object-curly-spacing": ["error", "always"],
+        "no-magic-numbers": "off",
+        "max-lines": "warn",
+        "max-lines-per-function": "warn",
+        "max-statements": "warn",
+        "max-statements-per-line": [2, { "max": 2 }],
+        "multiline-comment-style": "off",
+        "no-negated-condition": "off",
+        "no-use-before-define": "warn",
+        "no-underscore-dangle": "warn",
         "operator-linebreak": ["error", "before"],
-        "semi-style": ["error", "last"],
-        "space-in-parens": ["error", "never"],
-        "space-infix-ops": "error",
-        "space-unary-ops": ["error", {
-            "words": false,
-            "nonwords": false,
-        }],
-        "strict": "error",
-        "wrap-iife": ["error", "outside", {
-            "functionPrototypeMethods": true,
-        }],
-        "wrap-regex": "error",
+        "sort-keys": "warn",
     },
     "ignorePatterns": [ "syntax-error.*" ],
     "overrides": [
@@ -85,9 +33,47 @@
             "extends": "@ljharb/eslint-config/esm",
         },
         {
+            "files": ["bin/**"],
+            "rules": {
+                "global-require": "off",
+                "no-process-exit": "off",
+                "quote-props": ["error", "as-needed", {
+                    "keywords": false,
+                }],
+            },
+        },
+        {
             "files": ["bin/import-or-require.js"],
             "parserOptions": {
                 "ecmaVersion": 2020,
+            },
+        },
+        {
+            "files": ["index.js"],
+            "rules": {
+                "no-param-reassign": "warn",
+            },
+        },
+        {
+            "files": ["lib/results.js"],
+            "rules": {
+                "no-cond-assign": "warn",
+                "no-param-reassign": "warn",
+                "no-plusplus": "warn",
+            },
+        },
+        {
+            "files": ["lib/test.js"],
+            "rules": {
+                "eqeqeq": "warn",
+                "func-name-matching": "off",
+                "max-params": "off",
+                "no-continue": "off",
+                "no-invalid-this": "off",
+                "no-param-reassign": "warn",
+                "no-plusplus": "warn",
+                "no-multi-assign": "off",
+                "no-restricted-syntax": "off",
             },
         },
         {
@@ -100,6 +86,37 @@
             "files": ["example/**", "test/**"],
             "globals": {
                 "g": false,
+            },
+            "rules": {
+                "no-new-func": "off",
+            },
+        },
+        {
+            "files": ["example/**"],
+            "rules": {
+                "array-bracket-newline": "off",
+                "global-require": "off",
+                "no-console": "off",
+            },
+        },
+        {
+            "files": ["test/**"],
+            "rules": {
+                "dot-notation": [2, {
+                    "allowKeywords": true,
+                    "allowPattern": "throws"
+                }],
+                "id-length": "off",
+                "max-len": "off",
+                "max-lines-per-function": "off",
+                "no-plusplus": "off",
+                "no-throw-literal": "off",
+            },
+        },
+        {
+            "files": ["test/*/**"],
+            "rules": {
+                "camelcase": "off",
             },
         },
     ],

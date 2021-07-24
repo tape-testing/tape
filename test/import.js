@@ -189,9 +189,7 @@ tap.test('errors importing test files', function (t) {
 });
 
 function tape(args, options) {
-    options = assign({ cwd: __dirname }, options);
-
     var bin = __dirname + '/../bin/tape';
 
-    return spawn('node', [bin].concat(args.split(' ')), options);
+    return spawn('node', [bin].concat(args.split(' ')), assign({ cwd: __dirname }, options));
 }

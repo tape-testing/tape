@@ -15,6 +15,7 @@ module.exports = (function () {
     var wait = false;
     var harness;
     var lazyLoad = function () {
+        // eslint-disable-next-line no-invalid-this
         return getHarness().apply(this, arguments);
     };
 
@@ -89,14 +90,15 @@ function createExitHarness(conf, wait) {
             var only = harness._results._only;
             for (var i = 0; i < harness._tests.length; i++) {
                 var t = harness._tests[i];
-                if (only && t !== only) { continue; }
-                t._exit();
+                if (!only || t === only) {
+                    t._exit();
+                }
             }
         }
         harness.close();
 
         process.removeAllListeners('exit'); // necessary for node v0.6
-        process.exit(code || harness._exitCode);
+        process.exit(code || harness._exitCode); // eslint-disable-line no-process-exit
     });
 
     return harness;

@@ -9,7 +9,7 @@ var nodeVersion = process.versions.node;
 var majorVersion = nodeVersion.split('.')[0];
 
 if (Number(majorVersion) < 8) {
-    process.exit(0);
+    process.exit(0); // eslint-disable-line no-process-exit
 }
 
 tap.test('async1', function (t) {

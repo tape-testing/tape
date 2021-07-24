@@ -15,14 +15,14 @@ tap.test('preserves stack trace with newlines', function (tt) {
     var stackTrace = 'foo\n  bar';
 
     parser.once('assert', function (data) {
-        delete data.diag.at;
         tt.deepEqual(data, {
             ok: false,
             id: 1,
             name: 'Error: Preserve stack',
             diag: {
                 stack: stackTrace,
-                operator: 'error'
+                operator: 'error',
+                at: data.diag.at // we don't care about this one
             }
         });
     });
@@ -292,8 +292,7 @@ function getDiag(body) {
         return line.slice(2);
     }).join('\n');
 
-    // Get rid of 'at' variable (which has a line number / path of its own that's
-    // difficult to check).
+    // Get rid of 'at' variable (which has a line number / path of its own that's difficult to check).
     var withStack = yaml.safeLoad(diag);
     delete withStack.at;
     return withStack;

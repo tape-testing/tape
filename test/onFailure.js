@@ -3,8 +3,7 @@
 var tap = require('tap');
 var tape = require('../').createHarness();
 
-//Because this test passing depends on a failure,
-//we must direct the failing output of the inner test
+// Because this test passing depends on a failure, we must direct the failing output of the inner test
 var noop = function () {};
 var mockSink = {
     on: noop,
