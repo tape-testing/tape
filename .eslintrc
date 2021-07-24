@@ -25,6 +25,11 @@
             "named": "never",
         }],
         "no-extra-semi": "error",
+        "no-shadow": ["error", {
+            "builtinGlobals": false,
+            "hoist": "functions",
+            "allow": []
+        }],
         "no-undef": "error",
         "no-useless-escape": "error",
         "object-curly-newline": ["error", {

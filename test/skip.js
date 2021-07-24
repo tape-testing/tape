@@ -44,9 +44,9 @@ test.skip('skip this too', function (t) {
 
 test('skip subtest', function (t) {
     ran++;
-    t.test('skip this', { skip: true }, function (t) {
-        t.fail('this should not even run');
-        t.end();
+    t.test('skip this', { skip: true }, function (st) {
+        st.fail('this should not even run');
+        st.end();
     });
     t.end();
 });
