@@ -64,7 +64,6 @@ tap.test('null argument', function (assert) {
     });
 });
 
-
 // Exploratory test, how is whitespace treated?
 tap.test('whitespace', function (assert) {
     assert.plan(1);

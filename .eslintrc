@@ -47,6 +47,7 @@
         "object-curly-spacing": ["error", "always"],
         "operator-linebreak": ["error", "before"],
         "semi-style": ["error", "last"],
+        "space-in-parens": ["error", "never"],
         "space-infix-ops": "error",
         "space-unary-ops": ["error", {
             "words": false,

@@ -12,7 +12,6 @@ test(function (t) {
         });
     });
 
-
     t.test('teardown', function (st) {
         st.end();
     });

@@ -24,7 +24,6 @@ test('async-error', async function myTest(t) {
     t.end();
 });
 
-
 function sleep(ms) {
     return new Promise((resolve) => {
         setTimeout(resolve, ms);

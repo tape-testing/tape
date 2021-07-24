@@ -27,7 +27,7 @@ tap.test('exit ok', function (t) {
             '',
             '# ok',
             '', // yes, these double-blank-lines at the end are required.
-            ''  // if you can figure out how to remove them, please do!
+            '' // if you can figure out how to remove them, please do!
         ].join('\n'));
     };
 
