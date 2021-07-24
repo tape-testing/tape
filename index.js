@@ -25,7 +25,7 @@ module.exports = (function () {
     lazyLoad.run = function () {
         var run = getHarness().run;
 
-        if (run) run();
+        if (run) { run(); }
     };
 
     lazyLoad.only = function () {
@@ -55,9 +55,9 @@ module.exports = (function () {
     return lazyLoad;
 
     function getHarness(opts) {
-        if (!opts) opts = {};
+        if (!opts) { opts = {}; }
         opts.autoclose = !canEmitExit;
-        if (!harness) harness = createExitHarness(opts, wait);
+        if (!harness) { harness = createExitHarness(opts, wait); }
         return harness;
     }
 }());
@@ -76,8 +76,8 @@ function createExitHarness(conf, wait) {
         run();
     }
 
-    if (config.exit === false) return harness;
-    if (!canEmitExit || !canExit) return harness;
+    if (config.exit === false) { return harness; }
+    if (!canEmitExit || !canExit) { return harness; }
 
     process.on('exit', function (code) {
         // let the process exit cleanly.
@@ -89,7 +89,7 @@ function createExitHarness(conf, wait) {
             var only = harness._results._only;
             for (var i = 0; i < harness._tests.length; i++) {
                 var t = harness._tests[i];
-                if (only && t !== only) continue;
+                if (only && t !== only) { continue; }
                 t._exit();
             }
         }
@@ -102,7 +102,7 @@ function createExitHarness(conf, wait) {
     return harness;
 
     function run() {
-        if (running) return;
+        if (running) { return; }
         running = true;
         var stream = harness.createStream({ objectMode: config.objectMode });
         var es = stream.pipe(config.stream || createDefaultStream());
@@ -133,7 +133,7 @@ function createHarness(conf_) {
                 inspectCode(st_);
             });
             st.on('result', function (r) {
-                if (!r.todo && !r.ok && typeof r !== 'string') test._exitCode = 1;
+                if (!r.todo && !r.ok && typeof r !== 'string') { test._exitCode = 1; }
             });
         }(t));
 
@@ -158,7 +158,7 @@ function createHarness(conf_) {
 
     var only = false;
     test.only = function () {
-        if (only) throw new Error('there can only be one only test');
+        if (only) { throw new Error('there can only be one only test'); }
         only = true;
         var t = test.apply(null, arguments);
         results.only(t);

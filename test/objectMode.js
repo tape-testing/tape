@@ -14,7 +14,7 @@ tap.test('object results', function (assert) {
     };
 
     printer.end = function (obj) {
-        if (obj) objects.push(obj);
+        if (obj) { objects.push(obj); }
 
         var todos = 0;
         var skips = 0;
@@ -53,17 +53,17 @@ tap.test('object results', function (assert) {
 
     tape('parent', function (t1) {
         t1.equal(true, true);
-        t1.test('child1', {skip: true}, function (t2) {
+        t1.test('child1', { skip: true }, function (t2) {
             t2.equal(true, true);
             t2.equal(true, false);
             t2.end();
         });
-        t1.test('child2', {todo: true}, function (t3) {
+        t1.test('child2', { todo: true }, function (t3) {
             t3.equal(true, false);
             t3.equal(true, true);
             t3.end();
         });
-        t1.test('child3', {todo: true});
+        t1.test('child3', { todo: true });
         t1.equal(true, true);
         t1.equal(true, true);
         t1.end();

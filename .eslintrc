@@ -13,6 +13,7 @@
             "before": false,
             "after": true,
         }],
+        "curly": ["error", "all"],
         "indent": ["error", 4],
         "key-spacing": "error",
         "quotes": ["error", "single", {
@@ -26,6 +27,19 @@
         "no-extra-semi": "error",
         "no-undef": "error",
         "no-useless-escape": "error",
+        "object-curly-newline": ["error", {
+            "ObjectExpression": {
+                "multiline": true,
+                "consistent": true,
+                "minProperties": 3,
+            },
+            "ObjectPattern": {
+                "multiline": true,
+                "consistent": true,
+                "minProperties": 3,
+            },
+        }],
+        "object-curly-spacing": ["error", "always"],
         "operator-linebreak": ["error", "before"],
         "semi-style": ["error", "last"],
         "space-infix-ops": "error",

@@ -24,7 +24,11 @@ var getter = function () { return 'message'; };
 var messageGetterError = Object.defineProperty(
     { custom: 'error' },
     'message',
-    { configurable: true, enumerable: true, get: getter }
+    {
+        configurable: true,
+        enumerable: true,
+        get: getter
+    }
 );
 var thrower = function () { throw messageGetterError; };
 
