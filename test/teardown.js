@@ -95,7 +95,7 @@ tap.test('teardowns', function (tt) {
                     '          [... stack stripped ...]',
                     '  ...',
                     i > 0 ? [] : [
-                        'not ok '+ (offset + 1) +' plan != count',
+                        'not ok ' + (offset + 1) + ' plan != count',
                         '  ---',
                         '    operator: fail',
                         '    expected: 1',
