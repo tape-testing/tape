@@ -26,6 +26,7 @@
         "no-undef": "error",
         "no-useless-escape": "error",
         "operator-linebreak": ["error", "before"],
+        "semi-style": ["error", "last"],
         "space-infix-ops": "error",
         "space-unary-ops": ["error", {
             "words": false,
