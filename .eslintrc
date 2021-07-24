@@ -9,6 +9,10 @@
     },
     "rules": {
         "comma-dangle": ["error", "never"],
+        "comma-spacing": [2, {
+            "before": false,
+            "after": true,
+        }],
         "indent": ["error", 4],
         "key-spacing": "error",
         "quotes": ["error", "single", {

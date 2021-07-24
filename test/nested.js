@@ -65,7 +65,7 @@ tap.test('array test', function (tt) {
             [ [ 1, 2, [ 3, 4 ] ], [ 5, 6 ] ]
         ];
 
-        Function(['fn','g'], output)(
+        Function(['fn', 'g'], output)(
             function (xs) {
                 t.same(arrays.shift(), xs);
                 return xs;
