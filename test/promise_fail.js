@@ -16,7 +16,8 @@ tap.test('callback returning rejected promise should cause that test (and only t
         var rowsString = rows.toString('utf8');
 
         if ((/^skip\n$/).test(rowsString)) {
-            return tt.pass('the test file indicated it should be skipped');
+            tt.pass('the test file indicated it should be skipped');
+            return;
         }
 
         var strippedString = stripFullStack(rowsString).filter(function (line) {
@@ -64,7 +65,8 @@ tap.test('subtest callback returning rejected promise should cause that subtest 
         var rowsString = rows.toString('utf8');
 
         if ((/^skip\n$/).test(rowsString)) {
-            return tt.pass('the test file indicated it should be skipped');
+            tt.pass('the test file indicated it should be skipped');
+            return;
         }
 
         var strippedString = stripFullStack(rowsString).filter(function (line) {

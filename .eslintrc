@@ -16,6 +16,7 @@
             "before": false,
             "after": true,
         }],
+        "consistent-return": "error",
         "curly": ["error", "all"],
         "function-paren-newline": ["error", "multiline"],
         "function-call-argument-newline": ["error", "consistent"],
