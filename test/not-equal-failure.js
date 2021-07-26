@@ -48,8 +48,6 @@ tap.test('not equal failure', function (assert) {
     }));
 
     parser.once('assert', function (data) {
-        delete data.diag.stack;
-        delete data.diag.at;
         assert.deepEqual(data, {
             ok: false,
             id: 1,
@@ -57,7 +55,10 @@ tap.test('not equal failure', function (assert) {
             diag: {
                 operator: 'notEqual',
                 expected: '2',
-                actual: '2'
+                actual: '2',
+                // we don't care about these next two
+                stack: data.diag.stack,
+                at: data.diag.at
             }
         });
     });

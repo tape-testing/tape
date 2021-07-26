@@ -25,7 +25,7 @@ test('array', function (t) {
         [ [ 1, 2, [ 3, 4 ] ], [ 5, 6 ] ]
     ];
 
-    Function(['fn','g'], output)(
+    Function(['fn', 'g'], output)(
         function (xs) {
             t.same(arrays.shift(), xs);
             return xs;

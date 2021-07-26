@@ -92,7 +92,7 @@ tap.test('errors importing test files', function (t) {
             var message = options.error + ' in `' + options.mode + '` mode`';
             var ps = tape(options.files, { env: { NODE_OPTIONS: '--unhandled-rejections=' + options.mode } });
             ps.stderr.pipe(concat(options.unhandledRejection(message)));
-            ps.on('exit', function (code, sig) {
+            ps.on('exit', function (code/* , sig */) {
                 t.equal(code, options.exitCode, message + ' has exit code ' + options.exitCode);
             });
         };
@@ -189,10 +189,7 @@ tap.test('errors importing test files', function (t) {
 });
 
 function tape(args, options) {
-    options = assign({ cwd: __dirname }, options);
-
-    var proc = require('child_process');
     var bin = __dirname + '/../bin/tape';
 
-    return proc.spawn('node', [bin].concat(args.split(' ')), options);
+    return spawn('node', [bin].concat(args.split(' ')), assign({ cwd: __dirname }, options));
 }

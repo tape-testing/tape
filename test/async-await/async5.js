@@ -33,8 +33,8 @@ test('async5', async function myTest(t) {
                 port: server.address().port,
                 path: '/',
                 method: 'GET'
-            }, function (res) {
-                cb(null, res);
+            }, function (resp) {
+                cb(null, resp);
             });
             req.end();
         })();

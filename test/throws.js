@@ -8,23 +8,15 @@ var assign = require('object.assign');
 
 var stripFullStack = require('./common').stripFullStack;
 
-function fn() {
-    throw new TypeError('RegExp');
-}
-
-function getNonFunctionMessage(fn) {
-    try {
-        fn();
-    } catch (e) {
-        return e.message;
-    }
-}
-
 var getter = function () { return 'message'; };
 var messageGetterError = Object.defineProperty(
     { custom: 'error' },
     'message',
-    { configurable: true, enumerable: true, get: getter }
+    {
+        configurable: true,
+        enumerable: true,
+        get: getter
+    }
 );
 var thrower = function () { throw messageGetterError; };
 

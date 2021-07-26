@@ -3,7 +3,8 @@
 const { extname: extnamePath } = require('path');
 const getPackageType = require('get-package-type');
 
-module.exports = function (file) {
+// eslint-disable-next-line consistent-return
+module.exports = function importOrRequire(file) {
     const ext = extnamePath(file);
 
     if (ext === '.mjs' || (ext === '.js' && getPackageType.sync(file) === 'module')) {

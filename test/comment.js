@@ -64,7 +64,6 @@ tap.test('null argument', function (assert) {
     });
 });
 
-
 // Exploratory test, how is whitespace treated?
 tap.test('whitespace', function (assert) {
     assert.plan(1);
@@ -132,7 +131,7 @@ tap.test('non-string types', function (assert) {
         t.comment(42);
         t.comment(6.66);
         t.comment({});
-        t.comment({'answer': 42});
+        t.comment({ answer: 42 });
         function ConstructorFunction() {}
         t.comment(new ConstructorFunction());
         t.comment(ConstructorFunction);

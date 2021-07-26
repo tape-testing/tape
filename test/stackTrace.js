@@ -15,23 +15,22 @@ tap.test('preserves stack trace with newlines', function (tt) {
     var stackTrace = 'foo\n  bar';
 
     parser.once('assert', function (data) {
-        delete data.diag.at;
         tt.deepEqual(data, {
             ok: false,
             id: 1,
             name: 'Error: Preserve stack',
             diag: {
                 stack: stackTrace,
-                operator: 'error'
+                operator: 'error',
+                at: data.diag.at // we don't care about this one
             }
         });
     });
 
     stream.pipe(concat(function (body) {
-        var body = body.toString('utf8');
-        body = stripAt(body);
+        var strippedBody = stripAt(body.toString('utf8'));
         tt.equal(
-            body,
+            strippedBody,
             'TAP version 13\n'
             + '# multiline stack trace\n'
             + 'not ok 1 Error: Preserve stack\n'
@@ -48,7 +47,7 @@ tap.test('preserves stack trace with newlines', function (tt) {
             + '# fail  1\n'
         );
 
-        tt.deepEqual(getDiag(body), {
+        tt.deepEqual(getDiag(strippedBody), {
             stack: stackTrace,
             operator: 'error'
         });
@@ -171,7 +170,7 @@ tap.test('preserves stack trace for failed assertions', function (tt) {
         tt.equal(typeof data.diag.stack, 'string');
         var at = data.diag.at || '';
         stack = data.diag.stack || '';
-        tt.ok(/^Error: true should be false(\n    at .+)+/.exec(stack), 'stack should be a stack');
+        tt.ok((/^Error: true should be false(\n {4}at .+)+/).exec(stack), 'stack should be a stack');
         tt.deepEqual(data, {
             ok: false,
             id: 1,
@@ -187,10 +186,9 @@ tap.test('preserves stack trace for failed assertions', function (tt) {
     });
 
     stream.pipe(concat(function (body) {
-        var body = body.toString('utf8');
-        body = stripAt(body);
+        var strippedBody = stripAt(body.toString('utf8'));
         tt.equal(
-            body,
+            strippedBody,
             'TAP version 13\n'
             + '# t.equal stack trace\n'
             + 'not ok 1 true should be false\n'
@@ -209,7 +207,7 @@ tap.test('preserves stack trace for failed assertions', function (tt) {
             + '# fail  1\n'
         );
 
-        tt.deepEqual(getDiag(body), {
+        tt.deepEqual(getDiag(strippedBody), {
             stack: stack,
             operator: 'equal',
             expected: false,
@@ -236,7 +234,7 @@ tap.test('preserves stack trace for failed assertions where actual===falsy', fun
         tt.equal(typeof data.diag.stack, 'string');
         var at = data.diag.at || '';
         stack = data.diag.stack || '';
-        tt.ok(/^Error: false should be true(\n    at .+)+/.exec(stack), 'stack should be a stack');
+        tt.ok((/^Error: false should be true(\n {4}at .+)+/).exec(stack), 'stack should be a stack');
         tt.deepEqual(data, {
             ok: false,
             id: 1,
@@ -252,10 +250,9 @@ tap.test('preserves stack trace for failed assertions where actual===falsy', fun
     });
 
     stream.pipe(concat(function (body) {
-        var body = body.toString('utf8');
-        body = stripAt(body);
+        var strippedBody = stripAt(body.toString('utf8'));
         tt.equal(
-            body,
+            strippedBody,
             'TAP version 13\n'
             + '# t.equal stack trace\n'
             + 'not ok 1 false should be true\n'
@@ -274,7 +271,7 @@ tap.test('preserves stack trace for failed assertions where actual===falsy', fun
             + '# fail  1\n'
         );
 
-        tt.deepEqual(getDiag(body), {
+        tt.deepEqual(getDiag(strippedBody), {
             stack: stack,
             operator: 'equal',
             expected: true,
@@ -295,8 +292,7 @@ function getDiag(body) {
         return line.slice(2);
     }).join('\n');
 
-    // Get rid of 'at' variable (which has a line number / path of its own that's
-    // difficult to check).
+    // Get rid of 'at' variable (which has a line number / path of its own that's difficult to check).
     var withStack = yaml.safeLoad(diag);
     delete withStack.at;
     return withStack;

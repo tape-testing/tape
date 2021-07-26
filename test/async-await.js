@@ -9,7 +9,7 @@ var nodeVersion = process.versions.node;
 var majorVersion = nodeVersion.split('.')[0];
 
 if (Number(majorVersion) < 8) {
-    process.exit(0);
+    process.exit(0); // eslint-disable-line no-process-exit
 }
 
 tap.test('async1', function (t) {
@@ -36,7 +36,7 @@ tap.test('async2', function (t) {
     runProgram('async-await', 'async2.js', function (r) {
         var stdout = r.stdout.toString('utf8');
         var lines = stdout.split('\n').filter(function (line) {
-            return !/^(\s+)at(\s+)<anonymous>$/.test(line);
+            return !(/^(\s+)at(\s+)<anonymous>$/).test(line);
         });
 
         t.same(stripFullStack(lines.join('\n')), [
@@ -184,9 +184,9 @@ tap.test('sync-error', function (t) {
         var stderr = r.stderr.toString('utf8');
         var lines = stderr.split('\n');
         lines = lines.filter(function (line) {
-            return !/\(timers.js:/.test(line)
-                && !/\(internal\/timers.js:/.test(line)
-                && !/Immediate\.next/.test(line);
+            return !(/\(timers.js:/).test(line)
+                && !(/\(internal\/timers.js:/).test(line)
+                && !(/Immediate\.next/).test(line);
         });
         stderr = lines.join('\n');
 
@@ -211,7 +211,7 @@ tap.test('async-error', function (t) {
         var stdout = r.stdout.toString('utf8');
         var lines = stdout.split('\n');
         lines = lines.filter(function (line) {
-            return !/^(\s+)at(\s+)<anonymous>$/.test(line);
+            return !(/^(\s+)at(\s+)<anonymous>$/).test(line);
         });
         stdout = lines.join('\n');
 
@@ -238,15 +238,13 @@ tap.test('async-error', function (t) {
         t.same(r.exitCode, 1);
 
         var stderr = r.stderr.toString('utf8');
-        var lines = stderr.split('\n');
-        lines = lines.filter(function (line) {
-            return !/\(timers.js:/.test(line)
-                && !/\(internal\/timers.js:/.test(line)
-                && !/Immediate\.next/.test(line);
+        var stderrLines = stderr.split('\n').filter(function (line) {
+            return !(/\(timers.js:/).test(line)
+                && !(/\(internal\/timers.js:/).test(line)
+                && !(/Immediate\.next/).test(line);
         });
-        stderr = lines.join('\n');
 
-        t.same(stderr, '');
+        t.same(stderrLines.join('\n'), '');
         t.end();
     });
 });
@@ -256,7 +254,7 @@ tap.test('async-bug', function (t) {
         var stdout = r.stdout.toString('utf8');
         var lines = stdout.split('\n');
         lines = lines.filter(function (line) {
-            return !/^(\s+)at(\s+)<anonymous>$/.test(line);
+            return !(/^(\s+)at(\s+)<anonymous>$/).test(line);
         });
         stdout = lines.join('\n');
 

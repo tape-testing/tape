@@ -25,7 +25,7 @@ if (typeof opts.require === 'string') {
 }
 
 opts.require.forEach(function (module) {
-    var options  = { basedir: cwd, extensions: Object.keys(require.extensions) };
+    var options = { basedir: cwd, extensions: Object.keys(require.extensions) };
     if (module) {
         /* This check ensures we ignore `-r ""`, trailing `-r`, or
          * other silly things the user might (inadvertently) be doing.
@@ -47,13 +47,13 @@ if (typeof opts.ignore === 'string') {
 var files = opts._.reduce(function (result, arg) {
     // If glob does not match, `files` will be an empty array.
     // Note: `glob.sync` may throw an error and crash the node process.
-    var files = glob.sync(arg);
+    var globFiles = glob.sync(arg);
 
-    if (!Array.isArray(files)) {
+    if (!Array.isArray(globFiles)) {
         throw new TypeError('unknown error: glob.sync("' + arg + '") did not return an array or throw. Please report this.');
     }
 
-    return result.concat(files);
+    return result.concat(globFiles);
 }, []).filter(function (file) {
     return !matcher || !matcher.shouldIgnore(file);
 }).map(function (file) {
@@ -75,13 +75,13 @@ function importFiles(hasSupport) {
 
     tape.wait();
 
-    var promise = files.reduce(function (promise, file) {
+    var filesPromise = files.reduce(function (promise, file) {
         return promise ? promise.then(function () {
             return importOrRequire(file);
         }) : importOrRequire(file);
     }, null);
 
-    return promise ? promise.then(function () { tape.run(); }) : tape.run();
+    return filesPromise ? filesPromise.then(function () { tape.run(); }) : tape.run();
 }
 
 // vim: ft=javascript

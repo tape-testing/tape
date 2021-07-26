@@ -15,12 +15,13 @@ tap.test('callback returning rejected promise should cause that test (and only t
     ps.stdout.pipe(concat(function (rows) {
         var rowsString = rows.toString('utf8');
 
-        if (/^skip\n$/.test(rowsString)) {
-            return tt.pass('the test file indicated it should be skipped');
+        if ((/^skip\n$/).test(rowsString)) {
+            tt.pass('the test file indicated it should be skipped');
+            return;
         }
 
         var strippedString = stripFullStack(rowsString).filter(function (line) {
-            return !/^(\s+)at(\s+)(?:Test\.)?<anonymous>(?:$|\s)/.test(line);
+            return !(/^(\s+)at(\s+)(?:Test\.)?<anonymous>(?:$|\s)/).test(line);
         }).join('\n');
 
         // hack for consistency across all versions of node
@@ -63,12 +64,13 @@ tap.test('subtest callback returning rejected promise should cause that subtest 
     ps.stdout.pipe(concat(function (rows) {
         var rowsString = rows.toString('utf8');
 
-        if (/^skip\n$/.test(rowsString)) {
-            return tt.pass('the test file indicated it should be skipped');
+        if ((/^skip\n$/).test(rowsString)) {
+            tt.pass('the test file indicated it should be skipped');
+            return;
         }
 
         var strippedString = stripFullStack(rowsString).filter(function (line) {
-            return !/^(\s+)at(\s+)(?:Test\.)?<anonymous>(?:$|\s)/.test(line);
+            return !(/^(\s+)at(\s+)(?:Test\.)?<anonymous>(?:$|\s)/).test(line);
         }).join('\n');
 
         // hack for consistency across all versions of node
