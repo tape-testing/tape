@@ -75,14 +75,11 @@ function getStackTrace(rows) {
             if (row.indexOf('---') > -1) { // start of stack trace
                 extract = true;
             }
+        } else if (row.indexOf('...') > -1) { // end of stack trace
+            extract = false;
+            stacktrace += '  ...';
         } else {
-            if (row.indexOf('...') > -1) { // end of stack trace
-                extract = false;
-                stacktrace += '  ...';
-            } else {
-                stacktrace += row + '\n';
-            }
-
+            stacktrace += row + '\n';
         }
     });
     // console.log(stacktrace);
