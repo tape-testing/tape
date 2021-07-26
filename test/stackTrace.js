@@ -28,10 +28,9 @@ tap.test('preserves stack trace with newlines', function (tt) {
     });
 
     stream.pipe(concat(function (body) {
-        var body = body.toString('utf8');
-        body = stripAt(body);
+        var strippedBody = stripAt(body.toString('utf8'));
         tt.equal(
-            body,
+            strippedBody,
             'TAP version 13\n'
             + '# multiline stack trace\n'
             + 'not ok 1 Error: Preserve stack\n'
@@ -48,7 +47,7 @@ tap.test('preserves stack trace with newlines', function (tt) {
             + '# fail  1\n'
         );
 
-        tt.deepEqual(getDiag(body), {
+        tt.deepEqual(getDiag(strippedBody), {
             stack: stackTrace,
             operator: 'error'
         });
@@ -187,10 +186,9 @@ tap.test('preserves stack trace for failed assertions', function (tt) {
     });
 
     stream.pipe(concat(function (body) {
-        var body = body.toString('utf8');
-        body = stripAt(body);
+        var strippedBody = stripAt(body.toString('utf8'));
         tt.equal(
-            body,
+            strippedBody,
             'TAP version 13\n'
             + '# t.equal stack trace\n'
             + 'not ok 1 true should be false\n'
@@ -209,7 +207,7 @@ tap.test('preserves stack trace for failed assertions', function (tt) {
             + '# fail  1\n'
         );
 
-        tt.deepEqual(getDiag(body), {
+        tt.deepEqual(getDiag(strippedBody), {
             stack: stack,
             operator: 'equal',
             expected: false,
@@ -252,10 +250,9 @@ tap.test('preserves stack trace for failed assertions where actual===falsy', fun
     });
 
     stream.pipe(concat(function (body) {
-        var body = body.toString('utf8');
-        body = stripAt(body);
+        var strippedBody = stripAt(body.toString('utf8'));
         tt.equal(
-            body,
+            strippedBody,
             'TAP version 13\n'
             + '# t.equal stack trace\n'
             + 'not ok 1 false should be true\n'
@@ -274,7 +271,7 @@ tap.test('preserves stack trace for failed assertions where actual===falsy', fun
             + '# fail  1\n'
         );
 
-        tt.deepEqual(getDiag(body), {
+        tt.deepEqual(getDiag(strippedBody), {
             stack: stack,
             operator: 'equal',
             expected: true,

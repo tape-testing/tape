@@ -238,15 +238,13 @@ tap.test('async-error', function (t) {
         t.same(r.exitCode, 1);
 
         var stderr = r.stderr.toString('utf8');
-        var lines = stderr.split('\n');
-        lines = lines.filter(function (line) {
+        var stderrLines = stderr.split('\n').filter(function (line) {
             return !(/\(timers.js:/).test(line)
                 && !(/\(internal\/timers.js:/).test(line)
                 && !(/Immediate\.next/).test(line);
         });
-        stderr = lines.join('\n');
 
-        t.same(stderr, '');
+        t.same(stderrLines.join('\n'), '');
         t.end();
     });
 });
