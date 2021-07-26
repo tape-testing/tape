@@ -8,6 +8,9 @@
         "Promise": false,
     },
     "rules": {
+        "brace-style": ["error", "1tbs", {
+            "allowSingleLine": true,
+        }],
         "comma-dangle": ["error", "never"],
         "comma-spacing": [2, {
             "before": false,

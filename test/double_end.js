@@ -29,8 +29,7 @@ test(function (tt) {
         var atExpected;
         try {
             to._onTimeout();
-        }
-        catch (e) {
+        } catch (e) {
             stackExpected = stripFullStack(e.stack)[1];
             stackExpected = stackExpected.replace('double_end.js', 'double_end/double.js');
             stackExpected = stackExpected.trim();
