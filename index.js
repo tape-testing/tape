@@ -107,6 +107,8 @@ function createExitHarness(conf, wait) {
         var stream = harness.createStream({ objectMode: config.objectMode });
         var es = stream.pipe(config.stream || createDefaultStream());
         if (canEmitExit) {
+            // TODO: use `err` arg?
+            // eslint-disable-next-line no-unused-vars
             es.on('error', function (err) { harness._exitCode = 1; });
         }
         stream.on('end', function () { ended = true; });

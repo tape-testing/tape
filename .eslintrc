@@ -45,6 +45,10 @@
             "allow": []
         }],
         "no-undef": "error",
+        "no-unused-vars": ["error", {
+            "vars": "all",
+            "args": "after-used"
+        }],
         "no-useless-escape": "error",
         "object-curly-newline": ["error", {
             "ObjectExpression": {
