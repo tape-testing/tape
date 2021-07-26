@@ -110,7 +110,7 @@ function createExitHarness(conf, wait) {
             es.on('error', function (err) { harness._exitCode = 1; });
         }
         stream.on('end', function () { ended = true; });
-    };
+    }
 }
 
 module.exports.createHarness = createHarness;

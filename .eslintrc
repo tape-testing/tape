@@ -23,6 +23,7 @@
             "anonymous": "always",
             "named": "never",
         }],
+        "no-extra-semi": "error",
         "no-undef": "error",
         "no-useless-escape": "error",
         "operator-linebreak": ["error", "before"],
