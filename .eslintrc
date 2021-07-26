@@ -26,6 +26,15 @@
             "anonymous": "always",
             "named": "never",
         }],
+        "no-extra-parens": ["error", "all", {
+            "conditionalAssign": false,
+            "nestedBinaryExpressions": false,
+            "returnAssign": false,
+            "ignoreJSX": "all",
+            "enforceForArrowConditionals": false,
+            "enforceForSequenceExpressions": true,
+            "enforceForNewInMemberExpressions": false,
+        }],
         "no-extra-semi": "error",
         "no-shadow": ["error", {
             "builtinGlobals": false,
