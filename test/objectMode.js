@@ -1,3 +1,5 @@
+'use strict';
+
 var tap = require('tap');
 var tape = require('../');
 var forEach = require('for-each');
@@ -12,7 +14,7 @@ tap.test('object results', function (assert) {
     };
 
     printer.end = function (obj) {
-        if (obj) objects.push(obj);
+        if (obj) { objects.push(obj); }
 
         var todos = 0;
         var skips = 0;
@@ -22,21 +24,21 @@ tap.test('object results', function (assert) {
 
         assert.equal(objects.length, 13);
 
-        forEach(objects, function (obj) {
-            if (obj.type === 'assert') {
+        forEach(objects, function (object) {
+            if (object.type === 'assert') {
                 asserts++;
-            } else if (obj.type === 'test') {
-                testIds.push(obj.id);
+            } else if (object.type === 'test') {
+                testIds.push(object.id);
 
-                if (obj.skip) {
+                if (object.skip) {
                     skips++;
-                } else if (obj.todo) {
+                } else if (object.todo) {
                     todos++;
                 }
-            } else if (obj.type === 'end') {
-                endIds.push(obj.text);
+            } else if (object.type === 'end') {
+                endIds.push(object.text);
                 // test object should exist
-                assert.notEqual(testIds.indexOf(obj.test), -1);
+                assert.notEqual(testIds.indexOf(object.test), -1);
             }
         });
 
@@ -51,17 +53,17 @@ tap.test('object results', function (assert) {
 
     tape('parent', function (t1) {
         t1.equal(true, true);
-        t1.test('child1', {skip: true}, function (t2) {
+        t1.test('child1', { skip: true }, function (t2) {
             t2.equal(true, true);
             t2.equal(true, false);
             t2.end();
         });
-        t1.test('child2', {todo: true}, function (t3) {
+        t1.test('child2', { todo: true }, function (t3) {
             t3.equal(true, false);
             t3.equal(true, true);
             t3.end();
         });
-        t1.test('child3', {todo: true});
+        t1.test('child3', { todo: true });
         t1.equal(true, true);
         t1.equal(true, true);
         t1.end();

@@ -1,3 +1,5 @@
+'use strict';
+
 var tap = require('tap');
 var test = require('../');
 var concat = require('concat-stream');
@@ -72,7 +74,8 @@ tap.test('test skip explanations', function (assert) {
         // var platform = process.platform; something like this needed
         var platform = 'win32';
 
-        t.fail('run openssl',
+        t.fail(
+            'run openssl',
             { skip: platform === 'win32' && 'Installer cannot work on windows\nand fails to add to PATH\n\n Err: (2401) denied' }
         );
         t.end();

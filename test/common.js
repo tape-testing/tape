@@ -1,3 +1,5 @@
+'use strict';
+
 var path = require('path');
 var yaml = require('js-yaml');
 

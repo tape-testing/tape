@@ -1,12 +1,14 @@
+'use strict';
+
 var test = require('../');
 
 var childRan = false;
 
 test('parent', function (t) {
-    t.test('child', function (t) {
+    t.test('child', function (st) {
         childRan = true;
-        t.pass('child ran');
-        t.end();
+        st.pass('child ran');
+        st.end();
     });
     t.end();
 });
@@ -22,22 +24,22 @@ var grandChildRan = false;
 test('grandparent', function (t) {
     t.ok(!grandParentRan, 'grand parent ran twice');
     grandParentRan = true;
-    t.test('parent', function (t) {
-        t.ok(!parentRan, 'parent ran twice');
+    t.test('parent', function (st) {
+        st.ok(!parentRan, 'parent ran twice');
         parentRan = true;
-        t.test('grandchild', function (t) {
-            t.ok(!grandChildRan, 'grand child ran twice');
+        st.test('grandchild', function (s2t) {
+            s2t.ok(!grandChildRan, 'grand child ran twice');
             grandChildRan = true;
-            t.pass('grand child ran');
-            t.end();
+            s2t.pass('grand child ran');
+            s2t.end();
         });
-        t.pass('parent ran');
-        t.end();
+        st.pass('parent ran');
+        st.end();
     });
-    t.test('other parent', function (t) {
-        t.ok(parentRan, 'first parent runs before second parent');
-        t.ok(grandChildRan, 'grandchild runs before second parent');
-        t.end();
+    t.test('other parent', function (st) {
+        st.ok(parentRan, 'first parent runs before second parent');
+        st.ok(grandChildRan, 'grandchild runs before second parent');
+        st.end();
     });
     t.pass('grandparent ran');
     t.end();

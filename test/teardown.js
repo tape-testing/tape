@@ -95,7 +95,7 @@ tap.test('teardowns', function (tt) {
                     '          [... stack stripped ...]',
                     '  ...',
                     i > 0 ? [] : [
-                        'not ok '+ (offset + 1) +' plan != count',
+                        'not ok ' + (offset + 1) + ' plan != count',
                         '  ---',
                         '    operator: fail',
                         '    expected: 1',
@@ -120,14 +120,16 @@ tap.test('teardowns', function (tt) {
                 '# success (promise) teardown: 3'
             ] : [
                 '# SKIP success (promise)'
-            ], [
+            ],
+            [
                 '',
                 '1..' + ((typeof Promise === 'function' ? 1 : 0) + 10 + v.nonFunctions.length),
                 '# tests ' + ((typeof Promise === 'function' ? 1 : 0) + 10 + v.nonFunctions.length),
                 '# pass  ' + ((typeof Promise === 'function' ? 1 : 0) + 5),
                 '# fail  ' + (5 + v.nonFunctions.length),
                 ''
-            ]));
+            ]
+        ));
     }));
 
     test('success', function (t) {

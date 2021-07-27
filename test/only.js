@@ -1,3 +1,5 @@
+'use strict';
+
 var tap = require('tap');
 var tape = require('../');
 var concat = require('concat-stream');
@@ -18,7 +20,7 @@ tap.test('tape only test', function (tt) {
             '',
             '# ok'
         ].join('\n') + '\n');
-        tt.deepEqual(ran, [ 3 ]);
+        tt.deepEqual(ran, [3]);
 
         tt.end();
     };

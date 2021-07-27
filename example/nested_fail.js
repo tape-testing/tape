@@ -1,3 +1,5 @@
+'use strict';
+
 var falafel = require('falafel');
 var test = require('../');
 
@@ -29,10 +31,10 @@ test('nested array test', function (t) {
         [ 3, 4 ],
         [ 1, 2, [ 3, 4 ] ],
         [ 5, 6 ],
-        [ [ 1, 2, [ 3, 4 ] ], [ 5, 6 ] ],
+        [ [ 1, 2, [ 3, 4 ] ], [ 5, 6 ] ]
     ];
 
-    Function(['fn','g'], output)(
+    Function(['fn', 'g'], output)(
         function (xs) {
             t.same(arrays.shift(), xs);
             return xs;

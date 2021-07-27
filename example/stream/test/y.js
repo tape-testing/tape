@@ -1,7 +1,9 @@
+'use strict';
+
 var test = require('../../../');
 test(function (t) {
     t.plan(2);
-    t.equal(1+1, 2);
+    t.equal(1 + 1, 2);
     t.ok(true);
 });
 

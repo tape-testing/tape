@@ -1,3 +1,5 @@
+'use strict';
+
 var tape = require('../');
 var tap = require('tap');
 
@@ -8,7 +10,7 @@ tap.test('only twice error', function (assert) {
         t.end();
     });
 
-    assert.throws(function () {
+    assert['throws'](function () {
         test.only('second only', function (t) {
             t.end();
         });

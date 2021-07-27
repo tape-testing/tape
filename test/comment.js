@@ -1,3 +1,5 @@
+'use strict';
+
 var concat = require('concat-stream');
 var tap = require('tap');
 var tape = require('../');
@@ -61,7 +63,6 @@ tap.test('null argument', function (assert) {
         }
     });
 });
-
 
 // Exploratory test, how is whitespace treated?
 tap.test('whitespace', function (assert) {
@@ -130,7 +131,7 @@ tap.test('non-string types', function (assert) {
         t.comment(42);
         t.comment(6.66);
         t.comment({});
-        t.comment({'answer': 42});
+        t.comment({ answer: 42 });
         function ConstructorFunction() {}
         t.comment(new ConstructorFunction());
         t.comment(ConstructorFunction);
@@ -164,11 +165,11 @@ tap.test('multiline string', function (assert) {
     test('multiline strings', function (t) {
         t.comment([
             'a',
-            'b',
+            'b'
         ].join('\n'));
         t.comment([
             'c',
-            'd',
+            'd'
         ].join('\r\n'));
         t.end();
     });

@@ -1,3 +1,5 @@
+'use strict';
+
 var tap = require('tap');
 var spawn = require('child_process').spawn;
 var concat = require('concat-stream');
@@ -62,8 +64,7 @@ tap.test('requiring multiple modules', function (t) {
 });
 
 function tape(args) {
-    var proc = require('child_process');
     var bin = __dirname + '/../bin/tape';
 
-    return proc.spawn('node', [bin].concat(args.split(' ')), { cwd: __dirname });
+    return spawn('node', [bin].concat(args.split(' ')), { cwd: __dirname });
 }

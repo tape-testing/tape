@@ -1,18 +1,19 @@
+'use strict';
+
 var test = require('../');
 
 test(function (t) {
     var i = 0;
-    t.test('setup', function (t) {
+    t.test('setup', function (st) {
         process.nextTick(function () {
-            t.equal(i, 0, 'called once');
+            st.equal(i, 0, 'called once');
             i++;
-            t.end();
+            st.end();
         });
     });
 
-
-    t.test('teardown', function (t) {
-        t.end();
+    t.test('teardown', function (st) {
+        st.end();
     });
 
     t.end();

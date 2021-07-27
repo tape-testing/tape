@@ -1,3 +1,5 @@
+'use strict';
+
 var tape = require('../..');
 
 tape.test('module-a', function (t) {

@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+'use strict';
+
 var resolveModule = require('resolve').sync;
 var resolvePath = require('path').resolve;
 var readFileSync = require('fs').readFileSync;
@@ -21,9 +23,7 @@ if (typeof opts.require === 'string') {
 
 opts.require.forEach(function (module) {
     if (module) {
-        /* This check ensures we ignore `-r ""`, trailing `-r`, or
-         * other silly things the user might (inadvertently) be doing.
-         */
+        // This check ensures we ignore `-r ""`, trailing `-r`, or other silly things the user might (inadvertently) be doing.
         require(resolveModule(module, { basedir: cwd }));
     }
 });
@@ -39,8 +39,7 @@ if (typeof opts.ignore === 'string') {
 }
 
 opts._.forEach(function (arg) {
-    // If glob does not match, `files` will be an empty array.
-    // Note: `glob.sync` may throw an error and crash the node process.
+    // If glob does not match, `files` will be an empty array. Note: `glob.sync` may throw an error and crash the node process.
     var files = glob.sync(arg);
 
     if (!Array.isArray(files)) {

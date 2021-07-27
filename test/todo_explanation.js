@@ -1,3 +1,5 @@
+'use strict';
+
 var tap = require('tap');
 var tape = require('../');
 var concat = require('concat-stream');
@@ -5,7 +7,7 @@ var concat = require('concat-stream');
 var common = require('./common');
 var stripFullStack = common.stripFullStack;
 
-tap.test('tape todo test', { todo: process.versions.node.match(/0\.8\.\d+/) ? 'Fails on node 0.8': false }, function (assert) {
+tap.test('tape todo test', { todo: process.versions.node.match(/0\.8\.\d+/) ? 'Fails on node 0.8' : false }, function (assert) {
     var test = tape.createHarness({ exit: false });
     assert.plan(1);
 

@@ -1,12 +1,10 @@
+'use strict';
+
 var tape = require('../');
 var tap = require('tap');
 var concat = require('concat-stream');
 
 var stripFullStack = require('./common').stripFullStack;
-
-function fn() {
-    throw new TypeError('RegExp');
-}
 
 function getNonFunctionMessage(fn) {
     try {
@@ -14,6 +12,7 @@ function getNonFunctionMessage(fn) {
     } catch (e) {
         return e.message;
     }
+    return '';
 }
 
 var getter = function () { return 'message'; };
@@ -41,7 +40,7 @@ tap.test('failures', function (tt) {
             '      { [TypeError: ' + getNonFunctionMessage() + "] message: '" + getNonFunctionMessage() + "' }",
             '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '    stack: |-',
-            '      TypeError: ' + getNonFunctionMessage(undefined) + '',
+            String('      TypeError: ' + getNonFunctionMessage(undefined)),
             '          [... stack stripped ...]',
             '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '          [... stack stripped ...]',
@@ -55,7 +54,7 @@ tap.test('failures', function (tt) {
             '      { [TypeError: ' + getNonFunctionMessage(null) + "] message: '" + getNonFunctionMessage(null) + "' }",
             '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '    stack: |-',
-            '      TypeError: ' + getNonFunctionMessage(null) + '',
+            String('      TypeError: ' + getNonFunctionMessage(null)),
             '          [... stack stripped ...]',
             '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '          [... stack stripped ...]',
@@ -69,7 +68,7 @@ tap.test('failures', function (tt) {
             '      { [TypeError: ' + getNonFunctionMessage(true) + "] message: '" + getNonFunctionMessage(true) + "' }",
             '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '    stack: |-',
-            '      TypeError: ' + getNonFunctionMessage(true) + '',
+            String('      TypeError: ' + getNonFunctionMessage(true)),
             '          [... stack stripped ...]',
             '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '          [... stack stripped ...]',
@@ -83,7 +82,7 @@ tap.test('failures', function (tt) {
             '      { [TypeError: ' + getNonFunctionMessage(false) + "] message: '" + getNonFunctionMessage(false) + "' }",
             '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '    stack: |-',
-            '      TypeError: ' + getNonFunctionMessage(false) + '',
+            String('      TypeError: ' + getNonFunctionMessage(false)),
             '          [... stack stripped ...]',
             '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '          [... stack stripped ...]',
@@ -97,7 +96,7 @@ tap.test('failures', function (tt) {
             '      { [TypeError: ' + getNonFunctionMessage('abc') + "] message: '" + getNonFunctionMessage('abc') + "' }",
             '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '    stack: |-',
-            '      TypeError: ' + getNonFunctionMessage('abc') + '',
+            String('      TypeError: ' + getNonFunctionMessage('abc')),
             '          [... stack stripped ...]',
             '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '          [... stack stripped ...]',
@@ -111,7 +110,7 @@ tap.test('failures', function (tt) {
             '      { [TypeError: ' + getNonFunctionMessage(/a/g) + "] message: '" + getNonFunctionMessage(/a/g) + "' }",
             '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '    stack: |-',
-            '      TypeError: ' + getNonFunctionMessage(/a/g) + '',
+            String('      TypeError: ' + getNonFunctionMessage(/a/g)),
             '          [... stack stripped ...]',
             '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '          [... stack stripped ...]',
@@ -125,7 +124,7 @@ tap.test('failures', function (tt) {
             '      { [TypeError: ' + getNonFunctionMessage([]) + "] message: '" + getNonFunctionMessage([]) + "' }",
             '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '    stack: |-',
-            '      TypeError: ' + getNonFunctionMessage([]) + '',
+            String('      TypeError: ' + getNonFunctionMessage([])),
             '          [... stack stripped ...]',
             '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '          [... stack stripped ...]',
@@ -139,7 +138,7 @@ tap.test('failures', function (tt) {
             '      { [TypeError: ' + getNonFunctionMessage({}) + "] message: '" + getNonFunctionMessage({}) + "' }",
             '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '    stack: |-',
-            '      TypeError: ' + getNonFunctionMessage({}) + '',
+            String('      TypeError: ' + getNonFunctionMessage({})),
             '          [... stack stripped ...]',
             '          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '          [... stack stripped ...]',
@@ -188,38 +187,38 @@ tap.test('failures', function (tt) {
 
     test('non functions', function (t) {
         t.plan(8);
-        t.throws();
-        t.throws(null);
-        t.throws(true);
-        t.throws(false);
-        t.throws('abc');
-        t.throws(/a/g);
-        t.throws([]);
-        t.throws({});
+        t['throws']();
+        t['throws'](null);
+        t['throws'](true);
+        t['throws'](false);
+        t['throws']('abc');
+        t['throws'](/a/g);
+        t['throws']([]);
+        t['throws']({});
     });
 
     test('function', function (t) {
         t.plan(1);
-        t.throws(function () {});
+        t['throws'](function () {});
     });
 
     test('custom error messages', function (t) {
         t.plan(3);
         t.equal(Object.prototype.propertyIsEnumerable.call(messageGetterError, 'message'), true, '"message" is enumerable');
-        t.throws(thrower, "{ custom: 'error', message: 'message' }");
+        t['throws'](thrower, "{ custom: 'error', message: 'message' }");
         t.equal(Object.getOwnPropertyDescriptor(messageGetterError, 'message').get, getter, 'getter is still the same');
     });
 
     test('throws null', function (t) {
         t.plan(1);
-        t.throws(function () { throw null; }, 'throws null');
+        t['throws'](function () { throw null; }, 'throws null');
         t.end();
     });
 
     test('wrong type of error', function (t) {
         t.plan(1);
         var actual = new RangeError('actual!');
-        t.throws(function () { throw actual; }, TypeError, 'throws actual');
+        t['throws'](function () { throw actual; }, TypeError, 'throws actual');
         t.end();
     });
 });

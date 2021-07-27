@@ -1,3 +1,5 @@
+'use strict';
+
 var test = require('../');
 
 test('Harness async test support', function (t) {

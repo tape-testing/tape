@@ -1,3 +1,5 @@
+'use strict';
+
 var test = require('../');
 
 test('many tests', function (t) {

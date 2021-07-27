@@ -56,13 +56,13 @@ tap.test('match', function (tt) {
     test('match', function (t) {
         t.plan(6);
 
-        t.throws(
+        t['throws'](
             function () { t.match(/abc/, 'string'); },
             TypeError,
             'regex arg must be a regex'
         );
 
-        t.throws(
+        t['throws'](
             function () { t.match({ abc: 123 }, /abc/); },
             TypeError,
             'string arg must be a string'
@@ -150,13 +150,13 @@ tap.test('doesNotMatch', function (tt) {
     test('doesNotMatch', function (t) {
         t.plan(6);
 
-        t.throws(
+        t['throws'](
             function () { t.doesNotMatch(/abc/, 'string'); },
             TypeError,
             'regex arg must be a regex'
         );
 
-        t.throws(
+        t['throws'](
             function () { t.doesNotMatch({ abc: 123 }, /abc/); },
             TypeError,
             'string arg must be a string'

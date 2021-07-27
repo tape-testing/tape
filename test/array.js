@@ -1,3 +1,5 @@
+'use strict';
+
 var falafel = require('falafel');
 var tape = require('../');
 var tap = require('tap');
@@ -30,9 +32,9 @@ tap.test('array test', function (tt) {
         t.plan(5);
 
         var src = '(' + function () {
-            var xs = [ 1, 2, [ 3, 4 ] ];
-            var ys = [ 5, 6 ];
-            g([ xs, ys ]);
+            var xs = [1, 2, [3, 4]];
+            var ys = [5, 6];
+            g([xs, ys]);
         } + ')()';
 
         var output = falafel(src, function (node) {
@@ -42,19 +44,19 @@ tap.test('array test', function (tt) {
         });
 
         var arrays = [
-            [ 3, 4 ],
-            [ 1, 2, [ 3, 4 ] ],
-            [ 5, 6 ],
-            [ [ 1, 2, [ 3, 4 ] ], [ 5, 6 ] ],
+            [3, 4],
+            [1, 2, [3, 4]],
+            [5, 6],
+            [[1, 2, [3, 4]], [5, 6]]
         ];
 
-        Function(['fn','g'], output)(
+        Function(['fn', 'g'], output)(
             function (xs) {
                 t.same(arrays.shift(), xs);
                 return xs;
             },
             function (xs) {
-                t.same(xs, [ [ 1, 2, [ 3, 4 ] ], [ 5, 6 ] ]);
+                t.same(xs, [[1, 2, [3, 4]], [5, 6]]);
             }
         );
     });

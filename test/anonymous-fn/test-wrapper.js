@@ -1,3 +1,5 @@
+'use strict';
+
 // Example of wrapper function that would invoke tape
 module.exports = function (testCase) {
     return function (t) {

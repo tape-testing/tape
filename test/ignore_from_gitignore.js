@@ -38,7 +38,7 @@ tap.test('Should pass with ignoring', { skip: process.platform === 'win32' }, fu
         ]);
     };
 
-    var ps = spawn(tapeBin, ['**/*.js', '-i', '.ignore'], {cwd: path.join(__dirname, 'ignore')});
+    var ps = spawn(tapeBin, ['**/*.js', '-i', '.ignore'], { cwd: path.join(__dirname, 'ignore') });
     ps.stdout.pipe(concat(tc));
     ps.on('exit', function (code) {
         tt.equal(code, 0); // code 0
@@ -95,7 +95,7 @@ tap.test('Should pass', { skip: process.platform === 'win32' }, function (tt) {
         ]);
     };
 
-    var ps = spawn(tapeBin, ['**/*.js'], {cwd: path.join(__dirname, 'ignore')});
+    var ps = spawn(tapeBin, ['**/*.js'], { cwd: path.join(__dirname, 'ignore') });
     ps.stdout.pipe(concat(tc));
     ps.on('exit', function (code) {
         tt.equal(code, 1);
@@ -110,10 +110,10 @@ tap.test('Should fail when ignore file does not exist', { skip: process.platform
     };
 
     var testStderr = function (rows) {
-        tt.ok(/^ENOENT[:,] no such file or directory,? (?:open )?'\$TEST\/ignore\/.gitignore'\n$/m.test(stripFullStack(rows.toString('utf8')).join('\n')));
+        tt.ok((/^ENOENT[:,] no such file or directory,? (?:open )?'\$TEST\/ignore\/.gitignore'\n$/m).test(stripFullStack(rows.toString('utf8')).join('\n')));
     };
 
-    var ps = spawn(tapeBin, ['**/*.js', '-i'], {cwd: path.join(__dirname, 'ignore')});
+    var ps = spawn(tapeBin, ['**/*.js', '-i'], { cwd: path.join(__dirname, 'ignore') });
     ps.stdout.pipe(concat(testStdout));
     ps.stderr.pipe(concat(testStderr));
     ps.on('exit', function (code) {

@@ -1,3 +1,5 @@
+'use strict';
+
 var test = require('tap').test;
 var path = require('path');
 var concat = require('concat-stream');
@@ -18,7 +20,7 @@ test(function (t) {
         // This code is unfortunately by necessity highly coupled to node
         // versions, and may require tweaking with future versions of the timers
         // library.
-        function doEnd() { throw new Error(); };
+        function doEnd() { throw new Error(); }
         var to = setTimeout(doEnd, 5000);
         clearTimeout(to);
         to._onTimeout = doEnd;
@@ -27,8 +29,7 @@ test(function (t) {
         var atExpected;
         try {
             to._onTimeout();
-        }
-        catch (e) {
+        } catch (e) {
             stackExpected = stripFullStack(e.stack)[1];
             stackExpected = stackExpected.replace('double_end.js', 'double_end/double.js');
             stackExpected = stackExpected.trim();
