@@ -10,7 +10,7 @@ tap.test('no comment', function (assert) {
     assert.plan(1);
 
     var verify = function (output) {
-        assert.equal(output.toString('utf8'), [
+        assert.deepEqual(output.toString('utf8').split('\n'), [
             'TAP version 13',
             '# no comment',
             '',
@@ -20,7 +20,7 @@ tap.test('no comment', function (assert) {
             '',
             '# ok',
             ''
-        ].join('\n'));
+        ]);
     };
 
     var test = tape.createHarness();

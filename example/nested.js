@@ -7,8 +7,8 @@ test('nested array test', function (t) {
     t.plan(6);
 
     var src = '(' + function () {
-        var xs = [ 1, 2, [ 3, 4 ] ];
-        var ys = [ 5, 6 ];
+        var xs = [1, 2, [3, 4]];
+        var ys = [5, 6];
         g([ xs, ys ]);
     } + ')()';
 

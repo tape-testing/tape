@@ -14,7 +14,7 @@ if (Number(majorVersion) < 8) {
 
 tap.test('async1', function (t) {
     runProgram('async-await', 'async1.js', function (r) {
-        t.same(r.stdout.toString('utf8'), [
+        t.deepEqual(stripFullStack(r.stdout.toString('utf8')), [
             'TAP version 13',
             '# async1',
             'ok 1 before await',
@@ -24,8 +24,10 @@ tap.test('async1', function (t) {
             '# tests 2',
             '# pass  2',
             '',
-            '# ok'
-        ].join('\n') + '\n\n');
+            '# ok',
+            '',
+            ''
+        ]);
         t.same(r.exitCode, 0);
         t.same(r.stderr.toString('utf8'), '');
         t.end();
@@ -39,7 +41,7 @@ tap.test('async2', function (t) {
             return !(/^(\s+)at(\s+)<anonymous>$/).test(line);
         });
 
-        t.same(stripFullStack(lines.join('\n')), [
+        t.deepEqual(stripFullStack(lines.join('\n')), [
             'TAP version 13',
             '# async2',
             'ok 1 before await',
@@ -70,7 +72,7 @@ tap.test('async2', function (t) {
 
 tap.test('async3', function (t) {
     runProgram('async-await', 'async3.js', function (r) {
-        t.same(r.stdout.toString('utf8'), [
+        t.deepEqual(stripFullStack(r.stdout.toString('utf8')), [
             'TAP version 13',
             '# async3',
             'ok 1 before await',
@@ -80,8 +82,10 @@ tap.test('async3', function (t) {
             '# tests 2',
             '# pass  2',
             '',
-            '# ok'
-        ].join('\n') + '\n\n');
+            '# ok',
+            '',
+            ''
+        ]);
         t.same(r.exitCode, 0);
         t.same(r.stderr.toString('utf8'), '');
         t.end();
@@ -90,7 +94,7 @@ tap.test('async3', function (t) {
 
 tap.test('async4', function (t) {
     runProgram('async-await', 'async4.js', function (r) {
-        t.same(stripFullStack(r.stdout.toString('utf8')), [
+        t.deepEqual(stripFullStack(r.stdout.toString('utf8')), [
             'TAP version 13',
             '# async4',
             'ok 1 before await',

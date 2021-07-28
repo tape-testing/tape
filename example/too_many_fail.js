@@ -7,8 +7,8 @@ test('array', function (t) {
     t.plan(3);
 
     var src = '(' + function () {
-        var xs = [ 1, 2, [ 3, 4 ] ];
-        var ys = [ 5, 6 ];
+        var xs = [1, 2, [3, 4]];
+        var ys = [5, 6];
         g([ xs, ys ]);
     } + ')()';
 
@@ -19,10 +19,10 @@ test('array', function (t) {
     });
 
     var arrays = [
-        [ 3, 4 ],
-        [ 1, 2, [ 3, 4 ] ],
-        [ 5, 6 ],
-        [ [ 1, 2, [ 3, 4 ] ], [ 5, 6 ] ]
+        [3, 4],
+        [1, 2, [3, 4]],
+        [5, 6],
+        [[1, 2, [3, 4]], [5, 6]]
     ];
 
     Function(['fn', 'g'], output)(
@@ -31,7 +31,7 @@ test('array', function (t) {
             return xs;
         },
         function (xs) {
-            t.same(xs, [ [ 1, 2, [ 3, 4 ] ], [ 5, 6 ] ]);
+            t.same(xs, [[1, 2, [3, 4]], [5, 6]]);
         }
     );
 });

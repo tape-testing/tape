@@ -3,12 +3,13 @@
 var tap = require('tap');
 var spawn = require('child_process').spawn;
 var concat = require('concat-stream');
+var stripFullStack = require('./common').stripFullStack;
 
 tap.test('requiring a single module', function (t) {
     t.plan(2);
 
     var tc = function (rows) {
-        t.same(rows.toString('utf8'), [
+        t.same(stripFullStack(rows.toString('utf8')), [
             'TAP version 13',
             '# module-a',
             'ok 1 loaded module a',
@@ -20,8 +21,10 @@ tap.test('requiring a single module', function (t) {
             '# tests 3',
             '# pass  3',
             '',
-            '# ok'
-        ].join('\n') + '\n\n');
+            '# ok',
+            '',
+            ''
+        ]);
     };
 
     var ps = tape('-r ./require/a require/test-a.js');

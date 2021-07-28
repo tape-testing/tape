@@ -10,7 +10,7 @@ tap.test('array test', function (tt) {
 
     var test = tape.createHarness();
     var tc = function (rows) {
-        tt.same(rows.toString('utf8'), [
+        tt.same(rows.toString('utf8').split('\n'), [
             'TAP version 13',
             '# nested array test',
             'ok 1 should be deeply equivalent',
@@ -28,8 +28,9 @@ tap.test('array test', function (tt) {
             '# tests 8',
             '# pass  8',
             '',
-            '# ok'
-        ].join('\n') + '\n');
+            '# ok',
+            ''
+        ]);
     };
 
     test.createStream().pipe(concat(tc));
@@ -38,9 +39,9 @@ tap.test('array test', function (tt) {
         t.plan(6);
 
         var src = '(' + function () {
-            var xs = [ 1, 2, [ 3, 4 ] ];
-            var ys = [ 5, 6 ];
-            g([ xs, ys ]);
+            var xs = [1, 2, [3, 4]];
+            var ys = [5, 6];
+            g([xs, ys]);
         } + ')()';
 
         var output = falafel(src, function (node) {
@@ -59,10 +60,10 @@ tap.test('array test', function (tt) {
         });
 
         var arrays = [
-            [ 3, 4 ],
-            [ 1, 2, [ 3, 4 ] ],
-            [ 5, 6 ],
-            [ [ 1, 2, [ 3, 4 ] ], [ 5, 6 ] ]
+            [3, 4],
+            [1, 2, [3, 4]],
+            [5, 6],
+            [[1, 2, [3, 4]], [5, 6]]
         ];
 
         Function(['fn', 'g'], output)(
@@ -71,7 +72,7 @@ tap.test('array test', function (tt) {
                 return xs;
             },
             function (xs) {
-                t.same(xs, [ [ 1, 2, [ 3, 4 ] ], [ 5, 6 ] ]);
+                t.same(xs, [[1, 2, [3, 4]], [5, 6]]);
             }
         );
     });

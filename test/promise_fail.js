@@ -81,7 +81,7 @@ tap.test('subtest callback returning rejected promise should cause that subtest 
             .replace(/.+at (?:Test\.)?<anonymous>\n.+\[\.\.\. stack stripped \.\.\.\]\n/, '')
             .replace(/(?:(.+)\[\.\.\. stack stripped \.\.\.\]\n)+/g, '$1[... stack stripped ...]\n');
 
-        tt.same(strippedString, [
+        tt.same(stripFullStack(strippedString), [
             'TAP version 13',
             '# promise',
             '# sub test that should fail',
@@ -102,6 +102,6 @@ tap.test('subtest callback returning rejected promise should cause that subtest 
             '# fail  1',
             '',
             ''
-        ].join('\n'));
+        ]);
     }));
 });
