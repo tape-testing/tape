@@ -50,7 +50,7 @@
         "eclint": "^2.8.1",
         "ecstatic": "^4.1.4",
         "es-value-fixtures": "^1.2.1",
-        "eslint": "^7.31.0",
+        "eslint": "^7.32.0",
         "falafel": "^2.2.4",
         "js-yaml": "^3.14.0",
         "safe-publish-latest": "^1.1.4",
