@@ -2,12 +2,7 @@
 
 'use strict';
 
-var resolveModule = require('resolve').sync;
-var resolvePath = require('path').resolve;
-var readFileSync = require('fs').readFileSync;
 var parseOpts = require('minimist');
-var glob = require('glob');
-var ignore = require('dotignore');
 
 var opts = parseOpts(process.argv.slice(2), {
     alias: { r: 'require', i: 'ignore' },
@@ -21,22 +16,31 @@ if (typeof opts.require === 'string') {
     opts.require = [opts.require];
 }
 
+var resolveModule;
 opts.require.forEach(function (module) {
     if (module) {
+        if (!resolveModule) { resolveModule = require('resolve').sync; }
         // This check ensures we ignore `-r ""`, trailing `-r`, or other silly things the user might (inadvertently) be doing.
         require(resolveModule(module, { basedir: cwd }));
     }
 });
 
+var resolvePath = require('path').resolve;
+
+var matcher;
 if (typeof opts.ignore === 'string') {
+    var readFileSync = require('fs').readFileSync;
     try {
         var ignoreStr = readFileSync(resolvePath(cwd, opts.ignore || '.gitignore'), 'utf-8');
     } catch (e) {
         console.error(e.message);
         process.exit(2);
     }
-    var matcher = ignore.createMatcher(ignoreStr);
+    var ignore = require('dotignore');
+    matcher = ignore.createMatcher(ignoreStr);
 }
+
+var glob = require('glob');
 
 opts._.forEach(function (arg) {
     // If glob does not match, `files` will be an empty array. Note: `glob.sync` may throw an error and crash the node process.
