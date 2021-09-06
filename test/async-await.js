@@ -12,6 +12,13 @@ if (Number(majorVersion) < 8) {
     process.exit(0); // eslint-disable-line no-process-exit
 }
 
+var lengthMessage = 'Cannot read property \'length\' of null';
+try {
+    lengthMessage = null.length;
+} catch (e) {
+    lengthMessage = e.message; // differs in v8 6.9+ (node 16.9+)
+}
+
 tap.test('async1', function (t) {
     runProgram('async-await', 'async1.js', function (r) {
         t.deepEqual(stripFullStack(r.stdout.toString('utf8')), [
@@ -267,11 +274,11 @@ tap.test('async-bug', function (t) {
             '# async-error',
             'ok 1 before throw',
             'ok 2 should be strictly equal',
-            'not ok 3 TypeError: Cannot read property \'length\' of null',
+            'not ok 3 TypeError: ' + lengthMessage,
             '  ---',
             '    operator: error',
             '    stack: |-',
-            '      TypeError: Cannot read property \'length\' of null',
+            '      TypeError: ' + lengthMessage,
             '          at myCode ($TEST/async-await/async-bug.js:$LINE:$COL)',
             '          at Test.myTest ($TEST/async-await/async-bug.js:$LINE:$COL)',
             '  ...',
