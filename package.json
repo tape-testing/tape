@@ -43,7 +43,7 @@
         "through": "^2.3.8"
     },
     "devDependencies": {
-        "@ljharb/eslint-config": "^17.6.0",
+        "@ljharb/eslint-config": "^18.0.0",
         "array.prototype.flatmap": "^1.2.4",
         "aud": "^1.1.5",
         "concat-stream": "^1.6.2",

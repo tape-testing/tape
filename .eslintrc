@@ -111,6 +111,7 @@
                 "max-lines-per-function": "off",
                 "no-plusplus": "off",
                 "no-throw-literal": "off",
+                "sort-keys": "off",
             },
         },
         {
