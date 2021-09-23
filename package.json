@@ -31,7 +31,7 @@
         "dotignore": "^0.1.2",
         "for-each": "^0.3.3",
         "get-package-type": "^0.1.0",
-        "glob": "^7.1.7",
+        "glob": "^7.2.0",
         "has": "^1.0.3",
         "has-dynamic-import": "^2.0.0",
         "inherits": "^2.0.4",
