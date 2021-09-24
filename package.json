@@ -57,6 +57,7 @@
         "falafel": "^2.2.4",
         "js-yaml": "^3.14.0",
         "safe-publish-latest": "^1.1.4",
+        "signal-exit": "=3.0.3",
         "tap": "^8.0.1",
         "tap-parser": "^3.0.5"
     },
