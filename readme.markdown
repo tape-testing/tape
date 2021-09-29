@@ -1,9 +1,15 @@
-# tape
+# tape <sup>[![Version Badge][npm-version-svg][package-url]]</sup>
 
 tap-producing test harness for node and browsers
 
 [![github actions][actions-image]][actions-url]
 [![coverage][codecov-image]][codecov-url]
+[![dependency status][deps-svg]][deps-url]
+[![dev dependency status][dev-deps-svg]][dev-deps-url]
+[![License][license-image]][license-url]
+[![Downloads][downloads-image]][downloads-url]
+
+[![npm badge][npm-badge-png]][package-url]
 
 ![tape](https://web.archive.org/web/20170612184731if_/http://substack.net/images/tape_drive.png)
 
@@ -44,19 +50,16 @@ not ok 2 should be equal
 
 # usage
 
-You always need to `require('tape')` in test files. You can run the tests by
-usual node means (`require('test-file.js')` or `node test-file.js`). You can
-also run tests using the `tape` binary to utilize globbing, on Windows for
-example:
+You always need to `require('tape')` in test files.
+You can run the tests by usual node means (`require('test-file.js')` or `node test-file.js`).
+You can also run tests using the `tape` binary to utilize globbing, on Windows for example:
 
 ```sh
 $ tape tests/**/*.js
 ```
 
-`tape`'s arguments are passed to the
-[`glob`](https://www.npmjs.com/package/glob) module. If you want `glob` to
-perform the expansion on a system where the shell performs such expansion, quote
-the arguments as necessary:
+`tape`'s arguments are passed to the [`glob`](https://www.npmjs.com/package/glob) module.
+If you want `glob` to perform the expansion on a system where the shell performs such expansion, quote the arguments as necessary:
 
 ```sh
 $ tape 'tests/**/*.js'
@@ -91,8 +94,7 @@ Please note that all modules loaded using the `-r` flag will run *before* any te
 
 The default TAP output is good for machines and humans that are robots.
 
-If you want a more colorful / pretty output there are lots of modules on npm
-that will output something pretty if you pipe TAP into them:
+If you want a more colorful / pretty output there are lots of modules on npm that will output something pretty if you pipe TAP into them:
 
 - [tap-spec](https://github.com/scottcorgan/tap-spec)
 - [tap-dot](https://github.com/scottcorgan/tap-dot)
@@ -118,9 +120,9 @@ that will output something pretty if you pipe TAP into them:
 - [tap-nyc](https://github.com/MegaArman/tap-nyc)
 - [tap-spec (emoji patch)](https://github.com/Sceat/tap-spec-emoji)
 - [tape-repeater](https://github.com/rgruesbeck/tape-repeater)
+- [tabe](https://github.com/Josenzo/tabe)
 
-To use them, try `node test/index.js | tap-spec` or pipe it into one
-of the modules of your choice!
+To use them, try `node test/index.js | tap-spec` or pipe it into one of the modules of your choice!
 
 ## uncaught exceptions
 
@@ -139,8 +141,7 @@ By default, uncaught exceptions in your tests will not be intercepted, and will 
 
 # methods
 
-The assertion methods in `tape` are heavily influenced or copied from the methods
-in [node-tap](https://github.com/isaacs/node-tap).
+The assertion methods in `tape` are heavily influenced or copied from the methods in [node-tap](https://github.com/isaacs/node-tap).
 
 ```js
 var test = require('tape')
@@ -149,8 +150,7 @@ var test = require('tape')
 ## test([name], [opts], cb)
 
 Create a new test with an optional `name` string and optional `opts` object.
-`cb(t)` fires with the new test object `t` once all preceding tests have
-finished. Tests execute serially.
+`cb(t)` fires with the new test object `t` once all preceding tests have finished. Tests execute serially.
 
 Available `opts` options are:
 - opts.skip = true/false. See test.skip.
@@ -158,36 +158,38 @@ Available `opts` options are:
 - opts.objectPrintDepth = 5. Configure max depth of expected / actual object printing. Environmental variable `NODE_TAPE_OBJECT_PRINT_DEPTH` can set the desired default depth for all tests; locally-set values will take precedence.
 - opts.todo = true/false. Test will be allowed to fail.
 
-If you forget to `t.plan()` out how many assertions you are going to run and you
-don't call `t.end()` explicitly, your test will hang.
+If you forget to `t.plan()` out how many assertions you are going to run and you don't call `t.end()` explicitly, your test will hang.
 
 ## test.skip([name], [opts], cb)
 
 Generate a new test that will be skipped over.
 
-## test.teardown(cb)
-
-Register a callback to run after the individual test has completed. Multiple registered teardown callbacks will run in order. Useful for undoing side effects, closing network connections, etc.
-
 ## test.onFinish(fn)
 
-The onFinish hook will get invoked when ALL `tape` tests have finished
-right before `tape` is about to print the test summary.
+The onFinish hook will get invoked when ALL `tape` tests have finished right before `tape` is about to print the test summary.
+
+`fn` is called with no arguments, and its return value is ignored.
 
 ## test.onFailure(fn)
 
 The onFailure hook will get invoked whenever any `tape` tests has failed.
 
+`fn` is called with no arguments, and its return value is ignored.
+
 ## t.plan(n)
 
-Declare that `n` assertions should be run. `t.end()` will be called
-automatically after the `n`th assertion. If there are any more assertions after
-the `n`th, or after `t.end()` is called, they will generate errors.
+Declare that `n` assertions should be run. `t.end()` will be called automatically after the `n`th assertion.
+If there are any more assertions after the `n`th, or after `t.end()` is called, they will generate errors.
 
 ## t.end(err)
 
-Declare the end of a test explicitly. If `err` is passed in `t.end` will assert
-that it is falsey.
+Declare the end of a test explicitly. If `err` is passed in `t.end` will assert that it is falsy.
+
+Do not call `t.end()` if your test callback returns a Promise.
+
+## t.teardown(cb)
+
+Register a callback to run after the individual test has completed. Multiple registered teardown callbacks will run in order. Useful for undoing side effects, closing network connections, etc.
 
 ## t.fail(msg)
 
@@ -219,8 +221,7 @@ Aliases: `t.false()`, `t.notok()`
 
 ## t.error(err, msg)
 
-Assert that `err` is falsy. If `err` is non-falsy, use its `err.message` as the
-description message.
+Assert that `err` is falsy. If `err` is non-falsy, use its `err.message` as the description message.
 
 Aliases: `t.ifError()`, `t.ifErr()`, `t.iferror()`
 
@@ -266,9 +267,7 @@ Aliases: `t.looseEqual()`, `t.looseEquals()`
 
 ## t.notDeepLooseEqual(actual, expected, msg)
 
-Assert that `actual` and `expected` do not have the same structure and nested values using
-[node's deepEqual() algorithm](https://github.com/substack/node-deep-equal)
-with loose comparisons (`==`) on leaf nodes and an optional description of the assertion `msg`.
+Assert that `actual` and `expected` do not have the same structure and nested values using [node's deepEqual() algorithm](https://github.com/substack/node-deep-equal) with loose comparisons (`==`) on leaf nodes and an optional description of the assertion `msg`.
 
 Aliases: `t.notLooseEqual()`, `t.notLooseEquals()`
 
@@ -319,19 +318,21 @@ Please note that the second parameter, `expected`, cannot be of type `string`. I
 
 ## t.doesNotThrow(fn, expected, msg)
 
-Assert that the function call `fn()` does not throw an exception. `expected`, if present, limits what should not be thrown. For example, set `expected` to `/user/` to fail the test only if the string representation of the exception contains the word `user`. Any other exception would pass the test. If `expected` is omitted, any exception will fail the test. `msg` is an optional description of the assertion.
+Assert that the function call `fn()` does not throw an exception. `expected`, if present, limits what should not be thrown, and must be a `RegExp` or `Function`. The `RegExp` matches the string representation of the exception, as generated by `err.toString()`. For example, if you set `expected` to `/user/`, the test will fail  only if the string representation of the exception contains the word `user`. Any other exception will result in a passed test.  The `Function` is the exception thrown (e.g. `Error`).  If `expected` is not of type `RegExp` or `Function`, or omitted entirely, any exception will result in a failed test. `msg` is an optional description of the assertion.
+
+Please note that the second parameter, `expected`, cannot be of type `string`. If a value of type `string` is provided for `expected`, then `t.doesNotThrows(fn, expected, msg)`  will execute, but the value of `expected` will be set to  `undefined`, and the specified string will be set as the value for the `msg` parameter (regardless of what _actually_ passed as the third parameter). This can cause unexpected results, so please be mindful.
 
 ## t.test(name, [opts], cb)
 
-Create a subtest with a new test handle `st` from `cb(st)` inside the current
-test `t`. `cb(st)` will only fire when `t` finishes. Additional tests queued up
-after `t` will not be run until all subtests finish.
+Create a subtest with a new test handle `st` from `cb(st)` inside the current test `t`. `cb(st)` will only fire when `t` finishes. Additional tests queued up after `t` will not be run until all subtests finish.
 
 You may pass the same options that [`test()`](#testname-opts-cb) accepts.
 
 ## t.comment(message)
 
 Print a message without breaking the tap output. (Useful when using e.g. `tap-colorize` where output is buffered & `console.log` will print in incorrect order vis-a-vis tap output.)
+
+Multiline output will be split by `\n` characters, and each one printed as a comment.
 
 ## t.match(string, regexp, message)
 
@@ -343,25 +344,17 @@ Assert that `string` does not match the RegExp `regexp`. Will throw (not just fa
 
 ## var htest = test.createHarness()
 
-Create a new test harness instance, which is a function like `test()`, but with
-a new pending stack and test state.
+Create a new test harness instance, which is a function like `test()`, but with a new pending stack and test state.
 
-By default the TAP output goes to `console.log()`. You can pipe the output to
-someplace else if you `htest.createStream().pipe()` to a destination stream on
-the first tick.
+By default the TAP output goes to `console.log()`. You can pipe the output to someplace else if you `htest.createStream().pipe()` to a destination stream on the first tick.
 
 ## test.only([name], [opts], cb)
 
-Like `test([name], [opts], cb)` except if you use `.only` this is the only test case
-that will run for the entire process, all other test cases using `tape` will
-be ignored.
+Like `test([name], [opts], cb)` except if you use `.only` this is the only test case that will run for the entire process, all other test cases using `tape` will be ignored.
 
 ## var stream = test.createStream(opts)
 
-Create a stream of output, bypassing the default output stream that writes
-messages to `console.log()`. By default `stream` will be a text stream of TAP
-output, but you can get an object stream instead by setting `opts.objectMode` to
-`true`.
+Create a stream of output, bypassing the default output stream that writes messages to `console.log()`. By default `stream` will be a text stream of TAP output, but you can get an object stream instead by setting `opts.objectMode` to `true`.
 
 ### tap stream reporter
 
@@ -378,8 +371,7 @@ process.argv.slice(2).forEach(function (file) {
 });
 ```
 
-You could substitute `process.stdout` for whatever other output stream you want,
-like a network connection or a file.
+You could substitute `process.stdout` for whatever other output stream you want, like a network connection or a file.
 
 Pass in test files to run as arguments:
 
@@ -460,10 +452,89 @@ With [npm](https://npmjs.org) do:
 npm install tape --save-dev
 ```
 
+# troubleshooting
+
+Sometimes `t.end()` doesn’t preserve the expected output ordering.
+
+For instance the following:
+
+```js
+var test = require('tape');
+
+test('first', function (t) {
+
+  setTimeout(function () {
+    t.ok(1, 'first test');
+    t.end();
+  }, 200);
+
+  t.test('second', function (t) {
+    t.ok(1, 'second test');
+    t.end();
+  });
+});
+
+test('third', function (t) {
+  setTimeout(function () {
+    t.ok(1, 'third test');
+    t.end();
+  }, 100);
+});
+```
+
+will output:
+
+```
+ok 1 second test
+ok 2 third test
+ok 3 first test
+```
+
+because `second` and `third` assume `first` has ended before it actually does.
+
+Use `t.plan()` instead to let other tests know they should wait:
+
+```diff
+var test = require('tape');
+
+test('first', function (t) {
+
++  t.plan(2);
+
+  setTimeout(function () {
+    t.ok(1, 'first test');
+-    t.end();
+  }, 200);
+
+  t.test('second', function (t) {
+    t.ok(1, 'second test');
+    t.end();
+  });
+});
+
+test('third', function (t) {
+  setTimeout(function () {
+    t.ok(1, 'third test');
+    t.end();
+  }, 100);
+});
+```
+
 # license
 
 MIT
 
+[package-url]: https://npmjs.org/package/tape
+[npm-version-svg]: https://versionbadg.es/substack/tape.svg
+[deps-svg]: https://david-dm.org/substack/tape.svg
+[deps-url]: https://david-dm.org/substack/tape
+[dev-deps-svg]: https://david-dm.org/substack/tape/dev-status.svg
+[dev-deps-url]: https://david-dm.org/substack/tape#info=devDependencies
+[npm-badge-png]: https://nodei.co/npm/tape.png?downloads=true&stars=true
+[license-image]: https://img.shields.io/npm/l/tape.svg
+[license-url]: LICENSE
+[downloads-image]: https://img.shields.io/npm/dm/tape.svg
+[downloads-url]: https://npm-stat.com/charts.html?package=tape
 [codecov-image]: https://codecov.io/gh/substack/tape/branch/master/graphs/badge.svg
 [codecov-url]: https://app.codecov.io/gh/substack/tape/
 [actions-image]: https://img.shields.io/endpoint?url=https://github-actions-badge-u3jn4tfpocch.runkit.sh/substack/tape
