@@ -12,6 +12,8 @@ if (Number(majorVersion) < 8) {
     process.exit(0); // eslint-disable-line no-process-exit
 }
 
+var node17 = Number(majorVersion) >= 17;
+
 var lengthMessage = 'Cannot read property \'length\' of null';
 try {
     lengthMessage = null.length;
@@ -201,7 +203,7 @@ tap.test('sync-error', function (t) {
         });
         stderr = lines.join('\n');
 
-        t.same(stripFullStack(stderr), [
+        t.same(stripFullStack(stderr), [].concat(
             '$TEST/async-await/sync-error.js:7',
             '    throw new Error(\'oopsie\');',
             '    ^',
@@ -211,8 +213,12 @@ tap.test('sync-error', function (t) {
             '    at Test.bound [as _cb] ($TAPE/lib/test.js:$LINE:$COL)',
             '    at Test.run ($TAPE/lib/test.js:$LINE:$COL)',
             '    at Test.bound [as run] ($TAPE/lib/test.js:$LINE:$COL)',
+            node17 ? [
+                '',
+                'Node.js ' + process.version
+            ] : [],
             ''
-        ]);
+        ));
         t.end();
     });
 });
