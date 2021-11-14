@@ -150,7 +150,8 @@ var test = require('tape')
 ## test([name], [opts], cb)
 
 Create a new test with an optional `name` string and optional `opts` object.
-`cb(t)` fires with the new test object `t` once all preceding tests have finished. Tests execute serially.
+`cb(t)` fires with the new test object `t` once all preceding tests have finished.
+Tests execute serially.
 
 Available `opts` options are:
 - opts.skip = true/false. See test.skip.
@@ -241,17 +242,13 @@ Aliases: `t.notEquals()`, `t.notStrictEqual()`, `t.notStrictEquals()`,
 
 ## t.deepEqual(actual, expected, msg)
 
-Assert that `actual` and `expected` have the same structure and nested values using
-[node's deepEqual() algorithm](https://github.com/substack/node-deep-equal)
-with strict comparisons (`===`) on leaf nodes and an optional description of the assertion `msg`.
+Assert that `actual` and `expected` have the same structure and nested values using [node's deepEqual() algorithm](https://github.com/substack/node-deep-equal) with strict comparisons (`===`) on leaf nodes and an optional description of the assertion `msg`.
 
 Aliases: `t.deepEquals()`, `t.isEquivalent()`, `t.same()`
 
 ## t.notDeepEqual(actual, expected, msg)
 
-Assert that `actual` and `expected` do not have the same structure and nested values using
-[node's deepEqual() algorithm](https://github.com/substack/node-deep-equal)
-with strict comparisons (`===`) on leaf nodes and an optional description of the assertion `msg`.
+Assert that `actual` and `expected` do not have the same structure and nested values using [node's deepEqual() algorithm](https://github.com/substack/node-deep-equal) with strict comparisons (`===`) on leaf nodes and an optional description of the assertion `msg`.
 
 Aliases: `t.notDeepEquals`, `t.notEquivalent()`, `t.notDeeply()`, `t.notSame()`,
 `t.isNotDeepEqual()`, `t.isNotDeeply()`, `t.isNotEquivalent()`,
@@ -259,9 +256,7 @@ Aliases: `t.notDeepEquals`, `t.notEquivalent()`, `t.notDeeply()`, `t.notSame()`,
 
 ## t.deepLooseEqual(actual, expected, msg)
 
-Assert that `actual` and `expected` have the same structure and nested values using
-[node's deepEqual() algorithm](https://github.com/substack/node-deep-equal)
-with loose comparisons (`==`) on leaf nodes and an optional description of the assertion `msg`.
+Assert that `actual` and `expected` have the same structure and nested values using [node's deepEqual() algorithm](https://github.com/substack/node-deep-equal) with loose comparisons (`==`) on leaf nodes and an optional description of the assertion `msg`.
 
 Aliases: `t.looseEqual()`, `t.looseEquals()`
 
