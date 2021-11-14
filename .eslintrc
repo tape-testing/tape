@@ -1,10 +1,13 @@
 {
     "root": true,
+    "extends": "@ljharb",
     "env": {
         "browser": true,
         "node": true,
     },
-    "extends": "@ljharb",
+    "parserOptions": {
+        "ecmaVersion": 5,
+    },
     "globals": {
         "Promise": false,
     },
