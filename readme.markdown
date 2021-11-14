@@ -55,10 +55,8 @@ not ok 2 should be strictly equal
 
 # usage
 
-You always need to `require('tape')` in test files. You can run the tests by
-usual node means (`require('test-file.js')` or `node test-file.js`). You can
-also run tests using the `tape` binary to utilize globbing, on Windows for
-example:
+You always need to `require('tape')` in test files. You can run the tests by usual node means (`require('test-file.js')` or `node test-file.js`).
+You can also run tests using the `tape` binary to utilize globbing, on Windows for example:
 
 ```sh
 $ tape tests/**/*.js
@@ -102,8 +100,7 @@ Please note that all modules loaded using the `-r` flag will run *before* any te
 
 The default TAP output is good for machines and humans that are robots.
 
-If you want a more colorful / pretty output there are lots of modules on npm
-that will output something pretty if you pipe TAP into them:
+If you want a more colorful / pretty output there are lots of modules on npm that will output something pretty if you pipe TAP into them:
 
 - [tap-spec](https://github.com/scottcorgan/tap-spec)
 - [tap-dot](https://github.com/scottcorgan/tap-dot)
@@ -131,8 +128,7 @@ that will output something pretty if you pipe TAP into them:
 - [tape-repeater](https://github.com/rgruesbeck/tape-repeater)
 - [tabe](https://github.com/Josenzo/tabe)
 
-To use them, try `node test/index.js | tap-spec` or pipe it into one
-of the modules of your choice!
+To use them, try `node test/index.js | tap-spec` or pipe it into one of the modules of your choice!
 
 ## uncaught exceptions
 
@@ -150,8 +146,7 @@ By default, uncaught exceptions in your tests will not be intercepted, and will 
 
 # methods
 
-The assertion methods in `tape` are heavily influenced or copied from the methods
-in [node-tap](https://github.com/isaacs/node-tap).
+The assertion methods in `tape` are heavily influenced or copied from the methods in [node-tap](https://github.com/isaacs/node-tap).
 
 ```js
 var test = require('tape')
@@ -160,8 +155,8 @@ var test = require('tape')
 ## test([name], [opts], cb)
 
 Create a new test with an optional `name` string and optional `opts` object.
-`cb(t)` fires with the new test object `t` once all preceding tests have
-finished. Tests execute serially.
+`cb(t)` fires with the new test object `t` once all preceding tests have finished.
+Tests execute serially.
 
 Available `opts` options are:
 - opts.skip = true/false. See test.skip.
@@ -191,9 +186,8 @@ The onFailure hook will get invoked whenever any `tape` tests has failed.
 
 ## t.plan(n)
 
-Declare that `n` assertions should be run. `t.end()` will be called
-automatically after the `n`th assertion. If there are any more assertions after
-the `n`th, or after `t.end()` is called, they will generate errors.
+Declare that `n` assertions should be run. `t.end()` will be called automatically after the `n`th assertion.
+If there are any more assertions after the `n`th, or after `t.end()` is called, they will generate errors.
 
 ## t.end(err)
 
@@ -265,17 +259,13 @@ Aliases: `t.notLooseEquals()`
 
 ## t.deepEqual(actual, expected, msg)
 
-Assert that `actual` and `expected` have the same structure and nested values using
-[node's deepEqual() algorithm](https://github.com/substack/node-deep-equal)
-with strict comparisons (`===`) on leaf nodes and an optional description of the assertion `msg`.
+Assert that `actual` and `expected` have the same structure and nested values using [node's deepEqual() algorithm](https://github.com/substack/node-deep-equal) with strict comparisons (`===`) on leaf nodes and an optional description of the assertion `msg`.
 
 Aliases: `t.deepEquals()`, `t.isEquivalent()`, `t.same()`
 
 ## t.notDeepEqual(actual, expected, msg)
 
-Assert that `actual` and `expected` do not have the same structure and nested values using
-[node's deepEqual() algorithm](https://github.com/substack/node-deep-equal)
-with strict comparisons (`===`) on leaf nodes and an optional description of the assertion `msg`.
+Assert that `actual` and `expected` do not have the same structure and nested values using [node's deepEqual() algorithm](https://github.com/substack/node-deep-equal) with strict comparisons (`===`) on leaf nodes and an optional description of the assertion `msg`.
 
 Aliases: `t.notDeepEquals`, `t.notEquivalent()`, `t.notDeeply()`, `t.notSame()`,
 `t.isNotDeepEqual()`, `t.isNotDeeply()`, `t.isNotEquivalent()`,
@@ -283,15 +273,11 @@ Aliases: `t.notDeepEquals`, `t.notEquivalent()`, `t.notDeeply()`, `t.notSame()`,
 
 ## t.deepLooseEqual(actual, expected, msg)
 
-Assert that `actual` and `expected` have the same structure and nested values using
-[node's deepEqual() algorithm](https://github.com/substack/node-deep-equal)
-with loose comparisons (`==`) on leaf nodes and an optional description of the assertion `msg`.
+Assert that `actual` and `expected` have the same structure and nested values using [node's deepEqual() algorithm](https://github.com/substack/node-deep-equal) with loose comparisons (`==`) on leaf nodes and an optional description of the assertion `msg`.
 
 ## t.notDeepLooseEqual(actual, expected, msg)
 
-Assert that `actual` and `expected` do not have the same structure and nested values using
-[node's deepEqual() algorithm](https://github.com/substack/node-deep-equal)
-with loose comparisons (`==`) on leaf nodes and an optional description of the assertion `msg`.
+Assert that `actual` and `expected` do not have the same structure and nested values using [node's deepEqual() algorithm](https://github.com/substack/node-deep-equal) with loose comparisons (`==`) on leaf nodes and an optional description of the assertion `msg`.
 
 Aliases: `t.notLooseEqual()`, `t.notLooseEquals()`
 
@@ -345,6 +331,7 @@ Please note that the second parameter, `expected`, cannot be of type `string`. I
 Assert that the function call `fn()` does not throw an exception. `expected`, if present, limits what should not be thrown, and must be a `RegExp` or `Function`. The `RegExp` matches the string representation of the exception, as generated by `err.toString()`. For example, if you set `expected` to `/user/`, the test will fail  only if the string representation of the exception contains the word `user`. Any other exception will result in a passed test.  The `Function` is the exception thrown (e.g. `Error`).  If `expected` is not of type `RegExp` or `Function`, or omitted entirely, any exception will result in a failed test. `msg` is an optional description of the assertion.
 
 Please note that the second parameter, `expected`, cannot be of type `string`. If a value of type `string` is provided for `expected`, then `t.doesNotThrows(fn, expected, msg)`  will execute, but the value of `expected` will be set to  `undefined`, and the specified string will be set as the value for the `msg` parameter (regardless of what _actually_ passed as the third parameter). This can cause unexpected results, so please be mindful.
+
 ## t.test(name, [opts], cb)
 
 Create a subtest with a new test handle `st` from `cb(st)` inside the current test `t`. `cb(st)` will only fire when `t` finishes. Additional tests queued up after `t` will not be run until all subtests finish.
