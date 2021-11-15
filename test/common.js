@@ -45,7 +45,7 @@ var stripChangingData = function (line) {
 
 module.exports.stripFullStack = function (output) {
     var stripped = '          [... stack stripped ...]';
-    var withDuplicates = output.split('\n').map(stripChangingData).map(function (line) {
+    var withDuplicates = output.split(/\r?\n/g).map(stripChangingData).map(function (line) {
         var m = line.match(/[ ]{8}at .*\((.*)\)/);
 
         if (m && m[1].slice(0, 5) !== '$TEST') {
@@ -73,7 +73,7 @@ module.exports.stripFullStack = function (output) {
         'at$1 $2<anonymous>'
     ).replace(
         // Handle stack trace variation in Node v0.8
-        /(\[\.\.\. stack stripped \.\.\.\]\n *at) <anonymous> \(([^)]+)\)/g,
+        /(\[\.\.\. stack stripped \.\.\.\]\r?\n *at) <anonymous> \(([^)]+)\)/g,
         '$1 $2'
-    ).split('\n');
+    ).split(/\r?\n/g);
 };
