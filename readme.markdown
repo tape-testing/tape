@@ -331,11 +331,11 @@ Multiline output will be split by `\n` characters, and each one printed as a com
 
 ## t.match(string, regexp, message)
 
-Assert that `string` matches the RegExp `regexp`. Will throw (not just fail) when the first two arguments are the wrong type.
+Assert that `string` matches the RegExp `regexp`. Will fail when the first two arguments are the wrong type.
 
 ## t.doesNotMatch(string, regexp, message)
 
-Assert that `string` does not match the RegExp `regexp`. Will throw (not just fail) when the first two arguments are the wrong type.
+Assert that `string` does not match the RegExp `regexp`. Will fail when the first two arguments are the wrong type.
 
 ## var htest = test.createHarness()
 
