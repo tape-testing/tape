@@ -14,9 +14,55 @@ tap.test('match', function (tt) {
         tt.same(stripFullStack(rows.toString('utf8')), [
             'TAP version 13',
             '# match',
-            'ok 1 regex arg must be a regex',
-            'ok 2 string arg must be a string',
-            'not ok 3 The input did not match the regular expression /abc/. Input: \'string\'',
+            'not ok 1 The "regexp" argument must be an instance of RegExp. Received type string (\'string\')',
+            '  ---',
+            '    operator: match',
+            '    expected: \'[object RegExp]\'',
+            '    actual:   \'[object String]\'',
+            '    at: Test.<anonymous> ($TEST/match.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: The "regexp" argument must be an instance of RegExp. Received type string (\'string\')',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/match.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 2 regex arg must not be a string',
+            '  ---',
+            '    operator: match',
+            '    expected: \'[object RegExp]\'',
+            '    actual:   \'[object String]\'',
+            '    at: Test.<anonymous> ($TEST/match.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: regex arg must not be a string',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/match.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 3 The "string" argument must be of type string. Received type object ({ abc: 123 })',
+            '  ---',
+            '    operator: match',
+            '    expected: \'string\'',
+            '    actual:   \'object\'',
+            '    at: Test.<anonymous> ($TEST/match.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: The "string" argument must be of type string. Received type object ({ abc: 123 })',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/match.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 4 string arg must not be an object',
+            '  ---',
+            '    operator: match',
+            '    expected: \'string\'',
+            '    actual:   \'object\'',
+            '    at: Test.<anonymous> ($TEST/match.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: string arg must not be an object',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/match.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 5 The input did not match the regular expression /abc/. Input: \'string\'',
             '  ---',
             '    operator: match',
             '    expected: /abc/',
@@ -28,7 +74,7 @@ tap.test('match', function (tt) {
             '          at Test.<anonymous> ($TEST/match.js:$LINE:$COL)',
             '          [... stack stripped ...]',
             '  ...',
-            'not ok 4 "string" does not match /abc/',
+            'not ok 6 "string" does not match /abc/',
             '  ---',
             '    operator: match',
             '    expected: /abc/',
@@ -40,13 +86,13 @@ tap.test('match', function (tt) {
             '          at Test.<anonymous> ($TEST/match.js:$LINE:$COL)',
             '          [... stack stripped ...]',
             '  ...',
-            'ok 5 The input matched the regular expression /pass$/. Input: \'I will pass\'',
-            'ok 6 "I will pass" matches /pass$/',
+            'ok 7 The input matched the regular expression /pass$/. Input: \'I will pass\'',
+            'ok 8 "I will pass" matches /pass$/',
             '',
-            '1..6',
-            '# tests 6',
-            '# pass  4',
-            '# fail  2',
+            '1..8',
+            '# tests 8',
+            '# pass  2',
+            '# fail  6',
             ''
         ]);
     };
@@ -54,19 +100,13 @@ tap.test('match', function (tt) {
     test.createStream().pipe(concat(tc));
 
     test('match', function (t) {
-        t.plan(6);
+        t.plan(8);
 
-        t.throws(
-            function () { t.match(/abc/, 'string'); },
-            TypeError,
-            'regex arg must be a regex'
-        );
+        t.match(/abc/, 'string');
+        t.match(/abc/, 'string', 'regex arg must not be a string');
 
-        t.throws(
-            function () { t.match({ abc: 123 }, /abc/); },
-            TypeError,
-            'string arg must be a string'
-        );
+        t.match({ abc: 123 }, /abc/);
+        t.match({ abc: 123 }, /abc/, 'string arg must not be an object');
 
         t.match('string', /abc/);
         t.match('string', /abc/, '"string" does not match /abc/');
@@ -86,9 +126,55 @@ tap.test('doesNotMatch', function (tt) {
         tt.same(stripFullStack(rows.toString('utf8')), [
             'TAP version 13',
             '# doesNotMatch',
-            'ok 1 regex arg must be a regex',
-            'ok 2 string arg must be a string',
-            'not ok 3 The input was expected to not match the regular expression /string/. Input: \'string\'',
+            'not ok 1 The "regexp" argument must be an instance of RegExp. Received type string (\'string\')',
+            '  ---',
+            '    operator: doesNotMatch',
+            '    expected: \'[object RegExp]\'',
+            '    actual:   \'[object String]\'',
+            '    at: Test.<anonymous> ($TEST/match.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: The "regexp" argument must be an instance of RegExp. Received type string (\'string\')',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/match.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 2 regex arg must not be a string',
+            '  ---',
+            '    operator: doesNotMatch',
+            '    expected: \'[object RegExp]\'',
+            '    actual:   \'[object String]\'',
+            '    at: Test.<anonymous> ($TEST/match.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: regex arg must not be a string',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/match.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 3 The "string" argument must be of type string. Received type object ({ abc: 123 })',
+            '  ---',
+            '    operator: doesNotMatch',
+            '    expected: \'string\'',
+            '    actual:   \'object\'',
+            '    at: Test.<anonymous> ($TEST/match.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: The "string" argument must be of type string. Received type object ({ abc: 123 })',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/match.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 4 string arg must not be an object',
+            '  ---',
+            '    operator: doesNotMatch',
+            '    expected: \'string\'',
+            '    actual:   \'object\'',
+            '    at: Test.<anonymous> ($TEST/match.js:$LINE:$COL)',
+            '    stack: |-',
+            '      Error: string arg must not be an object',
+            '          [... stack stripped ...]',
+            '          at Test.<anonymous> ($TEST/match.js:$LINE:$COL)',
+            '          [... stack stripped ...]',
+            '  ...',
+            'not ok 5 The input was expected to not match the regular expression /string/. Input: \'string\'',
             '  ---',
             '    operator: doesNotMatch',
             '    expected: /string/',
@@ -100,7 +186,7 @@ tap.test('doesNotMatch', function (tt) {
             '          at Test.<anonymous> ($TEST/match.js:$LINE:$COL)',
             '          [... stack stripped ...]',
             '  ...',
-            'not ok 4 "string" should not match /string/',
+            'not ok 6 "string" should not match /string/',
             '  ---',
             '    operator: doesNotMatch',
             '    expected: /string/',
@@ -112,7 +198,7 @@ tap.test('doesNotMatch', function (tt) {
             '          at Test.<anonymous> ($TEST/match.js:$LINE:$COL)',
             '          [... stack stripped ...]',
             '  ...',
-            'not ok 5 The input was expected to not match the regular expression /pass$/. Input: \'I will pass\'',
+            'not ok 7 The input was expected to not match the regular expression /pass$/. Input: \'I will pass\'',
             '  ---',
             '    operator: doesNotMatch',
             '    expected: /pass$/',
@@ -124,7 +210,7 @@ tap.test('doesNotMatch', function (tt) {
             '          at Test.<anonymous> ($TEST/match.js:$LINE:$COL)',
             '          [... stack stripped ...]',
             '  ...',
-            'not ok 6 "I will pass" should not match /pass$/',
+            'not ok 8 "I will pass" should not match /pass$/',
             '  ---',
             '    operator: doesNotMatch',
             '    expected: /pass$/',
@@ -136,11 +222,13 @@ tap.test('doesNotMatch', function (tt) {
             '          at Test.<anonymous> ($TEST/match.js:$LINE:$COL)',
             '          [... stack stripped ...]',
             '  ...',
+            'ok 9 The input did not match the regular expression /pass$/. Input: \'I will fail\'',
+            'ok 10 "I will fail" does not match /pass$/',
             '',
-            '1..6',
-            '# tests 6',
+            '1..10',
+            '# tests 10',
             '# pass  2',
-            '# fail  4',
+            '# fail  8',
             ''
         ]);
     };
@@ -148,25 +236,22 @@ tap.test('doesNotMatch', function (tt) {
     test.createStream().pipe(concat(tc));
 
     test('doesNotMatch', function (t) {
-        t.plan(6);
+        t.plan(10);
 
-        t.throws(
-            function () { t.doesNotMatch(/abc/, 'string'); },
-            TypeError,
-            'regex arg must be a regex'
-        );
+        t.doesNotMatch(/abc/, 'string');
+        t.doesNotMatch(/abc/, 'string', 'regex arg must not be a string');
 
-        t.throws(
-            function () { t.doesNotMatch({ abc: 123 }, /abc/); },
-            TypeError,
-            'string arg must be a string'
-        );
+        t.doesNotMatch({ abc: 123 }, /abc/);
+        t.doesNotMatch({ abc: 123 }, /abc/, 'string arg must not be an object');
 
         t.doesNotMatch('string', /string/);
         t.doesNotMatch('string', /string/, '"string" should not match /string/');
 
         t.doesNotMatch('I will pass', /pass$/);
         t.doesNotMatch('I will pass', /pass$/, '"I will pass" should not match /pass$/');
+
+        t.doesNotMatch('I will fail', /pass$/);
+        t.doesNotMatch('I will fail', /pass$/, '"I will fail" does not match /pass$/');
 
         t.end();
     });
