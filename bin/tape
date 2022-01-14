@@ -3,6 +3,7 @@
 'use strict';
 
 var parseOpts = require('minimist');
+var objectKeys = require('object-keys');
 
 var opts = parseOpts(process.argv.slice(2), {
     alias: { r: 'require', i: 'ignore' },
@@ -18,7 +19,7 @@ if (typeof opts.require === 'string') {
 
 var resolveModule;
 opts.require.forEach(function (module) {
-    var options = { basedir: cwd, extensions: Object.keys(require.extensions) };
+    var options = { basedir: cwd, extensions: objectKeys(require.extensions) };
     if (module) {
         if (!resolveModule) { resolveModule = require('resolve').sync; }
         // This check ensures we ignore `-r ""`, trailing `-r`, or other silly things the user might (inadvertently) be doing.
