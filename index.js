@@ -66,7 +66,8 @@ module.exports = (function () {
 function createExitHarness(conf, wait) {
     var config = conf || {};
     var harness = createHarness({
-        autoclose: defined(config.autoclose, false)
+        autoclose: defined(config.autoclose, false),
+        noOnly: defined(conf.noOnly, defined(process.env.NODE_TAPE_NO_ONLY_TEST, false))
     });
     var running = false;
     var ended = false;
@@ -163,6 +164,7 @@ function createHarness(conf_) {
     var only = false;
     test.only = function () {
         if (only) { throw new Error('there can only be one only test'); }
+        if (conf_.noOnly) { throw new Error('`only` tests are prohibited'); }
         only = true;
         var t = test.apply(null, arguments);
         results.only(t);

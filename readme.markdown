@@ -144,6 +144,41 @@ By default, uncaught exceptions in your tests will not be intercepted, and will 
 - In-process reporting with https://github.com/DavidAnson/tape-player
 - Describe blocks with https://github.com/mattriley/tape-describe
 
+# command-line flags
+
+While running tests, top-level configurations can be passed via the command line to specify desired behavior.
+
+Available configurations are listed below:
+
+## --require
+
+**Alias**: `-r`
+
+This is used to load modules before running tests and is explained extensively in the [preloading modules](#preloading-modules) section.
+
+## --ignore
+
+**Alias**: `-i`
+
+This flag is used when tests from certain folders and/or files are not intended to be run. It defaults to `.gitignore` file when passed with no argument.
+
+```sh
+tape -i .ignore **/*.js
+```
+
+An error is thrown if the specified file passed as argument does not exist.
+
+## --no-only
+This is particularly useful in a CI environment where an [only test](#testonlyname-opts-cb) is not supposed to go unnoticed.
+
+By passing the `--no-only` flag, any existing [only test](#testonlyname-opts-cb) causes tests to fail.
+
+```sh
+tape --no-only **/*.js
+```
+
+Alternatively, the environment variable `NODE_TAPE_NO_ONLY_TEST` can be set to `true` to achieve the same behavior; the command-line flag takes precedence.
+
 # methods
 
 The assertion methods in `tape` are heavily influenced or copied from the methods in [node-tap](https://github.com/isaacs/node-tap).
@@ -361,6 +396,8 @@ By default the TAP output goes to `console.log()`. You can pipe the output to so
 ## test.only([name], [opts], cb)
 
 Like `test([name], [opts], cb)` except if you use `.only` this is the only test case that will run for the entire process, all other test cases using `tape` will be ignored.
+
+Check out how the usage of [the --no-only flag](#--no-only) could help ensure there is no `.only` test running in a specified environment.
 
 ## var stream = test.createStream(opts)
 
