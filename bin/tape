@@ -7,8 +7,13 @@ var parseOpts = require('minimist');
 var opts = parseOpts(process.argv.slice(2), {
     alias: { r: 'require', i: 'ignore' },
     string: ['require', 'ignore'],
-    default: { r: [], i: null }
+    boolean: ['only'],
+    default: { r: [], i: null, only: null }
 });
+
+if (typeof opts.only === 'boolean') {
+    process.env.NODE_TAPE_NO_ONLY_TEST = !opts.only;
+}
 
 var cwd = process.cwd();
 
