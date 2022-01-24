@@ -26,8 +26,6 @@ var thrower = function () { throw messageGetterError; };
 tap.test('failures', function (tt) {
     tt.plan(1);
 
-    var maybeCause = 'cause' in Error.prototype ? '[cause]: undefined, ' : '';
-
     var test = tape.createHarness();
     test.createStream().pipe(concat(function (body) {
         tt.same(stripFullStack(body.toString('utf8')), [
@@ -39,7 +37,7 @@ tap.test('failures', function (tt) {
             '    expected: |-',
             '      undefined',
             '    actual: |-',
-            '      { [TypeError: ' + getNonFunctionMessage() + '] ' + maybeCause + "message: '" + getNonFunctionMessage() + "' }",
+            '      { [TypeError: ' + getNonFunctionMessage() + "] message: '" + getNonFunctionMessage() + "' }",
             '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '    stack: |-',
             String('      TypeError: ' + getNonFunctionMessage(undefined)),
@@ -53,7 +51,7 @@ tap.test('failures', function (tt) {
             '    expected: |-',
             '      undefined',
             '    actual: |-',
-            '      { [TypeError: ' + getNonFunctionMessage(null) + '] ' + maybeCause + "message: '" + getNonFunctionMessage(null) + "' }",
+            '      { [TypeError: ' + getNonFunctionMessage(null) + "] message: '" + getNonFunctionMessage(null) + "' }",
             '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '    stack: |-',
             String('      TypeError: ' + getNonFunctionMessage(null)),
@@ -67,7 +65,7 @@ tap.test('failures', function (tt) {
             '    expected: |-',
             '      undefined',
             '    actual: |-',
-            '      { [TypeError: ' + getNonFunctionMessage(true) + '] ' + maybeCause + "message: '" + getNonFunctionMessage(true) + "' }",
+            '      { [TypeError: ' + getNonFunctionMessage(true) + "] message: '" + getNonFunctionMessage(true) + "' }",
             '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '    stack: |-',
             String('      TypeError: ' + getNonFunctionMessage(true)),
@@ -81,7 +79,7 @@ tap.test('failures', function (tt) {
             '    expected: |-',
             '      undefined',
             '    actual: |-',
-            '      { [TypeError: ' + getNonFunctionMessage(false) + '] ' + maybeCause + "message: '" + getNonFunctionMessage(false) + "' }",
+            '      { [TypeError: ' + getNonFunctionMessage(false) + "] message: '" + getNonFunctionMessage(false) + "' }",
             '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '    stack: |-',
             String('      TypeError: ' + getNonFunctionMessage(false)),
@@ -95,7 +93,7 @@ tap.test('failures', function (tt) {
             '    expected: |-',
             '      undefined',
             '    actual: |-',
-            '      { [TypeError: ' + getNonFunctionMessage('abc') + '] ' + maybeCause + "message: '" + getNonFunctionMessage('abc') + "' }",
+            '      { [TypeError: ' + getNonFunctionMessage('abc') + "] message: '" + getNonFunctionMessage('abc') + "' }",
             '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '    stack: |-',
             String('      TypeError: ' + getNonFunctionMessage('abc')),
@@ -109,7 +107,7 @@ tap.test('failures', function (tt) {
             '    expected: |-',
             '      undefined',
             '    actual: |-',
-            '      { [TypeError: ' + getNonFunctionMessage(/a/g) + '] ' + maybeCause + "message: '" + getNonFunctionMessage(/a/g) + "' }",
+            '      { [TypeError: ' + getNonFunctionMessage(/a/g) + "] message: '" + getNonFunctionMessage(/a/g) + "' }",
             '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '    stack: |-',
             String('      TypeError: ' + getNonFunctionMessage(/a/g)),
@@ -123,7 +121,7 @@ tap.test('failures', function (tt) {
             '    expected: |-',
             '      undefined',
             '    actual: |-',
-            '      { [TypeError: ' + getNonFunctionMessage([]) + '] ' + maybeCause + "message: '" + getNonFunctionMessage([]) + "' }",
+            '      { [TypeError: ' + getNonFunctionMessage([]) + "] message: '" + getNonFunctionMessage([]) + "' }",
             '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '    stack: |-',
             String('      TypeError: ' + getNonFunctionMessage([])),
@@ -137,7 +135,7 @@ tap.test('failures', function (tt) {
             '    expected: |-',
             '      undefined',
             '    actual: |-',
-            '      { [TypeError: ' + getNonFunctionMessage({}) + '] ' + maybeCause + "message: '" + getNonFunctionMessage({}) + "' }",
+            '      { [TypeError: ' + getNonFunctionMessage({}) + "] message: '" + getNonFunctionMessage({}) + "' }",
             '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '    stack: |-',
             String('      TypeError: ' + getNonFunctionMessage({})),
@@ -171,7 +169,7 @@ tap.test('failures', function (tt) {
             '    expected: |-',
             '      [Function: TypeError]',
             '    actual: |-',
-            '      { [RangeError: actual!] ' + maybeCause + "message: 'actual!' }",
+            "      { [RangeError: actual!] message: 'actual!' }",
             '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '    stack: |-',
             '      RangeError: actual!',

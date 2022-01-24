@@ -14,8 +14,6 @@ tap.test('preserves stack trace with newlines', function (tt) {
     var parser = stream.pipe(tapParser());
     var stackTrace = 'foo\n  bar';
 
-    var inspected = 'cause' in Error.prototype ? '{ [Error: Preserve stack] [cause]: undefined }' : '[Error: Preserve stack]';
-
     parser.once('assert', function (data) {
         delete data.diag.at;
         tt.deepEqual(data, {
@@ -26,7 +24,7 @@ tap.test('preserves stack trace with newlines', function (tt) {
                 stack: stackTrace,
                 operator: 'error',
                 expected: 'undefined',
-                actual: inspected
+                actual: '[Error: Preserve stack]'
             }
         });
     });
@@ -43,7 +41,7 @@ tap.test('preserves stack trace with newlines', function (tt) {
             + '    expected: |-\n'
             + '      undefined\n'
             + '    actual: |-\n'
-            + '      ' + inspected + '\n'
+            + '      [Error: Preserve stack]\n'
             + '    stack: |-\n'
             + '      foo\n'
             + '        bar\n'
@@ -59,7 +57,7 @@ tap.test('preserves stack trace with newlines', function (tt) {
             stack: stackTrace,
             operator: 'error',
             expected: 'undefined',
-            actual: inspected
+            actual: '[Error: Preserve stack]'
         });
     }));
 
