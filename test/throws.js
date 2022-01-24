@@ -169,7 +169,7 @@ tap.test('failures', function (tt) {
             '    expected: |-',
             '      [Function: TypeError]',
             '    actual: |-',
-            "      { [RangeError: actual!] message: 'actual!' }",
+            '      { [RangeError: actual!] ' + ('cause' in Error.prototype ? '[cause]: undefined, ' : '') + "message: 'actual!' }",
             '    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
             '    stack: |-',
             '      RangeError: actual!',
