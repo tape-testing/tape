@@ -20,7 +20,7 @@ tap.test('failures', function (tt) {
             '    expected: |-',
             '      undefined',
             '    actual: |-',
-            '      [Error: this is a message]',
+            '      ' + ('cause' in Error.prototype ? '{ [Error: this is a message] [cause]: undefined }' : '[Error: this is a message]'),
             '    at: Test.<anonymous> ($TEST/error.js:$LINE:$COL)',
             '    stack: |-',
             '      Error: this is a message',
