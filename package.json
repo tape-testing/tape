@@ -26,14 +26,14 @@
         "through": "~2.3.8"
     },
     "devDependencies": {
-        "@ljharb/eslint-config": "^19.0.1",
+        "@ljharb/eslint-config": "^20.2.0",
         "array.prototype.flatmap": "^1.2.5",
-        "aud": "^1.1.5",
+        "aud": "^2.0.0",
         "concat-stream": "^1.6.2",
         "eclint": "^2.8.1",
         "ecstatic": "^4.1.4",
         "es-value-fixtures": "^1.2.1",
-        "eslint": "^8.2.0",
+        "eslint": "^8.7.0",
         "falafel": "^2.2.4",
         "js-yaml": "^3.14.0",
         "safe-publish-latest": "^2.0.0",

@@ -7,17 +7,13 @@
     },
     "parserOptions": {
         "ecmaVersion": 5,
-    },
-    "globals": {
-        "Promise": false,
+        "allowReserved": false,
     },
     "rules": {
         "array-bracket-spacing": "off",
         "complexity": "off",
-        "eqeqeq": ["error", "always", { "null": "ignore" }],
         "func-style": "warn",
         "indent": ["error", 4],
-        "no-magic-numbers": "off",
         "max-lines": "warn",
         "max-lines-per-function": "warn",
         "max-statements": "warn",
@@ -30,7 +26,9 @@
         "operator-linebreak": ["error", "before"],
         "sort-keys": "warn",
     },
-    "ignorePatterns": [ "syntax-error.*" ],
+    "ignorePatterns": [
+        "syntax-error.*",
+    ],
     "overrides": [
         {
             "files": ["*.mjs", "test/import/package_type/*.js"],
