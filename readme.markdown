@@ -62,10 +62,8 @@ You can also run tests using the `tape` binary to utilize globbing, on Windows f
 $ tape tests/**/*.js
 ```
 
-`tape`'s arguments are passed to the
-[`glob`](https://www.npmjs.com/package/glob) module. If you want `glob` to
-perform the expansion on a system where the shell performs such expansion, quote
-the arguments as necessary:
+`tape`'s arguments are passed to the [`glob`](https://www.npmjs.com/package/glob) module.
+If you want `glob` to perform the expansion on a system where the shell performs such expansion, quote the arguments as necessary:
 
 ```sh
 $ tape 'tests/**/*.js'
