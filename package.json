@@ -65,7 +65,8 @@
     "scripts": {
         "prepublishOnly": "safe-publish-latest",
         "prepublish": "!(type not-in-publish) || not-in-publish || npm run prepublishOnly",
-        "prelint": "eclint check $(git ls-files 2>/dev/null | xargs find 2> /dev/null | grep -vE 'node_modules|\\.git' || echo '*.md *.js test/*.js')",
+        "prelint:files": "git ls-files 2>/dev/null | xargs find 2> /dev/null | grep -vE 'node_modules|\\.git' || echo '*.md *.js test/*.js'",
+        "prelint": "FILES=\"$(npm run --silent prelint:files)\" eclint check \"${FILES:=package.json}\"",
         "lint": "eslint --ext .js,.cjs,.mjs . bin/*",
         "pretest": "npm run lint",
         "test": "npm run tests-only",
