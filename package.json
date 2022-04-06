@@ -58,6 +58,7 @@
         "eslint": "=8.8.0",
         "falafel": "^2.2.4",
         "js-yaml": "^3.14.0",
+        "npm-run-posix-or-windows": "^2.0.2",
         "safe-publish-latest": "^2.0.0",
         "tap": "^8.0.1",
         "tap-parser": "^3.0.5"
@@ -66,7 +67,9 @@
         "prepublishOnly": "safe-publish-latest",
         "prepublish": "!(type not-in-publish) || not-in-publish || npm run prepublishOnly",
         "prelint:files": "git ls-files 2>/dev/null | xargs find 2> /dev/null | grep -vE 'node_modules|\\.git' || echo '*.md *.js test/*.js'",
-        "prelint": "FILES=\"$(npm run --silent prelint:files)\" eclint check \"${FILES:=package.json}\"",
+        "eclint": "FILES=\"$(npm run --silent prelint:files)\" eclint check \"${FILES:=package.json}\"",
+        "eclint:windows": "eclint check *.js",
+        "prelint": "npm-run-posix-or-windows eclint",
         "lint": "eslint --ext .js,.cjs,.mjs . bin/*",
         "pretest": "npm run lint",
         "test": "npm run tests-only",
