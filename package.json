@@ -21,7 +21,7 @@
         "has": "~1.0.3",
         "inherits": "~2.0.4",
         "is-regex": "~1.1.4",
-        "minimist": "~1.2.5",
+        "minimist": "~1.2.6",
         "object-inspect": "~1.12.0",
         "resolve": "~1.22.0",
         "resumer": "~0.0.0",
