@@ -6,7 +6,7 @@ var exec = require('child_process').exec;
 
 var stripFullStack = require('./common').stripFullStack;
 
-var tapeBin = path.join(__dirname, '../bin/tape');
+var tapeBin = 'node ' + path.join(__dirname, '../bin/tape');
 
 var expectedExitCodeFailure = (/^0\.10\.\d+$/).test(process.versions.node);
 var expectedStackTraceBug = (/^3\.[012]\.\d+$/).test(process.versions.node); // https://github.com/nodejs/node/issues/2581
