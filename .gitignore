@@ -9,3 +9,5 @@ package-lock.json
 # coverage data
 coverage/
 .nyc_output/
+
+.npmignore
