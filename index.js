@@ -5,6 +5,7 @@ var createDefaultStream = require('./lib/default_stream');
 var Test = require('./lib/test');
 var createResult = require('./lib/results');
 var through = require('@ljharb/through');
+var EventEmitter = require('events').EventEmitter;
 
 var canEmitExit = typeof process !== 'undefined' && process
 	&& typeof process.on === 'function' && process.browser !== true;
@@ -51,6 +52,10 @@ module.exports = (function () {
 			return output;
 		}
 		return harness.createStream(options);
+	};
+
+	lazyLoad.async = function () {
+		return getHarness().async.apply(this, arguments);
 	};
 
 	lazyLoad.onFinish = function () {
@@ -142,10 +147,15 @@ function createExitHarness(conf, wait) {
 		stream.on('end', function () { ended = true; });
 	}
 
+	run();
+
 	if (wait) {
-		harness.run = run;
-	} else {
-		run();
+		var waiter = new EventEmitter();
+		waiter.run = function () {};
+		harness._results.push(waiter);
+		harness.run = function () {
+			waiter.emit('end');
+		};
 	}
 
 	if (config.exit === false) { return harness; }
