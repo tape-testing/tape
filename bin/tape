@@ -33,6 +33,7 @@ opts.require.forEach(function (module) {
 });
 
 var resolvePath = require('path').resolve;
+var requireResolve = require.resolve;
 
 var matcher;
 if (typeof opts.ignore === 'string') {
@@ -50,19 +51,22 @@ if (typeof opts.ignore === 'string') {
 var glob = require('glob');
 
 var files = opts._.reduce(function (result, arg) {
-    // If glob does not match, `files` will be an empty array.
-    // Note: `glob.sync` may throw an error and crash the node process.
-    var globFiles = glob.sync(arg);
+    if (glob.hasMagic(arg)) {
+        // If glob does not match, `files` will be an empty array.
+        // Note: `glob.sync` may throw an error and crash the node process.
+        var globFiles = glob.sync(arg);
 
-    if (!Array.isArray(globFiles)) {
-        throw new TypeError('unknown error: glob.sync("' + arg + '") did not return an array or throw. Please report this.');
+        if (!Array.isArray(globFiles)) {
+            throw new TypeError('unknown error: glob.sync("' + arg + '") did not return an array or throw. Please report this.');
+        }
+
+        return result.concat(globFiles);
     }
-
-    return result.concat(globFiles);
+    return result.concat(arg);
 }, []).filter(function (file) {
     return !matcher || !matcher.shouldIgnore(file);
 }).map(function (file) {
-    return resolvePath(cwd, file);
+    return requireResolve(resolvePath(cwd, file));
 });
 
 var hasImport = require('has-dynamic-import');
