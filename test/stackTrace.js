@@ -8,6 +8,10 @@ var common = require('./common');
 
 var getDiag = common.getDiag;
 
+function stripAt(body) {
+	return body.replace(/^\s*at:\s+Test.*$\n/m, '');
+}
+
 tap.test('preserves stack trace with newlines', function (tt) {
 	tt.plan(3);
 
@@ -284,7 +288,3 @@ tap.test('preserves stack trace for failed assertions where actual===falsy', fun
 		t.equal(false, true, 'false should be true');
 	});
 });
-
-function stripAt(body) {
-	return body.replace(/^\s*at:\s+Test.*$\n/m, '');
-}

@@ -21,7 +21,6 @@
         "multiline-comment-style": "off",
         "no-negated-condition": "off",
         "no-underscore-dangle": "warn",
-        "no-use-before-define": "warn",
         "object-curly-newline": "off",
         "sort-keys": "warn",
     },
@@ -119,5 +118,11 @@
                 "camelcase": "off",
             },
         },
+        {
+            "files": ["lib/default_stream.js"],
+            "rules": {
+                "no-use-before-define": "warn",
+            },
+        }
     ],
 }

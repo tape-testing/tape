@@ -6,6 +6,12 @@ var concat = require('concat-stream');
 var hasDynamicImport = require('has-dynamic-import');
 var assign = require('object.assign');
 
+function tape(args, options) {
+	var bin = __dirname + '/../bin/tape';
+
+	return spawn('node', [bin].concat(args.split(' ')), assign({ cwd: __dirname }, options));
+}
+
 tap.test('importing mjs files', function (t) {
 	hasDynamicImport().then(function (hasSupport) {
 		if (hasSupport) {
@@ -187,9 +193,3 @@ tap.test('errors importing test files', function (t) {
 		}
 	});
 });
-
-function tape(args, options) {
-	var bin = __dirname + '/../bin/tape';
-
-	return spawn('node', [bin].concat(args.split(' ')), assign({ cwd: __dirname }, options));
-}

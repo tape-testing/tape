@@ -14,6 +14,16 @@ var canExit = typeof process !== 'undefined' && process
 module.exports = (function () {
 	var wait = false;
 	var harness;
+
+	function getHarness(opts) {
+		if (!opts) { opts = {}; }
+		opts.autoclose = !canEmitExit;
+		// this override is here since tests fail via nyc if createHarness is moved upwards
+		// eslint-disable-next-line no-use-before-define
+		if (!harness) { harness = createExitHarness(opts, wait); }
+		return harness;
+	}
+
 	var lazyLoad = function () {
 		// eslint-disable-next-line no-invalid-this
 		return getHarness().apply(this, arguments);
@@ -54,74 +64,7 @@ module.exports = (function () {
 	lazyLoad.getHarness = getHarness;
 
 	return lazyLoad;
-
-	function getHarness(opts) {
-		if (!opts) { opts = {}; }
-		opts.autoclose = !canEmitExit;
-		if (!harness) { harness = createExitHarness(opts, wait); }
-		return harness;
-	}
 }());
-
-function createExitHarness(conf, wait) {
-	var config = conf || {};
-	var harness = createHarness({
-		autoclose: defined(config.autoclose, false),
-		noOnly: defined(conf.noOnly, defined(process.env.NODE_TAPE_NO_ONLY_TEST, false))
-	});
-	var running = false;
-	var ended = false;
-
-	if (wait) {
-		harness.run = run;
-	} else {
-		run();
-	}
-
-	if (config.exit === false) { return harness; }
-	if (!canEmitExit || !canExit) { return harness; }
-
-	process.on('exit', function (code) {
-		// let the process exit cleanly.
-		if (typeof code === 'number' && code !== 0) {
-			return;
-		}
-
-		if (!ended) {
-			var only = harness._results._only;
-			for (var i = 0; i < harness._tests.length; i++) {
-				var t = harness._tests[i];
-				if (!only || t === only) {
-					t._exit();
-				}
-			}
-		}
-		harness.close();
-
-		process.removeAllListeners('exit'); // necessary for node v0.6
-		process.exit(code || harness._exitCode); // eslint-disable-line no-process-exit
-	});
-
-	return harness;
-
-	function run() {
-		if (running) { return; }
-		running = true;
-		var stream = harness.createStream({ objectMode: config.objectMode });
-		var es = stream.pipe(config.stream || createDefaultStream());
-		if (canEmitExit && es) { // in node v0.4, `es` is `undefined`
-			// TODO: use `err` arg?
-			// eslint-disable-next-line no-unused-vars
-			es.on('error', function (err) { harness._exitCode = 1; });
-		}
-		stream.on('end', function () { ended = true; });
-	}
-}
-
-module.exports.createHarness = createHarness;
-module.exports.Test = Test;
-module.exports.test = module.exports; // tap compat
-module.exports.test.skip = Test.skip;
 
 function createHarness(conf_) {
 	var results = createResult();
@@ -176,3 +119,63 @@ function createHarness(conf_) {
 
 	return test;
 }
+
+function createExitHarness(conf, wait) {
+	var config = conf || {};
+	var harness = createHarness({
+		autoclose: defined(config.autoclose, false),
+		noOnly: defined(conf.noOnly, defined(process.env.NODE_TAPE_NO_ONLY_TEST, false))
+	});
+	var running = false;
+	var ended = false;
+
+	function run() {
+		if (running) { return; }
+		running = true;
+		var stream = harness.createStream({ objectMode: config.objectMode });
+		var es = stream.pipe(config.stream || createDefaultStream());
+		if (canEmitExit && es) { // in node v0.4, `es` is `undefined`
+			// TODO: use `err` arg?
+			// eslint-disable-next-line no-unused-vars
+			es.on('error', function (err) { harness._exitCode = 1; });
+		}
+		stream.on('end', function () { ended = true; });
+	}
+
+	if (wait) {
+		harness.run = run;
+	} else {
+		run();
+	}
+
+	if (config.exit === false) { return harness; }
+	if (!canEmitExit || !canExit) { return harness; }
+
+	process.on('exit', function (code) {
+		// let the process exit cleanly.
+		if (typeof code === 'number' && code !== 0) {
+			return;
+		}
+
+		if (!ended) {
+			var only = harness._results._only;
+			for (var i = 0; i < harness._tests.length; i++) {
+				var t = harness._tests[i];
+				if (!only || t === only) {
+					t._exit();
+				}
+			}
+		}
+		harness.close();
+
+		process.removeAllListeners('exit'); // necessary for node v0.6
+		process.exit(code || harness._exitCode); // eslint-disable-line no-process-exit
+	});
+
+	return harness;
+}
+
+module.exports.createHarness = createHarness;
+module.exports.Test = Test;
+module.exports.test = module.exports; // tap compat
+module.exports.test.skip = Test.skip;

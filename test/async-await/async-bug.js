@@ -11,6 +11,12 @@ function myCode(arr) {
 	return sum;
 }
 
+function sleep(ms) {
+	return new Promise((resolve) => {
+		setTimeout(resolve, ms);
+	});
+}
+
 test('async-error', async function myTest(t) {
 	await sleep(100);
 	t.ok(true, 'before throw');
@@ -23,9 +29,3 @@ test('async-error', async function myTest(t) {
 
 	t.end();
 });
-
-function sleep(ms) {
-	return new Promise((resolve) => {
-		setTimeout(resolve, ms);
-	});
-}

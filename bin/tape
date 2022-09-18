@@ -71,12 +71,6 @@ var files = opts._.reduce(function (result, arg) {
 
 var hasImport = require('has-dynamic-import');
 
-hasImport().then(function (hasSupport) {
-	// the nextTick callback gets called outside the promise chain, avoiding
-	// promises and unhandled rejections when only loading commonjs files
-	process.nextTick(importFiles, hasSupport);
-});
-
 var tape = require('../');
 
 function importFiles(hasSupport) {
@@ -96,5 +90,11 @@ function importFiles(hasSupport) {
 
 	return filesPromise ? filesPromise.then(function () { tape.run(); }) : tape.run();
 }
+
+hasImport().then(function (hasSupport) {
+	// the nextTick callback gets called outside the promise chain, avoiding
+	// promises and unhandled rejections when only loading commonjs files
+	process.nextTick(importFiles, hasSupport);
+});
 
 // vim: ft=javascript
