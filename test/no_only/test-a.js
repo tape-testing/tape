@@ -3,6 +3,6 @@
 var tape = require('../../');
 
 tape.test('should pass', function (t) {
-    t.plan(1);
-    t.ok(1);
+	t.plan(1);
+	t.ok(1);
 });

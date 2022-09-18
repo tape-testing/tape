@@ -6,30 +6,30 @@ var parseOpts = require('minimist');
 var objectKeys = require('object-keys');
 
 var opts = parseOpts(process.argv.slice(2), {
-    alias: { r: 'require', i: 'ignore' },
-    string: ['require', 'ignore'],
-    boolean: ['only'],
-    default: { r: [], i: null, only: null }
+	alias: { r: 'require', i: 'ignore' },
+	string: ['require', 'ignore'],
+	boolean: ['only'],
+	default: { r: [], i: null, only: null }
 });
 
 if (typeof opts.only === 'boolean') {
-    process.env.NODE_TAPE_NO_ONLY_TEST = !opts.only;
+	process.env.NODE_TAPE_NO_ONLY_TEST = !opts.only;
 }
 
 var cwd = process.cwd();
 
 if (typeof opts.require === 'string') {
-    opts.require = [opts.require];
+	opts.require = [opts.require];
 }
 
 var resolveModule;
 opts.require.forEach(function (module) {
-    var options = { basedir: cwd, extensions: objectKeys(require.extensions) };
-    if (module) {
-        if (!resolveModule) { resolveModule = require('resolve').sync; }
-        // This check ensures we ignore `-r ""`, trailing `-r`, or other silly things the user might (inadvertently) be doing.
-        require(resolveModule(module, options));
-    }
+	var options = { basedir: cwd, extensions: objectKeys(require.extensions) };
+	if (module) {
+		if (!resolveModule) { resolveModule = require('resolve').sync; }
+		// This check ensures we ignore `-r ""`, trailing `-r`, or other silly things the user might (inadvertently) be doing.
+		require(resolveModule(module, options));
+	}
 });
 
 var resolvePath = require('path').resolve;
@@ -37,64 +37,64 @@ var requireResolve = require.resolve;
 
 var matcher;
 if (typeof opts.ignore === 'string') {
-    var readFileSync = require('fs').readFileSync;
-    try {
-        var ignoreStr = readFileSync(resolvePath(cwd, opts.ignore || '.gitignore'), 'utf-8');
-    } catch (e) {
-        console.error(e.message);
-        process.exit(2);
-    }
-    var ignore = require('dotignore');
-    matcher = ignore.createMatcher(ignoreStr);
+	var readFileSync = require('fs').readFileSync;
+	try {
+		var ignoreStr = readFileSync(resolvePath(cwd, opts.ignore || '.gitignore'), 'utf-8');
+	} catch (e) {
+		console.error(e.message);
+		process.exit(2);
+	}
+	var ignore = require('dotignore');
+	matcher = ignore.createMatcher(ignoreStr);
 }
 
 var glob = require('glob');
 
 var files = opts._.reduce(function (result, arg) {
-    if (glob.hasMagic(arg)) {
-        // If glob does not match, `files` will be an empty array.
-        // Note: `glob.sync` may throw an error and crash the node process.
-        var globFiles = glob.sync(arg);
+	if (glob.hasMagic(arg)) {
+		// If glob does not match, `files` will be an empty array.
+		// Note: `glob.sync` may throw an error and crash the node process.
+		var globFiles = glob.sync(arg);
 
-        if (!Array.isArray(globFiles)) {
-            throw new TypeError('unknown error: glob.sync("' + arg + '") did not return an array or throw. Please report this.');
-        }
+		if (!Array.isArray(globFiles)) {
+			throw new TypeError('unknown error: glob.sync("' + arg + '") did not return an array or throw. Please report this.');
+		}
 
-        return result.concat(globFiles);
-    }
-    return result.concat(arg);
+		return result.concat(globFiles);
+	}
+	return result.concat(arg);
 }, []).filter(function (file) {
-    return !matcher || !matcher.shouldIgnore(file);
+	return !matcher || !matcher.shouldIgnore(file);
 }).map(function (file) {
-    return requireResolve(resolvePath(cwd, file));
+	return requireResolve(resolvePath(cwd, file));
 });
 
 var hasImport = require('has-dynamic-import');
 
 hasImport().then(function (hasSupport) {
-    // the nextTick callback gets called outside the promise chain, avoiding
-    // promises and unhandled rejections when only loading commonjs files
-    process.nextTick(importFiles, hasSupport);
+	// the nextTick callback gets called outside the promise chain, avoiding
+	// promises and unhandled rejections when only loading commonjs files
+	process.nextTick(importFiles, hasSupport);
 });
 
 var tape = require('../');
 
 function importFiles(hasSupport) {
-    if (!hasSupport) {
-        return files.forEach(function (x) { require(x); });
-    }
+	if (!hasSupport) {
+		return files.forEach(function (x) { require(x); });
+	}
 
-    var importOrRequire = require('./import-or-require');
+	var importOrRequire = require('./import-or-require');
 
-    tape.wait();
+	tape.wait();
 
-    var filesPromise = files.reduce(function (promise, file) {
-        return promise ? promise.then(function () {
-            return importOrRequire(file);
-        }) : importOrRequire(file);
-    }, null);
+	var filesPromise = files.reduce(function (promise, file) {
+		return promise ? promise.then(function () {
+			return importOrRequire(file);
+		}) : importOrRequire(file);
+	}, null);
 
-    return filesPromise ? filesPromise.then(function () { tape.run(); }) : tape.run();
+	return filesPromise ? filesPromise.then(function () { tape.run(); }) : tape.run();
 }
 
 // vim: ft=javascript

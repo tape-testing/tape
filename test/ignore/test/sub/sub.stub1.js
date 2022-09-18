@@ -3,6 +3,6 @@
 var tape = require('../../../../');
 
 tape.test(function (t) {
-    t.plan(1);
-    t.pass('test/sub/stub1');
+	t.plan(1);
+	t.pass('test/sub/stub1');
 });
