@@ -3,7 +3,7 @@
 var path = require('path');
 var yaml = require('js-yaml');
 
-module.exports.getDiag = function (body) {
+module.exports.getDiag = function (body, includeStack) {
 	var yamlStart = body.indexOf('  ---');
 	var yamlEnd = body.indexOf('  ...\n');
 	var diag = body.slice(yamlStart, yamlEnd).split('\n').map(function (line) {
@@ -13,7 +13,9 @@ module.exports.getDiag = function (body) {
 	// The stack trace and at variable will vary depending on where the code
 	// is run, so just strip it out.
 	var withStack = yaml.safeLoad(diag);
-	delete withStack.stack;
+	if (!includeStack) {
+		delete withStack.stack;
+	}
 	delete withStack.at;
 	return withStack;
 };
