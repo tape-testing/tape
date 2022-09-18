@@ -4,7 +4,9 @@ var tape = require('../');
 var tap = require('tap');
 var concat = require('concat-stream');
 var tapParser = require('tap-parser');
-var yaml = require('js-yaml');
+var common = require('./common');
+
+var getDiag = common.getDiag;
 
 tap.test('preserves stack trace with newlines', function (tt) {
 	tt.plan(3);
@@ -47,7 +49,7 @@ tap.test('preserves stack trace with newlines', function (tt) {
 			''
 		]);
 
-		tt.deepEqual(getDiag(strippedBody), {
+		tt.deepEqual(getDiag(strippedBody, true), {
 			stack: stackTrace,
 			operator: 'error'
 		});
@@ -206,7 +208,7 @@ tap.test('preserves stack trace for failed assertions', function (tt) {
 			''
 		));
 
-		tt.deepEqual(getDiag(strippedBody), {
+		tt.deepEqual(getDiag(strippedBody, true), {
 			stack: stack,
 			operator: 'equal',
 			expected: false,
@@ -269,7 +271,7 @@ tap.test('preserves stack trace for failed assertions where actual===falsy', fun
 			''
 		));
 
-		tt.deepEqual(getDiag(strippedBody), {
+		tt.deepEqual(getDiag(strippedBody, true), {
 			stack: stack,
 			operator: 'equal',
 			expected: true,
@@ -282,19 +284,6 @@ tap.test('preserves stack trace for failed assertions where actual===falsy', fun
 		t.equal(false, true, 'false should be true');
 	});
 });
-
-function getDiag(body) {
-	var yamlStart = body.indexOf('  ---');
-	var yamlEnd = body.indexOf('  ...\n');
-	var diag = body.slice(yamlStart, yamlEnd).split('\n').map(function (line) {
-		return line.slice(2);
-	}).join('\n');
-
-	// Get rid of 'at' variable (which has a line number / path of its own that's difficult to check).
-	var withStack = yaml.safeLoad(diag);
-	delete withStack.at;
-	return withStack;
-}
 
 function stripAt(body) {
 	return body.replace(/^\s*at:\s+Test.*$\n/m, '');
