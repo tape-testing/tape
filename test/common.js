@@ -4,18 +4,18 @@ var path = require('path');
 var yaml = require('js-yaml');
 
 module.exports.getDiag = function (body) {
-    var yamlStart = body.indexOf('  ---');
-    var yamlEnd = body.indexOf('  ...\n');
-    var diag = body.slice(yamlStart, yamlEnd).split('\n').map(function (line) {
-        return line.slice(2);
-    }).join('\n');
+	var yamlStart = body.indexOf('  ---');
+	var yamlEnd = body.indexOf('  ...\n');
+	var diag = body.slice(yamlStart, yamlEnd).split('\n').map(function (line) {
+		return line.slice(2);
+	}).join('\n');
 
-    // The stack trace and at variable will vary depending on where the code
-    // is run, so just strip it out.
-    var withStack = yaml.safeLoad(diag);
-    delete withStack.stack;
-    delete withStack.at;
-    return withStack;
+	// The stack trace and at variable will vary depending on where the code
+	// is run, so just strip it out.
+	var withStack = yaml.safeLoad(diag);
+	delete withStack.stack;
+	delete withStack.at;
+	return withStack;
 };
 
 // There are three challenges associated with checking the stack traces included
@@ -35,45 +35,45 @@ module.exports.getDiag = function (body) {
 //    and replace them with placeholders.
 
 var stripChangingData = function (line) {
-    var withoutTestDir = line.replace(__dirname, '$TEST');
-    var withoutPackageDir = withoutTestDir.replace(path.dirname(__dirname), '$TAPE');
-    var withoutPathSep = withoutPackageDir.replace(new RegExp('\\' + path.sep, 'g'), '/');
-    var withoutLineNumbers = withoutPathSep.replace(/:\d+:\d+/g, ':$LINE:$COL');
-    var withoutNestedLineNumbers = withoutLineNumbers.replace(/, <anonymous>:\$LINE:\$COL\)$/, ')');
-    return withoutNestedLineNumbers;
+	var withoutTestDir = line.replace(__dirname, '$TEST');
+	var withoutPackageDir = withoutTestDir.replace(path.dirname(__dirname), '$TAPE');
+	var withoutPathSep = withoutPackageDir.replace(new RegExp('\\' + path.sep, 'g'), '/');
+	var withoutLineNumbers = withoutPathSep.replace(/:\d+:\d+/g, ':$LINE:$COL');
+	var withoutNestedLineNumbers = withoutLineNumbers.replace(/, <anonymous>:\$LINE:\$COL\)$/, ')');
+	return withoutNestedLineNumbers;
 };
 
 module.exports.stripFullStack = function (output) {
-    var stripped = '          [... stack stripped ...]';
-    var withDuplicates = output.split(/\r?\n/g).map(stripChangingData).map(function (line) {
-        var m = line.match(/[ ]{8}at .*\((.*)\)/);
+	var stripped = '          [... stack stripped ...]';
+	var withDuplicates = output.split(/\r?\n/g).map(stripChangingData).map(function (line) {
+		var m = line.match(/[ ]{8}at .*\((.*)\)/);
 
-        if (m && m[1].slice(0, 5) !== '$TEST') {
-            return stripped;
-        }
-        return line;
-    });
+		if (m && m[1].slice(0, 5) !== '$TEST') {
+			return stripped;
+		}
+		return line;
+	});
 
-    var withoutInternals = withDuplicates.filter(function (line) {
-        return !line.match(/ \(node:[^)]+\)$/);
-    });
+	var withoutInternals = withDuplicates.filter(function (line) {
+		return !line.match(/ \(node:[^)]+\)$/);
+	});
 
-    var deduped = withoutInternals.filter(function (line, ix) {
-        var hasPrior = line === stripped && withDuplicates[ix - 1] === stripped;
-        return !hasPrior;
-    });
+	var deduped = withoutInternals.filter(function (line, ix) {
+		var hasPrior = line === stripped && withDuplicates[ix - 1] === stripped;
+		return !hasPrior;
+	});
 
-    return deduped.join('\n').replace(
-        // Handle stack trace variation in Node v0.8
-        /at(:?) Test\.(?:module\.exports|tap\.test\.err\.code)/g,
-        'at$1 Test.<anonymous>'
-    ).replace(
-        // Handle stack trace variation in Node v0.8
-        /at(:?) (Test\.)?tap\.test\.test\.skip/g,
-        'at$1 $2<anonymous>'
-    ).replace(
-        // Handle stack trace variation in Node v0.8
-        /(\[\.\.\. stack stripped \.\.\.\]\r?\n *at) <anonymous> \(([^)]+)\)/g,
-        '$1 $2'
-    ).split(/\r?\n/g);
+	return deduped.join('\n').replace(
+		// Handle stack trace variation in Node v0.8
+		/at(:?) Test\.(?:module\.exports|tap\.test\.err\.code)/g,
+		'at$1 Test.<anonymous>'
+	).replace(
+		// Handle stack trace variation in Node v0.8
+		/at(:?) (Test\.)?tap\.test\.test\.skip/g,
+		'at$1 $2<anonymous>'
+	).replace(
+		// Handle stack trace variation in Node v0.8
+		/(\[\.\.\. stack stripped \.\.\.\]\r?\n *at) <anonymous> \(([^)]+)\)/g,
+		'$1 $2'
+	).split(/\r?\n/g);
 };

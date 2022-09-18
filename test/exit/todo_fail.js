@@ -3,6 +3,6 @@
 var test = require('../../');
 
 test('todo fail', { todo: true }, function (t) {
-    t.plan(1);
-    t.ok(false);
+	t.plan(1);
+	t.ok(false);
 });

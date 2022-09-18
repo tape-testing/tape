@@ -13,7 +13,6 @@
         "array-bracket-spacing": "off",
         "complexity": "off",
         "func-style": "warn",
-        "indent": ["error", 4],
         "max-lines-per-function": "warn",
         "max-lines": "warn",
         "max-statements-per-line": [2, { "max": 2 }],
