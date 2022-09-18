@@ -72,9 +72,9 @@
     },
     "repository": {
         "type": "git",
-        "url": "git://github.com/substack/tape.git"
+        "url": "git://github.com/ljharb/tape.git"
     },
-    "homepage": "https://github.com/substack/tape",
+    "homepage": "https://github.com/ljharb/tape",
     "keywords": [
         "tap",
         "test",
@@ -83,9 +83,9 @@
         "browser"
     ],
     "author": {
-        "name": "James Halliday",
-        "email": "mail@substack.net",
-        "url": "http://substack.net"
+        "name": "Jordan Harband",
+        "email": "ljharb@gmail.com",
+        "url": "http://ljharb.codes"
     },
     "license": "MIT"
 }

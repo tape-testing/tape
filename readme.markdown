@@ -98,7 +98,7 @@ If you want a more colorful / pretty output there are lots of modules on npm tha
 
 - [tap-spec](https://github.com/scottcorgan/tap-spec)
 - [tap-dot](https://github.com/scottcorgan/tap-dot)
-- [faucet](https://github.com/substack/faucet)
+- [faucet](https://github.com/ljharb/faucet)
 - [tap-bail](https://github.com/juliangruber/tap-bail)
 - [tap-browser-color](https://github.com/kirbysayshi/tap-browser-color)
 - [tap-json](https://github.com/gummesson/tap-json)
@@ -277,13 +277,13 @@ Aliases: `t.notEquals()`, `t.notStrictEqual()`, `t.notStrictEquals()`,
 
 ## t.deepEqual(actual, expected, msg)
 
-Assert that `actual` and `expected` have the same structure and nested values using [node's deepEqual() algorithm](https://github.com/substack/node-deep-equal) with strict comparisons (`===`) on leaf nodes and an optional description of the assertion `msg`.
+Assert that `actual` and `expected` have the same structure and nested values using [node's deepEqual() algorithm](https://github.com/inspect-js/node-deep-equal) with strict comparisons (`===`) on leaf nodes and an optional description of the assertion `msg`.
 
 Aliases: `t.deepEquals()`, `t.isEquivalent()`, `t.same()`
 
 ## t.notDeepEqual(actual, expected, msg)
 
-Assert that `actual` and `expected` do not have the same structure and nested values using [node's deepEqual() algorithm](https://github.com/substack/node-deep-equal) with strict comparisons (`===`) on leaf nodes and an optional description of the assertion `msg`.
+Assert that `actual` and `expected` do not have the same structure and nested values using [node's deepEqual() algorithm](https://github.com/inspect-js/node-deep-equal) with strict comparisons (`===`) on leaf nodes and an optional description of the assertion `msg`.
 
 Aliases: `t.notDeepEquals`, `t.notEquivalent()`, `t.notDeeply()`, `t.notSame()`,
 `t.isNotDeepEqual()`, `t.isNotDeeply()`, `t.isNotEquivalent()`,
@@ -291,13 +291,13 @@ Aliases: `t.notDeepEquals`, `t.notEquivalent()`, `t.notDeeply()`, `t.notSame()`,
 
 ## t.deepLooseEqual(actual, expected, msg)
 
-Assert that `actual` and `expected` have the same structure and nested values using [node's deepEqual() algorithm](https://github.com/substack/node-deep-equal) with loose comparisons (`==`) on leaf nodes and an optional description of the assertion `msg`.
+Assert that `actual` and `expected` have the same structure and nested values using [node's deepEqual() algorithm](https://github.com/inspect-js/node-deep-equal) with loose comparisons (`==`) on leaf nodes and an optional description of the assertion `msg`.
 
 Aliases: `t.looseEqual()`, `t.looseEquals()`
 
 ## t.notDeepLooseEqual(actual, expected, msg)
 
-Assert that `actual` and `expected` do not have the same structure and nested values using [node's deepEqual() algorithm](https://github.com/substack/node-deep-equal) with loose comparisons (`==`) on leaf nodes and an optional description of the assertion `msg`.
+Assert that `actual` and `expected` do not have the same structure and nested values using [node's deepEqual() algorithm](https://github.com/inspect-js/node-deep-equal) with loose comparisons (`==`) on leaf nodes and an optional description of the assertion `msg`.
 
 Aliases: `t.notLooseEqual()`, `t.notLooseEquals()`
 
@@ -557,17 +557,17 @@ test('third', function (t) {
 MIT
 
 [package-url]: https://npmjs.org/package/tape
-[npm-version-svg]: https://versionbadg.es/substack/tape.svg
-[deps-svg]: https://david-dm.org/substack/tape.svg
-[deps-url]: https://david-dm.org/substack/tape
-[dev-deps-svg]: https://david-dm.org/substack/tape/dev-status.svg
-[dev-deps-url]: https://david-dm.org/substack/tape#info=devDependencies
+[npm-version-svg]: https://versionbadg.es/ljharb/tape.svg
+[deps-svg]: https://david-dm.org/ljharb/tape.svg
+[deps-url]: https://david-dm.org/ljharb/tape
+[dev-deps-svg]: https://david-dm.org/ljharb/tape/dev-status.svg
+[dev-deps-url]: https://david-dm.org/ljharb/tape#info=devDependencies
 [npm-badge-png]: https://nodei.co/npm/tape.png?downloads=true&stars=true
 [license-image]: https://img.shields.io/npm/l/tape.svg
 [license-url]: LICENSE
 [downloads-image]: https://img.shields.io/npm/dm/tape.svg
 [downloads-url]: https://npm-stat.com/charts.html?package=tape
-[codecov-image]: https://codecov.io/gh/substack/tape/branch/master/graphs/badge.svg
-[codecov-url]: https://app.codecov.io/gh/substack/tape/
-[actions-image]: https://img.shields.io/endpoint?url=https://github-actions-badge-u3jn4tfpocch.runkit.sh/substack/tape
-[actions-url]: https://github.com/substack/tape/actions
+[codecov-image]: https://codecov.io/gh/ljharb/tape/branch/master/graphs/badge.svg
+[codecov-url]: https://app.codecov.io/gh/ljharb/tape/
+[actions-image]: https://img.shields.io/endpoint?url=https://github-actions-badge-u3jn4tfpocch.runkit.sh/ljharb/tape
+[actions-url]: https://github.com/ljharb/tape/actions
