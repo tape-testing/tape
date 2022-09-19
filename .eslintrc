@@ -14,15 +14,14 @@
         "complexity": "off",
         "func-style": ["error", "declaration"],
         "no-magic-numbers": "off",
-        "max-lines": "warn",
-        "max-lines-per-function": "warn",
+        "max-lines-per-function": "off",
         "max-statements-per-line": [2, { "max": 2 }],
         "max-statements": "warn",
         "multiline-comment-style": "off",
         "no-negated-condition": "off",
         "no-underscore-dangle": "warn",
         "object-curly-newline": "off",
-        "sort-keys": "warn",
+        "sort-keys": "off",
     },
     "ignorePatterns": ["syntax-error.*"],
     "overrides": [
@@ -124,6 +123,12 @@
             "rules": {
                 "no-use-before-define": "warn",
             },
-        }
+        },
+        {
+            "files": ["lib/test.js"],
+            "rules": {
+                "max-lines": "off",
+            },
+        },
     ],
 }
