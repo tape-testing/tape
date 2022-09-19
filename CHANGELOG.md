@@ -5,6 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v5.6.1](https://github.com/ljharb/tape/compare/v5.6.0...v5.6.1) - 2022-09-19
+
+### Commits
+
+- [eslint] fix indentation [`2151e06`](https://github.com/ljharb/tape/commit/2151e06877e65802ef7364bc6bebc21fc45e3699)
+- [meta] add `auto-changelog` [`86cbbd1`](https://github.com/ljharb/tape/commit/86cbbd1bb6bdc57fc718c6043866ab6bed46899c)
+- [eslint] enforce `no-use-before-define` [`f8a8a7f`](https://github.com/ljharb/tape/commit/f8a8a7f35402ebf9865cafd3682e9a6b0188436e)
+- [meta] fix repo URLs [`a9ae3c2`](https://github.com/ljharb/tape/commit/a9ae3c22db37d760fc30aea5053302177e7c3d3e)
+- [Tests] `stackTrace`: use the common `getDiag` utility [`298cb80`](https://github.com/ljharb/tape/commit/298cb806ef4a438792cb533675b6faa4b02a1d92)
+- [eslint] enable `func-style` [`98b9623`](https://github.com/ljharb/tape/commit/98b9623fc16f5ebe1be8beba4c21d9494bce05ac)
+- [New] `bin/tape`: include the exact arg when there are no glob results; use require on `--require` files [`6a1ce43`](https://github.com/ljharb/tape/commit/6a1ce4389e8b601249c3c81b31cd60eea3e0f74a)
+- [eslint] clean up config a bit [`67ad201`](https://github.com/ljharb/tape/commit/67ad20117457313ab2c9d63365573858efb51566)
+- [meta] create FUNDING.yml [`5b4752f`](https://github.com/ljharb/tape/commit/5b4752fe006597002918cbd3ee8a4e50f48677ca)
+- [Refactor] `bin/tape`: make it a bit more functional, for easier v5 backporting [`fbdbfc9`](https://github.com/ljharb/tape/commit/fbdbfc90dd7afeba89cc3dd5e6280ed247f8b789)
+- [Deps] update `glob`, `object-inspect`, `resolve`, `string.prototype.trim` [`6a3c200`](https://github.com/ljharb/tape/commit/6a3c2009e7f6052bd4423dce80bb140e234a877f)
+- [Dev Deps] update `@ljharb/eslint-config`, `array.prototype.flatmap`, `es-value-fixtures`, `falafel` [`934d49b`](https://github.com/ljharb/tape/commit/934d49b1e840d3c57bd6e52a74017e06c6a55934)
+- [Tests] fix no_only tests on Windows [`f35f71b`](https://github.com/ljharb/tape/commit/f35f71bd44e76eb53bedd63615e59fdc382e4d0d)
+- Revert "[Tests] handle a broken error `cause` in node 16.9/16.10" [`23fac16`](https://github.com/ljharb/tape/commit/23fac16760344fe6843722b626dcba9e2e1c8372)
+- [Robustness] `test` observably looks up `exec` on the object [`4575ca4`](https://github.com/ljharb/tape/commit/4575ca4b185cb503c93e29113b99e10f1ae4b63c)
+- [meta] add SECURITY.md [`7b0c901`](https://github.com/ljharb/tape/commit/7b0c901b459b19668fcf6cc5b4b08f42978135b4)
+- [meta] add missing npmrc config [`5d11d84`](https://github.com/ljharb/tape/commit/5d11d844c87d64b6bac6fbe70357ad587ba0281a)
+- [Deps] update `object.assign` [`3327fdd`](https://github.com/ljharb/tape/commit/3327fdd249e3a0abf21311d2ca229d6f59fa2b26)
+- [readme] fix version badge [`74e6c9e`](https://github.com/ljharb/tape/commit/74e6c9e02daa286c86f7d5f4d4e019e62b8322a2)
+- Merge tag 'v4.16.0' [`4a44a7e`](https://github.com/ljharb/tape/commit/4a44a7ee31dd24dff833909366449a3da6116a78)
+
 ## [v5.6.0](https://github.com/ljharb/tape/compare/v5.5.3...v5.6.0) - 2022-08-16
 
 ### Commits
@@ -412,7 +437,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Deps] update `resolve` [`b765bba`](https://github.com/ljharb/tape/commit/b765bba1ea56075d5382b203b6902c8fc5f2d5a6)
 - [Dev Deps] update `eslint` [`949781f`](https://github.com/ljharb/tape/commit/949781faf753d5481085f993210738e7b93b3172)
 
-## [v5.0.0-next.0](https://github.com/ljharb/tape/compare/v4.16.0...v5.0.0-next.0) - 2019-12-20
+## [v5.0.0-next.0](https://github.com/ljharb/tape/compare/v4.16.1...v5.0.0-next.0) - 2019-12-20
 
 ### Commits
 
@@ -424,6 +449,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Tests] update tests for more async/await cases [`197019c`](https://github.com/ljharb/tape/commit/197019c78c0e452852806f330e573f5023eba91c)
 - [meta] change dep semver prefix from ~ to ^ [`c3924d3`](https://github.com/ljharb/tape/commit/c3924d34476247e2ba0d6e0781ca89b7d25f2a2b)
 - [Breaking] update `deep-equal` to v2 [`898a6e7`](https://github.com/ljharb/tape/commit/898a6e70aadff95f23eb6f7b4e7a1fd24baacc7d)
+
+## [v4.16.1](https://github.com/ljharb/tape/compare/v4.16.0...v4.16.1) - 2022-09-19
+
+### Commits
+
+- [eslint] fix indentation [`b035590`](https://github.com/ljharb/tape/commit/b035590f782c211e93a6a44ed8d0e9d38636a286)
+- [meta] add `auto-changelog` [`b467b85`](https://github.com/ljharb/tape/commit/b467b850f169bf294851c68a5c4074360d53a31b)
+- [eslint] enforce `no-use-before-define` [`87deb68`](https://github.com/ljharb/tape/commit/87deb68b111fd0d94efc92c25454a6a3fcedff66)
+- [eslint] clean up config a bit [`3171edd`](https://github.com/ljharb/tape/commit/3171eddd25dafb3e9a9606ac70ed6c21bb736e8e)
+- [Tests] `stackTrace`: use the common `getDiag` utility [`65df5a4`](https://github.com/ljharb/tape/commit/65df5a4f194cf01c3872c713d129ac968342181c)
+- [meta] fix repo URLs [`85d86a4`](https://github.com/ljharb/tape/commit/85d86a468af1b74af432d41c204efd4440b5f56f)
+- Revert "[Tests] handle a broken error `cause` in node 16.9/16.10" [`775ba37`](https://github.com/ljharb/tape/commit/775ba3789e16b1464dc810243dc5866b2868fc1d)
+- [meta] use `npmignore` to autogenerate an npmignore file [`1645abb`](https://github.com/ljharb/tape/commit/1645abbf47df2a8142514302da2730c54b993b47)
+- [eslint] enable `func-style` [`75c0c3a`](https://github.com/ljharb/tape/commit/75c0c3a4f9452c36b5318ba6c09ab4ebc97f15d0)
+- [readme] fix version badge [`20ea48d`](https://github.com/ljharb/tape/commit/20ea48d53b6492bf648d02d53c41b324abbfb6e1)
 
 ## [v4.16.0](https://github.com/ljharb/tape/compare/v4.15.1...v4.16.0) - 2022-08-16
 
