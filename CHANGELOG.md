@@ -412,7 +412,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Deps] update `resolve` [`b765bba`](https://github.com/ljharb/tape/commit/b765bba1ea56075d5382b203b6902c8fc5f2d5a6)
 - [Dev Deps] update `eslint` [`949781f`](https://github.com/ljharb/tape/commit/949781faf753d5481085f993210738e7b93b3172)
 
-## [v5.0.0-next.0](https://github.com/ljharb/tape/compare/v4.16.0...v5.0.0-next.0) - 2019-12-20
+## [v5.0.0-next.0](https://github.com/ljharb/tape/compare/v4.16.1...v5.0.0-next.0) - 2019-12-20
 
 ### Commits
 
@@ -424,6 +424,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Tests] update tests for more async/await cases [`197019c`](https://github.com/ljharb/tape/commit/197019c78c0e452852806f330e573f5023eba91c)
 - [meta] change dep semver prefix from ~ to ^ [`c3924d3`](https://github.com/ljharb/tape/commit/c3924d34476247e2ba0d6e0781ca89b7d25f2a2b)
 - [Breaking] update `deep-equal` to v2 [`898a6e7`](https://github.com/ljharb/tape/commit/898a6e70aadff95f23eb6f7b4e7a1fd24baacc7d)
+
+## [v4.16.1](https://github.com/ljharb/tape/compare/v4.16.0...v4.16.1) - 2022-09-19
+
+### Commits
+
+- [eslint] fix indentation [`b035590`](https://github.com/ljharb/tape/commit/b035590f782c211e93a6a44ed8d0e9d38636a286)
+- [meta] add `auto-changelog` [`b467b85`](https://github.com/ljharb/tape/commit/b467b850f169bf294851c68a5c4074360d53a31b)
+- [eslint] enforce `no-use-before-define` [`87deb68`](https://github.com/ljharb/tape/commit/87deb68b111fd0d94efc92c25454a6a3fcedff66)
+- [eslint] clean up config a bit [`3171edd`](https://github.com/ljharb/tape/commit/3171eddd25dafb3e9a9606ac70ed6c21bb736e8e)
+- [Tests] `stackTrace`: use the common `getDiag` utility [`65df5a4`](https://github.com/ljharb/tape/commit/65df5a4f194cf01c3872c713d129ac968342181c)
+- [meta] fix repo URLs [`85d86a4`](https://github.com/ljharb/tape/commit/85d86a468af1b74af432d41c204efd4440b5f56f)
+- Revert "[Tests] handle a broken error `cause` in node 16.9/16.10" [`775ba37`](https://github.com/ljharb/tape/commit/775ba3789e16b1464dc810243dc5866b2868fc1d)
+- [meta] use `npmignore` to autogenerate an npmignore file [`1645abb`](https://github.com/ljharb/tape/commit/1645abbf47df2a8142514302da2730c54b993b47)
+- [eslint] enable `func-style` [`75c0c3a`](https://github.com/ljharb/tape/commit/75c0c3a4f9452c36b5318ba6c09ab4ebc97f15d0)
+- [readme] fix version badge [`20ea48d`](https://github.com/ljharb/tape/commit/20ea48d53b6492bf648d02d53c41b324abbfb6e1)
 
 ## [v4.16.0](https://github.com/ljharb/tape/compare/v4.15.1...v4.16.0) - 2022-08-16
 
