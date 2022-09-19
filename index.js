@@ -13,6 +13,16 @@ var canExit = typeof process !== 'undefined' && process
 
 module.exports = (function () {
 	var harness;
+
+	function getHarness(opts) {
+		if (!opts) { opts = {}; }
+		opts.autoclose = !canEmitExit;
+		// this override is here since tests fail via nyc if createHarness is moved upwards
+		// eslint-disable-next-line no-use-before-define
+		if (!harness) { harness = createExitHarness(opts); }
+		return harness;
+	}
+
 	var lazyLoad = function () {
 		// eslint-disable-next-line no-invalid-this
 		return getHarness().apply(this, arguments);
@@ -43,61 +53,7 @@ module.exports = (function () {
 	lazyLoad.getHarness = getHarness;
 
 	return lazyLoad;
-
-	function getHarness(opts) {
-		if (!opts) { opts = {}; }
-		opts.autoclose = !canEmitExit;
-		if (!harness) { harness = createExitHarness(opts); }
-		return harness;
-	}
 }());
-
-function createExitHarness(conf) {
-	var config = conf || {};
-	var harness = createHarness({
-		autoclose: defined(config.autoclose, false),
-		noOnly: defined(conf.noOnly, defined(process.env.NODE_TAPE_NO_ONLY_TEST, false))
-	});
-
-	var stream = harness.createStream({ objectMode: conf.objectMode });
-	var es = stream.pipe(conf.stream || createDefaultStream());
-	if (canEmitExit) {
-		// eslint-disable-next-line no-unused-vars
-		es.on('error', function (err) { harness._exitCode = 1; });
-	}
-
-	var ended = false;
-	stream.on('end', function () { ended = true; });
-
-	if (config.exit === false) { return harness; }
-	if (!canEmitExit || !canExit) { return harness; }
-
-	process.on('exit', function (code) {
-		// let the process exit cleanly.
-		if (code !== 0) {
-			return;
-		}
-
-		if (!ended) {
-			var only = harness._results._only;
-			for (var i = 0; i < harness._tests.length; i++) {
-				var t = harness._tests[i];
-				if (!only || t === only) {
-					t._exit();
-				}
-			}
-		}
-		harness.close();
-		process.exit(code || harness._exitCode); // eslint-disable-line no-process-exit
-	});
-
-	return harness;
-}
-
-module.exports.createHarness = createHarness;
-module.exports.Test = Test;
-module.exports.test = module.exports; // tap compat
-module.exports.test.skip = Test.skip;
 
 function createHarness(conf_) {
 	var results = createResult();
@@ -152,3 +108,50 @@ function createHarness(conf_) {
 
 	return test;
 }
+
+function createExitHarness(conf) {
+	var config = conf || {};
+	var harness = createHarness({
+		autoclose: defined(config.autoclose, false),
+		noOnly: defined(conf.noOnly, defined(process.env.NODE_TAPE_NO_ONLY_TEST, false))
+	});
+
+	var stream = harness.createStream({ objectMode: conf.objectMode });
+	var es = stream.pipe(conf.stream || createDefaultStream());
+	if (canEmitExit) {
+		// eslint-disable-next-line no-unused-vars
+		es.on('error', function (err) { harness._exitCode = 1; });
+	}
+
+	var ended = false;
+	stream.on('end', function () { ended = true; });
+
+	if (config.exit === false) { return harness; }
+	if (!canEmitExit || !canExit) { return harness; }
+
+	process.on('exit', function (code) {
+		// let the process exit cleanly.
+		if (code !== 0) {
+			return;
+		}
+
+		if (!ended) {
+			var only = harness._results._only;
+			for (var i = 0; i < harness._tests.length; i++) {
+				var t = harness._tests[i];
+				if (!only || t === only) {
+					t._exit();
+				}
+			}
+		}
+		harness.close();
+		process.exit(code || harness._exitCode); // eslint-disable-line no-process-exit
+	});
+
+	return harness;
+}
+
+module.exports.createHarness = createHarness;
+module.exports.Test = Test;
+module.exports.test = module.exports; // tap compat
+module.exports.test.skip = Test.skip;

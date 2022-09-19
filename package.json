@@ -82,10 +82,9 @@
         "assert",
         "browser"
     ],
-    "author": {
-        "name": "Jordan Harband",
-        "email": "ljharb@gmail.com",
-        "url": "http://ljharb.codes"
+    "author": "Jordan Harband <ljharb@gmail.com>",
+    "funding": {
+        "url": "https://github.com/sponsors/ljharb"
     },
     "license": "MIT"
 }

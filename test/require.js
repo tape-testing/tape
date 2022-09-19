@@ -4,6 +4,12 @@ var tap = require('tap');
 var spawn = require('child_process').spawn;
 var concat = require('concat-stream');
 
+function tape(args) {
+	var bin = __dirname + '/../bin/tape';
+
+	return spawn('node', [bin].concat(args.split(' ')), { cwd: __dirname });
+}
+
 tap.test('requiring a single module', function (t) {
 	t.plan(2);
 
@@ -62,9 +68,3 @@ tap.test('requiring multiple modules', function (t) {
 		t.equal(code, 0);
 	});
 });
-
-function tape(args) {
-	var bin = __dirname + '/../bin/tape';
-
-	return spawn('node', [bin].concat(args.split(' ')), { cwd: __dirname });
-}

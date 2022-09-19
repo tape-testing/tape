@@ -21,7 +21,6 @@
         "no-negated-condition": "off",
         "no-param-reassign": "warn",
         "no-underscore-dangle": "warn",
-        "no-use-before-define": "warn",
         "object-curly-newline": "off",
         "operator-linebreak": ["error", "before"],
         "sort-keys": "warn",
@@ -121,5 +120,11 @@
                 "camelcase": "off",
             },
         },
+        {
+            "files": ["lib/default_stream.js"],
+            "rules": {
+                "no-use-before-define": "warn",
+            },
+        }
     ],
 }
