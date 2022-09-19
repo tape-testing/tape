@@ -37,27 +37,27 @@ tap.test('preserves stack trace with newlines', function (tt) {
 
 	stream.pipe(concat(function (body) {
 		var strippedBody = stripAt(body.toString('utf8'));
-		tt.equal(
-			strippedBody,
-			'TAP version 13\n'
-			+ '# multiline stack trace\n'
-			+ 'not ok 1 Error: Preserve stack\n'
-			+ '  ---\n'
-			+ '    operator: error\n'
-			+ '    expected: |-\n'
-			+ '      undefined\n'
-			+ '    actual: |-\n'
-			+ '      [Error: Preserve stack]\n'
-			+ '    stack: |-\n'
-			+ '      foo\n'
-			+ '        bar\n'
-			+ '  ...\n'
-			+ '\n'
-			+ '1..1\n'
-			+ '# tests 1\n'
-			+ '# pass  0\n'
-			+ '# fail  1\n'
-		);
+		tt.deepEqual(strippedBody.split('\n'), [].concat(
+			'TAP version 13',
+			'# multiline stack trace',
+			'not ok 1 Error: Preserve stack',
+			'  ---',
+			'    operator: error',
+			'    expected: |-',
+			'      undefined',
+			'    actual: |-',
+			'      [Error: Preserve stack]',
+			'    stack: |-',
+			'      foo',
+			'        bar',
+			'  ...',
+			'',
+			'1..1',
+			'# tests 1',
+			'# pass  0',
+			'# fail  1',
+			''
+		));
 
 		tt.deepEqual(getDiag(strippedBody, true), {
 			stack: stackTrace,
@@ -201,26 +201,24 @@ tap.test('preserves stack trace for failed assertions', function (tt) {
 
 	stream.pipe(concat(function (body) {
 		var strippedBody = stripAt(body.toString('utf8'));
-		tt.equal(
-			strippedBody,
-			'TAP version 13\n'
-			+ '# t.equal stack trace\n'
-			+ 'not ok 1 true should be false\n'
-			+ '  ---\n'
-			+ '    operator: equal\n'
-			+ '    expected: false\n'
-			+ '    actual:   true\n'
-			+ '    stack: |-\n'
-			+ '      '
-			+ stack.replace(/\n/g, '\n      ')
-			+ '\n'
-			+ '  ...\n'
-			+ '\n'
-			+ '1..1\n'
-			+ '# tests 1\n'
-			+ '# pass  0\n'
-			+ '# fail  1\n'
-		);
+		tt.deepEqual(strippedBody.split('\n'), [].concat(
+			'TAP version 13',
+			'# t.equal stack trace',
+			'not ok 1 true should be false',
+			'  ---',
+			'    operator: equal',
+			'    expected: false',
+			'    actual:   true',
+			'    stack: |-',
+			('\n' + stack).replace(/\n/g, '\n      ').split('\n').slice(1),
+			'  ...',
+			'',
+			'1..1',
+			'# tests 1',
+			'# pass  0',
+			'# fail  1',
+			''
+		));
 
 		tt.deepEqual(getDiag(strippedBody, true), {
 			stack: stack,
@@ -266,26 +264,24 @@ tap.test('preserves stack trace for failed assertions where actual===falsy', fun
 
 	stream.pipe(concat(function (body) {
 		var strippedBody = stripAt(body.toString('utf8'));
-		tt.equal(
-			strippedBody,
-			'TAP version 13\n'
-            + '# t.equal stack trace\n'
-            + 'not ok 1 false should be true\n'
-            + '  ---\n'
-            + '    operator: equal\n'
-            + '    expected: true\n'
-            + '    actual:   false\n'
-            + '    stack: |-\n'
-            + '      '
-            + stack.replace(/\n/g, '\n      ')
-            + '\n'
-            + '  ...\n'
-            + '\n'
-            + '1..1\n'
-            + '# tests 1\n'
-            + '# pass  0\n'
-            + '# fail  1\n'
-		);
+		tt.deepEqual(strippedBody.split('\n'), [].concat(
+			'TAP version 13',
+			'# t.equal stack trace',
+			'not ok 1 false should be true',
+			'  ---',
+			'    operator: equal',
+			'    expected: true',
+			'    actual:   false',
+			'    stack: |-',
+			('\n' + stack).replace(/\n/g, '\n      ').split('\n').slice(1),
+			'  ...',
+			'',
+			'1..1',
+			'# tests 1',
+			'# pass  0',
+			'# fail  1',
+			''
+		));
 
 		tt.deepEqual(getDiag(strippedBody, true), {
 			stack: stack,
