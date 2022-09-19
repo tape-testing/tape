@@ -12,7 +12,7 @@
     "rules": {
         "array-bracket-spacing": "off",
         "complexity": "off",
-        "func-style": "warn",
+        "func-style": ["error", "declaration"],
         "max-lines-per-function": "warn",
         "max-lines": "warn",
         "max-statements-per-line": [2, { "max": 2 }],
@@ -107,6 +107,7 @@
                     "allowKeywords": true,
                     "allowPattern": "throws"
                 }],
+                "func-style": "off",
                 "id-length": "off",
                 "max-len": "off",
                 "max-lines-per-function": "off",

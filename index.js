@@ -23,10 +23,10 @@ module.exports = (function () {
 		return harness;
 	}
 
-	var lazyLoad = function () {
+	function lazyLoad() {
 		// eslint-disable-next-line no-invalid-this
 		return getHarness().apply(this, arguments);
-	};
+	}
 
 	lazyLoad.only = function () {
 		return getHarness().only.apply(this, arguments);
@@ -61,7 +61,7 @@ function createHarness(conf_) {
 		results.once('done', function () { results.close(); });
 	}
 
-	var test = function (name, conf, cb) {
+	function test(name, conf, cb) {
 		var t = new Test(name, conf, cb);
 		test._tests.push(t);
 
@@ -76,7 +76,7 @@ function createHarness(conf_) {
 
 		results.push(t);
 		return t;
-	};
+	}
 	test._results = results;
 
 	test._tests = [];
