@@ -12,19 +12,16 @@
     "rules": {
         "array-bracket-spacing": "off",
         "complexity": "off",
-        "func-style": "warn",
-        "indent": ["error", 4],
+        "func-style": ["error", "declaration"],
         "no-magic-numbers": "off",
-        "max-lines": "warn",
-        "max-lines-per-function": "warn",
+        "max-lines-per-function": "off",
         "max-statements-per-line": [2, { "max": 2 }],
         "max-statements": "warn",
         "multiline-comment-style": "off",
         "no-negated-condition": "off",
         "no-underscore-dangle": "warn",
-        "no-use-before-define": "warn",
         "object-curly-newline": "off",
-        "sort-keys": "warn",
+        "sort-keys": "off",
     },
     "ignorePatterns": ["syntax-error.*"],
     "overrides": [
@@ -107,6 +104,7 @@
                     "allowKeywords": true,
                     "allowPattern": "throws"
                 }],
+                "func-style": "off",
                 "id-length": "off",
                 "max-len": "off",
                 "max-lines-per-function": "off",
@@ -118,6 +116,18 @@
             "files": ["test/*/**"],
             "rules": {
                 "camelcase": "off",
+            },
+        },
+        {
+            "files": ["lib/default_stream.js"],
+            "rules": {
+                "no-use-before-define": "warn",
+            },
+        },
+        {
+            "files": ["lib/test.js"],
+            "rules": {
+                "max-lines": "off",
             },
         },
     ],

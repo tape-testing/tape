@@ -8,5 +8,5 @@ var ps = spawn(process.execPath, [path.join(__dirname, 'max_listeners', 'source.
 ps.stdout.pipe(process.stdout, { end: false });
 
 ps.stderr.on('data', function (buf) {
-    console.log('not ok ' + buf);
+	console.log('not ok ' + buf);
 });
