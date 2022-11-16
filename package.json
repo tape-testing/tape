@@ -33,7 +33,6 @@
 		"for-each": "^0.3.3",
 		"get-package-type": "^0.1.0",
 		"glob": "^7.2.3",
-		"has": "^1.0.3",
 		"has-dynamic-import": "^2.0.1",
 		"inherits": "^2.0.4",
 		"is-regex": "^1.1.4",
