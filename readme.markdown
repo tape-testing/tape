@@ -158,13 +158,24 @@ This is used to load modules before running tests and is explained extensively i
 
 **Alias**: `-i`
 
-This flag is used when tests from certain folders and/or files are not intended to be run. It defaults to `.gitignore` file when passed with no argument.
+This flag is used when tests from certain folders and/or files are not intended to be run.
+The argument is a path to a file that contains the patterns to be ignored.
+It defaults to `.gitignore` when passed with no argument.
 
 ```sh
-tape -i .ignore **/*.js
+tape -i .ignore '**/*.js'
 ```
 
 An error is thrown if the specified file passed as argument does not exist.
+
+## --ignore-pattern
+
+Same functionality as `--ignore`, but passing the pattern directly instead of an ignore file.
+If both `--ignore` and `--ignore-pattern` are given, the `--ignore-pattern` argument is appended to the content of the ignore file.
+
+```sh
+tape --ignore-pattern 'integration_tests/**/*.js' '**/*.js'
+```
 
 ## --no-only
 This is particularly useful in a CI environment where an [only test](#testonlyname-opts-cb) is not supposed to go unnoticed.

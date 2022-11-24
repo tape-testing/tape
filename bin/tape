@@ -7,9 +7,9 @@ var objectKeys = require('object-keys');
 
 var opts = parseOpts(process.argv.slice(2), {
 	alias: { r: 'require', i: 'ignore' },
-	string: ['require', 'ignore'],
+	string: ['require', 'ignore', 'ignore-pattern'],
 	boolean: ['only'],
-	default: { r: [], i: null, only: null }
+	default: { r: [], i: null, 'ignore-pattern': null, only: null }
 });
 
 if (typeof opts.only === 'boolean') {
@@ -35,15 +35,23 @@ opts.require.forEach(function (module) {
 var resolvePath = require('path').resolve;
 var requireResolve = require.resolve;
 
-var matcher;
+var ignoreStr = '';
 if (typeof opts.ignore === 'string') {
 	var readFileSync = require('fs').readFileSync;
 	try {
-		var ignoreStr = readFileSync(resolvePath(cwd, opts.ignore || '.gitignore'), 'utf-8');
+		ignoreStr = readFileSync(resolvePath(cwd, opts.ignore || '.gitignore'), 'utf-8');
 	} catch (e) {
 		console.error(e.message);
 		process.exit(2);
 	}
+}
+
+if (typeof opts['ignore-pattern'] === 'string') {
+	ignoreStr += '\n' + opts['ignore-pattern'];
+}
+
+var matcher;
+if (ignoreStr) {
 	var ignore = require('dotignore');
 	matcher = ignore.createMatcher(ignoreStr);
 }
