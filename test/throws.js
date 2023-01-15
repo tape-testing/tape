@@ -112,11 +112,28 @@ tap.test('failures', function (tt) {
 			'          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
 			'          [... stack stripped ...]',
 			'  ...',
+			'# non-extensible throw match',
+			'ok 37 error is non-extensible',
+			'ok 38 non-extensible error matches',
+			'ok 39 errorWithMessage is non-extensible',
+			'not ok 40 non-extensible error with message matches',
+			'  ---',
+			'    operator: throws',
+			'    expected: |-',
+			'      { foo: 1 }',
+			'    actual: |-',
+			'      { message: \'abc\' }',
+			'    at: Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
+			'  ...',
+			'# frozen `message` property',
+			'ok 41 error is non-writable',
+			'ok 42 error is non-configurable',
+			'ok 43 non-writable error matches',
 			'',
-			'1..36',
-			'# tests 36',
-			'# pass  33',
-			'# fail  3',
+			'1..43',
+			'# tests 43',
+			'# pass  39',
+			'# fail  4',
 			''
 		]);
 	}));
@@ -302,6 +319,34 @@ tap.test('failures', function (tt) {
 		// If the error message does not match, an AssertionError is thrown.
 		t.throws(throwingFirst, /Second$/);
 		// AssertionError [ERR_ASSERTION]
+		t.end();
+	});
+
+	test('non-extensible throw match', { skip: !Object.seal }, function (t) {
+		var error = { foo: 1 };
+		Object.seal(error);
+		t.throws(function () { error.x = 1; }, TypeError, 'error is non-extensible');
+
+		t.throws(function () { throw error; }, error, 'non-extensible error matches');
+
+		var errorWithMessage = { message: 'abc' };
+		Object.seal(errorWithMessage);
+		t.throws(function () { errorWithMessage.x = 1; }, TypeError, 'errorWithMessage is non-extensible');
+
+		t.throws(function () { throw errorWithMessage; }, error, 'non-extensible error with message matches');
+
+		t.end();
+	});
+
+	test('frozen `message` property', { skip: !Object.defineProperty }, function (t) {
+		var error = { message: 'abc' };
+		Object.defineProperty(error, 'message', { configurable: false, enumerable: false, writable: false });
+
+		t.throws(function () { error.message = 'def'; }, TypeError, 'error is non-writable');
+		t.throws(function () { delete error.message; }, TypeError, 'error is non-configurable');
+
+		t.throws(function () { throw error; }, { message: 'abc' }, 'non-writable error matches');
+
 		t.end();
 	});
 });
