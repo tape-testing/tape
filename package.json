@@ -14,18 +14,18 @@
     "dependencies": {
         "call-bind": "~1.0.2",
         "deep-equal": "~1.1.1",
-        "defined": "~1.0.0",
+        "defined": "~1.0.1",
         "dotignore": "~0.1.2",
         "for-each": "~0.3.3",
         "glob": "~7.2.3",
         "has": "~1.0.3",
         "inherits": "~2.0.4",
         "is-regex": "~1.1.4",
-        "minimist": "~1.2.6",
-        "object-inspect": "~1.12.2",
+        "minimist": "~1.2.7",
+        "object-inspect": "~1.12.3",
         "resolve": "~1.22.1",
         "resumer": "~0.0.0",
-        "string.prototype.trim": "~1.2.6",
+        "string.prototype.trim": "~1.2.7",
         "through": "~2.3.8"
     },
     "devDependencies": {
