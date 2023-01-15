@@ -5,6 +5,36 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v5.6.2](https://github.com/ljharb/tape/compare/v5.6.1...v5.6.2) - 2023-01-15
+
+### Fixed
+
+- [New] `bin/tape`: add `--ignore-pattern` flag [`#586`](https://github.com/ljharb/tape/issues/586)
+
+### Commits
+
+- [eslint] fix indentation [`b035590`](https://github.com/ljharb/tape/commit/b035590f782c211e93a6a44ed8d0e9d38636a286)
+- [meta] add `auto-changelog` [`b467b85`](https://github.com/ljharb/tape/commit/b467b850f169bf294851c68a5c4074360d53a31b)
+- [eslint] enforce `no-use-before-define` [`87deb68`](https://github.com/ljharb/tape/commit/87deb68b111fd0d94efc92c25454a6a3fcedff66)
+- [eclint] fix editorconfig [`ce81cbe`](https://github.com/ljharb/tape/commit/ce81cbee9bfc00ebd0abbc70932e3eeab84b159e)
+- [eslint] clean up config a bit [`3171edd`](https://github.com/ljharb/tape/commit/3171eddd25dafb3e9a9606ac70ed6c21bb736e8e)
+- [Tests] `stackTrace`: use the common `getDiag` utility [`65df5a4`](https://github.com/ljharb/tape/commit/65df5a4f194cf01c3872c713d129ac968342181c)
+- [Fix] `throws`: avoid crashing on a nonconfigurable or nonextensible `expected` [`0cd7a2c`](https://github.com/ljharb/tape/commit/0cd7a2cb2e231bd87412170f05020fd910e6d3e4)
+- [meta] fix repo URLs [`85d86a4`](https://github.com/ljharb/tape/commit/85d86a468af1b74af432d41c204efd4440b5f56f)
+- Revert "[Tests] handle a broken error `cause` in node 16.9/16.10" [`775ba37`](https://github.com/ljharb/tape/commit/775ba3789e16b1464dc810243dc5866b2868fc1d)
+- [meta] use `npmignore` to autogenerate an npmignore file [`1645abb`](https://github.com/ljharb/tape/commit/1645abbf47df2a8142514302da2730c54b993b47)
+- [eslint] enable `func-style` [`75c0c3a`](https://github.com/ljharb/tape/commit/75c0c3a4f9452c36b5318ba6c09ab4ebc97f15d0)
+- [actions] update rebase action [`b3d724e`](https://github.com/ljharb/tape/commit/b3d724e9ddfcca3c3d78f3c9d53158b5aef2208b)
+- [Deps] update `array.prototype.every`, `deep-equal`, `string.prototype.trim` [`e9c9aba`](https://github.com/ljharb/tape/commit/e9c9abab037b274bb9b239b26c33d94eb8b7e802)
+- [Deps] update `defined`, `minimist`, `resolve` [`83695c0`](https://github.com/ljharb/tape/commit/83695c03495801e6cf98cba7328d287e47f3afde)
+- [Deps] update `deep-equal`, `object-inspect` [`09906f3`](https://github.com/ljharb/tape/commit/09906f323c69b5f189675bf0faad9d5be4831706)
+- [Dev Deps] update `@ljharb/eslint-config`, `aud` [`afd8f64`](https://github.com/ljharb/tape/commit/afd8f64712daade8ccd29b727d90bccab9f5ce12)
+- [Dev Deps] update `array.prototype.flatmap` [`8b8bf07`](https://github.com/ljharb/tape/commit/8b8bf07312adb248238238a0d810b0eedeb8b2b5)
+- [Dev Deps] update `aud` [`f0fe7c0`](https://github.com/ljharb/tape/commit/f0fe7c0979ba5d7ea96c619fab5389979cd0a862)
+- [Dev Deps] update `tap-parser` [`2f61eac`](https://github.com/ljharb/tape/commit/2f61eac3800d63fba65895bbfa947b8b82346cf0)
+- Merge tag 'v4.16.1' [`96ff863`](https://github.com/ljharb/tape/commit/96ff863913b282e13bc5200179fcb1a757933449)
+- [readme] fix version badge [`20ea48d`](https://github.com/ljharb/tape/commit/20ea48d53b6492bf648d02d53c41b324abbfb6e1)
+
 ## [v5.6.1](https://github.com/ljharb/tape/compare/v5.6.0...v5.6.1) - 2022-09-19
 
 ### Commits
