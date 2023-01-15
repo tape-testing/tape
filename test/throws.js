@@ -176,10 +176,19 @@ tap.test('failures', function (tt) {
 			'          at Test.<anonymous> ($TEST/throws.js:$LINE:$COL)',
 			'          [... stack stripped ...]',
 			'  ...',
+			'# non-extensible throw match',
+			'ok 15 error is non-extensible',
+			'ok 16 non-extensible error matches',
+			'ok 17 errorWithMessage is non-extensible',
+			'ok 18 non-extensible error with message matches',
+			'# frozen `message` property',
+			'ok 19 error is non-writable',
+			'ok 20 error is non-configurable',
+			'ok 21 non-writable error matches',
 			'',
-			'1..14',
-			'# tests 14',
-			'# pass  4',
+			'1..21',
+			'# tests 21',
+			'# pass  11',
 			'# fail  10',
 			''
 		]);
@@ -219,6 +228,34 @@ tap.test('failures', function (tt) {
 		t.plan(1);
 		var actual = new RangeError('actual!');
 		t['throws'](function () { throw actual; }, TypeError, 'throws actual');
+		t.end();
+	});
+
+	test('non-extensible throw match', { skip: !Object.seal }, function (t) {
+		var error = { foo: 1 };
+		Object.seal(error);
+		t.throws(function () { error.x = 1; }, TypeError, 'error is non-extensible');
+
+		t.throws(function () { throw error; }, error, 'non-extensible error matches');
+
+		var errorWithMessage = { message: 'abc' };
+		Object.seal(errorWithMessage);
+		t.throws(function () { errorWithMessage.x = 1; }, TypeError, 'errorWithMessage is non-extensible');
+
+		t.throws(function () { throw errorWithMessage; }, error, 'non-extensible error with message matches');
+
+		t.end();
+	});
+
+	test('frozen `message` property', { skip: !Object.defineProperty }, function (t) {
+		var error = { message: 'abc' };
+		Object.defineProperty(error, 'message', { configurable: false, enumerable: false, writable: false });
+
+		t.throws(function () { error.message = 'def'; }, TypeError, 'error is non-writable');
+		t.throws(function () { delete error.message; }, TypeError, 'error is non-configurable');
+
+		t.throws(function () { throw error; }, { message: 'abc' }, 'non-writable error matches');
+
 		t.end();
 	});
 });
