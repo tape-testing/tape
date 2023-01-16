@@ -469,7 +469,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Deps] update `resolve` [`b765bba`](https://github.com/ljharb/tape/commit/b765bba1ea56075d5382b203b6902c8fc5f2d5a6)
 - [Dev Deps] update `eslint` [`949781f`](https://github.com/ljharb/tape/commit/949781faf753d5481085f993210738e7b93b3172)
 
-## [v5.0.0-next.0](https://github.com/ljharb/tape/compare/v4.16.1...v5.0.0-next.0) - 2019-12-20
+## [v5.0.0-next.0](https://github.com/ljharb/tape/compare/v4.16.2...v5.0.0-next.0) - 2019-12-20
 
 ### Commits
 
@@ -481,6 +481,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Tests] update tests for more async/await cases [`197019c`](https://github.com/ljharb/tape/commit/197019c78c0e452852806f330e573f5023eba91c)
 - [meta] change dep semver prefix from ~ to ^ [`c3924d3`](https://github.com/ljharb/tape/commit/c3924d34476247e2ba0d6e0781ca89b7d25f2a2b)
 - [Breaking] update `deep-equal` to v2 [`898a6e7`](https://github.com/ljharb/tape/commit/898a6e70aadff95f23eb6f7b4e7a1fd24baacc7d)
+
+## [v4.16.2](https://github.com/ljharb/tape/compare/v4.16.1...v4.16.2) - 2023-01-15
+
+### Commits
+
+- [Fix] `throws`: avoid crashing on a nonconfigurable or nonextensible `expected` [`0731b5f`](https://github.com/ljharb/tape/commit/0731b5f64311b168ac941ce3e547bb1a32766783)
+- [actions] update rebase action [`834453c`](https://github.com/ljharb/tape/commit/834453cdd4cb95b71d2180a3b28a1ce8e51357b3)
+- [Deps] update `defined`, `minimist`, `object-inspect`, `string.prototype.trim` [`01edce8`](https://github.com/ljharb/tape/commit/01edce8073efe1134c5fff58638b350afb7c6d22)
+- [Dev Deps] update `@ljharb/eslint-config`, `array.prototype.flatmap`, `aud` [`1b3ad24`](https://github.com/ljharb/tape/commit/1b3ad2429b553f7e029fe9fd5977b07e76740e42)
+- [meta] add missing npmrc config [`15e2175`](https://github.com/ljharb/tape/commit/15e2175b927010657c66f0a30e44f5266147311f)
 
 ## [v4.16.1](https://github.com/ljharb/tape/compare/v4.16.0...v4.16.1) - 2022-09-19
 
