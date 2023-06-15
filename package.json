@@ -58,6 +58,7 @@
 		"es-value-fixtures": "^1.4.2",
 		"eslint": "=8.8.0",
 		"falafel": "^2.2.5",
+		"jackspeak": "=2.1.1",
 		"js-yaml": "^3.14.0",
 		"npm-run-posix-or-windows": "^2.0.2",
 		"npmignore": "^0.3.0",
