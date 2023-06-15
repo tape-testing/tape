@@ -1,6 +1,6 @@
 # tape <sup>[![Version Badge][npm-version-svg]][package-url]</sup>
 
-tap-producing test harness for node and browsers
+[TAP](https://testanything.org/)-producing test harness for node and browsers
 
 [![github actions][actions-image]][actions-url]
 [![coverage][codecov-image]][codecov-url]
