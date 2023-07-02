@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v5.6.4](https://github.com/ljharb/tape/compare/v5.6.3...v5.6.4) - 2023-07-01
+
+### Commits
+
+- [Fix] `throws`: avoid crashing on a nonconfigurable or nonextensible `expected` [`0731b5f`](https://github.com/ljharb/tape/commit/0731b5f64311b168ac941ce3e547bb1a32766783)
+- [Tests] simplify tests [`c656ee5`](https://github.com/ljharb/tape/commit/c656ee52626e0e4992e893e41e1ae81ecb5d68a2)
+- [Refactor] `Test`: skip binding for a non-function value [`e244e64`](https://github.com/ljharb/tape/commit/e244e64eab7529c4e0d2391b989152b84229939e)
+- [Performance] use `call-bind` for autobinding [`70de437`](https://github.com/ljharb/tape/commit/70de43727d191c10d8ba9542bd0cdabaf272360a)
+- [actions] update rebase action [`834453c`](https://github.com/ljharb/tape/commit/834453cdd4cb95b71d2180a3b28a1ce8e51357b3)
+- [Deps] update `defined`, `minimist`, `object-inspect`, `string.prototype.trim` [`01edce8`](https://github.com/ljharb/tape/commit/01edce8073efe1134c5fff58638b350afb7c6d22)
+- [Dev Deps] update `@ljharb/eslint-config`, `array.prototype.flatmap`, `aud` [`1b3ad24`](https://github.com/ljharb/tape/commit/1b3ad2429b553f7e029fe9fd5977b07e76740e42)
+- [Dev Deps] update `@ljharb/eslint-config`, `aud` [`a6a5eee`](https://github.com/ljharb/tape/commit/a6a5eee0991a55f001d6468930e20e486a5e308e)
+- [Deps] update `deep-equal` [`2043b2e`](https://github.com/ljharb/tape/commit/2043b2e72be80f477293eefb44f226bb06aeafc0)
+- [readme] Link to explain what TAP is [`26a75bb`](https://github.com/ljharb/tape/commit/26a75bbb8b1854fa730eaaf1407aea1409640fd5)
+- [Deps] update `minimist` [`7e7c3d0`](https://github.com/ljharb/tape/commit/7e7c3d054449ac44f18d90db790705db4bcef37c)
+- [readme] improve t.throws description for Function [`c1b619d`](https://github.com/ljharb/tape/commit/c1b619db02f5b51e4c1379debeb0bac90daa3b93)
+- [Dev Deps] pin `jackspeak` since 2.1.2+ depends on npm aliases, which kill the install process in npm &lt; 6 [`0e80800`](https://github.com/ljharb/tape/commit/0e80800b4d287e6cae7bd4f46b13fa8ac5aa1197)
+- Merge tag 'v4.16.2' [`d5d675d`](https://github.com/ljharb/tape/commit/d5d675dbd841f411960dbe60946744fae4cd2bcb)
+- [meta] add missing npmrc config [`15e2175`](https://github.com/ljharb/tape/commit/15e2175b927010657c66f0a30e44f5266147311f)
+
 ## [v5.6.3](https://github.com/ljharb/tape/compare/v5.6.2...v5.6.3) - 2023-01-15
 
 ## [v5.6.2](https://github.com/ljharb/tape/compare/v5.6.1...v5.6.2) - 2023-01-15
