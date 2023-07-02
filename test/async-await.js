@@ -210,9 +210,7 @@ tap.test('sync-error', function (t) {
 			'',
 			'Error: oopsie',
 			'    at Test.myTest ($TEST/async-await/sync-error.js:$LINE:$COL)',
-			'    at Test.bound [as _cb] ($TAPE/lib/test.js:$LINE:$COL)',
 			'    at Test.run ($TAPE/lib/test.js:$LINE:$COL)',
-			'    at Test.bound [as run] ($TAPE/lib/test.js:$LINE:$COL)',
 			node17 ? [
 				'',
 				'Node.js ' + process.version
