@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v5.6.5](https://github.com/ljharb/tape/compare/v5.6.4...v5.6.5) - 2023-07-12
+
+### Commits
+
+- [Fix] Results: show a skip string on tests, not just on assertions [`9bbbcfe`](https://github.com/ljharb/tape/commit/9bbbcfe6a28a969dcde53850ebb7673837bdfcb7)
+- [Deps] update `deep-equal` [`109a791`](https://github.com/ljharb/tape/commit/109a791cc28b931de1545ba7cb8e5599634190d7)
+
 ## [v5.6.4](https://github.com/ljharb/tape/compare/v5.6.3...v5.6.4) - 2023-07-01
 
 ### Commits
