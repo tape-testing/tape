@@ -25,6 +25,8 @@
 		"test": "test"
 	},
 	"dependencies": {
+		"@ljharb/resumer": "^0.0.1",
+		"@ljharb/through": "^2.3.9",
 		"array.prototype.every": "^1.1.4",
 		"call-bind": "^1.0.2",
 		"deep-equal": "^2.2.2",
@@ -43,9 +45,7 @@
 		"object-keys": "^1.1.1",
 		"object.assign": "^4.1.4",
 		"resolve": "^2.0.0-next.4",
-		"resumer": "^0.0.0",
-		"string.prototype.trim": "^1.2.7",
-		"through": "^2.3.8"
+		"string.prototype.trim": "^1.2.7"
 	},
 	"devDependencies": {
 		"@ljharb/eslint-config": "^21.1.0",

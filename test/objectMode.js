@@ -3,7 +3,7 @@
 var tap = require('tap');
 var tape = require('../');
 var forEach = require('for-each');
-var through = require('through');
+var through = require('@ljharb/through');
 
 tap.test('object results', function (assert) {
 	var printer = through({ objectMode: true });
