@@ -71,7 +71,7 @@
 		"version": "auto-changelog && git add CHANGELOG.md",
 		"postversion": "auto-changelog && git add CHANGELOG.md && git commit --no-edit --amend && git tag -f \"v$(node -e \"console.log(require('./package.json').version)\")\"",
 		"prepublishOnly": "safe-publish-latest",
-		"prepublish": "!(type not-in-publish) || not-in-publish || npm run prepublishOnly",
+		"prepublish": "not-in-publish || npm run prepublishOnly",
 		"prelint:files": "git ls-files 2>/dev/null | xargs find 2> /dev/null | grep -vE 'node_modules|\\.git' || echo '*.md *.js test/*.js'",
 		"eclint": "FILES=\"$(npm run --silent prelint:files)\" eclint check \"${FILES:=package.json}\"",
 		"eclint:windows": "eclint check *.js",
