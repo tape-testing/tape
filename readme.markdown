@@ -396,6 +396,23 @@ The returned wrapper has a `.calls` property, which is an array that will be pop
 
 Modeled after [tap](https://tapjs.github.io/tapjs/modules/_tapjs_intercept.html).
 
+## t.intercept(obj, property, desc = {}, strictMode = true)
+
+Similar to `t.capture()``, but can be used to track get/set operations for any arbitrary property.
+Calling the returned `results()` function will return an array of call result objects.
+The array of calls will be reset whenever the function is called.
+Call result objects will match one of these forms:
+  - `{ type: 'get', value: '1.2.3', success: true, args: [x, y, z], receiver: o }`
+  - `{ type: 'set', value: '2.4.6', success: false, args: [x, y, z], receiver: o }`
+
+If `strictMode` is `true`, and `writable` is `false`, and no `get` or `set` is provided, an exception will be thrown when `obj[property]` is assigned to.
+If `strictMode` is `false` in this scenario, nothing will be set, but the attempt will still be logged.
+
+Providing both `desc.get` and `desc.set` are optional and can still be useful for logging get/set attempts.
+
+`desc` must be a valid property descriptor, meaning that `get`/`set` are mutually exclusive with `writable`/`value`.
+Additionally, explicitly setting `configurable` to `false` is not permitted, so that the property can be restored.
+
 ## var htest = test.createHarness()
 
 Create a new test harness instance, which is a function like `test()`, but with a new pending stack and test state.
