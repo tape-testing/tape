@@ -384,7 +384,8 @@ You may pass the same options that [`test()`](#testname-opts-cb) accepts.
 
 ## t.comment(message)
 
-Print a message without breaking the tap output. (Useful when using e.g. `tap-colorize` where output is buffered & `console.log` will print in incorrect order vis-a-vis tap output.)
+Print a message without breaking the tap output.
+(Useful when using e.g. `tap-colorize` where output is buffered & `console.log` will print in incorrect order vis-a-vis tap output.)
 
 Multiline output will be split by `\n` characters, and each one printed as a comment.
 
@@ -395,6 +396,29 @@ Assert that `string` matches the RegExp `regexp`. Will fail when the first two a
 ## t.doesNotMatch(string, regexp, message)
 
 Assert that `string` does not match the RegExp `regexp`. Will fail when the first two arguments are the wrong type.
+
+## t.capture(obj, method, implementation = () => {})
+
+Replaces `obj[method]` with the supplied implementation.
+`obj` must be a non-primitive, `method` must be a valid property key (string or symbol), and `implementation`, if provided, must be a function.
+
+Calling the returned `results()` function will return an array of call result objects.
+The array of calls will be reset whenever the function is called.
+Call result objects will match one of these forms:
+  - `{ args: [x, y, z], receiver: o, returned: a }`
+  - `{ args: [x, y, z], receiver: o, threw: true }`
+
+The replacement will automatically be restored on test teardown.
+You can restore it manually, if desired, by calling `.restore()` on the returned results function.
+
+Modeled after [tap](https://tapjs.github.io/tapjs/modules/_tapjs_intercept.html).
+
+## t.captureFn(original)
+
+Wraps the supplied function.
+The returned wrapper has a `.calls` property, which is an array that will be populated with call result objects, described under `t.capture()`.
+
+Modeled after [tap](https://tapjs.github.io/tapjs/modules/_tapjs_intercept.html).
 
 ## var htest = test.createHarness()
 
