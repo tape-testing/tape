@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v5.7.0](https://github.com/ljharb/tape/compare/v5.6.6...v5.7.0) - 2023-09-21
+
+### Commits
+
+- [New] add `t.intercept()` [`5d37060`](https://github.com/ljharb/tape/commit/5d37060b844ea455c80eb305050168a632998603)
+- [New] add `t.capture` and `t.captureFn`, modeled after tap [`9e21f7a`](https://github.com/ljharb/tape/commit/9e21f7a3106fcc4d4e7c057633ce4516d53978d2)
+- [Refactor] prefer second `.then` arg over `.catch` [`135a952`](https://github.com/ljharb/tape/commit/135a952e55372855b1510a6381e5a5757758b452)
+- [Performance] use inline `typeof` [`5ba89c9`](https://github.com/ljharb/tape/commit/5ba89c993ea0a4c9a880d86af5c268deb239aa70)
+- [Deps] update `array.prototype.every`, `glob`, `string.prototype.trim` [`4e2db4d`](https://github.com/ljharb/tape/commit/4e2db4d0699be4034a577479b902885fcc0f2a6c)
+- [Dev Deps] update `array.prototype.flatmap` [`df46769`](https://github.com/ljharb/tape/commit/df467693328f7771b2db639ff4aaaf2c64ad16d6)
+- Revert "[meta] ensure `not-in-publish`‘s absence does not fail anything" [`1b3e0b1`](https://github.com/ljharb/tape/commit/1b3e0b10dc934a529297f11fa6ccd1693e5416b3)
+
 ## [v5.6.6](https://github.com/ljharb/tape/compare/v5.6.5...v5.6.6) - 2023-07-18
 
 ### Commits
