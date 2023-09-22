@@ -514,7 +514,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Deps] update `resolve` [`b765bba`](https://github.com/ljharb/tape/commit/b765bba1ea56075d5382b203b6902c8fc5f2d5a6)
 - [Dev Deps] update `eslint` [`949781f`](https://github.com/ljharb/tape/commit/949781faf753d5481085f993210738e7b93b3172)
 
-## [v5.0.0-next.0](https://github.com/ljharb/tape/compare/v4.16.2...v5.0.0-next.0) - 2019-12-20
+## [v5.0.0-next.0](https://github.com/ljharb/tape/compare/v4.17.0...v5.0.0-next.0) - 2019-12-20
 
 ### Commits
 
@@ -526,6 +526,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Tests] update tests for more async/await cases [`197019c`](https://github.com/ljharb/tape/commit/197019c78c0e452852806f330e573f5023eba91c)
 - [meta] change dep semver prefix from ~ to ^ [`c3924d3`](https://github.com/ljharb/tape/commit/c3924d34476247e2ba0d6e0781ca89b7d25f2a2b)
 - [Breaking] update `deep-equal` to v2 [`898a6e7`](https://github.com/ljharb/tape/commit/898a6e70aadff95f23eb6f7b4e7a1fd24baacc7d)
+
+## [v4.17.0](https://github.com/ljharb/tape/compare/v4.16.2...v4.17.0) - 2023-09-21
+
+### Commits
+
+- [New] add `t.intercept()` [`e60aeca`](https://github.com/ljharb/tape/commit/e60aeca688fe1d3a363f74f31c83d816035aca4c)
+- [New] add `t.capture` and `t.captureFn`, modeled after tap [`3d96d69`](https://github.com/ljharb/tape/commit/3d96d6945ea1cda7780fb3fc6bc04c275ace594a)
+- [Deps] switch from `through` and `resumer` to `@ljharb/through` and `@ljharb/resumer` [`a8a7d67`](https://github.com/ljharb/tape/commit/a8a7d67c9ffe1daa46407f35685a1ef8d53df66a)
+- [Tests] simplify tests [`83bc381`](https://github.com/ljharb/tape/commit/83bc3810a930c60973e60a7a02b677c2fb1f444c)
+- [Performance] use inline `typeof` [`c45db4e`](https://github.com/ljharb/tape/commit/c45db4e0978999cece915e7f1a223aa9eb445ae0)
+- [Deps] update `minimist`, `resolve`, `string.prototype.trim` [`feee094`](https://github.com/ljharb/tape/commit/feee0949f1f23ef4f13c9847c20284f7864cd67e)
+- [Dev Deps] update `@ljharb/eslint-config`, `array.prototype.flatmap`, `aud` [`7123111`](https://github.com/ljharb/tape/commit/71231114c92b4a093b468875c4d8f741ab1a49d4)
+- Revert "[meta] ensure `not-in-publish`‘s absence does not fail anything" [`92aaa51`](https://github.com/ljharb/tape/commit/92aaa5106b65824d82ce72c0d1dfcc6df6cff753)
+- [Dev Deps] pin `jackspeak` since 2.1.2+ depends on npm aliases, which kill the install process in npm &lt; 6 [`a576f8d`](https://github.com/ljharb/tape/commit/a576f8d8b24e84324b7ee0498c37759423c7ca87)
 
 ## [v4.16.2](https://github.com/ljharb/tape/compare/v4.16.1...v4.16.2) - 2023-01-15
 
