@@ -382,7 +382,7 @@ Calling the returned `results()` function will return an array of call result ob
 The array of calls will be reset whenever the function is called.
 Call result objects will match one of these forms:
   - `{ args: [x, y, z], receiver: o, returned: a }`
-  - `{ args: [x, y, z], receiver: o, threw: true, thrown: e }`
+  - `{ args: [x, y, z], receiver: o, threw: true }`
 
 The replacement will automatically be restored on test teardown.
 You can restore it manually, if desired, by calling `.restore()` on the returned results function.
