@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v5.7.1](https://github.com/ljharb/tape/compare/v5.7.0...v5.7.1) - 2023-10-11
+
+### Commits
+
+- [Fix] `default_stream`: add handling for IE &lt; 9 [`13f23ed`](https://github.com/ljharb/tape/commit/13f23edc2a63aa7c57997bb81886d74e9fce43df)
+- [Deps] update `@ljharb/through`, `resolve` [`9135b40`](https://github.com/ljharb/tape/commit/9135b40f93adc6b8fbc31f48a96adf2339b00672)
+- Merge tag 'v4.17.0' [`e61cd40`](https://github.com/ljharb/tape/commit/e61cd4095062f4b9afdfb11945a502390eaed30d)
+- [New] add `t.intercept()` [`e60aeca`](https://github.com/ljharb/tape/commit/e60aeca688fe1d3a363f74f31c83d816035aca4c)
+- [New] add `t.capture` and `t.captureFn`, modeled after tap [`3d96d69`](https://github.com/ljharb/tape/commit/3d96d6945ea1cda7780fb3fc6bc04c275ace594a)
+- [Deps] switch from `through` and `resumer` to `@ljharb/through` and `@ljharb/resumer` [`a8a7d67`](https://github.com/ljharb/tape/commit/a8a7d67c9ffe1daa46407f35685a1ef8d53df66a)
+- [Tests] simplify tests [`83bc381`](https://github.com/ljharb/tape/commit/83bc3810a930c60973e60a7a02b677c2fb1f444c)
+- [Performance] use inline `typeof` [`c45db4e`](https://github.com/ljharb/tape/commit/c45db4e0978999cece915e7f1a223aa9eb445ae0)
+- [Deps] update `minimist`, `resolve`, `string.prototype.trim` [`feee094`](https://github.com/ljharb/tape/commit/feee0949f1f23ef4f13c9847c20284f7864cd67e)
+- [Dev Deps] update `@ljharb/eslint-config`, `array.prototype.flatmap`, `aud` [`7123111`](https://github.com/ljharb/tape/commit/71231114c92b4a093b468875c4d8f741ab1a49d4)
+- Revert "[meta] ensure `not-in-publish`‘s absence does not fail anything" [`92aaa51`](https://github.com/ljharb/tape/commit/92aaa5106b65824d82ce72c0d1dfcc6df6cff753)
+- [Dev Deps] pin `jackspeak` since 2.1.2+ depends on npm aliases, which kill the install process in npm &lt; 6 [`a576f8d`](https://github.com/ljharb/tape/commit/a576f8d8b24e84324b7ee0498c37759423c7ca87)
+
 ## [v5.7.0](https://github.com/ljharb/tape/compare/v5.6.6...v5.7.0) - 2023-09-21
 
 ### Commits
