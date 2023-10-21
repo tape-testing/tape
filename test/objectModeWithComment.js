@@ -5,7 +5,7 @@ var tape = require('../');
 var through = require('@ljharb/through');
 
 tap.test('test.comment() in objectMode', function (assert) {
-	var printer = through({ objectMode: true });
+	var printer = through(null, null, { objectMode: true });
 	var objects = [];
 	printer.on('error', function (e) {
 		assert.fail(e);

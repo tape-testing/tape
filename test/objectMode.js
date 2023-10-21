@@ -6,7 +6,7 @@ var forEach = require('for-each');
 var through = require('@ljharb/through');
 
 tap.test('object results', function (assert) {
-	var printer = through({ objectMode: true });
+	var printer = through(null, null, { objectMode: true });
 	var objects = [];
 
 	printer.write = function (obj) {
