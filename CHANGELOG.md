@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v5.7.2](https://github.com/ljharb/tape/compare/v5.7.1...v5.7.2) - 2023-10-20
+
+### Commits
+
+- [Refactor] use `hasown` instead of `has` [`489736a`](https://github.com/ljharb/tape/commit/489736ab9325a3a3ff3c4c391d4de6a44e86e36a)
+- [Deps] update `call-bind`, `mock-property`, `object-inspect` [`de34703`](https://github.com/ljharb/tape/commit/de3470385f388e601b3058bd2240db1c7bb941d1)
+- [Tests] use `through` properly [`56d7a8b`](https://github.com/ljharb/tape/commit/56d7a8b02572d1ce711cda8b591ab64f3d636531)
+
 ## [v5.7.1](https://github.com/ljharb/tape/compare/v5.7.0...v5.7.1) - 2023-10-11
 
 ### Commits
