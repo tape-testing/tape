@@ -29,7 +29,7 @@
 		"@ljharb/through": "^2.3.11",
 		"array.prototype.every": "^1.1.5",
 		"call-bind": "^1.0.5",
-		"deep-equal": "^2.2.2",
+		"deep-equal": "^2.2.3",
 		"defined": "^1.0.1",
 		"dotignore": "^0.1.2",
 		"for-each": "^0.3.3",
