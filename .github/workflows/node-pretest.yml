@@ -5,3 +5,5 @@ on: [pull_request, push]
 jobs:
   tests:
     uses: ljharb/actions/.github/workflows/pretest.yml@main
+    with:
+      skip-engines: true # bin/tape requires node 8+, but the rest of tape supports 0.4+
