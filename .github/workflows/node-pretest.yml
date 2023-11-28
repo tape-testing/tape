@@ -6,4 +6,19 @@ jobs:
   tests:
     uses: ljharb/actions/.github/workflows/pretest.yml@main
     with:
-      skip-engines: true # bin/tape requires node 8+, but the rest of tape supports 0.4+
+      skip-engines: true # bin/tape requires node 8+, but tape-lib supports 0.4+. TODO: fix and add engines.node in v6
+
+  engines-lib:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ljharb/actions/node/engines@main
+        with:
+          working-directory: lib
+
+  pack-lib:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ljharb/actions/node/pack@main
+        with:
+          after_install: cd ../ && npm install
+          working-directory: lib

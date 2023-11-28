@@ -9,6 +9,7 @@ jobs:
       range: '>= 10'
       type: minors
       command: npm run tests-only
+      subpackage: ./lib
 
   node:
     name: 'node >= 10'
