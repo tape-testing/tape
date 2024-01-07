@@ -2,6 +2,7 @@
 
 'use strict';
 
+var path = require('path');
 var parseOpts = require('minimist');
 var objectKeys = require('object-keys');
 
@@ -66,6 +67,19 @@ var files = opts._.reduce(function (result, arg) {
 
 		if (!Array.isArray(globFiles)) {
 			throw new TypeError('unknown error: glob.sync("' + arg + '") did not return an array or throw. Please report this.');
+		}
+
+		// Workaround for glob v7 always replacing backslashes with forward slashes on windows
+		// This causes dotignore to not match the paths properly.
+		// This is fixed in newer version of glob, however we can not upgrade because it drops
+		// support for older node versions that we still want to support in tape.
+		// If glob is updated in the future this workaround can be removed, however note that
+		// the output of glob must then be sorted here because glob no longer does that.
+		// (also, backslashes and forward slashes should be ordered the same)
+		if (path.sep === '\\') {
+			globFiles = globFiles.map(function (globFile) {
+				return globFile.replace(/\//g, '\\');
+			});
 		}
 
 		return result.concat(globFiles);
