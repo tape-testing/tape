@@ -64,6 +64,7 @@
 		"js-yaml": "^3.14.0",
 		"npm-run-posix-or-windows": "^2.0.2",
 		"npmignore": "^0.3.0",
+		"nyc": "^10.3.2",
 		"safe-publish-latest": "^2.0.0",
 		"tap": "^8.0.1",
 		"tap-parser": "^5.4.0"
@@ -80,9 +81,10 @@
 		"prelint": "npm-run-posix-or-windows eclint",
 		"lint": "eslint --ext .js,.cjs,.mjs . bin/*",
 		"pretest": "npm run lint",
-		"test": "npm run tests-only",
+		"test": "npm-run-posix-or-windows tests-only",
 		"posttest": "aud --production",
 		"tests-only": "nyc tap 'test/*.js'",
+		"tests-only:windows": "nyc node_modules\\tap\\bin\\run.js test/*.js",
 		"test:example": "find example -name '*.js' | grep -v fail | grep -v static | xargs tap"
 	},
 	"testling": {
