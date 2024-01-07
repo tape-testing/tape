@@ -9,7 +9,7 @@ var assign = require('object.assign');
 function tape(args, options) {
 	var bin = __dirname + '/../bin/tape';
 
-	return spawn(process.argv[0], [bin].concat(args.split(' ')), assign({ cwd: __dirname }, options));
+	return spawn(process.execPath, [bin].concat(args.split(' ')), assign({ cwd: __dirname }, options));
 }
 
 tap.test('importing mjs files', function (t) {

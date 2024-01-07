@@ -8,7 +8,7 @@ var stripFullStack = require('./common').stripFullStack;
 function tape(args) {
 	var bin = __dirname + '/../bin/tape';
 
-	return spawn('node', [bin].concat(args.split(' ')), { cwd: __dirname });
+	return spawn(process.execPath, [bin].concat(args.split(' ')), { cwd: __dirname });
 }
 
 tap.test('requiring a single module', function (t) {
