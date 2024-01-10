@@ -43,6 +43,12 @@ tap.test('intercept: output', function (tt) {
 			'ok ' + ++count + ' undefined is returned from Get with .call',
 			'ok ' + ++count + ' foo2: nonwritable property throws on Set',
 			'ok ' + ++count + ' undefined is still returned from Get',
+			v.hasSymbols ? [
+				'ok ' + ++count + ' nonwritable Symbol property throws on Set',
+				'ok ' + ++count + ' undefined is still returned from Get of a Symbol'
+			] : [
+				'ok ' + ++count + ' undefined is still returned from Get of a Symbol # SKIP no Symbol support'
+			],
 			'ok ' + ++count + ' throwing get implementation throws',
 			'ok ' + ++count + ' throwing get implementation throws with .call',
 			'ok ' + ++count + ' throwing set implementation throws',
@@ -165,6 +171,25 @@ tap.test('intercept: output', function (tt) {
 			);
 			st.equal(o.foo2, undefined, 'undefined is still returned from Get');
 			results2.restore();
+
+			if (v.hasSymbols) {
+				var sym = Symbol('fooSymbol');
+				var resultsSymbol = st.intercept(
+					o,
+					sym,
+					{ __proto__: null, writable: false },
+					true
+				);
+				st.throws(
+					function () { o[sym] = 42; },
+					new RegExp('^TypeError: Cannot assign to read only property `Symbol\\(fooSymbol\\)` of object `' + inspect(o) + '`$'),
+					'nonwritable Symbol property throws on Set'
+				);
+				st.equal(o[sym], undefined, 'undefined is still returned from Get of a Symbol');
+				resultsSymbol.restore();
+			} else {
+				st.equal(undefined, undefined, 'undefined is still returned from Get of a Symbol', { skip: 'no Symbol support' });
+			}
 
 			var resultsThrowGet = st.intercept(o, 'fooThrowGet', { get: function () { throw up; } });
 			st.throws(
