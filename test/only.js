@@ -46,3 +46,11 @@ tap.test('tape only test', function (tt) {
 		t.end();
 	});
 });
+
+tap.test('created harness with no conf', function (tt) {
+	var harness = tape.createHarness();
+
+	tt.doesNotThrow(function () { harness.only({ skip: true }); }, 'harness.only does not throw with omitted harness conf arg');
+
+	tt.end();
+});

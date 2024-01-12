@@ -107,7 +107,7 @@ function createHarness(conf_) {
 	var only = false;
 	test.only = function () {
 		if (only) { throw new Error('there can only be one only test'); }
-		if (conf_.noOnly) { throw new Error('`only` tests are prohibited'); }
+		if (conf_ && conf_.noOnly) { throw new Error('`only` tests are prohibited'); }
 		only = true;
 		var t = test.apply(null, arguments);
 		results.only(t);
