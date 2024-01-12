@@ -16,11 +16,11 @@ module.exports = (function () {
 	var harness;
 
 	function getHarness(opts) {
-		if (!opts) { opts = {}; }
-		opts.autoclose = !canEmitExit;
 		// this override is here since tests fail via nyc if createHarness is moved upwards
-		// eslint-disable-next-line no-use-before-define
-		if (!harness) { harness = createExitHarness(opts, wait); }
+		if (!harness) {
+			// eslint-disable-next-line no-use-before-define
+			harness = createExitHarness(opts || {}, wait);
+		}
 		return harness;
 	}
 
@@ -120,11 +120,15 @@ function createHarness(conf_) {
 	return test;
 }
 
-function createExitHarness(conf, wait) {
-	var config = conf || {};
+function createExitHarness(config, wait) {
+	var noOnly = config.noOnly;
+	var objectMode = config.objectMode;
+	var cStream = config.stream;
+	var exit = config.exit;
+
 	var harness = createHarness({
-		autoclose: defined(config.autoclose, false),
-		noOnly: defined(conf.noOnly, defined(process.env.NODE_TAPE_NO_ONLY_TEST, false))
+		autoclose: !canEmitExit,
+		noOnly: defined(noOnly, defined(process.env.NODE_TAPE_NO_ONLY_TEST, false))
 	});
 	var running = false;
 	var ended = false;
@@ -132,8 +136,8 @@ function createExitHarness(conf, wait) {
 	function run() {
 		if (running) { return; }
 		running = true;
-		var stream = harness.createStream({ objectMode: config.objectMode });
-		var es = stream.pipe(config.stream || createDefaultStream());
+		var stream = harness.createStream({ objectMode: objectMode });
+		var es = stream.pipe(cStream || createDefaultStream());
 		if (canEmitExit && es) { // in node v0.4, `es` is `undefined`
 			// TODO: use `err` arg?
 			// eslint-disable-next-line no-unused-vars
@@ -148,7 +152,7 @@ function createExitHarness(conf, wait) {
 		run();
 	}
 
-	if (config.exit === false) { return harness; }
+	if (exit === false) { return harness; }
 	if (!canEmitExit || !canExit) { return harness; }
 
 	process.on('exit', function (code) {
