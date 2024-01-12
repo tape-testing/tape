@@ -3,7 +3,7 @@
 var defined = require('defined');
 var createDefaultStream = require('./lib/default_stream');
 var Test = require('./lib/test');
-var createResult = require('./lib/results');
+var Results = require('./lib/results');
 var through = require('@ljharb/through');
 
 var canEmitExit = typeof process !== 'undefined' && process
@@ -67,7 +67,7 @@ module.exports = (function () {
 }());
 
 function createHarness(conf_) {
-	var results = createResult();
+	var results = new Results();
 	if (!conf_ || conf_.autoclose !== false) {
 		results.once('done', function () { results.close(); });
 	}
