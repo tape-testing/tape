@@ -20,6 +20,7 @@
 		"./package.json": "./package.json"
 	},
 	"bin": "./bin/tape",
+	"sideEffects": false,
 	"directories": {
 		"example": "example",
 		"test": "test"
