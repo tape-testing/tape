@@ -5,6 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v5.7.3](https://github.com/ljharb/tape/compare/v5.7.2...v5.7.3) - 2024-01-12
+
+### Commits
+
+- [Refactor] `Test`: cleaner `at` logic [`af4d109`](https://github.com/ljharb/tape/commit/af4d1095f6fd9118cdf3b7ff55ea67c55d22e102)
+- [Fix] `intercept`: give a proper error message with a readonly Symbol property [`4640a91`](https://github.com/ljharb/tape/commit/4640a91b4d67cb01512988e2662e74654a9a8b85)
+- [Refactor] `getHarness`: avoid mutating `opts`, account for only one internal callsite for `createExitHarness` [`19cfc8f`](https://github.com/ljharb/tape/commit/19cfc8fa4d91763d678de05306ccfcce6425ff51)
+- [Tests] Spawn processes during tests using execPath so that the tests pass on windows [`4a57fbe`](https://github.com/ljharb/tape/commit/4a57fbe14db3eb342543c391f8c42fb83b4e8359)
+- [Fix] `createHarness`: when no `conf` is provided, `only` should not throw [`8a1cccc`](https://github.com/ljharb/tape/commit/8a1ccccb349a1bfc5b512a5cfba88950daecc1c6)
+- [Fix] `bin/tape`: ignore options on windows [`a2b74f9`](https://github.com/ljharb/tape/commit/a2b74f97fe6ea14898b636f560291647bb747753)
+- [Refactor] `_assert`: avoid reassigning arguments [`dc64c08`](https://github.com/ljharb/tape/commit/dc64c08a48c9816e46634719923f8d90b06eb911)
+- [Refactor] `Results`: use `this` instead of `self` [`5f831b4`](https://github.com/ljharb/tape/commit/5f831b41a1cf6a8b59c648fc1554f5613cbfd0f4)
+- [Performance] avoid the extra call frame to `new` it [`78fd0d6`](https://github.com/ljharb/tape/commit/78fd0d61809bc922e7ac85d65902cc1de1124936)
+- [Dev Deps] update `aud`, `npmignore` [`ceabd99`](https://github.com/ljharb/tape/commit/ceabd996f0aa8b39702591a0beaab0d58f2cd3cc)
+- [Tests] fix `npm test` on windows [`bcf6ce7`](https://github.com/ljharb/tape/commit/bcf6ce793996acd4092bd60c1f99686a73ff048e)
+- [Fix] stack trace path parsing on windows [`9cbae8a`](https://github.com/ljharb/tape/commit/9cbae8a7e22567d30019e0cbc03c8597f03b4230)
+- [Refactor] `Results` `createStream`: clean up `_push` handler [`878a500`](https://github.com/ljharb/tape/commit/878a5008e1856bdea6543c7303bc84311907b066)
+- [Refactor] `Test`: a more precise check [`f6d30cf`](https://github.com/ljharb/tape/commit/f6d30cfaa70e477a6531d23f4ea19501e0f62614)
+- [Deps] update `object.assign` [`201e650`](https://github.com/ljharb/tape/commit/201e65028a3283de5bda46077c71a024178c300a)
+- [Tests] ensure the import tests spawn properly [`d1987c0`](https://github.com/ljharb/tape/commit/d1987c04375b952dcac1e6639a702ac4d23f7a57)
+- [actions] skip `engines` check since bin/tape and the rest of the lib conflict [`19af506`](https://github.com/ljharb/tape/commit/19af5061ab36f646e46e0d4c16a4997e4eef8e86)
+- [Deps] update `deep-equal` [`5d26485`](https://github.com/ljharb/tape/commit/5d264858b4a2e0f794fb75be913d2b6fc75a31dc)
+- [Deps] update `mock-property` [`d90c29a`](https://github.com/ljharb/tape/commit/d90c29a595575e10ca5b5284e858af922c5c9465)
+- [meta] add `sideEffects` flag [`85f593b`](https://github.com/ljharb/tape/commit/85f593b77acc63e07024424c6c6baeba9708aba0)
+
 ## [v5.7.2](https://github.com/ljharb/tape/compare/v5.7.1...v5.7.2) - 2023-10-20
 
 ### Commits
