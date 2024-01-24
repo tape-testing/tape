@@ -44,19 +44,34 @@ var stripChangingData = function (line) {
 	var withoutPathSep = withoutPackageDir.replace(new RegExp('\\' + path.sep, 'g'), '/');
 	var withoutLineNumbers = withoutPathSep.replace(/:\d+:\d+/g, ':$LINE:$COL');
 	var withoutNestedLineNumbers = withoutLineNumbers.replace(/, <anonymous>:\$LINE:\$COL\)$/, ')');
-	return withoutNestedLineNumbers;
+	var withoutProcessImmediate = withoutNestedLineNumbers.replace(
+		/^(\s+)at (?:process\.)?(processImmediate|startup\.processNextTick\.process\._tickCallback) (?:\[as _immediateCallback\] )?\((node:internal\/timers|(?:internal\/)?timers\.js|node\.js):\$LINE:\$COL\)$/g,
+		'$1at processImmediate (timers:$$LINE:$$COL)'
+	);
+	var withNormalizedInternals = withoutProcessImmediate
+		.replace(/^(\s+)at Test\.assert \[as _assert\]/g, '$1at Test.assert')
+		.replace(/^(\s+)at (?:Object\.|Immediate\.)?next (?:\[as _onImmediate\] )?/g, '$1at Immediate.next ');
+
+	if (
+		(/^\s+at tryOnImmediate \(timers\.js:\$LINE:\$COL\)$/g).test(withNormalizedInternals) // node 5 - 10
+		|| (/^\s+at runCallback \(timers\.js:\$LINE:\$COL\)$/g).test(withNormalizedInternals) // node 6 - 10
+	) {
+		return null;
+	}
+	return withNormalizedInternals;
 };
+module.exports.stripChangingData = stripChangingData;
 
 module.exports.stripFullStack = function (output) {
 	var stripped = '          [... stack stripped ...]';
 	var withDuplicates = output.split(/\r?\n/g).map(stripChangingData).map(function (line) {
-		var m = line.match(/[ ]{8}at .*\((.*)\)/);
+		var m = typeof line === 'string' && line.match(/[ ]{8}at .*\((.*)\)/);
 
 		if (m && m[1].slice(0, 5) !== '$TEST') {
 			return stripped;
 		}
 		return line;
-	});
+	}).filter(function (line) { return typeof line === 'string'; });
 
 	var withoutInternals = withDuplicates.filter(function (line) {
 		return !line.match(/ \(node:[^)]+\)$/);

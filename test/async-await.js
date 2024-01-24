@@ -12,7 +12,8 @@ if (Number(majorVersion) < 8) {
 	process.exit(0); // eslint-disable-line no-process-exit
 }
 
-var node17 = Number(majorVersion) >= 17;
+var node15 = Number(majorVersion) >= 15;
+var node17 = node15 && Number(majorVersion) >= 17;
 
 var lengthMessage = 'Cannot read property \'length\' of null';
 try {
@@ -211,6 +212,9 @@ tap.test('sync-error', function (t) {
 			'Error: oopsie',
 			'    at Test.myTest ($TEST/async-await/sync-error.js:$LINE:$COL)',
 			'    at Test.run ($TAPE/lib/test.js:$LINE:$COL)',
+			node15 ? [
+				'    at processImmediate (timers:$LINE:$COL)'
+			] : [],
 			node17 ? [
 				'',
 				'Node.js ' + process.version

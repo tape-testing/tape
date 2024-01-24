@@ -2,14 +2,22 @@
 
 var tape = require('../');
 var tap = require('tap');
+var spawn = require('child_process').spawn;
+var url = require('url');
 var concat = require('concat-stream');
 var tapParser = require('tap-parser');
+var assign = require('object.assign');
+var hasDynamicImport = require('has-dynamic-import');
 var common = require('./common');
 
 var getDiag = common.getDiag;
 
 function stripAt(body) {
 	return body.replace(/^\s*at:\s+Test.*$\n/m, '');
+}
+
+function isString(x) {
+	return typeof x === 'string';
 }
 
 tap.test('preserves stack trace with newlines', function (tt) {
@@ -286,5 +294,105 @@ tap.test('preserves stack trace for failed assertions where actual===falsy', fun
 	test('t.equal stack trace', function (t) {
 		t.plan(1);
 		t.equal(false, true, 'false should be true');
+	});
+});
+
+function spawnTape(args, options) {
+	var bin = __dirname + '/../bin/tape';
+
+	return spawn(process.execPath, [bin].concat(args.split(' ')), assign({ cwd: __dirname }, options));
+}
+
+function processRows(rows) {
+	return (typeof rows === 'string' ? rows.split('\n') : rows).map(common.stripChangingData).filter(isString).join('\n');
+}
+
+tap.test('CJS vs ESM: `at`', function (tt) {
+	tt.plan(2);
+
+	tt.test('CJS', function (ttt) {
+		ttt.plan(2);
+
+		var tc = function (rows) {
+			ttt.same(processRows(rows.toString('utf8')), processRows([
+				'TAP version 13',
+				'# test',
+				'not ok 1 should be strictly equal',
+				'  ---',
+				'    operator: equal',
+				'    expected: \'foobar\'',
+				'    actual:   \'foobaz\'',
+				'    at: Test.<anonymous> ($TEST/stack_trace/cjs.js:7:4)',
+				'    stack: |-',
+				'      Error: should be strictly equal',
+				'          at Test.assert [as _assert] ($TAPE/lib/test.js:$LINE:$COL)',
+				'          at Test.strictEqual ($TAPE/lib/test.js:$LINE:$COL)',
+				'          at Test.<anonymous> ($TEST/stack_trace/cjs.js:7:4)',
+				'          at Test.run ($TAPE/lib/test.js:$LINE:$COL)',
+				'          at Immediate.next ($TAPE/lib/results.js:$LINE:$COL)',
+				'          at processImmediate (timers:$LINE:$COL)',
+				'  ...',
+				'',
+				'1..1',
+				'# tests 1',
+				'# pass  0',
+				'# fail  1',
+				'',
+				''
+			]));
+		};
+
+		var ps = spawnTape('stack_trace/cjs.js');
+		ps.stdout.pipe(concat(tc));
+		ps.stderr.pipe(process.stderr);
+		ps.on('exit', function (code) {
+			ttt.notEqual(code, 0);
+			ttt.end();
+		});
+	});
+
+	hasDynamicImport().then(function (hasSupport) {
+		tt.test('ESM', { skip: !url.pathToFileURL || !hasSupport }, function (ttt) {
+			ttt.plan(2);
+
+			var tc = function (rows) {
+				ttt.same(processRows(rows.toString('utf8')), processRows([
+					'TAP version 13',
+					'# test',
+					'not ok 1 should be strictly equal',
+					'  ---',
+					'    operator: equal',
+					'    expected: \'foobar\'',
+					'    actual:   \'foobaz\'',
+					'    at: Test.<anonymous> (' + url.pathToFileURL(__dirname + '/stack_trace/esm.mjs:5:4') + ')',
+					'    stack: |-',
+					'      Error: should be strictly equal',
+					'          at Test.assert [as _assert] ($TAPE/lib/test.js:$LINE:$COL)',
+					'          at Test.strictEqual ($TAPE/lib/test.js:$LINE:$COL)',
+					'          at Test.<anonymous> (' + url.pathToFileURL(__dirname + '/stack_trace/esm.mjs:5:4') + ')',
+					'          at Test.run ($TAPE/lib/test.js:$LINE:$COL)',
+					'          at Immediate.next ($TAPE/lib/results.js:$LINE:$COL)',
+					// node ?
+					// at runCallback (timers.js:$LINE:$COL)
+					'          at process.processImmediate (node:internal/timers:478:21)',
+					'  ...',
+					'',
+					'1..1',
+					'# tests 1',
+					'# pass  0',
+					'# fail  1',
+					'',
+					''
+				]));
+			};
+
+			var ps = spawnTape('stack_trace/esm.mjs');
+			ps.stdout.pipe(concat(tc));
+			ps.stderr.pipe(process.stderr);
+			ps.on('exit', function (code) {
+				ttt.equal(code, 1);
+				ttt.end();
+			});
+		});
 	});
 });
