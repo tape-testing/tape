@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v5.7.4](https://github.com/ljharb/tape/compare/v5.7.3...v5.7.4) - 2024-01-24
+
+### Fixed
+
+- [Fix] handle native ESM URLs in `at:` [`#601`](https://github.com/ljharb/tape/issues/601)
+
+### Commits
+
+- [Deps] update `has-dynamic-import` [`1e50cb3`](https://github.com/ljharb/tape/commit/1e50cb35fce5734f069218bd6ce8b550445b1a88)
+
 ## [v5.7.3](https://github.com/ljharb/tape/compare/v5.7.2...v5.7.3) - 2024-01-12
 
 ### Commits

@@ -1,6 +1,6 @@
 {
 	"name": "tape",
-	"version": "5.7.3",
+	"version": "5.7.4",
 	"description": "tap-producing test harness for node and browsers",
 	"main": "index.js",
 	"browser": {
