@@ -27,7 +27,7 @@
 	},
 	"dependencies": {
 		"@ljharb/resumer": "^0.1.0",
-		"@ljharb/through": "^2.3.11",
+		"@ljharb/through": "^2.3.12",
 		"array.prototype.every": "^1.1.5",
 		"call-bind": "^1.0.5",
 		"deep-equal": "^2.2.3",
