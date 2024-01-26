@@ -26,7 +26,7 @@
 		"test": "test"
 	},
 	"dependencies": {
-		"@ljharb/resumer": "^0.0.1",
+		"@ljharb/resumer": "^0.1.0",
 		"@ljharb/through": "^2.3.11",
 		"array.prototype.every": "^1.1.5",
 		"call-bind": "^1.0.5",
