@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v5.7.5](https://github.com/ljharb/tape/compare/v5.7.4...v5.7.5) - 2024-02-14
+
+### Commits
+
+- [Fix] `throws`: fix crash when throwing primitives with a non-empty expected object [`1b2681d`](https://github.com/ljharb/tape/commit/1b2681dd56713c953d4928af15dfd7b38bb526e2)
+- [Tests] clean up throws tests [`9133c93`](https://github.com/ljharb/tape/commit/9133c93929703814b2031d4ce2e3b350636705ab)
+- [Fix] `default_stream`: do not error on nullish data [`eff3725`](https://github.com/ljharb/tape/commit/eff3725041361be8f7ae97cc95c7708e4b126b05)
+- [Fix] in IE 8, `TypeError` does not inherit from `Error` [`93c1d12`](https://github.com/ljharb/tape/commit/93c1d12380e230adff29a86a030dd9c1fa544afc)
+- [actions] remove redundant finisher [`410e9e4`](https://github.com/ljharb/tape/commit/410e9e4394b98e950c5e59572dea17fb51a8b4b6)
+- [Deps] update `call-bind`, `hasown` [`82e7d71`](https://github.com/ljharb/tape/commit/82e7d71a87e00c0a24679e1e37f464102e348ca6)
+- [Deps] update `@ljharb/resumer` [`af2fe68`](https://github.com/ljharb/tape/commit/af2fe68ce56d96de699a45aa4a1623d7719219b8)
+- [Deps] update `@ljharb/resumer` [`bff9dad`](https://github.com/ljharb/tape/commit/bff9dad3e5b363b6356cdea75e7615900ebc1017)
+- [Deps] update `@ljharb/through` [`5360d20`](https://github.com/ljharb/tape/commit/5360d200dada42a57c2f0dbdd186d7e51e81b707)
+- [Deps] update `@ljharb/resumer` [`ad0dd2e`](https://github.com/ljharb/tape/commit/ad0dd2e2096179130b78ed7c308acb1eb0469343)
+
 ## [v5.7.4](https://github.com/ljharb/tape/compare/v5.7.3...v5.7.4) - 2024-01-24
 
 ### Fixed
