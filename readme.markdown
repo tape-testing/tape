@@ -72,13 +72,13 @@ $ tape "tests/**/*.js"
 
 ## Preloading modules
 
-Additionally, it is possible to make `tape` load one or more modules before running any tests, by using the `-r` or `--require` flag. Here's an example that loads [babel-register](http://babeljs.io/docs/usage/require/) before running any tests, to allow for JIT compilation:
+Additionally, it is possible to make `tape` load one or more modules before running any tests, by using the `-r` or `--require` flag. Here's an example that loads [babel-register](https://babeljs.io/docs/usage/require/) before running any tests, to allow for JIT compilation:
 
 ```sh
 $ tape -r babel-register tests/**/*.js
 ```
 
-Depending on the module you're loading, you may be able to parameterize it using environment variables or auxiliary files. Babel, for instance, will load options from [`.babelrc`](http://babeljs.io/docs/usage/babelrc/) at runtime.
+Depending on the module you're loading, you may be able to parameterize it using environment variables or auxiliary files. Babel, for instance, will load options from [`.babelrc`](https://babeljs.io/docs/usage/babelrc/) at runtime.
 
 The `-r` flag behaves exactly like node's `require`, and uses the same module resolution algorithm. This means that if you need to load local modules, you have to prepend their path with `./` or `../` accordingly.
 
@@ -102,7 +102,7 @@ If you want a more colorful / pretty output there are lots of modules on npm tha
 
 - [tap-spec](https://github.com/scottcorgan/tap-spec)
 - [tap-dot](https://github.com/scottcorgan/tap-dot)
-- [faucet](https://github.com/ljharb/faucet)
+- [faucet](https://github.com/tape-testing/faucet)
 - [tap-bail](https://github.com/juliangruber/tap-bail)
 - [tap-browser-color](https://github.com/kirbysayshi/tap-browser-color)
 - [tap-json](https://github.com/gummesson/tap-json)
@@ -622,17 +622,17 @@ test('third', function (t) {
 MIT
 
 [package-url]: https://npmjs.org/package/tape
-[npm-version-svg]: https://versionbadg.es/ljharb/tape.svg
-[deps-svg]: https://david-dm.org/ljharb/tape.svg
-[deps-url]: https://david-dm.org/ljharb/tape
-[dev-deps-svg]: https://david-dm.org/ljharb/tape/dev-status.svg
-[dev-deps-url]: https://david-dm.org/ljharb/tape#info=devDependencies
+[npm-version-svg]: https://versionbadg.es/tape-testing/tape.svg
+[deps-svg]: https://david-dm.org/tape-testing/tape.svg
+[deps-url]: https://david-dm.org/tape-testing/tape
+[dev-deps-svg]: https://david-dm.org/tape-testing/tape/dev-status.svg
+[dev-deps-url]: https://david-dm.org/tape-testing/tape#info=devDependencies
 [npm-badge-png]: https://nodei.co/npm/tape.png?downloads=true&stars=true
 [license-image]: https://img.shields.io/npm/l/tape.svg
 [license-url]: LICENSE
 [downloads-image]: https://img.shields.io/npm/dm/tape.svg
 [downloads-url]: https://npm-stat.com/charts.html?package=tape
-[codecov-image]: https://codecov.io/gh/ljharb/tape/branch/master/graphs/badge.svg
-[codecov-url]: https://app.codecov.io/gh/ljharb/tape/
-[actions-image]: https://img.shields.io/endpoint?url=https://github-actions-badge-u3jn4tfpocch.runkit.sh/ljharb/tape
-[actions-url]: https://github.com/ljharb/tape/actions
+[codecov-image]: https://codecov.io/gh/tape-testing/tape/branch/master/graphs/badge.svg
+[codecov-url]: https://app.codecov.io/gh/tape-testing/tape/
+[actions-image]: https://img.shields.io/endpoint?url=https://github-actions-badge-u3jn4tfpocch.runkit.sh/tape-testing/tape
+[actions-url]: https://github.com/tape-testing/tape/actions

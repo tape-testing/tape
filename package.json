@@ -103,9 +103,9 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git://github.com/ljharb/tape.git"
+		"url": "git://github.com/tape-testling/tape.git"
 	},
-	"homepage": "https://github.com/ljharb/tape",
+	"homepage": "https://github.com/tape-testling/tape",
 	"keywords": [
 		"tap",
 		"test",
