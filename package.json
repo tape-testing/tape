@@ -7,12 +7,7 @@
 		"fs": false
 	},
 	"exports": {
-		".": [
-			{
-				"default": "./index.js"
-			},
-			"./index.js"
-		],
+		".": "./index.js",
 		"./lib/default_stream": "./lib/default_stream.js",
 		"./lib/results": "./lib/results.js",
 		"./lib/test": "./lib/test.js",
