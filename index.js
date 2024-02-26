@@ -67,7 +67,7 @@ module.exports = (function () {
 }());
 
 function createHarness(conf_) {
-	var results = new Results();
+	var results = new Results({ todoIsOK: !!(process.env.TODO_IS_OK === '1') });
 	if (!conf_ || conf_.autoclose !== false) {
 		results.once('done', function () { results.close(); });
 	}
