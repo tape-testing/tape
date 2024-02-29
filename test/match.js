@@ -101,10 +101,14 @@ tap.test('match', function (tt) {
 	test('match', function (t) {
 		t.plan(8);
 
+		// @ts-expect-error
 		t.match(/abc/, 'string');
+		// @ts-expect-error
 		t.match(/abc/, 'string', 'regex arg must not be a string');
 
+		// @ts-expect-error
 		t.match({ abc: 123 }, /abc/);
+		// @ts-expect-error
 		t.match({ abc: 123 }, /abc/, 'string arg must not be an object');
 
 		t.match('string', /abc/);
@@ -236,10 +240,14 @@ tap.test('doesNotMatch', function (tt) {
 	test('doesNotMatch', function (t) {
 		t.plan(10);
 
+		// @ts-expect-error
 		t.doesNotMatch(/abc/, 'string');
+		// @ts-expect-error
 		t.doesNotMatch(/abc/, 'string', 'regex arg must not be a string');
 
+		// @ts-expect-error
 		t.doesNotMatch({ abc: 123 }, /abc/);
+		// @ts-expect-error
 		t.doesNotMatch({ abc: 123 }, /abc/, 'string arg must not be an object');
 
 		t.doesNotMatch('string', /string/);

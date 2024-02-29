@@ -9,7 +9,7 @@ var ps = spawn(process.execPath, [path.join(__dirname, 'max_listeners', 'source.
 
 ps.stdout.pipe(process.stdout, { end: false });
 
-ps.stderr.on('data', function (buf) {
+ps.stderr.on('data', /** @param {Buffer} buf */ function (buf) {
 	if (stripDeprecations(buf)) {
 		console.log('not ok ' + buf);
 	}

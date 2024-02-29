@@ -12,6 +12,7 @@ tap.test('getDefaultStream', function (tt) {
 	tt.doesNotThrow(function () { stream.write('# ok'); }, 'strings are fine');
 	tt.doesNotThrow(function () { stream.write(123); }, 'numbers are fine');
 	tt.doesNotThrow(function () { stream.write(undefined); }, 'undefined is fine');
+	// @ts-expect-error
 	tt.doesNotThrow(function () { stream.write(); }, 'no args is fine');
 	tt.doesNotThrow(function () { stream.write(null); }, 'null is fine');
 	// TODO: figure out why writing to the stream after writing null fails tests

@@ -238,13 +238,21 @@ tap.test('failures', function (tt) {
 
 	test('non functions', function (t) {
 		t.plan(8);
+		// @ts-expect-error
 		t.throws();
+		// @ts-expect-error
 		t.throws(null);
+		// @ts-expect-error
 		t.throws(true);
+		// @ts-expect-error
 		t.throws(false);
+		// @ts-expect-error
 		t.throws('abc');
+		// @ts-expect-error
 		t.throws(/a/g);
+		// @ts-expect-error
 		t.throws([]);
+		// @ts-expect-error
 		t.throws({});
 	});
 
@@ -257,6 +265,7 @@ tap.test('failures', function (tt) {
 		t.plan(3);
 		t.equal(Object.prototype.propertyIsEnumerable.call(messageGetterError, 'message'), true, '"message" is enumerable');
 		t.throws(thrower, "{ custom: 'error', message: 'message' }");
+		// @ts-expect-error
 		t.equal(Object.getOwnPropertyDescriptor(messageGetterError, 'message').get, getter, 'getter is still the same');
 	});
 
@@ -273,6 +282,7 @@ tap.test('failures', function (tt) {
 		t.end();
 	});
 
+	/** @type {TypeError & Partial<{ code: number, foo: string, info: { nested: boolean, baz: string }, reg: RegExp }>} */
 	// taken from https://nodejs.org/api/assert.html#assert_assert_throws_fn_error_message
 	var err = new TypeError('Wrong value');
 	err.code = 404;
@@ -364,7 +374,9 @@ tap.test('failures', function (tt) {
 			function () { throw new SyntaxError('Wrong value'); },
 			function (error) {
 				t.ok(error instanceof SyntaxError, 'error is SyntaxError');
-				t.ok((/value/).test(String(error)), 'error matches /value/');
+				if (error instanceof SyntaxError) {
+					t.ok((/value/).test(String(error)), 'error matches /value/');
+				}
 				// Avoid returning anything from validation functions besides `true`.
 				// Otherwise, it's not clear what part of the validation failed. Instead,
 				// throw an error about the specific validation that failed (as done in this
@@ -424,12 +436,14 @@ tap.test('failures', function (tt) {
 	test('non-extensible throw match', { skip: !Object.seal }, function (t) {
 		var error = { foo: 1 };
 		Object.seal(error);
+		// @ts-expect-error
 		t.throws(function () { error.x = 1; }, TypeError, 'error is non-extensible');
 
 		t.throws(function () { throw error; }, error, 'non-extensible error matches');
 
 		var errorWithMessage = { message: 'abc' };
 		Object.seal(errorWithMessage);
+		// @ts-expect-error
 		t.throws(function () { errorWithMessage.x = 1; }, TypeError, 'errorWithMessage is non-extensible');
 
 		t.throws(function () { throw errorWithMessage; }, error, 'non-extensible error with message matches');
@@ -442,6 +456,7 @@ tap.test('failures', function (tt) {
 		Object.defineProperty(error, 'message', { configurable: false, enumerable: false, writable: false });
 
 		t.throws(function () { error.message = 'def'; }, TypeError, 'error is non-writable');
+		// @ts-expect-error FIXME why can't you delete an optional property, typescript?!?
 		t.throws(function () { delete error.message; }, TypeError, 'error is non-configurable');
 
 		t.throws(function () { throw error; }, { message: 'abc' }, 'non-writable error matches');

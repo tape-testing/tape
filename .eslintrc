@@ -23,6 +23,8 @@
         "no-underscore-dangle": "warn",
         "object-curly-newline": "off",
         "sort-keys": "off",
+
+		"no-extra-parens": "off",
     },
     "ignorePatterns": ["syntax-error.*"],
     "overrides": [
