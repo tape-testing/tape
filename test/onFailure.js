@@ -11,7 +11,7 @@ var mockSink = {
 	emit: noop,
 	end: noop
 };
-tape.createStream().pipe(mockSink);
+tape.createStream().pipe(/** @type {NodeJS.WritableStream} */ (/** @type {unknown} */ (mockSink)));
 
 tap.test('on failure', { timeout: 1000 }, function (tt) {
 	tt.plan(1);

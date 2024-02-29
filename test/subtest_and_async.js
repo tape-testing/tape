@@ -2,6 +2,7 @@
 
 var test = require('../');
 
+/** @param {import('../lib/test').Callback} callback */
 var asyncFunction = function (callback) {
 	setTimeout(callback, Math.random() * 50);
 };

@@ -5,6 +5,7 @@ var spawn = require('child_process').spawn;
 var concat = require('concat-stream');
 var stripFullStack = require('./common').stripFullStack;
 
+/** @param {string} args */
 function tape(args) {
 	var bin = __dirname + '/../bin/tape';
 
@@ -33,7 +34,8 @@ tap.test('requiring a single module', function (t) {
 			''
 		]);
 	}));
-	ps.on('exit', function (code) {
+
+	ps.on('exit', /** @param {number} code */ function (code) {
 		t.equal(code, 0);
 	});
 });
@@ -63,7 +65,8 @@ tap.test('requiring multiple modules', function (t) {
 			'# ok'
 		].join('\n') + '\n\n');
 	}));
-	ps.on('exit', function (code) {
+
+	ps.on('exit', /** @param {number} code */ function (code) {
 		t.equal(code, 0);
 	});
 });

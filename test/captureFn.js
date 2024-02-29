@@ -16,6 +16,7 @@ tap.test('captureFn: output', function (tt) {
 	var count = 0;
 	test.createStream().pipe(concat({ encoding: 'string' }, function (body) {
 		tt.same(stripFullStack(body), [].concat(
+			// @ts-expect-error TS sucks with concat
 			'TAP version 13',
 			'# argument validation',
 			v.nonFunctions.map(function (x) {
@@ -39,6 +40,7 @@ tap.test('captureFn: output', function (tt) {
 	test('argument validation', function (t) {
 		forEach(v.nonFunctions, function (nonFunction) {
 			t.throws(
+				// @ts-expect-error
 				function () { t.captureFn(nonFunction); },
 				TypeError,
 				inspect(nonFunction) + ' is not a function'
@@ -55,6 +57,7 @@ tap.test('captureFn: output', function (tt) {
 		var up = new SyntaxError('foo');
 		var wrappedThrower = t.captureFn(function () { throw up; });
 
+		// @ts-expect-error
 		t.equal(wrappedSentinelThunk(1, 2), sentinel, 'return value is passed through');
 		t.throws(
 			function () { wrappedThrower.call(sentinel, 1, 2, 3); },

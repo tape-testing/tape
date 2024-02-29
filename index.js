@@ -8,14 +8,26 @@ var Test = require('./lib/test');
 var Results = require('./lib/results');
 
 var canEmitExit = typeof process !== 'undefined' && process
-	&& typeof process.on === 'function' && process.browser !== true;
+	&& typeof process.on === 'function' && /** @type {{ browser?: boolean }} */ (process).browser !== true;
 var canExit = typeof process !== 'undefined' && process
 	&& typeof process.exit === 'function';
 
-module.exports = (function () {
+/** @typedef {import('.')} Tape */
+/** @typedef {import('.').Harness} Harness */
+/** @typedef {import('.').HarnessConfig} HarnessConfig */
+/** @typedef {import('.').TestOptions} TestOptions */
+/** @typedef {import('.').HarnessEventHandler} HarnessEventHandler */
+/** @typedef {import('.').CreateStream} CreateStream */
+/** @typedef {import('.').createHarness} CreateHarness */
+/** @typedef {import('./lib/results').Result} Result */
+/** @typedef {import('stream').Writable} WritableStream */
+
+var tape = (function () {
 	var wait = false;
+	/** @type {undefined | Harness} */
 	var harness;
 
+	/** @type {(opts?: HarnessConfig) => Harness} */
 	function getHarness(opts) {
 		// this override is here since tests fail via nyc if createHarness is moved upwards
 		if (!harness) {
@@ -25,6 +37,7 @@ module.exports = (function () {
 		return harness;
 	}
 
+	/** @type {(this: Harness, ...args: Parameters<Tape>) => ReturnType<Tape>} */
 	function lazyLoad() {
 		// eslint-disable-next-line no-invalid-this
 		return getHarness().apply(this, arguments);
@@ -44,6 +57,7 @@ module.exports = (function () {
 		return getHarness().only.apply(this, arguments);
 	};
 
+	/** @type {CreateStream} */
 	lazyLoad.createStream = function (opts) {
 		var options = opts || {};
 		if (!harness) {
@@ -67,21 +81,23 @@ module.exports = (function () {
 	return lazyLoad;
 }());
 
+/** @type {CreateHarness} */
 function createHarness(conf_) {
 	var results = new Results({ todoIsOK: !!(process.env.TODO_IS_OK === '1') });
 	if (!conf_ || conf_.autoclose !== false) {
 		results.once('done', function () { results.close(); });
 	}
 
+	/** @type {(name: string, conf: TestOptions, cb: Test.TestCase) => Test} */
 	function test(name, conf, cb) {
 		var t = new Test(name, conf, cb);
 		test._tests.push(t);
 
 		(function inspectCode(st) {
-			st.on('test', function sub(st_) {
+			st.on('test', /** @param {Test} st_ */ function sub(st_) {
 				inspectCode(st_);
 			});
-			st.on('result', function (r) {
+			st.on('result', /** @param {Result} r */ function (r) {
 				if (!r.todo && !r.ok && typeof r !== 'string') { test._exitCode = 1; }
 			});
 		}(t));
@@ -91,26 +107,30 @@ function createHarness(conf_) {
 	}
 	test._results = results;
 
-	test._tests = [];
+	/** @type {Test[]} */ test._tests = [];
 
+	/** @type {CreateStream} */
 	test.createStream = function (opts) {
 		return results.createStream(opts);
 	};
 
+	/** @type {HarnessEventHandler} */
 	test.onFinish = function (cb) {
 		results.on('done', cb);
 	};
 
+	/** @type {HarnessEventHandler} */
 	test.onFailure = function (cb) {
 		results.on('fail', cb);
 	};
 
 	var only = false;
+	/** @returns {Test} */
 	test.only = function () {
 		if (only) { throw new Error('there can only be one only test'); }
 		if (conf_ && conf_.noOnly) { throw new Error('`only` tests are prohibited'); }
 		only = true;
-		var t = test.apply(null, arguments);
+		var t = /** @type {Test} */ (test.apply(null, arguments));
 		results.only(t);
 		return t;
 	};
@@ -118,9 +138,11 @@ function createHarness(conf_) {
 
 	test.close = function () { results.close(); };
 
+	// @ts-expect-error TODO FIXME: why is `test` not assignable to `Harness`???
 	return test;
 }
 
+/** @type {(conf: Omit<HarnessConfig, 'autoclose'>, wait?: boolean) => Harness} */
 function createExitHarness(config, wait) {
 	var noOnly = config.noOnly;
 	var objectMode = config.objectMode;
@@ -138,11 +160,10 @@ function createExitHarness(config, wait) {
 		if (running) { return; }
 		running = true;
 		var stream = harness.createStream({ objectMode: objectMode });
-		var es = stream.pipe(cStream || createDefaultStream());
+		var es = stream.pipe(/** @type {NodeJS.WritableStream} */ (cStream || createDefaultStream()));
 		if (canEmitExit && es) { // in node v0.4, `es` is `undefined`
-			// TODO: use `err` arg?
 			// eslint-disable-next-line no-unused-vars
-			es.on('error', function (err) { harness._exitCode = 1; });
+			es.on('error', function (_) { harness._exitCode = 1; });
 		}
 		stream.on('end', function () { ended = true; });
 	}
@@ -156,7 +177,7 @@ function createExitHarness(config, wait) {
 	if (exit === false) { return harness; }
 	if (!canEmitExit || !canExit) { return harness; }
 
-	process.on('exit', function (code) {
+	process.on('exit', /** @param {number | undefined} code */ function (code) {
 		// let the process exit cleanly.
 		if (typeof code === 'number' && code !== 0) {
 			return;
@@ -180,7 +201,24 @@ function createExitHarness(config, wait) {
 	return harness;
 }
 
+module.exports = tape;
+
 module.exports.createHarness = createHarness;
 module.exports.Test = Test;
-module.exports.test = module.exports; // tap compat
-module.exports.test.skip = Test.skip;
+module.exports.test = tape; // tap compat
+module.exports.skip = Test.skip;
+
+// @ts-expect-error TODO FIXME: attw errors without this line
+module.exports.createStream = tape.createStream;
+// @ts-expect-error TODO FIXME: attw errors without this line
+module.exports.only = tape.only;
+// @ts-expect-error TODO FIXME: attw errors without this line
+module.exports.getHarness = tape.getHarness;
+// @ts-expect-error TODO FIXME: attw errors without this line
+module.exports.run = tape.run;
+// @ts-expect-error TODO FIXME: attw errors without this line
+module.exports.wait = tape.wait;
+// @ts-expect-error TODO FIXME: attw errors without this line
+module.exports.onFinish = tape.onFinish;
+// @ts-expect-error TODO FIXME: attw errors without this line
+module.exports.onFailure = tape.onFailure;

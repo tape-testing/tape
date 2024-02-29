@@ -51,6 +51,7 @@ tap.test('array test', function (tt) {
 		var src = '(' + function () {
 			var xs = [1, 2, [3, 4]];
 			var ys = [5, 6];
+			// @ts-expect-error
 			g([xs, ys]);
 		} + ')()';
 
@@ -68,11 +69,11 @@ tap.test('array test', function (tt) {
 		];
 
 		Function('fn', 'g', String(output))(
-			function (xs) {
+			/** @param {(number | number[])[]} xs */ function (xs) {
 				t.same(arrays.shift(), xs);
 				return xs;
 			},
-			function (xs) {
+			/** @param {(number | number[])[]} xs */ function (xs) {
 				t.same(xs, [[1, 2, [3, 4]], [5, 6]]);
 			}
 		);

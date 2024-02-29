@@ -49,7 +49,7 @@ tap.test('deep equal failure', function (assert) {
 		});
 	}));
 
-	parser.once('assert', function (data) {
+	parser.once('assert', /** @param {{ diag: { at: string, stack: string} }} data */ function (data) {
 		assert.deepEqual(data, {
 			ok: false,
 			id: 1,
@@ -111,7 +111,7 @@ tap.test('not deep equal failure, depth 6, with option', function (assert) {
 		});
 	}));
 
-	parser.once('assert', function (data) {
+	parser.once('assert', /** @param {{ diag: { at: string, stack: string} }} data */ function (data) {
 		assert.deepEqual(data, {
 			ok: false,
 			id: 1,
@@ -173,7 +173,7 @@ tap.test('not deep equal failure, depth 6, without option', function (assert) {
 		});
 	}));
 
-	parser.once('assert', function (data) {
+	parser.once('assert', /** @param {{ diag: { at: string, stack: string} }} data */ function (data) {
 		assert.deepEqual(data, {
 			ok: false,
 			id: 1,

@@ -10,7 +10,7 @@ test('async5', async function myTest(t) {
 		t.ok(true, 'before server');
 
 		var mockDb = { state: 'old' };
-		var server = http.createServer(function (req, res) {
+		var server = http.createServer(function (_req, res) {
 			res.end('OK');
 
 			// Pretend we write to the DB and it takes time.
@@ -20,7 +20,7 @@ test('async5', async function myTest(t) {
 		});
 
 		await util.promisify(function (cb) {
-			server.listen(0, cb);
+			server.listen(0, /** @type {() => any} */ (cb));
 		})();
 
 		t.ok(true, 'after server');
@@ -30,6 +30,7 @@ test('async5', async function myTest(t) {
 		var res = await util.promisify(function (cb) {
 			var req = http.request({
 				hostname: 'localhost',
+				// @ts-expect-error TODO FIXME not sure how server.address() can return null here
 				port: server.address().port,
 				path: '/',
 				method: 'GET'
