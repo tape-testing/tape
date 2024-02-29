@@ -7,4 +7,5 @@ tape.test('module-b', function (t) {
 	t.pass('loaded module b');
 });
 
+// @ts-expect-error
 global.module_b = true;
