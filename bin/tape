@@ -95,6 +95,7 @@ var hasImport = require('has-dynamic-import');
 
 var tape = require('../');
 
+/** @type {(hasSupport: boolean) => Promise<void> | void} */
 function importFiles(hasSupport) {
 	if (!hasSupport) {
 		return files.forEach(function (x) { require(x); });
@@ -104,6 +105,7 @@ function importFiles(hasSupport) {
 
 	tape.wait();
 
+	/** @type {null | undefined | Promise<unknown>} */
 	var filesPromise = files.reduce(function (promise, file) {
 		return promise ? promise.then(function () {
 			return importOrRequire(file);
