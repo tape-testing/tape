@@ -11,7 +11,6 @@
 		"./lib/default_stream": "./lib/default_stream.js",
 		"./lib/results": "./lib/results.js",
 		"./lib/test": "./lib/test.js",
-		"./package": "./package.json",
 		"./package.json": "./package.json"
 	},
 	"bin": "./bin/tape",
