@@ -56,7 +56,6 @@
 		"falafel": "^2.2.5",
 		"intl-fallback-symbol": "^1.0.0",
 		"is-core-module": "^2.13.1",
-		"jackspeak": "=2.1.1",
 		"js-yaml": "^3.14.0",
 		"npm-run-posix-or-windows": "^2.0.2",
 		"npmignore": "^0.3.1",
