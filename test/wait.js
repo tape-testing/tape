@@ -3,14 +3,14 @@
 var tape = require('../');
 var tap = require('tap');
 
-tap.test('main harness object is exposed', function (tt) {
+tap.test('tape.wait()', function (tt) {
 	tt.equal(typeof tape.getHarness, 'function', 'tape.getHarness is a function');
 
 	tt.equal(typeof tape.run, 'function', 'tape.run is a function');
 
-	tt.equal(tape.getHarness()._results.pass, 0);
+	tape.wait();
 
-	tt.equal(tape.getHarness().run, undefined, 'tape.getHarness().run is undefined (wait not called)');
+	tt.equal(typeof tape.getHarness().run, 'function', 'tape.getHarness().run is a function (wait called)');
 
 	tt.end();
 });
