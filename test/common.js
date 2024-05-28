@@ -119,3 +119,10 @@ module.exports.runProgram = function (folderName, fileName, cb) {
 		cb(result);
 	});
 };
+
+module.exports.stripDeprecations = function (msg) {
+	return String(msg)
+		.replace(/^\s*\(node:\d+\) ExperimentalWarning: The ESM module loader is experimental\.\s*$/g, '')
+		.replace(/\(node:\d+\) \[DEP0060\] DeprecationWarning: The `util\._extend` API is deprecated\. Please use Object\.assign\(\) instead\.(\n\(Use `node --trace-deprecation \.\.\.` to show where the warning was created\))?\s*/g, '')
+		.replace(/\(node:\d+\) \[DEP0060\] DeprecationWarning: The `punycode` API is deprecated\. Please use a userland alternative instead\.(\n\(Use `node --trace-deprecation \.\.\.` to show where the warning was created\))?\s*/g, '');
+};

@@ -49,6 +49,7 @@
 		"aud": "^2.0.4",
 		"auto-changelog": "^2.4.0",
 		"concat-stream": "^1.6.2",
+		"cross-env": "^2.0.1",
 		"eclint": "^2.8.1",
 		"ecstatic": "^4.1.4",
 		"es-value-fixtures": "^1.4.2",
@@ -77,8 +78,8 @@
 		"pretest": "npm run lint",
 		"test": "npm-run-posix-or-windows tests-only",
 		"posttest": "aud --production",
-		"tests-only": "nyc tap 'test/*.js'",
-		"tests-only:windows": "nyc node_modules\\tap\\bin\\run.js test/*.js",
+		"tests-only": "cross-env NODE_OPTIONS='--no-warnings' nyc tap 'test/*.js'",
+		"tests-only:windows": "cross-env NODE_OPTIONS='--no-warnings' nyc node_modules\\tap\\bin\\run.js test/*.js",
 		"test:example": "find example -name '*.js' | grep -v fail | grep -v static | xargs tap"
 	},
 	"testling": {

@@ -5,6 +5,7 @@ var path = require('path');
 var exec = require('child_process').exec;
 
 var stripFullStack = require('./common').stripFullStack;
+var stripDeprecations = require('./common').stripDeprecations;
 
 var tapeBin = 'node ' + path.join(__dirname, '../bin/tape');
 
@@ -67,7 +68,7 @@ tap.test('Should run successfully if there is no only test', function (tt) {
 	exec(tapeBin + ' --no-only "**/test-a.js"', {
 		cwd: path.join(__dirname, 'no_only')
 	}, function (err, stdout, stderr) {
-		tt.match(stderr.toString('utf8'), /^\s*(\(node:\d+\) ExperimentalWarning: The ESM module loader is experimental\.)?\s*$/);
+		tt.equal(stripDeprecations(stderr.toString('utf8')), '');
 		tt.same(stripFullStack(stdout.toString('utf8')), [
 			'TAP version 13',
 			'# should pass',
@@ -104,7 +105,7 @@ tap.test('Should run successfully if there is an only test and no --no-only flag
 			'',
 			''
 		]);
-		tt.match(stderr.toString('utf8'), /^\s*(\(node:\d+\) ExperimentalWarning: The ESM module loader is experimental\.)?\s*$/);
+		tt.equal(stripDeprecations(stderr.toString('utf8')), '');
 		tt.equal(err, null); // code 0
 	});
 });

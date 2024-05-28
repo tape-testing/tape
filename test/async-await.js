@@ -3,6 +3,7 @@
 var tap = require('tap');
 
 var stripFullStack = require('./common').stripFullStack;
+var stripDeprecations = require('./common').stripDeprecations;
 var runProgram = require('./common').runProgram;
 
 var nodeVersion = process.versions.node;
@@ -39,7 +40,7 @@ tap.test('async1', function (t) {
 			''
 		]);
 		t.same(r.exitCode, 0);
-		t.same(r.stderr.toString('utf8'), '');
+		t.same(stripDeprecations(r.stderr.toString('utf8')), '');
 		t.end();
 	});
 });
@@ -75,7 +76,7 @@ tap.test('async2', function (t) {
 			''
 		]);
 		t.same(r.exitCode, 1);
-		t.same(r.stderr.toString('utf8'), '');
+		t.same(stripDeprecations(r.stderr.toString('utf8')), '');
 		t.end();
 	});
 });
@@ -97,7 +98,7 @@ tap.test('async3', function (t) {
 			''
 		]);
 		t.same(r.exitCode, 0);
-		t.same(r.stderr.toString('utf8'), '');
+		t.same(stripDeprecations(r.stderr.toString('utf8')), '');
 		t.end();
 	});
 });
@@ -126,7 +127,7 @@ tap.test('async4', function (t) {
 			''
 		]);
 		t.same(r.exitCode, 1);
-		t.same(r.stderr.toString('utf8'), '');
+		t.same(stripDeprecations(r.stderr.toString('utf8')), '');
 		t.end();
 	});
 });
@@ -180,7 +181,7 @@ tap.test('async5', function (t) {
 			''
 		]);
 		t.same(r.exitCode, 1);
-		t.same(r.stderr.toString('utf8'), '');
+		t.same(stripDeprecations(r.stderr.toString('utf8')), '');
 		t.end();
 	});
 });
@@ -204,7 +205,7 @@ tap.test('sync-error', function (t) {
 		});
 		stderr = lines.join('\n');
 
-		t.same(stripFullStack(stderr), [].concat(
+		t.same(stripFullStack(stripDeprecations(stderr)), [].concat(
 			'$TEST/async-await/sync-error.js:7',
 			'	throw new Error(\'oopsie\');',
 			'	^',
@@ -256,7 +257,7 @@ tap.test('async-error', function (t) {
 		]);
 		t.same(r.exitCode, 1);
 
-		var stderr = r.stderr.toString('utf8');
+		var stderr = stripDeprecations(r.stderr.toString('utf8'));
 		var stderrLines = stderr.split('\n').filter(function (line) {
 			return !(/\(timers.js:/).test(line)
                 && !(/\(internal\/timers.js:/).test(line)
@@ -300,7 +301,7 @@ tap.test('async-bug', function (t) {
 		]);
 		t.same(r.exitCode, 1);
 
-		var stderr = r.stderr.toString('utf8');
+		var stderr = stripDeprecations(r.stderr.toString('utf8'));
 
 		t.same(stderr, '');
 		t.end();
