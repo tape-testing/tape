@@ -437,6 +437,25 @@ Providing both `desc.get` and `desc.set` are optional and can still be useful fo
 `desc` must be a valid property descriptor, meaning that `get`/`set` are mutually exclusive with `writable`/`value`.
 Additionally, explicitly setting `configurable` to `false` is not permitted, so that the property can be restored.
 
+## t.assertion(fn, ...args)
+
+If you want to write your own custom assertions, you can invoke these conveniently using this method.
+
+```js
+function isAnswer(value, msg) {
+	// eslint-disable-next-line no-invalid-this
+	this.equal(value, 42, msg || 'value must be the answer to life, the universe, and everything');
+};
+
+test('is this the answer?', (t) => {
+	t.assertion(isAnswer, 42); // passes, default message
+	t.assertion(isAnswer, 42, 'what is 6 * 9?'); // passes, custom message
+	t.assertion(isAnswer, 54, 'what is 6 * 9!'); // fails, custom message
+
+	t.end();
+});
+```
+
 ## var htest = test.createHarness()
 
 Create a new test harness instance, which is a function like `test()`, but with a new pending stack and test state.
