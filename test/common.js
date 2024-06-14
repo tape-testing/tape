@@ -91,6 +91,10 @@ module.exports.stripFullStack = function (output) {
 		/at(:?) (Test\.)?tap\.test\.test\.skip/g,
 		'at$1 $2<anonymous>'
 	).replace(
+		// Handle more stack trace variation in Node v0.8
+		/at(:?) Test.tap.test.([^ ]+)/g,
+		'at$1 Test.$2'
+	).replace(
 		// Handle stack trace variation in Node v0.8
 		/(\[\.\.\. stack stripped \.\.\.\]\r?\n *at) <anonymous> \(([^)]+)\)/g,
 		'$1 $2'
