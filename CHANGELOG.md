@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v5.8.0](https://github.com/tape-testing/tape/compare/v5.7.5...v5.8.0) - 2024-06-14
+
+### Fixed
+
+- [New] add `t.assertion` [`#555`](https://github.com/tape-testing/tape/issues/555)
+
+### Commits
+
+- [meta] update URLs [`77cabeb`](https://github.com/tape-testing/tape/commit/77cabebcd4b41da0083cb2c3c71105ba165debd6)
+- [New] allow TODO tests to be "ok" with env var `TODO_IS_OK` [`6cd06f5`](https://github.com/tape-testing/tape/commit/6cd06f510d8c001b32553502ec0b3e1876849178)
+- [Tests] strip node’s deprecation warnings [`8d40837`](https://github.com/tape-testing/tape/commit/8d40837002616401d9978bacd90a12dcc9a78c3e)
+- [Tests] increase coverage [`aa7de58`](https://github.com/tape-testing/tape/commit/aa7de58f7d86eb07552ac6847ef575e057774ad1)
+- [Refactor] `Test`: minor tweaks [`ce4ce8a`](https://github.com/tape-testing/tape/commit/ce4ce8a1a5bc6403868f2e50e1dccce1f62e82b6)
+- [meta] simplify `exports` [`d39cb8d`](https://github.com/tape-testing/tape/commit/d39cb8d84f98626592d7c192407a828d1969c6c3)
+- [Deps] update `@ljharb/resumer`, `@ljharb/through`, `hasown` [`77952d0`](https://github.com/tape-testing/tape/commit/77952d0c01bbcd15b3d954bff2b4d2a2915847ba)
+- [Tests] handle more stack trace variation in Node v0.8 [`d2f0778`](https://github.com/tape-testing/tape/commit/d2f0778c8e4612f7b92a1364843eb838a8b80436)
+- [Deps] update `array.prototype.every`, `string.prototype.trim` [`732268b`](https://github.com/tape-testing/tape/commit/732268b73376100806480662777bc396980f3ca9)
+- [Dev Deps] update `@ljharb/eslint-config` [`7b39e14`](https://github.com/tape-testing/tape/commit/7b39e144a362d44fd332ac15be50979439a17a6d)
+- [Refactor] `test`: reduce binding by using polyfill entrypoints [`91a83b6`](https://github.com/tape-testing/tape/commit/91a83b684abce30f1d68797ae675c8595eff5068)
+- [Dev Deps] remove unused `intl-fallback-symbol`, `is-core-module` [`eafacf6`](https://github.com/tape-testing/tape/commit/eafacf6aa0baf205fe461309c5425024c90cb6fb)
+- [Deps] update `object-is` [`1b01656`](https://github.com/tape-testing/tape/commit/1b016567b85c604801828a87e668b5b7d25a71e8)
+- [meta] simplify `exports` [`f9eac5b`](https://github.com/tape-testing/tape/commit/f9eac5b45979ed1228447122de4460f33aab1fde)
+
 ## [v5.7.5](https://github.com/tape-testing/tape/compare/v5.7.4...v5.7.5) - 2024-02-14
 
 ### Commits
