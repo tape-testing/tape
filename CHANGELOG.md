@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v5.8.1](https://github.com/tape-testing/tape/compare/v5.8.0...v5.8.1) - 2024-06-16
+
+### Fixed
+
+- [meta] fix URLs [`#608`](https://github.com/tape-testing/tape/issues/608)
+
+### Commits
+
+- [Fix] `assertion`: pass through assertion return value, for promises [`2ad86d4`](https://github.com/tape-testing/tape/commit/2ad86d45abc9ee3272772cf25a96a557a34c0b1c)
+
 ## [v5.8.0](https://github.com/tape-testing/tape/compare/v5.7.5...v5.8.0) - 2024-06-14
 
 ### Fixed
