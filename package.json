@@ -97,9 +97,9 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git://github.com/tape-testling/tape.git"
+		"url": "git://github.com/tape-testing/tape.git"
 	},
-	"homepage": "https://github.com/tape-testling/tape",
+	"homepage": "https://github.com/tape-testing/tape",
 	"keywords": [
 		"tap",
 		"test",
