@@ -61,6 +61,7 @@
 		"npmignore": "^0.3.1",
 		"nyc": "^10.3.2",
 		"safe-publish-latest": "^2.0.0",
+		"semver": "^6.3.1",
 		"tap": "^8.0.1",
 		"tap-parser": "^5.4.0"
 	},
