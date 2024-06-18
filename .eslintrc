@@ -53,7 +53,7 @@
             },
         },
         {
-            "files": ["lib/results.js"],
+            "files": ["packages/lib/results.js"],
             "rules": {
                 "no-cond-assign": "warn",
                 "no-param-reassign": "warn",
@@ -61,7 +61,7 @@
             },
         },
         {
-            "files": ["lib/test.js"],
+            "files": ["packages/lib/test.js"],
             "rules": {
                 "eqeqeq": "warn",
                 "func-name-matching": "off",
@@ -120,13 +120,13 @@
             },
         },
         {
-            "files": ["lib/default_stream.js"],
+            "files": ["packages/lib/default_stream.js"],
             "rules": {
                 "no-use-before-define": "warn",
             },
         },
         {
-            "files": ["lib/test.js"],
+            "files": ["packages/lib/test.js"],
             "rules": {
                 "max-lines": "off",
             },

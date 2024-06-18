@@ -93,7 +93,7 @@ var files = opts._.reduce(function (result, arg) {
 
 var hasImport = require('has-dynamic-import');
 
-var tape = require('../');
+var tape = require('tape-lib');
 
 function importFiles(hasSupport) {
 	if (!hasSupport) {

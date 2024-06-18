@@ -2,7 +2,7 @@
 
 var tap = require('tap');
 
-var getDefaultStream = require('../lib/default_stream');
+var getDefaultStream = require('tape-lib/default_stream');
 
 tap.test('getDefaultStream', function (tt) {
 	tt.plan(5);

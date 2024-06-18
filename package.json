@@ -1,7 +1,7 @@
 {
 	"name": "tape",
 	"version": "5.8.1",
-	"description": "tap-producing test harness for node and browsers",
+	"description": "TAP-producing test harness for node and browsers",
 	"main": "index.js",
 	"browser": {
 		"fs": false
@@ -41,10 +41,12 @@
 		"object-keys": "^1.1.1",
 		"object.assign": "^4.1.5",
 		"resolve": "^2.0.0-next.5",
-		"string.prototype.trim": "^1.2.9"
+		"string.prototype.trim": "^1.2.9",
+		"tape-lib": "^0.0.0-placeholder"
 	},
 	"devDependencies": {
 		"@ljharb/eslint-config": "^21.1.1",
+		"@ljharb/through": "^2.3.11",
 		"array.prototype.flatmap": "^1.3.2",
 		"aud": "^2.0.4",
 		"auto-changelog": "^2.4.0",
@@ -55,11 +57,13 @@
 		"es-value-fixtures": "^1.4.2",
 		"eslint": "=8.8.0",
 		"falafel": "^2.2.5",
+		"in-publish": "^2.0.1",
 		"jackspeak": "=2.1.1",
 		"js-yaml": "^3.14.0",
 		"npm-run-posix-or-windows": "^2.0.2",
 		"npmignore": "^0.3.1",
 		"nyc": "^10.3.2",
+		"object-inspect": "^1.13.1",
 		"safe-publish-latest": "^2.0.0",
 		"semver": "^6.3.1",
 		"tap": "^8.0.1",
@@ -122,7 +126,8 @@
 	},
 	"publishConfig": {
 		"ignore": [
-			".github/workflows"
+			".github/workflows",
+			"packages"
 		]
 	}
 }

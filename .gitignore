@@ -1,6 +1,8 @@
 # gitignore
 
 /node_modules
+**/node_modules
+!node_modules/tape-lib
 
 # Only apps should have lockfiles
 yarn.lock

@@ -42,7 +42,8 @@ var stripChangingData = function (line) {
 	var withoutTestDir = line.replace(__dirname, '$TEST');
 	var withoutPackageDir = withoutTestDir.replace(path.dirname(__dirname), '$TAPE');
 	var withoutPathSep = withoutPackageDir.replace(new RegExp('\\' + path.sep, 'g'), '/');
-	var withoutLineNumbers = withoutPathSep.replace(/:\d+:\d+/g, ':$LINE:$COL');
+	var withoutLibDir = withoutPathSep.replace('$TAPE/node_modules/tape-lib/', '$TAPE/lib/');
+	var withoutLineNumbers = withoutLibDir.replace(/:\d+:\d+/g, ':$LINE:$COL');
 	var withoutNestedLineNumbers = withoutLineNumbers.replace(/, <anonymous>:\$LINE:\$COL\)$/, ')');
 	var withoutProcessImmediate = withoutNestedLineNumbers.replace(
 		/^(\s+)at (?:process\.)?(processImmediate|startup\.processNextTick\.process\._tickCallback) (?:\[as _immediateCallback\] )?\((node:internal\/timers|(?:internal\/)?timers\.js|node\.js):\$LINE:\$COL\)$/g,
