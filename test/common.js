@@ -5,6 +5,10 @@ var spawn = require('child_process').spawn;
 var concat = require('concat-stream');
 var yaml = require('js-yaml');
 
+/** @typedef {import('../lib/result').Result} Result */
+/** @typedef {import('../lib/test').SyncCallback} SyncCallback */
+
+/** @type {(body: string, includeStack: boolean) => Result} */
 module.exports.getDiag = function (body, includeStack) {
 	var yamlStart = body.indexOf('  ---');
 	var yamlEnd = body.indexOf('  ...\n');
@@ -38,6 +42,7 @@ module.exports.getDiag = function (body, includeStack) {
 //    strip out all stack frames that aren't directly under our test directory,
 //    and replace them with placeholders.
 
+/** @type {(line: string) => null | string} */
 var stripChangingData = function (line) {
 	var withoutTestDir = line.replace(__dirname, '$TEST');
 	var withoutPackageDir = withoutTestDir.replace(path.dirname(__dirname), '$TAPE');
@@ -62,6 +67,7 @@ var stripChangingData = function (line) {
 };
 module.exports.stripChangingData = stripChangingData;
 
+/** @type {(output: string) => string} */
 module.exports.stripFullStack = function (output) {
 	var stripped = '          [... stack stripped ...]';
 	var withDuplicates = output.split(/\r?\n/g).map(stripChangingData).map(function (line) {
@@ -106,6 +112,7 @@ module.exports.stripFullStack = function (output) {
 		.split(/\r?\n/g);
 };
 
+/** @type {(folderName: string, fileName: string, cb: SyncCallback) => void} */
 module.exports.runProgram = function (folderName, fileName, cb) {
 	var result = {
 		stdout: null,
