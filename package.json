@@ -35,7 +35,7 @@
 		"inherits": "^2.0.4",
 		"is-regex": "^1.1.4",
 		"minimist": "^1.2.8",
-		"mock-property": "^1.0.3",
+		"mock-property": "^1.1.0",
 		"object-inspect": "^1.13.2",
 		"object-is": "^1.1.6",
 		"object-keys": "^1.1.1",
