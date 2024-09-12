@@ -29,7 +29,7 @@
 		"dotignore": "^0.1.2",
 		"for-each": "^0.3.3",
 		"get-package-type": "^0.1.0",
-		"glob": "^7.2.3",
+		"glob": "^8.1.0",
 		"has-dynamic-import": "^2.1.0",
 		"hasown": "^2.0.2",
 		"inherits": "^2.0.4",
