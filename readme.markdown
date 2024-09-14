@@ -68,6 +68,12 @@ $ tape 'tests/**/*.js'
 $ tape "tests/**/*.js"
 ```
 
+If you want `tape` to error when no files are found, pass `--strict`:
+
+```sh
+$ tape --strict 'tests/**/*.js'
+```
+
 ## Preloading modules
 
 Additionally, it is possible to make `tape` load one or more modules before running any tests, by using the `-r` or `--require` flag. Here's an example that loads [babel-register](https://babeljs.io/docs/usage/require/) before running any tests, to allow for JIT compilation:
