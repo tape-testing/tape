@@ -9,8 +9,8 @@ var objectKeys = require('object-keys');
 var opts = parseOpts(process.argv.slice(2), {
 	alias: { r: 'require', i: 'ignore' },
 	string: ['require', 'ignore', 'ignore-pattern'],
-	boolean: ['only'],
-	default: { r: [], i: null, 'ignore-pattern': null, only: null }
+	boolean: ['only', 'strict'],
+	default: { r: [], i: null, 'ignore-pattern': null, only: null, strict: false }
 });
 
 if (typeof opts.only === 'boolean') {
@@ -90,6 +90,11 @@ var files = opts._.reduce(function (result, arg) {
 }).map(function (file) {
 	return requireResolve(resolvePath(cwd, file));
 });
+
+if (opts.strict && files.length === 0) {
+	console.error('No test files found!');
+	process.exit(127);
+}
 
 var hasImport = require('has-dynamic-import');
 
