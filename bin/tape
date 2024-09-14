@@ -96,21 +96,26 @@ var hasImport = require('has-dynamic-import');
 var tape = require('../');
 
 function importFiles(hasSupport) {
-	if (!hasSupport) {
-		return files.forEach(function (x) { require(x); });
-	}
-
-	var importOrRequire = require('./import-or-require');
-
 	tape.wait();
 
-	var filesPromise = files.reduce(function (promise, file) {
-		return promise ? promise.then(function () {
-			return importOrRequire(file);
-		}) : importOrRequire(file);
-	}, null);
+	var filesPromise;
+	if (hasSupport) {
+		var importOrRequire = require('./import-or-require');
 
-	return filesPromise ? filesPromise.then(function () { tape.run(); }) : tape.run();
+		filesPromise = files.reduce(function (promise, file) {
+			return promise ? promise.then(function () {
+				return importOrRequire(file);
+			}) : importOrRequire(file);
+		}, null);
+	} else {
+		files.forEach(function (x) { require(x); });
+	}
+
+	if (filesPromise) {
+		filesPromise.then(function () { tape.run(); });
+	} else {
+		tape.run();
+	}
 }
 
 hasImport().then(function (hasSupport) {
