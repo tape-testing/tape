@@ -51,6 +51,7 @@
 		"cross-env": "^2.0.1",
 		"eclint": "^2.8.1",
 		"ecstatic": "^4.1.4",
+		"encoding": "^0.1.13",
 		"es-value-fixtures": "^1.4.2",
 		"eslint": "=8.8.0",
 		"falafel": "^2.2.5",
