@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v5.9.0](https://github.com/tape-testing/tape/compare/v5.8.1...v5.9.0) - 2024-09-15
+
+### Commits
+
+- [New] `bin/tape`: add `--strict` [`4c97f54`](https://github.com/tape-testing/tape/commit/4c97f544939d949f18a1f53211f5c35c6902d52b)
+- [Fix] in engines that lack dynamic import, have some output [`2d5c8dc`](https://github.com/tape-testing/tape/commit/2d5c8dcfd9a4d0f96713e229e21bc9363f126dd1)
+- [Tests] use `npm audit` instead of `aud` [`681d4bd`](https://github.com/tape-testing/tape/commit/681d4bd7851cbcba2c93dfa7d24814e083285309)
+- [Dev Deps] update `auto-changelog` [`b7bc72f`](https://github.com/tape-testing/tape/commit/b7bc72f82d0592aae38ed80484c09b04593a1d2c)
+- [Deps] update `mock-property` [`ecfb546`](https://github.com/tape-testing/tape/commit/ecfb546465bc1ab0194fad69e4d3400d8e645ba1)
+- [Deps] update `object-inspect` [`9a47aba`](https://github.com/tape-testing/tape/commit/9a47abae189019797a8cfd504b5194ba4ecdf1a9)
+- [readme] notLooseEqual(s) is not an alias for notDeepLooseEqual [`c827ac9`](https://github.com/tape-testing/tape/commit/c827ac994f147a2b3df1f51a42316bda96cedb65)
+- [readme] remove defunct badges [`7880dd4`](https://github.com/tape-testing/tape/commit/7880dd4d73ea865aa7cabee79a58638895f968d4)
+- [Dev Deps] add missing peer dep [`627d1e7`](https://github.com/tape-testing/tape/commit/627d1e79da5e3f6cc76e2e0240b62e5bc7d7f673)
+
 ## [v5.8.1](https://github.com/tape-testing/tape/compare/v5.8.0...v5.8.1) - 2024-06-16
 
 ### Fixed
