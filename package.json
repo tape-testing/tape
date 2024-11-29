@@ -36,7 +36,7 @@
 		"is-regex": "^1.1.4",
 		"minimist": "^1.2.8",
 		"mock-property": "^1.1.0",
-		"object-inspect": "^1.13.2",
+		"object-inspect": "^1.13.3",
 		"object-is": "^1.1.6",
 		"object-keys": "^1.1.1",
 		"object.assign": "^4.1.5",
