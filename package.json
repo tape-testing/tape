@@ -24,6 +24,7 @@
 		"@ljharb/through": "^2.3.13",
 		"array.prototype.every": "^1.1.7",
 		"call-bind": "^1.0.8",
+		"call-bound": "^1.0.2",
 		"deep-equal": "^2.2.3",
 		"defined": "^1.0.1",
 		"dotignore": "^0.1.2",
