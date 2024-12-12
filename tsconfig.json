@@ -1,0 +1,12 @@
+{
+  "extends": "@ljharb/tsconfig",
+  "compilerOptions": {
+    "target": "ES2021",
+    "strictBindCallApply": false,
+  },
+  "exclude": [
+	"coverage/**",
+	"example/**",
+	"test/**/*",
+  ],
+}
