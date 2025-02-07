@@ -364,7 +364,7 @@ tap.test('failures', function (tt) {
 			function () { throw new SyntaxError('Wrong value'); },
 			function (error) {
 				t.ok(error instanceof SyntaxError, 'error is SyntaxError');
-				t.ok((/value/).test(error), 'error matches /value/');
+				t.ok((/value/).test(String(error)), 'error matches /value/');
 				// Avoid returning anything from validation functions besides `true`.
 				// Otherwise, it's not clear what part of the validation failed. Instead,
 				// throw an error about the specific validation that failed (as done in this

@@ -34,7 +34,7 @@ test('nested array test', function (t) {
 		[[1, 2, [3, 4]], [5, 6]]
 	];
 
-	Function(['fn', 'g'], output)(
+	Function('fn', 'g', String(output))(
 		function (xs) {
 			t.same(arrays.shift(), xs);
 			return xs;
