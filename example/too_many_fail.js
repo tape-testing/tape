@@ -9,7 +9,7 @@ test('array', function (t) {
 	var src = '(' + function () {
 		var xs = [1, 2, [3, 4]];
 		var ys = [5, 6];
-		g([ xs, ys ]);
+		g([xs, ys]);
 	} + ')()';
 
 	var output = falafel(src, function (node) {

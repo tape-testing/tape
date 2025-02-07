@@ -7,9 +7,9 @@ test('nested array test', function (t) {
 	t.plan(5);
 
 	var src = '(' + function () {
-		var xs = [ 1, 2, [ 3, 4 ] ];
-		var ys = [ 5, 6 ];
-		g([ xs, ys ]);
+		var xs = [1, 2, [3, 4]];
+		var ys = [5, 6];
+		g([xs, ys]);
 	} + ')()';
 
 	var output = falafel(src, function (node) {
@@ -28,10 +28,10 @@ test('nested array test', function (t) {
 	});
 
 	var arrays = [
-		[ 3, 4 ],
-		[ 1, 2, [ 3, 4 ] ],
-		[ 5, 6 ],
-		[ [ 1, 2, [ 3, 4 ] ], [ 5, 6 ] ]
+		[3, 4],
+		[1, 2, [3, 4]],
+		[5, 6],
+		[[1, 2, [3, 4]], [5, 6]]
 	];
 
 	Function('fn', 'g', String(output))(
@@ -40,7 +40,7 @@ test('nested array test', function (t) {
 			return xs;
 		},
 		function (xs) {
-			t.same(xs, [ [ 1, 2, [ 3, 4 ] ], [ 5, 6 ] ]);
+			t.same(xs, [[1, 2, [3, 4]], [5, 6]]);
 		}
 	);
 });

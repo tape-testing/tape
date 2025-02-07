@@ -11,7 +11,7 @@
     },
     "rules": {
         "array-bracket-newline": "off",
-        "array-bracket-spacing": "off",
+		"array-bracket-spacing": ["error", "never"],
         "complexity": "off",
         "func-style": ["error", "declaration"],
         "no-magic-numbers": "off",
