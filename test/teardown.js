@@ -14,8 +14,8 @@ tap.test('teardowns', function (tt) {
 	tt.plan(1);
 
 	var test = tape.createHarness();
-	test.createStream().pipe(concat(function (body) {
-		tt.same(stripFullStack(body.toString('utf8')), [].concat(
+	test.createStream().pipe(concat({ encoding: 'string' }, function (body) {
+		tt.same(stripFullStack(body), [].concat(
 			'TAP version 13',
 			'# success',
 			'ok 1 should be truthy',
@@ -290,8 +290,8 @@ tap.test('teardown only runs once', { skip: typeof Promise !== 'function', timeo
 	tt.plan(1);
 
 	var test = tape.createHarness();
-	test.createStream().pipe(concat(function (body) {
-		tt.same(stripFullStack(body.toString('utf8')), [].concat(
+	test.createStream().pipe(concat({ encoding: 'string' }, function (body) {
+		tt.same(stripFullStack(body), [].concat(
 			'TAP version 13',
 			'# teardown is only called once, even with a plan',
 			'ok 1 passes',

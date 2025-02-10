@@ -15,8 +15,9 @@ function tape(args, options) {
 tap.test('importing mjs files', function (t) {
 	hasDynamicImport().then(function (hasSupport) {
 		if (hasSupport) {
-			var tc = function (rows) {
-				t.same(rows.toString('utf8'), [
+			var ps = tape('import/mjs-*.mjs');
+			ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
+				t.same(rows, [
 					'TAP version 13',
 					'# mjs-a',
 					'ok 1 test ran',
@@ -41,10 +42,7 @@ tap.test('importing mjs files', function (t) {
 					'',
 					'# ok'
 				].join('\n') + '\n\n');
-			};
-
-			var ps = tape('import/mjs-*.mjs');
-			ps.stdout.pipe(concat(tc));
+			}));
 			ps.stderr.pipe(process.stderr);
 			ps.on('exit', function (code) {
 				t.equal(code, 0);
@@ -60,8 +58,9 @@ tap.test('importing mjs files', function (t) {
 tap.test('importing type: "module" files', function (t) {
 	hasDynamicImport().then(function (hasSupport) {
 		if (hasSupport) {
-			var tc = function (rows) {
-				t.same(rows.toString('utf8'), [
+			var ps = tape('import/package_type/*.js');
+			ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
+				t.same(rows, [
 					'TAP version 13',
 					'# package-type-a',
 					'ok 1 test ran',
@@ -76,10 +75,7 @@ tap.test('importing type: "module" files', function (t) {
 					'',
 					'# ok'
 				].join('\n') + '\n\n');
-			};
-
-			var ps = tape('import/package_type/*.js');
-			ps.stdout.pipe(concat(tc));
+			}));
 			ps.stderr.pipe(process.stderr);
 			ps.on('exit', function (code) {
 				t.equal(code, 0);
@@ -97,7 +93,7 @@ tap.test('errors importing test files', function (t) {
 		var createTest = function (options) {
 			var message = options.error + ' in `' + options.mode + '` mode`';
 			var ps = tape(options.files, { env: { NODE_OPTIONS: '--unhandled-rejections=' + options.mode } });
-			ps.stderr.pipe(concat(options.unhandledRejection(message)));
+			ps.stderr.pipe(concat({ encoding: 'string' }, options.unhandledRejection(message)));
 			ps.on('exit', function (code/* , sig */) {
 				t.equal(code, options.exitCode, message + ' has exit code ' + options.exitCode);
 			});
@@ -105,13 +101,13 @@ tap.test('errors importing test files', function (t) {
 
 		var warning = function (message) {
 			return function (rows) {
-				t.match(rows.toString('utf8'), 'UnhandledPromiseRejectionWarning', 'should have unhandled rejection warning: ' + message);
+				t.match(rows, 'UnhandledPromiseRejectionWarning', 'should have unhandled rejection warning: ' + message);
 			};
 		};
 
 		var noWarning = function (message) {
 			return function (rows) {
-				t.notMatch(rows.toString('utf8'), 'UnhandledPromiseRejectionWarning', 'should not have unhandled rejection warning: ' + message);
+				t.notMatch(rows, 'UnhandledPromiseRejectionWarning', 'should not have unhandled rejection warning: ' + message);
 			};
 		};
 

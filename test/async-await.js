@@ -25,7 +25,7 @@ try {
 
 tap.test('async1', function (t) {
 	runProgram('async-await', 'async1.js', function (r) {
-		t.deepEqual(stripFullStack(r.stdout.toString('utf8')), [
+		t.deepEqual(stripFullStack(r.stdout), [
 			'TAP version 13',
 			'# async1',
 			'ok 1 before await',
@@ -40,14 +40,14 @@ tap.test('async1', function (t) {
 			''
 		]);
 		t.same(r.exitCode, 0);
-		t.same(stripDeprecations(r.stderr.toString('utf8')), '');
+		t.same(stripDeprecations(r.stderr), '');
 		t.end();
 	});
 });
 
 tap.test('async2', function (t) {
 	runProgram('async-await', 'async2.js', function (r) {
-		var stdout = r.stdout.toString('utf8');
+		var stdout = r.stdout;
 		var lines = stdout.split('\n').filter(function (line) {
 			return !(/^(\s+)at(\s+)<anonymous>$/).test(line);
 		});
@@ -76,14 +76,14 @@ tap.test('async2', function (t) {
 			''
 		]);
 		t.same(r.exitCode, 1);
-		t.same(stripDeprecations(r.stderr.toString('utf8')), '');
+		t.same(stripDeprecations(r.stderr), '');
 		t.end();
 	});
 });
 
 tap.test('async3', function (t) {
 	runProgram('async-await', 'async3.js', function (r) {
-		t.deepEqual(stripFullStack(r.stdout.toString('utf8')), [
+		t.deepEqual(stripFullStack(r.stdout), [
 			'TAP version 13',
 			'# async3',
 			'ok 1 before await',
@@ -98,14 +98,14 @@ tap.test('async3', function (t) {
 			''
 		]);
 		t.same(r.exitCode, 0);
-		t.same(stripDeprecations(r.stderr.toString('utf8')), '');
+		t.same(stripDeprecations(r.stderr), '');
 		t.end();
 	});
 });
 
 tap.test('async4', function (t) {
 	runProgram('async-await', 'async4.js', function (r) {
-		t.deepEqual(stripFullStack(r.stdout.toString('utf8')), [
+		t.deepEqual(stripFullStack(r.stdout), [
 			'TAP version 13',
 			'# async4',
 			'ok 1 before await',
@@ -127,14 +127,14 @@ tap.test('async4', function (t) {
 			''
 		]);
 		t.same(r.exitCode, 1);
-		t.same(stripDeprecations(r.stderr.toString('utf8')), '');
+		t.same(stripDeprecations(r.stderr), '');
 		t.end();
 	});
 });
 
 tap.test('async5', function (t) {
 	runProgram('async-await', 'async5.js', function (r) {
-		t.same(stripFullStack(r.stdout.toString('utf8')), [
+		t.same(stripFullStack(r.stdout), [
 			'TAP version 13',
 			'# async5',
 			'ok 1 before server',
@@ -181,14 +181,14 @@ tap.test('async5', function (t) {
 			''
 		]);
 		t.same(r.exitCode, 1);
-		t.same(stripDeprecations(r.stderr.toString('utf8')), '');
+		t.same(stripDeprecations(r.stderr), '');
 		t.end();
 	});
 });
 
 tap.test('sync-error', function (t) {
 	runProgram('async-await', 'sync-error.js', function (r) {
-		t.same(stripFullStack(r.stdout.toString('utf8')), [
+		t.same(stripFullStack(r.stdout), [
 			'TAP version 13',
 			'# sync-error',
 			'ok 1 before throw',
@@ -196,14 +196,13 @@ tap.test('sync-error', function (t) {
 		]);
 		t.same(r.exitCode, 1);
 
-		var stderr = r.stderr.toString('utf8');
-		var lines = stderr.split('\n');
+		var lines = r.stderr.split('\n');
 		lines = lines.filter(function (line) {
 			return !(/\(timers.js:/).test(line)
                 && !(/\(internal\/timers.js:/).test(line)
                 && !(/Immediate\.next/).test(line);
 		});
-		stderr = lines.join('\n');
+		var stderr = lines.join('\n');
 
 		t.same(stripFullStack(stripDeprecations(stderr)), [].concat(
 			'$TEST/async-await/sync-error.js:7',
@@ -228,12 +227,11 @@ tap.test('sync-error', function (t) {
 
 tap.test('async-error', function (t) {
 	runProgram('async-await', 'async-error.js', function (r) {
-		var stdout = r.stdout.toString('utf8');
-		var lines = stdout.split('\n');
+		var lines = r.stdout.split('\n');
 		lines = lines.filter(function (line) {
 			return !(/^(\s+)at(\s+)<anonymous>$/).test(line);
 		});
-		stdout = lines.join('\n');
+		var stdout = lines.join('\n');
 
 		t.same(stripFullStack(stdout), [
 			'TAP version 13',
@@ -257,7 +255,7 @@ tap.test('async-error', function (t) {
 		]);
 		t.same(r.exitCode, 1);
 
-		var stderr = stripDeprecations(r.stderr.toString('utf8'));
+		var stderr = stripDeprecations(r.stderr);
 		var stderrLines = stderr.split('\n').filter(function (line) {
 			return !(/\(timers.js:/).test(line)
                 && !(/\(internal\/timers.js:/).test(line)
@@ -271,12 +269,11 @@ tap.test('async-error', function (t) {
 
 tap.test('async-bug', function (t) {
 	runProgram('async-await', 'async-bug.js', function (r) {
-		var stdout = r.stdout.toString('utf8');
-		var lines = stdout.split('\n');
+		var lines = r.stdout.split('\n');
 		lines = lines.filter(function (line) {
 			return !(/^(\s+)at(\s+)<anonymous>$/).test(line);
 		});
-		stdout = lines.join('\n');
+		var stdout = lines.join('\n');
 
 		t.same(stripFullStack(stdout), [
 			'TAP version 13',
@@ -301,7 +298,7 @@ tap.test('async-bug', function (t) {
 		]);
 		t.same(r.exitCode, 1);
 
-		var stderr = stripDeprecations(r.stderr.toString('utf8'));
+		var stderr = stripDeprecations(r.stderr);
 
 		t.same(stderr, '');
 		t.end();

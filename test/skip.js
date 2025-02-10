@@ -8,8 +8,9 @@ var tap = require('tap');
 tap.test('test SKIP comment', function (assert) {
 	assert.plan(1);
 
-	var verify = function (output) {
-		assert.equal(output.toString('utf8'), [
+	var tapeTest = test.createHarness();
+	tapeTest.createStream().pipe(concat({ encoding: 'string' }, function (output) {
+		assert.equal(output, [
 			'TAP version 13',
 			'# SKIP skipped',
 			'',
@@ -20,10 +21,7 @@ tap.test('test SKIP comment', function (assert) {
 			'# ok',
 			''
 		].join('\n'));
-	};
-
-	var tapeTest = test.createHarness();
-	tapeTest.createStream().pipe(concat(verify));
+	}));
 	tapeTest('skipped', { skip: true }, function (t) {
 		t.end();
 	});

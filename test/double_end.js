@@ -13,7 +13,7 @@ test(function (tt) {
 	ps.on('exit', function (code) {
 		tt.equal(code, 1);
 	});
-	ps.stdout.pipe(concat(function (body) {
+	ps.stdout.pipe(concat({ encoding: 'string' }, function (body) {
 		// The implementation of node's timer library has changed over time. We
 		// need to reverse engineer the error we expect to see.
 
@@ -36,7 +36,7 @@ test(function (tt) {
 			atExpected = stackExpected.replace(/^at\s+/, 'at: ');
 		}
 
-		var stripped = stripFullStack(body.toString('utf8'));
+		var stripped = stripFullStack(body);
 		tt.same(stripped, [
 			'TAP version 13',
 			'# double end',

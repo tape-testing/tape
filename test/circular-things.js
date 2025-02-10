@@ -10,8 +10,8 @@ tap.test('circular test', function (assert) {
 	var test = tape.createHarness({ exit: false });
 	assert.plan(1);
 
-	test.createStream().pipe(concat(function (body) {
-		assert.deepEqual(stripFullStack(body.toString('utf8')), [
+	test.createStream().pipe(concat({ encoding: 'string' }, function (body) {
+		assert.deepEqual(stripFullStack(body), [
 			'TAP version 13',
 			'# circular',
 			'not ok 1 should be strictly equal',

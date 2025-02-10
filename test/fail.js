@@ -11,8 +11,9 @@ tap.test('array test', function (tt) {
 	tt.plan(1);
 
 	var test = tape.createHarness({ exit: false });
-	var tc = function (rows) {
-		tt.same(stripFullStack(rows.toString('utf8')), [
+
+	test.createStream().pipe(concat({ encoding: 'string' }, function (rows) {
+		tt.same(stripFullStack(rows), [
 			'TAP version 13',
 			'# array',
 			'ok 1 should be deeply equivalent',
@@ -41,9 +42,7 @@ tap.test('array test', function (tt) {
 			'# fail  1',
 			''
 		]);
-	};
-
-	test.createStream().pipe(concat(tc));
+	}));
 
 	test('array', function (t) {
 		t.plan(5);

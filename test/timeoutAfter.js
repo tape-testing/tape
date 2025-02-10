@@ -10,8 +10,9 @@ tap.test('timeoutAfter test', function (tt) {
 	tt.plan(1);
 
 	var test = tape.createHarness();
-	var tc = function (rows) {
-		tt.same(stripFullStack(rows.toString('utf8')), [
+
+	test.createStream().pipe(concat({ encoding: 'string' }, function (rows) {
+		tt.same(stripFullStack(rows), [
 			'TAP version 13',
 			'# timeoutAfter',
 			'not ok 1 timeoutAfter timed out after 1ms',
@@ -28,9 +29,7 @@ tap.test('timeoutAfter test', function (tt) {
 			'# fail  1',
 			''
 		]);
-	};
-
-	test.createStream().pipe(concat(tc));
+	}));
 
 	test('timeoutAfter', function (t) {
 		t.plan(1);
@@ -42,8 +41,9 @@ tap.test('timeoutAfter with Promises', { skip: typeof Promise === 'undefined' },
 	tt.plan(1);
 
 	var test = tape.createHarness();
-	var tc = function (rows) {
-		tt.same(stripFullStack(rows.toString('utf8')), [
+
+	test.createStream().pipe(concat({ encoding: 'string' }, function (rows) {
+		tt.same(stripFullStack(rows), [
 			'TAP version 13',
 			'# timeoutAfter with promises',
 			'# fulfilled promise',
@@ -69,9 +69,7 @@ tap.test('timeoutAfter with Promises', { skip: typeof Promise === 'undefined' },
 			'# fail  2',
 			''
 		]);
-	};
-
-	test.createStream().pipe(concat(tc));
+	}));
 
 	test('timeoutAfter with promises', function (t) {
 		t.plan(2);

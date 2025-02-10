@@ -12,15 +12,13 @@ tap.test('callback returning rejected promise should cause that test (and only t
 
 	var ps = spawn(process.execPath, [path.join(__dirname, 'promises', 'fail.js')]);
 
-	ps.stdout.pipe(concat(function (rows) {
-		var rowsString = rows.toString('utf8');
-
-		if ((/^skip\n$/).test(rowsString)) {
+	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
+		if ((/^skip\n$/).test(rows)) {
 			tt.pass('the test file indicated it should be skipped');
 			return;
 		}
 
-		var strippedString = stripFullStack(rowsString).filter(function (line) {
+		var strippedString = stripFullStack(rows).filter(function (line) {
 			return !(/^(\s+)at(\s+)(?:Test\.)?<anonymous>(?:$|\s)/).test(line);
 		}).join('\n');
 
@@ -61,15 +59,13 @@ tap.test('subtest callback returning rejected promise should cause that subtest 
 
 	var ps = spawn(process.execPath, [path.join(__dirname, 'promises', 'subTests.js')]);
 
-	ps.stdout.pipe(concat(function (rows) {
-		var rowsString = rows.toString('utf8');
-
-		if ((/^skip\n$/).test(rowsString)) {
+	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
+		if ((/^skip\n$/).test(rows)) {
 			tt.pass('the test file indicated it should be skipped');
 			return;
 		}
 
-		var strippedString = stripFullStack(rowsString).filter(function (line) {
+		var strippedString = stripFullStack(rows).filter(function (line) {
 			return !(/^(\s+)at(\s+)(?:Test\.)?<anonymous>(?:$|\s)/).test(line);
 		}).join('\n');
 

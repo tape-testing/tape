@@ -116,10 +116,10 @@ module.exports.runProgram = function (folderName, fileName, cb) {
 		path.join(__dirname, folderName, fileName)
 	]);
 
-	ps.stdout.pipe(concat(function (stdoutRows) {
+	ps.stdout.pipe(concat({ encoding: 'string' }, function (stdoutRows) {
 		result.stdout = stdoutRows;
 	}));
-	ps.stderr.pipe(concat(function (stderrRows) {
+	ps.stderr.pipe(concat({ encoding: 'string' }, function (stderrRows) {
 		result.stderr = stderrRows;
 	}));
 

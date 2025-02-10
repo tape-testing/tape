@@ -19,10 +19,11 @@ tap.test(
 		tt.plan(3);
 
 		exec(tapeBin + ' --no-only "**/*.js"', {
-			cwd: path.join(__dirname, 'no_only')
+			cwd: path.join(__dirname, 'no_only'),
+			encoding: 'utf8'
 		}, function (err, stdout, stderr) {
-			tt.same(stdout.toString('utf8'), '');
-			tt.match(stripFullStack(stderr.toString('utf8')).join('\n'), /Error: `only` tests are prohibited\n/);
+			tt.same(stdout, '');
+			tt.match(stripFullStack(stderr).join('\n'), /Error: `only` tests are prohibited\n/);
 			tt.equal(err.code, expectedExitCodeOnError);
 		});
 	}
@@ -36,10 +37,11 @@ tap.test(
 
 		exec(tapeBin + ' "**/*.js"', {
 			cwd: path.join(__dirname, 'no_only'),
+			encoding: 'utf8',
 			env: { PATH: process.env.PATH, NODE_TAPE_NO_ONLY_TEST: 'true' }
 		}, function (err, stdout, stderr) {
-			tt.same(stdout.toString('utf8'), '');
-			tt.match(stripFullStack(stderr.toString('utf8')).join('\n'), /Error: `only` tests are prohibited\n/);
+			tt.same(stdout, '');
+			tt.match(stripFullStack(stderr).join('\n'), /Error: `only` tests are prohibited\n/);
 			tt.equal(err.code, expectedExitCodeOnError);
 		});
 	}
@@ -53,10 +55,11 @@ tap.test(
 
 		exec(tapeBin + ' --no-only "**/*.js"', {
 			cwd: path.join(__dirname, 'no_only'),
+			encoding: 'utf8',
 			env: { PATH: process.env.PATH, NODE_TAPE_NO_ONLY_TEST: 'false' }
 		}, function (err, stdout, stderr) {
-			tt.same(stdout.toString('utf8'), '');
-			tt.match(stripFullStack(stderr.toString('utf8')).join('\n'), /Error: `only` tests are prohibited\n/);
+			tt.same(stdout, '');
+			tt.match(stripFullStack(stderr).join('\n'), /Error: `only` tests are prohibited\n/);
 			tt.equal(err.code, expectedExitCodeOnError);
 		});
 	}
@@ -66,10 +69,11 @@ tap.test('Should run successfully if there is no only test', function (tt) {
 	tt.plan(3);
 
 	exec(tapeBin + ' --no-only "**/test-a.js"', {
-		cwd: path.join(__dirname, 'no_only')
+		cwd: path.join(__dirname, 'no_only'),
+		encoding: 'utf8'
 	}, function (err, stdout, stderr) {
-		tt.equal(stripDeprecations(stderr.toString('utf8')), '');
-		tt.same(stripFullStack(stdout.toString('utf8')), [
+		tt.equal(stripDeprecations(stderr), '');
+		tt.same(stripFullStack(stdout), [
 			'TAP version 13',
 			'# should pass',
 			'ok 1 should be truthy',
@@ -90,9 +94,10 @@ tap.test('Should run successfully if there is an only test and no --no-only flag
 	tt.plan(3);
 
 	exec(tapeBin + ' "**/test-b.js"', {
-		cwd: path.join(__dirname, 'no_only')
+		cwd: path.join(__dirname, 'no_only'),
+		encoding: 'utf8'
 	}, function (err, stdout, stderr) {
-		tt.same(stripFullStack(stdout.toString('utf8')), [
+		tt.same(stripFullStack(stdout), [
 			'TAP version 13',
 			'# should pass again',
 			'ok 1 should be truthy',
@@ -105,7 +110,7 @@ tap.test('Should run successfully if there is an only test and no --no-only flag
 			'',
 			''
 		]);
-		tt.equal(stripDeprecations(stderr.toString('utf8')), '');
+		tt.equal(stripDeprecations(stderr), '');
 		tt.equal(err, null); // code 0
 	});
 });

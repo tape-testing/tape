@@ -25,8 +25,8 @@ tap.test('failures', function (tt) {
 
 	var test = tape.createHarness();
 	var count = 0;
-	test.createStream().pipe(concat(function (body) {
-		tt.same(stripFullStack(body.toString('utf8')), [
+	test.createStream().pipe(concat({ encoding: 'string' }, function (body) {
+		tt.same(stripFullStack(body), [
 			'TAP version 13',
 			'# non functions',
 			'ok ' + ++count + ' should throw',

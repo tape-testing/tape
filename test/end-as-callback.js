@@ -16,7 +16,7 @@ var concat = require('concat-stream');
 function getStackTrace(rows) {
 	var stacktrace = '  ---\n';
 	var extract = false;
-	forEach(rows.toString('utf8').split('\n'), function (row) {
+	forEach(rows.split('\n'), function (row) {
 		if (!extract) {
 			if (row.indexOf('---') > -1) { // start of stack trace
 				extract = true;
@@ -47,8 +47,8 @@ function fakeAsyncWriteFail(name, cb) {
 tap.test('tape assert.end as callback', function (tt) {
 	var test = tape.createHarness({ exit: false });
 
-	test.createStream().pipe(concat(function (rows) {
-		tt.equal(rows.toString('utf8'), [
+	test.createStream().pipe(concat({ encoding: 'string' }, function (rows) {
+		tt.equal(rows, [
 			'TAP version 13',
 			'# do a task and write',
 			'ok 1 null',

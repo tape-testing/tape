@@ -16,8 +16,8 @@ tap.test('deep equal failure', function (assert) {
 	assert.plan(3);
 
 	stream.pipe(parser);
-	stream.pipe(concat(function (body) {
-		assert.deepEqual(stripFullStack(body.toString('utf8')), [
+	stream.pipe(concat({ encoding: 'string' }, function (body) {
+		assert.deepEqual(stripFullStack(body), [
 			'TAP version 13',
 			'# not deep equal',
 			'not ok 1 should not be deeply equivalent',
@@ -78,8 +78,8 @@ tap.test('not deep equal failure, depth 6, with option', function (assert) {
 	assert.plan(3);
 
 	stream.pipe(parser);
-	stream.pipe(concat(function (body) {
-		assert.deepEqual(stripFullStack(body.toString('utf8')), [
+	stream.pipe(concat({ encoding: 'string' }, function (body) {
+		assert.deepEqual(stripFullStack(body), [
 			'TAP version 13',
 			'# not deep equal',
 			'not ok 1 should not be deeply equivalent',
@@ -140,8 +140,8 @@ tap.test('not deep equal failure, depth 6, without option', function (assert) {
 	assert.plan(3);
 
 	stream.pipe(parser);
-	stream.pipe(concat(function (body) {
-		assert.deepEqual(stripFullStack(body.toString('utf8')), [
+	stream.pipe(concat({ encoding: 'string' }, function (body) {
+		assert.deepEqual(stripFullStack(body), [
 			'TAP version 13',
 			'# not deep equal',
 			'not ok 1 should not be deeply equivalent',

@@ -10,8 +10,8 @@ tap.test('numerics', function (tt) {
 	tt.plan(1);
 
 	var test = tape.createHarness();
-	test.createStream().pipe(concat(function (body) {
-		tt.same(stripFullStack(body.toString('utf8')), [
+	test.createStream().pipe(concat({ encoding: 'string' }, function (body) {
+		tt.same(stripFullStack(body), [
 			'TAP version 13',
 			'# numeric strings',
 			'not ok 1 number equal to string',

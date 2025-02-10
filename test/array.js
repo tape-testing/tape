@@ -10,8 +10,8 @@ tap.test('array test', function (tt) {
 
 	var test = tape.createHarness();
 
-	test.createStream().pipe(concat(function (rows) {
-		tt.same(rows.toString('utf8'), [
+	test.createStream().pipe(concat({ encoding: 'string' }, function (rows) {
+		tt.same(rows, [
 			'TAP version 13',
 			'# array',
 			'ok 1 should be deeply equivalent',

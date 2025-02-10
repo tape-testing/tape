@@ -12,8 +12,8 @@ tap.test('tape todo test', function (assert) {
 	var test = tape.createHarness({ exit: false });
 	assert.plan(1);
 
-	test.createStream().pipe(concat(function (body) {
-		assert.deepEqual(stripFullStack(body.toString('utf8')), [
+	test.createStream().pipe(concat({ encoding: 'string' }, function (body) {
+		assert.deepEqual(stripFullStack(body), [
 			'TAP version 13',
 			'# success',
 			'ok 1 this test runs',
@@ -49,8 +49,8 @@ tap.test('tape todo test with TODO_IS_OK', function (assert) {
 	var test = tape.createHarness({ exit: false });
 	assert.plan(1);
 
-	test.createStream().pipe(concat(function (body) {
-		assert.deepEqual(stripFullStack(body.toString('utf8')), [
+	test.createStream().pipe(concat({ encoding: 'string' }, function (body) {
+		assert.deepEqual(stripFullStack(body), [
 			'TAP version 13',
 			'# success',
 			'ok 1 this test runs',

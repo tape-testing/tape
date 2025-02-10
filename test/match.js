@@ -10,8 +10,9 @@ tap.test('match', function (tt) {
 	tt.plan(1);
 
 	var test = tape.createHarness({ exit: false });
-	var tc = function (rows) {
-		tt.same(stripFullStack(rows.toString('utf8')), [
+
+	test.createStream().pipe(concat({ encoding: 'string' }, function (rows) {
+		tt.same(stripFullStack(rows), [
 			'TAP version 13',
 			'# match',
 			'not ok 1 The "regexp" argument must be an instance of RegExp. Received type string (\'string\')',
@@ -95,9 +96,7 @@ tap.test('match', function (tt) {
 			'# fail  6',
 			''
 		]);
-	};
-
-	test.createStream().pipe(concat(tc));
+	}));
 
 	test('match', function (t) {
 		t.plan(8);
@@ -122,8 +121,9 @@ tap.test('doesNotMatch', function (tt) {
 	tt.plan(1);
 
 	var test = tape.createHarness({ exit: false });
-	var tc = function (rows) {
-		tt.same(stripFullStack(rows.toString('utf8')), [
+
+	test.createStream().pipe(concat({ encoding: 'string' }, function (rows) {
+		tt.same(stripFullStack(rows), [
 			'TAP version 13',
 			'# doesNotMatch',
 			'not ok 1 The "regexp" argument must be an instance of RegExp. Received type string (\'string\')',
@@ -231,9 +231,7 @@ tap.test('doesNotMatch', function (tt) {
 			'# fail  8',
 			''
 		]);
-	};
-
-	test.createStream().pipe(concat(tc));
+	}));
 
 	test('doesNotMatch', function (t) {
 		t.plan(10);

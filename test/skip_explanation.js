@@ -8,8 +8,9 @@ var stripFullStack = require('./common').stripFullStack;
 tap.test('test skip explanations', function (assert) {
 	assert.plan(1);
 
-	var verify = function (output) {
-		assert.deepEqual(stripFullStack(output.toString('utf8')), [
+	var tapeTest = test.createHarness();
+	tapeTest.createStream().pipe(concat({ encoding: 'string' }, function (output) {
+		assert.deepEqual(stripFullStack(output), [
 			'TAP version 13',
 			'# SKIP (this skips)',
 			'# some tests might skip',
@@ -35,10 +36,7 @@ tap.test('test skip explanations', function (assert) {
 			'# ok',
 			''
 		]);
-	};
-
-	var tapeTest = test.createHarness();
-	tapeTest.createStream().pipe(concat(verify));
+	}));
 
 	tapeTest('(this skips)', { skip: true }, function (t) {
 		t.fail('doesn\'t run');

@@ -16,8 +16,8 @@ tap.test('not equal failure', function (assert) {
 	assert.plan(3);
 
 	stream.pipe(parser);
-	stream.pipe(concat(function (body) {
-		assert.deepEqual(stripFullStack(body.toString('utf8')), [
+	stream.pipe(concat({ encoding: 'string' }, function (body) {
+		assert.deepEqual(stripFullStack(body), [
 			'TAP version 13',
 			'# not equal',
 			'not ok 1 should not be strictly equal',

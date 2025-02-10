@@ -8,8 +8,8 @@ tap.test('tape only test', function (tt) {
 	var test = tape.createHarness({ exit: false });
 	var ran = [];
 
-	var tc = function (rows) {
-		tt.deepEqual(rows.toString('utf8').split('\n'), [
+	test.createStream().pipe(concat({ encoding: 'string' }, function (rows) {
+		tt.deepEqual(rows.split('\n'), [
 			'TAP version 13',
 			'# run success',
 			'ok 1 assert name',
@@ -24,9 +24,7 @@ tap.test('tape only test', function (tt) {
 		tt.deepEqual(ran, [3]);
 
 		tt.end();
-	};
-
-	test.createStream().pipe(concat(tc));
+	}));
 
 	test('never run fail', function (t) {
 		ran.push(1);

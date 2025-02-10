@@ -12,8 +12,8 @@ tap.test('using a custom assertion', function (tt) {
 
 	var test = tape.createHarness();
 	var count = 0;
-	test.createStream().pipe(concat(function (body) {
-		tt.same(stripFullStack(body.toString('utf8')), [].concat(
+	test.createStream().pipe(concat({ encoding: 'string' }, function (body) {
+		tt.same(stripFullStack(body), [].concat(
 			'TAP version 13',
 			'# with a custom assertion',
 			'ok ' + ++count + ' true is ok',

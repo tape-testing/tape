@@ -41,8 +41,8 @@ tap.test('preserves stack trace with newlines', function (tt) {
 		});
 	});
 
-	stream.pipe(concat(function (body) {
-		var strippedBody = stripAt(body.toString('utf8'));
+	stream.pipe(concat({ encoding: 'string' }, function (body) {
+		var strippedBody = stripAt(body);
 		tt.deepEqual(strippedBody.split('\n'), [
 			'TAP version 13',
 			'# multiline stack trace',
@@ -199,8 +199,8 @@ tap.test('preserves stack trace for failed assertions', function (tt) {
 		});
 	});
 
-	stream.pipe(concat(function (body) {
-		var strippedBody = stripAt(body.toString('utf8'));
+	stream.pipe(concat({ encoding: 'string' }, function (body) {
+		var strippedBody = stripAt(body);
 		tt.deepEqual(strippedBody.split('\n'), [].concat(
 			'TAP version 13',
 			'# t.equal stack trace',
@@ -262,8 +262,8 @@ tap.test('preserves stack trace for failed assertions where actual===falsy', fun
 		});
 	});
 
-	stream.pipe(concat(function (body) {
-		var strippedBody = stripAt(body.toString('utf8'));
+	stream.pipe(concat({ encoding: 'string' }, function (body) {
+		var strippedBody = stripAt(body);
 		tt.deepEqual(strippedBody.split('\n'), [].concat(
 			'TAP version 13',
 			'# t.equal stack trace',
@@ -313,8 +313,9 @@ tap.test('CJS vs ESM: `at`', function (tt) {
 	tt.test('CJS', function (ttt) {
 		ttt.plan(2);
 
-		var tc = function (rows) {
-			ttt.same(processRows(rows.toString('utf8')), processRows([
+		var ps = spawnTape('stack_trace/cjs.js');
+		ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
+			ttt.same(processRows(rows), processRows([
 				'TAP version 13',
 				'# test',
 				'not ok 1 should be strictly equal',
@@ -340,10 +341,7 @@ tap.test('CJS vs ESM: `at`', function (tt) {
 				'',
 				''
 			]));
-		};
-
-		var ps = spawnTape('stack_trace/cjs.js');
-		ps.stdout.pipe(concat(tc));
+		}));
 		ps.stderr.pipe(process.stderr);
 		ps.on('exit', function (code) {
 			ttt.notEqual(code, 0);
@@ -355,8 +353,9 @@ tap.test('CJS vs ESM: `at`', function (tt) {
 		tt.test('ESM', { skip: !url.pathToFileURL || !hasSupport }, function (ttt) {
 			ttt.plan(2);
 
-			var tc = function (rows) {
-				ttt.same(processRows(rows.toString('utf8')), processRows([
+			var ps = spawnTape('stack_trace/esm.mjs');
+			ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
+				ttt.same(processRows(rows), processRows([
 					'TAP version 13',
 					'# test',
 					'not ok 1 should be strictly equal',
@@ -384,10 +383,7 @@ tap.test('CJS vs ESM: `at`', function (tt) {
 					'',
 					''
 				]));
-			};
-
-			var ps = spawnTape('stack_trace/esm.mjs');
-			ps.stdout.pipe(concat(tc));
+			}));
 			ps.stderr.pipe(process.stderr);
 			ps.on('exit', function (code) {
 				ttt.equal(code, 1);

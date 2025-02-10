@@ -9,8 +9,9 @@ var tape = require('../');
 tap.test('no comment', function (assert) {
 	assert.plan(1);
 
-	var verify = function (output) {
-		assert.deepEqual(output.toString('utf8').split('\n'), [
+	var test = tape.createHarness();
+	test.createStream().pipe(concat({ encoding: 'string' }, function (output) {
+		assert.deepEqual(output.split('\n'), [
 			'TAP version 13',
 			'# no comment',
 			'',
@@ -21,10 +22,7 @@ tap.test('no comment', function (assert) {
 			'# ok',
 			''
 		]);
-	};
-
-	var test = tape.createHarness();
-	test.createStream().pipe(concat(verify));
+	}));
 	test('no comment', function (t) {
 		t.end();
 	});
@@ -68,8 +66,9 @@ tap.test('null argument', function (assert) {
 tap.test('whitespace', function (assert) {
 	assert.plan(1);
 
-	var verify = function (output) {
-		assert.equal(output.toString('utf8'), [
+	var test = tape.createHarness();
+	test.createStream().pipe(concat({ encoding: 'string' }, function (output) {
+		assert.equal(output, [
 			'TAP version 13',
 			'# whitespace',
 			'# ',
@@ -84,10 +83,7 @@ tap.test('whitespace', function (assert) {
 			'# ok',
 			''
 		].join('\n'));
-	};
-
-	var test = tape.createHarness();
-	test.createStream().pipe(concat(verify));
+	}));
 	test('whitespace', function (t) {
 		t.comment(' ');
 		t.comment(' a');
@@ -101,8 +97,9 @@ tap.test('whitespace', function (assert) {
 tap.test('non-string types', function (assert) {
 	assert.plan(1);
 
-	var verify = function (output) {
-		assert.equal(output.toString('utf8'), [
+	var test = tape.createHarness();
+	test.createStream().pipe(concat({ encoding: 'string' }, function (output) {
+		assert.equal(output, [
 			'TAP version 13',
 			'# non-string types',
 			'# true',
@@ -121,10 +118,8 @@ tap.test('non-string types', function (assert) {
 			'# ok',
 			''
 		].join('\n'));
-	};
+	}));
 
-	var test = tape.createHarness();
-	test.createStream().pipe(concat(verify));
 	test('non-string types', function (t) {
 		t.comment(true);
 		t.comment(false);
@@ -142,8 +137,9 @@ tap.test('non-string types', function (assert) {
 tap.test('multiline string', function (assert) {
 	assert.plan(1);
 
-	var verify = function (output) {
-		assert.equal(output.toString('utf8'), [
+	var test = tape.createHarness();
+	test.createStream().pipe(concat({ encoding: 'string' }, function (output) {
+		assert.equal(output, [
 			'TAP version 13',
 			'# multiline strings',
 			'# a',
@@ -158,10 +154,7 @@ tap.test('multiline string', function (assert) {
 			'# ok',
 			''
 		].join('\n'));
-	};
-
-	var test = tape.createHarness();
-	test.createStream().pipe(concat(verify));
+	}));
 	test('multiline strings', function (t) {
 		t.comment([
 			'a',

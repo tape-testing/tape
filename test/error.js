@@ -10,8 +10,8 @@ tap.test('failures', function (tt) {
 	tt.plan(1);
 
 	var test = tape.createHarness();
-	test.createStream().pipe(concat(function (body) {
-		tt.same(stripFullStack(body.toString('utf8')), [
+	test.createStream().pipe(concat({ encoding: 'string' }, function (body) {
+		tt.same(stripFullStack(body), [
 			'TAP version 13',
 			'# error',
 			'not ok 1 Error: this is a message',

@@ -9,8 +9,9 @@ tap.test('array test', function (tt) {
 	tt.plan(1);
 
 	var test = tape.createHarness();
-	var tc = function (rows) {
-		tt.same(rows.toString('utf8').split('\n'), [
+
+	test.createStream().pipe(concat({ encoding: 'string' }, function (rows) {
+		tt.same(rows.split('\n'), [
 			'TAP version 13',
 			'# nested array test',
 			'ok 1 should be deeply equivalent',
@@ -31,9 +32,7 @@ tap.test('array test', function (tt) {
 			'# ok',
 			''
 		]);
-	};
-
-	test.createStream().pipe(concat(tc));
+	}));
 
 	test('nested array test', function (t) {
 		t.plan(6);

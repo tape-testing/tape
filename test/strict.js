@@ -17,9 +17,9 @@ tap.test(
 	function (tt) {
 		tt.plan(3);
 
-		exec(tapeBin + ' --strict "no*files*found"', { cwd: path.join(__dirname) }, function (err, stdout, stderr) {
-			tt.same(stdout.toString('utf8'), '');
-			tt.match(stripFullStack(stderr.toString('utf8')).join('\n'), /^No test files found!\n$/);
+		exec(tapeBin + ' --strict "no*files*found"', { cwd: path.join(__dirname), encoding: 'utf8' }, function (err, stdout, stderr) {
+			tt.same(stdout, '');
+			tt.match(stripFullStack(stderr).join('\n'), /^No test files found!\n$/);
 			tt.equal(err.code, 127);
 		});
 	}
@@ -31,9 +31,9 @@ tap.test(
 	function (tt) {
 		tt.plan(3);
 
-		exec(tapeBin + ' --no-strict "no*files*found"', { cwd: path.join(__dirname) }, function (err, stdout, stderr) {
-			tt.equal(stripDeprecations(stderr.toString('utf8')), '');
-			tt.same(stripFullStack(stdout.toString('utf8')), [
+		exec(tapeBin + ' --no-strict "no*files*found"', { cwd: path.join(__dirname), encoding: 'utf8' }, function (err, stdout, stderr) {
+			tt.equal(stripDeprecations(stderr), '');
+			tt.same(stripFullStack(stdout), [
 				'TAP version 13',
 				'',
 				'1..0',
@@ -55,9 +55,9 @@ tap.test(
 	function (tt) {
 		tt.plan(3);
 
-		exec(tapeBin + ' "no*files*found"', { cwd: path.join(__dirname) }, function (err, stdout, stderr) {
-			tt.equal(stripDeprecations(stderr.toString('utf8')), '');
-			tt.same(stripFullStack(stdout.toString('utf8')), [
+		exec(tapeBin + ' "no*files*found"', { cwd: path.join(__dirname), encoding: 'utf8' }, function (err, stdout, stderr) {
+			tt.equal(stripDeprecations(stderr), '');
+			tt.same(stripFullStack(stdout), [
 				'TAP version 13',
 				'',
 				'1..0',

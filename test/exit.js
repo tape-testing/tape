@@ -10,8 +10,9 @@ var stripFullStack = require('./common').stripFullStack;
 tap.test('exit ok', function (t) {
 	t.plan(2);
 
-	var tc = function (rows) {
-		t.same(rows.toString('utf8'), [
+	var ps = spawn(process.execPath, [path.join(__dirname, 'exit', 'ok.js')]);
+	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
+		t.same(rows, [
 			'TAP version 13',
 			'# array',
 			'# hi',
@@ -29,10 +30,7 @@ tap.test('exit ok', function (t) {
 			'', // yes, these double-blank-lines at the end are required.
 			'' // if you can figure out how to remove them, please do!
 		].join('\n'));
-	};
-
-	var ps = spawn(process.execPath, [path.join(__dirname, 'exit', 'ok.js')]);
-	ps.stdout.pipe(concat(tc));
+	}));
 	ps.on('exit', function (code) {
 		t.equal(code, 0);
 	});
@@ -41,8 +39,9 @@ tap.test('exit ok', function (t) {
 tap.test('exit fail', function (t) {
 	t.plan(2);
 
-	var tc = function (rows) {
-		t.same(stripFullStack(rows.toString('utf8')), [
+	var ps = spawn(process.execPath, [path.join(__dirname, 'exit', 'fail.js')]);
+	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
+		t.same(stripFullStack(rows), [
 			'TAP version 13',
 			'# array',
 			'ok 1 should be deeply equivalent',
@@ -72,10 +71,7 @@ tap.test('exit fail', function (t) {
 			'',
 			''
 		]);
-	};
-
-	var ps = spawn(process.execPath, [path.join(__dirname, 'exit', 'fail.js')]);
-	ps.stdout.pipe(concat(tc));
+	}));
 	ps.on('exit', function (code) {
 		t.notEqual(code, 0);
 	});
@@ -84,8 +80,9 @@ tap.test('exit fail', function (t) {
 tap.test('too few exit', function (t) {
 	t.plan(2);
 
-	var tc = function (rows) {
-		t.same(stripFullStack(rows.toString('utf8')), [
+	var ps = spawn(process.execPath, [path.join(__dirname, '/exit/too_few.js')]);
+	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
+		t.same(stripFullStack(rows), [
 			'TAP version 13',
 			'# array',
 			'ok 1 should be deeply equivalent',
@@ -111,10 +108,7 @@ tap.test('too few exit', function (t) {
 			'',
 			''
 		]);
-	};
-
-	var ps = spawn(process.execPath, [path.join(__dirname, '/exit/too_few.js')]);
-	ps.stdout.pipe(concat(tc));
+	}));
 	ps.on('exit', function (code) {
 		t.notEqual(code, 0);
 	});
@@ -123,8 +117,9 @@ tap.test('too few exit', function (t) {
 tap.test('more planned in a second test', function (t) {
 	t.plan(2);
 
-	var tc = function (rows) {
-		t.same(stripFullStack(rows.toString('utf8')), [
+	var ps = spawn(process.execPath, [path.join(__dirname, '/exit/second.js')]);
+	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
+		t.same(stripFullStack(rows), [
 			'TAP version 13',
 			'# first',
 			'ok 1 should be truthy',
@@ -148,10 +143,7 @@ tap.test('more planned in a second test', function (t) {
 			'',
 			''
 		]);
-	};
-
-	var ps = spawn(process.execPath, [path.join(__dirname, '/exit/second.js')]);
-	ps.stdout.pipe(concat(tc));
+	}));
 	ps.on('exit', function (code) {
 		t.notEqual(code, 0);
 	});
@@ -160,8 +152,9 @@ tap.test('more planned in a second test', function (t) {
 tap.test('todo passing', function (t) {
 	t.plan(2);
 
-	var tc = function (rows) {
-		t.same(stripFullStack(rows.toString('utf8')), [
+	var ps = spawn(process.execPath, [path.join(__dirname, '/exit/todo.js')]);
+	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
+		t.same(stripFullStack(rows), [
 			'TAP version 13',
 			'# TODO todo pass',
 			'ok 1 should be truthy # TODO',
@@ -174,10 +167,7 @@ tap.test('todo passing', function (t) {
 			'',
 			''
 		]);
-	};
-
-	var ps = spawn(process.execPath, [path.join(__dirname, '/exit/todo.js')]);
-	ps.stdout.pipe(concat(tc));
+	}));
 	ps.on('exit', function (code) {
 		t.equal(code, 0);
 	});
@@ -186,8 +176,9 @@ tap.test('todo passing', function (t) {
 tap.test('todo failing', function (t) {
 	t.plan(2);
 
-	var tc = function (rows) {
-		t.same(stripFullStack(rows.toString('utf8')), [
+	var ps = spawn(process.execPath, [path.join(__dirname, '/exit/todo_fail.js')]);
+	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
+		t.same(stripFullStack(rows), [
 			'TAP version 13',
 			'# TODO todo fail',
 			'not ok 1 should be truthy # TODO',
@@ -206,10 +197,7 @@ tap.test('todo failing', function (t) {
 			'',
 			''
 		]);
-	};
-
-	var ps = spawn(process.execPath, [path.join(__dirname, '/exit/todo_fail.js')]);
-	ps.stdout.pipe(concat(tc));
+	}));
 	ps.on('exit', function (code) {
 		t.equal(code, 0);
 	});
@@ -218,8 +206,9 @@ tap.test('todo failing', function (t) {
 tap.test('forgot to call t.end()', function (t) {
 	t.plan(2);
 
-	var tc = function (rows) {
-		t.same(stripFullStack(rows.toString('utf8')), [
+	var ps = spawn(process.execPath, [path.join(__dirname, '/exit/missing_end.js')]);
+	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
+		t.same(stripFullStack(rows), [
 			'TAP version 13',
 			'# first',
 			'ok 1 should be truthy',
@@ -241,10 +230,7 @@ tap.test('forgot to call t.end()', function (t) {
 			'',
 			''
 		]);
-	};
-
-	var ps = spawn(process.execPath, [path.join(__dirname, '/exit/missing_end.js')]);
-	ps.stdout.pipe(concat(tc));
+	}));
 	ps.on('exit', function (code) {
 		t.notEqual(code, 0);
 	});

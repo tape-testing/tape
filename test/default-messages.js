@@ -12,8 +12,8 @@ tap.test('default messages', function (t) {
 
 	var ps = spawn(process.execPath, [path.join(__dirname, 'messages', 'defaults.js')]);
 
-	ps.stdout.pipe(concat(function (rows) {
-		t.same(stripFullStack(rows.toString('utf8')), [
+	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
+		t.same(stripFullStack(rows), [
 			'TAP version 13',
 			'# default messages',
 			'ok 1 should be truthy',

@@ -12,8 +12,9 @@ var tapeBin = path.join(process.cwd(), 'bin/tape');
 tap.test('Should pass with ignoring', function (tt) {
 	tt.plan(2);
 
-	var tc = function (rows) {
-		tt.same(stripFullStack(rows.toString('utf8')), [
+	var ps = spawn(process.execPath, [tapeBin, '**/*.js', '-i', '.ignore'], { cwd: path.join(__dirname, 'ignore') });
+	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
+		tt.same(stripFullStack(rows), [
 			'TAP version 13',
 			'# (anonymous)',
 			'ok 1 should be truthy',
@@ -36,10 +37,7 @@ tap.test('Should pass with ignoring', function (tt) {
 			'',
 			''
 		]);
-	};
-
-	var ps = spawn(process.execPath, [tapeBin, '**/*.js', '-i', '.ignore'], { cwd: path.join(__dirname, 'ignore') });
-	ps.stdout.pipe(concat(tc));
+	}));
 	ps.on('exit', function (code) {
 		tt.equal(code, 0); // code 0
 	});
@@ -48,8 +46,9 @@ tap.test('Should pass with ignoring', function (tt) {
 tap.test('Should pass', function (tt) {
 	tt.plan(2);
 
-	var tc = function (rows) {
-		tt.same(stripFullStack(rows.toString('utf8')), [
+	var ps = spawn(process.execPath, [tapeBin, '**/*.js'], { cwd: path.join(__dirname, 'ignore') });
+	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
+		tt.same(stripFullStack(rows), [
 			'TAP version 13',
 			'# (anonymous)',
 			'not ok 1 Should not print',
@@ -93,10 +92,7 @@ tap.test('Should pass', function (tt) {
 			'',
 			''
 		]);
-	};
-
-	var ps = spawn(process.execPath, [tapeBin, '**/*.js'], { cwd: path.join(__dirname, 'ignore') });
-	ps.stdout.pipe(concat(tc));
+	}));
 	ps.on('exit', function (code) {
 		tt.equal(code, 1);
 	});
@@ -105,17 +101,13 @@ tap.test('Should pass', function (tt) {
 tap.test('Should fail when ignore file does not exist', function (tt) {
 	tt.plan(3);
 
-	var testStdout = function (rows) {
-		tt.same(rows.toString('utf8'), '');
-	};
-
-	var testStderr = function (rows) {
-		tt.ok((/^ENOENT[:,] no such file or directory,? (?:open )?'\$TEST\/ignore\/.gitignore'\n$/m).test(stripFullStack(rows.toString('utf8')).join('\n')));
-	};
-
 	var ps = spawn(process.execPath, [tapeBin, '**/*.js', '-i'], { cwd: path.join(__dirname, 'ignore') });
-	ps.stdout.pipe(concat(testStdout));
-	ps.stderr.pipe(concat(testStderr));
+	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
+		tt.same(rows, '');
+	}));
+	ps.stderr.pipe(concat({ encoding: 'string' }, function (rows) {
+		tt.ok((/^ENOENT[:,] no such file or directory,? (?:open )?'\$TEST\/ignore\/.gitignore'\n$/m).test(stripFullStack(rows).join('\n')));
+	}));
 	ps.on('exit', function (code) {
 		tt.equal(code, 2);
 	});
