@@ -20,7 +20,7 @@ tap.test(
 		exec(tapeBin + ' --strict "no*files*found"', { cwd: path.join(__dirname), encoding: 'utf8' }, function (err, stdout, stderr) {
 			tt.same(stdout, '');
 			tt.match(stripFullStack(stderr).join('\n'), /^No test files found!\n$/);
-			tt.equal(err.code, 127);
+			tt.equal(/** @type {Error & { code?: number }} */ (err).code, 127);
 		});
 	}
 );

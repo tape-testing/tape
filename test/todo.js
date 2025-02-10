@@ -45,7 +45,7 @@ tap.test('tape todo test', function (assert) {
 });
 
 tap.test('tape todo test with TODO_IS_OK', function (assert) {
-	assert.teardown(mockProperty(process.env, 'TODO_IS_OK', { value: '1' }));
+	assert.teardown(mockProperty(/** @type {Record<string, string>} */ (process.env), 'TODO_IS_OK', { value: '1' }));
 	var test = tape.createHarness({ exit: false });
 	assert.plan(1);
 
