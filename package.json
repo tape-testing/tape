@@ -28,7 +28,7 @@
 		"deep-equal": "^2.2.3",
 		"defined": "^1.0.1",
 		"dotignore": "^0.1.2",
-		"for-each": "^0.3.4",
+		"for-each": "^0.3.5",
 		"get-package-type": "^0.1.0",
 		"glob": "^7.2.3",
 		"has-dynamic-import": "^2.1.1",
