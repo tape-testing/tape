@@ -3,7 +3,7 @@
 var test = require('../');
 
 var asyncFunction = function (callback) {
-	setTimeout(callback, Math.random * 50);
+	setTimeout(callback, Math.random() * 50);
 };
 
 test('master test', function (t) {
