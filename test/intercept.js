@@ -16,6 +16,7 @@ tap.test('intercept: output', function (tt) {
 	var count = 0;
 	test.createStream().pipe(concat({ encoding: 'string' }, function (body) {
 		tt.same(stripFullStack(body), [].concat(
+			// @ts-expect-error TS sucks with concat
 			'TAP version 13',
 			'# argument validation',
 			v.primitives.map(function (x) {
@@ -90,6 +91,7 @@ tap.test('intercept: output', function (tt) {
 	test('argument validation', function (t) {
 		forEach(v.primitives, function (primitive) {
 			t.throws(
+				// @ts-expect-error
 				function () { t.intercept(primitive, ''); },
 				TypeError,
 				'obj: ' + inspect(primitive) + ' is not an Object'
@@ -98,6 +100,7 @@ tap.test('intercept: output', function (tt) {
 
 		forEach(v.nonPropertyKeys, function (nonPropertyKey) {
 			t.throws(
+				// @ts-expect-error
 				function () { t.intercept({}, nonPropertyKey); },
 				TypeError,
 				inspect(nonPropertyKey) + ' is not a valid property key'
@@ -106,12 +109,14 @@ tap.test('intercept: output', function (tt) {
 
 		forEach(v.primitives, function (primitive) {
 			t.throws(
+				// @ts-expect-error
 				function () { t.intercept({}, '', primitive); },
 				TypeError,
 				'desc: ' + inspect(primitive) + ' is not an Object'
 			);
 		});
 		t.throws(
+			// @ts-expect-error
 			function () { t.intercept({}, '', { configurable: false }); },
 			TypeError,
 			'configurable false is not allowed'
@@ -129,6 +134,7 @@ tap.test('intercept: output', function (tt) {
 
 		forEach(v.nonBooleans, function (nonBoolean) {
 			t.throws(
+				// @ts-expect-error
 				function () { t.intercept({}, '', {}, nonBoolean); },
 				TypeError,
 				inspect(nonBoolean) + ' is not a Boolean'
@@ -138,8 +144,12 @@ tap.test('intercept: output', function (tt) {
 		t.end();
 	});
 
+	/** @typedef {PropertyDescriptor & { get(): any }} GetDescriptor */
+	/** @typedef {PropertyDescriptor & { set(): any }} SetDescriptor */
+
 	test('intercepts gets/sets', function (t) {
 		var sentinel = { sentinel: true, inspect: function () { return '{ SENTINEL OBJECT }'; } };
+		/** @type {Record<PropertyKey, unknown>} */
 		var o = { foo: sentinel, inspect: function () { return '{ o OBJECT }'; } };
 		t.equal(o.foo, sentinel, 'property has expected initial value');
 
@@ -150,7 +160,7 @@ tap.test('intercept: output', function (tt) {
 			st.equal(o.foo, sentinel, 'sentinel is returned from Get');
 			st.equal(o.foo, sentinel, 'sentinel is returned from Get again');
 			st.equal(
-				Object.getOwnPropertyDescriptor(o, 'foo').get.call(o, 1, 2, 3),
+				/** @type {GetDescriptor} */ (Object.getOwnPropertyDescriptor(o, 'foo')).get.call(o, 1, 2, 3),
 				sentinel,
 				'sentinel is returned from Get with .call'
 			);
@@ -160,7 +170,7 @@ tap.test('intercept: output', function (tt) {
 			var results2 = st.intercept(o, 'foo2');
 			st.equal(o.foo2, undefined, 'undefined is returned from Get');
 			st.equal(
-				Object.getOwnPropertyDescriptor(o, 'foo2').get.call(o, 4, 5),
+				/** @type {GetDescriptor} */ (Object.getOwnPropertyDescriptor(o, 'foo2')).get.call(o, 4, 5),
 				undefined,
 				'undefined is returned from Get with .call'
 			);
@@ -198,6 +208,7 @@ tap.test('intercept: output', function (tt) {
 				'throwing get implementation throws'
 			);
 			st.throws(
+				// @ts-expect-error
 				function () { Object.getOwnPropertyDescriptor(o, 'fooThrowGet').get.call(sentinel, 1, 2, 3); },
 				SyntaxError,
 				'throwing get implementation throws with .call'
@@ -214,6 +225,7 @@ tap.test('intercept: output', function (tt) {
 				'throwing set implementation throws'
 			);
 			st.throws(
+				// @ts-expect-error
 				function () { Object.getOwnPropertyDescriptor(o, 'fooThrowSet').set.call(sentinel, 4, 5, 6); },
 				SyntaxError,
 				'throwing set implementation throws with .call'
@@ -227,9 +239,10 @@ tap.test('intercept: output', function (tt) {
 
 			var resultsGetter = st.intercept(o, 'getter', { get: function () { return sentinel; } });
 			st.equal(o.getter, sentinel, 'getter: sentinel is returned from Get');
-			st.equal(Object.getOwnPropertyDescriptor(o, 'getter').get.call(sentinel, 1, 2, 3), sentinel, 'getter: sentinel is returned from Get with .call');
+			st.equal(/** @type {GetDescriptor} */ (Object.getOwnPropertyDescriptor(o, 'getter')).get.call(sentinel, 1, 2, 3), sentinel, 'getter: sentinel is returned from Get with .call');
 			resultsGetter.restore();
 
+			/** @type {unknown} */
 			var val;
 			var resultsSetter = st.intercept(o, 'setter', {
 				get: function () { return val; },
@@ -237,7 +250,7 @@ tap.test('intercept: output', function (tt) {
 			});
 			o.setter = sentinel;
 			st.equal(o.setter, sentinel, 'setter: setted value is returned from Get');
-			Object.getOwnPropertyDescriptor(o, 'setter').set.call(sentinel, 1, 2, 3);
+			/** @type {SetDescriptor} */ (Object.getOwnPropertyDescriptor(o, 'setter')).set.call(sentinel, 1, 2, 3);
 			st.equal(o.setter, 1, 'setter: setted value is returned from Get with .call');
 			resultsSetter.restore();
 

@@ -7,10 +7,10 @@ var spawn = require('child_process').spawn;
 
 var stripFullStack = require('./common').stripFullStack;
 
-test(function (tt) {
+test('(unnamed test)', function (tt) {
 	tt.plan(2);
 	var ps = spawn(process.execPath, [path.join(__dirname, 'double_end', 'double.js')]);
-	ps.on('exit', function (code) {
+	ps.on('exit', /** @param {number} code */ function (code) {
 		tt.equal(code, 1);
 	});
 	ps.stdout.pipe(concat({ encoding: 'string' }, function (body) {
@@ -23,14 +23,16 @@ test(function (tt) {
 		function doEnd() { throw new Error(); }
 		var to = setTimeout(doEnd, 5000);
 		clearTimeout(to);
+		// @ts-expect-error
 		to._onTimeout = doEnd;
 
 		var stackExpected;
 		var atExpected;
 		try {
+			// @ts-expect-error
 			to._onTimeout();
 		} catch (e) {
-			stackExpected = stripFullStack(e.stack)[1];
+			stackExpected = stripFullStack(/** @type {Error & { stack: string }} */ (e).stack)[1];
 			stackExpected = stackExpected.replace('double_end.js', 'double_end/double.js');
 			stackExpected = stackExpected.trim();
 			atExpected = stackExpected.replace(/^at\s+/, 'at: ');

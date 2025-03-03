@@ -14,6 +14,7 @@ tap.test('using a custom assertion', function (tt) {
 	var count = 0;
 	test.createStream().pipe(concat({ encoding: 'string' }, function (body) {
 		tt.same(stripFullStack(body), [].concat(
+			// @ts-expect-error TS sucks with concat
 			'TAP version 13',
 			'# with a custom assertion',
 			'ok ' + ++count + ' true is ok',
@@ -36,6 +37,7 @@ tap.test('using a custom assertion', function (tt) {
 			typeof Promise === 'undefined'
 				? '# SKIP custom assertion returns a promise'
 				: [].concat(
+					// @ts-expect-error TS sucks with concat
 					'# custom assertion returns a promise',
 					'ok ' + ++count + ' promise rejected!',
 					'not ok ' + ++count + ' SyntaxError: expected promise to reject; it fulfilled',
@@ -59,8 +61,8 @@ tap.test('using a custom assertion', function (tt) {
 		));
 	}));
 
+	/** @type {import('../lib/test').AssertionFunction<[number, string?], void>} */
 	var isAnswer = function (value, msg) {
-
 		this.equal(value, 42, msg || 'value must be the answer to life, the universe, and everything');
 	};
 
@@ -73,6 +75,12 @@ tap.test('using a custom assertion', function (tt) {
 		t.end();
 	});
 
+	/** @typedef {() => unknown} RejectsFn */
+	/** @typedef {import('../lib/test').ThrowsExpected} ThrowsExpected */
+	/** @typedef {import('../').AssertOptions} AssertOptions */
+	/** @typedef {[fn: RejectsFn, expected: ThrowsExpected, msg?: string, extra?: AssertOptions]} RejectsArgs */
+
+	/** @type {import('../lib/test').AssertionFunction<RejectsArgs, Promise<void>>} */
 	var rejects = function assertRejects(fn, expected, msg, extra) {
 		var t = this;
 		/* eslint no-invalid-this: 0 */

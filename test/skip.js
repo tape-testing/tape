@@ -32,6 +32,7 @@ test('skip this', { skip: true }, function (t) {
 	t.end();
 });
 
+// @ts-expect-error TODO FIXME not sure if this should be a valid type, because the cb is actually being treated as `extra` here
 test.skip('skip this too', function (t) {
 	t.fail('this should not even run');
 	t.end();

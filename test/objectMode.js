@@ -6,18 +6,21 @@ var forEach = require('for-each');
 var through = require('@ljharb/through');
 
 tap.test('object results', function (assert) {
-	var printer = through(null, null, { objectMode: true });
+	var printer = through();
+	/** @type {{ type?: string; id: string; skip: boolean; todo: boolean; text: string; test: string }[]} */
 	var objects = [];
 
-	printer.write = function (obj) {
+	printer.write = /** @param {typeof objects[number]} obj */ function (obj) {
 		objects.push(obj);
+		return true;
 	};
 
-	printer.end = function (obj) {
+	printer.end = /** @param {typeof objects[number] | null} obj */ function (obj) {
 		if (obj) { objects.push(obj); }
 
 		var todos = 0;
 		var skips = 0;
+		/** @type {string[]} */
 		var testIds = [];
 		var endIds = [];
 		var asserts = 0;
@@ -47,9 +50,11 @@ tap.test('object results', function (assert) {
 		assert.equal(todos, 2);
 		assert.equal(testIds.length, endIds.length);
 		assert.end();
+
+		return void undefined;
 	};
 
-	tape.createStream({ objectMode: true }).pipe(printer);
+	tape.createStream({ objectMode: true }).pipe(/** @type {NodeJS.WritableStream} */ (printer));
 
 	tape('parent', function (t1) {
 		t1.equal(true, true);
