@@ -1,10 +1,11 @@
 'use strict';
 
 var defined = require('defined');
+var through = require('@ljharb/through');
+
 var createDefaultStream = require('./lib/default_stream');
 var Test = require('./lib/test');
 var Results = require('./lib/results');
-var through = require('@ljharb/through');
 
 var canEmitExit = typeof process !== 'undefined' && process
 	&& typeof process.on === 'function' && process.browser !== true;
