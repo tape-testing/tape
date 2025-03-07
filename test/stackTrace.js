@@ -12,10 +12,12 @@ var common = require('./common');
 
 var getDiag = common.getDiag;
 
+/** @param {string} body */
 function stripAt(body) {
 	return body.replace(/^\s*at:\s+Test.*$\n/m, '');
 }
 
+/** @type {(x: unknown) => x is string} */
 function isString(x) {
 	return typeof x === 'string';
 }
@@ -28,7 +30,7 @@ tap.test('preserves stack trace with newlines', function (tt) {
 	var parser = stream.pipe(tapParser());
 	var stackTrace = 'foo\n  bar';
 
-	parser.once('assert', function (data) {
+	parser.once('assert', /** @param {{ diag: { at: string, stack: string} }} data */ function (data) {
 		tt.deepEqual(data, {
 			ok: false,
 			id: 1,
@@ -75,6 +77,8 @@ tap.test('preserves stack trace with newlines', function (tt) {
 	});
 });
 
+/** @typedef {import('../lib/results').Result} Result */
+
 tap.test('parses function info from original stack', function (tt) {
 	tt.plan(4);
 
@@ -82,7 +86,7 @@ tap.test('parses function info from original stack', function (tt) {
 	test.createStream();
 
 	test._results._watch = function (t) {
-		t.on('result', function (res) {
+		t.on('result', /** @param {Result} res */ function (res) {
 			tt.equal('Test.testFunctionNameParsing', res.functionName);
 			tt.match(res.file, /stackTrace.js/i);
 			tt.ok(Number(res.line) > 0);
@@ -103,7 +107,7 @@ tap.test('parses function info from original stack for anonymous function', func
 	test.createStream();
 
 	test._results._watch = function (t) {
-		t.on('result', function (res) {
+		t.on('result', /** @param {Result} res */ function (res) {
 			tt.equal('Test.<anonymous>', res.functionName);
 			tt.match(res.file, /stackTrace.js/i);
 			tt.ok(Number(res.line) > 0);
@@ -118,7 +122,6 @@ tap.test('parses function info from original stack for anonymous function', func
 });
 
 if (typeof Promise === 'function' && typeof Promise.resolve === 'function') {
-
 	tap.test('parses function info from original stack for Promise scenario', function (tt) {
 		tt.plan(4);
 
@@ -126,7 +129,7 @@ if (typeof Promise === 'function' && typeof Promise.resolve === 'function') {
 		test.createStream();
 
 		test._results._watch = function (t) {
-			t.on('result', function (res) {
+			t.on('result', /** @param {Result} res */ function (res) {
 				tt.equal('onfulfilled', res.functionName);
 				tt.match(res.file, /stackTrace.js/i);
 				tt.ok(Number(res.line) > 0);
@@ -135,9 +138,7 @@ if (typeof Promise === 'function' && typeof Promise.resolve === 'function') {
 		};
 
 		test('t.equal stack trace', function testFunctionNameParsing(t) {
-			new Promise(function (resolve) {
-				resolve();
-			}).then(function onfulfilled() {
+			Promise.resolve().then(function onfulfilled() {
 				t.equal(true, false, 'true should be false');
 				t.end();
 			});
@@ -151,7 +152,7 @@ if (typeof Promise === 'function' && typeof Promise.resolve === 'function') {
 		test.createStream();
 
 		test._results._watch = function (t) {
-			t.on('result', function (res) {
+			t.on('result', /** @param {Result} res */ function (res) {
 				tt.equal('<anonymous>', res.functionName);
 				tt.match(res.file, /stackTrace.js/i);
 				tt.ok(Number(res.line) > 0);
@@ -160,9 +161,7 @@ if (typeof Promise === 'function' && typeof Promise.resolve === 'function') {
 		};
 
 		test('t.equal stack trace', function testFunctionNameParsing(t) {
-			new Promise(function (resolve) {
-				resolve();
-			}).then(function () {
+			Promise.resolve().then(function () {
 				t.equal(true, false, 'true should be false');
 				t.end();
 			});
@@ -179,7 +178,7 @@ tap.test('preserves stack trace for failed assertions', function (tt) {
 	var parser = stream.pipe(tapParser());
 
 	var stack = '';
-	parser.once('assert', function (data) {
+	parser.once('assert', /** @param {{ diag: { at: string, stack: string} }} data */ function (data) {
 		tt.equal(typeof data.diag.at, 'string');
 		tt.equal(typeof data.diag.stack, 'string');
 		var at = data.diag.at || '';
@@ -202,6 +201,7 @@ tap.test('preserves stack trace for failed assertions', function (tt) {
 	stream.pipe(concat({ encoding: 'string' }, function (body) {
 		var strippedBody = stripAt(body);
 		tt.deepEqual(strippedBody.split('\n'), [].concat(
+			// @ts-expect-error TS sucks with concat
 			'TAP version 13',
 			'# t.equal stack trace',
 			'not ok 1 true should be false',
@@ -242,7 +242,7 @@ tap.test('preserves stack trace for failed assertions where actual===falsy', fun
 	var parser = stream.pipe(tapParser());
 
 	var stack = '';
-	parser.once('assert', function (data) {
+	parser.once('assert', /** @param {{ diag: { at: string, stack: string} }} data */ function (data) {
 		tt.equal(typeof data.diag.at, 'string');
 		tt.equal(typeof data.diag.stack, 'string');
 		var at = data.diag.at || '';
@@ -265,6 +265,7 @@ tap.test('preserves stack trace for failed assertions where actual===falsy', fun
 	stream.pipe(concat({ encoding: 'string' }, function (body) {
 		var strippedBody = stripAt(body);
 		tt.deepEqual(strippedBody.split('\n'), [].concat(
+			// @ts-expect-error TS sucks with concat
 			'TAP version 13',
 			'# t.equal stack trace',
 			'not ok 1 false should be true',
@@ -297,12 +298,18 @@ tap.test('preserves stack trace for failed assertions where actual===falsy', fun
 	});
 });
 
+/**
+ * @param {string} args
+ * @param {Parameters<typeof spawn>[2]} [options]
+ */
 function spawnTape(args, options) {
 	var bin = __dirname + '/../bin/tape';
 
-	return spawn(process.execPath, [bin].concat(args.split(' ')), assign({ cwd: __dirname }, options));
+	var cp = spawn(process.execPath, [bin].concat(args.split(' ')), assign({ cwd: __dirname }, options));
+	return /** @type {typeof cp & { stdout: NonNullable<typeof cp.stdout>; stderr: NonNullable<typeof cp.stderr> }} */ (cp);
 }
 
+/** @param {string | string[]} rows */
 function processRows(rows) {
 	return (typeof rows === 'string' ? rows.split('\n') : rows).map(common.stripChangingData).filter(isString).join('\n');
 }
@@ -343,7 +350,7 @@ tap.test('CJS vs ESM: `at`', function (tt) {
 			]));
 		}));
 		ps.stderr.pipe(process.stderr);
-		ps.on('exit', function (code) {
+		ps.on('exit', /** @param {number} code */ function (code) {
 			ttt.notEqual(code, 0);
 			ttt.end();
 		});
@@ -385,7 +392,7 @@ tap.test('CJS vs ESM: `at`', function (tt) {
 				]));
 			}));
 			ps.stderr.pipe(process.stderr);
-			ps.on('exit', function (code) {
+			ps.on('exit', /** @param {number} code */ function (code) {
 				ttt.equal(code, 1);
 				ttt.end();
 			});

@@ -78,22 +78,22 @@ tap.test('timeoutAfter with Promises', { skip: typeof Promise === 'undefined' },
 			st.plan(1);
 			st.timeoutAfter(1);
 
-			return new Promise(function (resolve) {
+			return /** @type {Promise<void>} */ (new Promise(function (resolve) {
 				setTimeout(function () {
 					resolve();
 				}, 10);
-			});
+			}));
 		});
 
 		t.test('rejected promise', function (st) {
 			st.plan(1);
 			st.timeoutAfter(1);
 
-			return new Promise(function (reject) {
+			return /** @type {Promise<void>} */ (new Promise(function (reject) {
 				setTimeout(function () {
 					reject();
 				}, 10);
-			});
+			}));
 		});
 	});
 });

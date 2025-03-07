@@ -24,10 +24,12 @@ tap.test(
 		}, function (err, stdout, stderr) {
 			tt.same(stdout, '');
 			tt.match(stripFullStack(stderr).join('\n'), /Error: `only` tests are prohibited\n/);
-			tt.equal(err.code, expectedExitCodeOnError);
+			tt.equal(err && err.code, expectedExitCodeOnError);
 		});
 	}
 );
+
+/** @typedef {Error & { code?: number }} ExecError */
 
 tap.test(
 	'Should throw error when NODE_TAPE_NO_ONLY_TEST is passed via envs and there is an .only test',
@@ -42,7 +44,7 @@ tap.test(
 		}, function (err, stdout, stderr) {
 			tt.same(stdout, '');
 			tt.match(stripFullStack(stderr).join('\n'), /Error: `only` tests are prohibited\n/);
-			tt.equal(err.code, expectedExitCodeOnError);
+			tt.equal(/** @type {ExecError} */ (err).code, expectedExitCodeOnError);
 		});
 	}
 );
@@ -60,7 +62,7 @@ tap.test(
 		}, function (err, stdout, stderr) {
 			tt.same(stdout, '');
 			tt.match(stripFullStack(stderr).join('\n'), /Error: `only` tests are prohibited\n/);
-			tt.equal(err.code, expectedExitCodeOnError);
+			tt.equal(/** @type {ExecError} */ (err).code, expectedExitCodeOnError);
 		});
 	}
 );

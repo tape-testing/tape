@@ -6,6 +6,7 @@ var concat = require('concat-stream');
 
 tap.test('tape only test', function (tt) {
 	var test = tape.createHarness({ exit: false });
+	/** @type {number[]} */
 	var ran = [];
 
 	test.createStream().pipe(concat({ encoding: 'string' }, function (rows) {

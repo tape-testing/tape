@@ -6,10 +6,12 @@ var concat = require('concat-stream');
 var hasDynamicImport = require('has-dynamic-import');
 var assign = require('object.assign');
 
+/** @param {string} args @param {Parameters<typeof spawn>[2]} [options] */
 function tape(args, options) {
 	var bin = __dirname + '/../bin/tape';
 
-	return spawn(process.execPath, [bin].concat(args.split(' ')), assign({ cwd: __dirname }, options));
+	var cp = spawn(process.execPath, [bin].concat(args.split(' ')), assign({ cwd: __dirname }, options));
+	return /** @type {typeof cp & { stdout: NonNullable<typeof cp.stdout>; stderr: NonNullable<typeof cp.stderr> }} */ (cp);
 }
 
 tap.test('importing mjs files', function (t) {
@@ -44,7 +46,7 @@ tap.test('importing mjs files', function (t) {
 				].join('\n') + '\n\n');
 			}));
 			ps.stderr.pipe(process.stderr);
-			ps.on('exit', function (code) {
+			ps.on('exit', /** @param {number} code */ function (code) {
 				t.equal(code, 0);
 				t.end();
 			});
@@ -77,7 +79,7 @@ tap.test('importing type: "module" files', function (t) {
 				].join('\n') + '\n\n');
 			}));
 			ps.stderr.pipe(process.stderr);
-			ps.on('exit', function (code) {
+			ps.on('exit', /** @param {number} code */ function (code) {
 				t.equal(code, 0);
 				t.end();
 			});
@@ -90,22 +92,26 @@ tap.test('importing type: "module" files', function (t) {
 
 tap.test('errors importing test files', function (t) {
 	hasDynamicImport().then(function (hasSupport) {
-		var createTest = function (options) {
+		var createTest = /** @param {(typeof tests)[number]} options */ function (options) {
 			var message = options.error + ' in `' + options.mode + '` mode`';
 			var ps = tape(options.files, { env: { NODE_OPTIONS: '--unhandled-rejections=' + options.mode } });
 			ps.stderr.pipe(concat({ encoding: 'string' }, options.unhandledRejection(message)));
-			ps.on('exit', function (code/* , sig */) {
+			ps.on('exit', /** @param {number} code */ function (code/* , sig */) {
 				t.equal(code, options.exitCode, message + ' has exit code ' + options.exitCode);
 			});
 		};
 
+		/** @param {string} message */
 		var warning = function (message) {
+			/** @param {Buffer} rows */
 			return function (rows) {
 				t.match(rows, 'UnhandledPromiseRejectionWarning', 'should have unhandled rejection warning: ' + message);
 			};
 		};
 
+		/** @param {string} message */
 		var noWarning = function (message) {
+			/** @param {Buffer} rows */
 			return function (rows) {
 				t.notMatch(rows, 'UnhandledPromiseRejectionWarning', 'should not have unhandled rejection warning: ' + message);
 			};
