@@ -97,3 +97,41 @@ tap.test('timeoutAfter with Promises', { skip: typeof Promise === 'undefined' },
 		});
 	});
 });
+
+tap.test('timeoutAfter with blocking', function (tt) {
+	tt.plan(1);
+
+	var test = tape.createHarness();
+
+	test.createStream().pipe(concat({ encoding: 'string' }, function (rows) {
+		tt.same(stripFullStack(rows), [
+			'TAP version 13',
+			'# timeoutAfter',
+			'not ok 1 timeoutAfter timed out after 2ms',
+			'  ---',
+			'    operator: fail',
+			'    at: Test.<anonymous> ($TEST/timeoutAfter.js:$LINE:$COL)',
+			'    stack: |-',
+			'      Error: timeoutAfter timed out after 2ms',
+			'          [... stack stripped ...]',
+			'          at Test.<anonymous> ($TEST/timeoutAfter.js:$LINE:$COL)',
+			'          [... stack stripped ...]',
+			'  ...',
+			'',
+			'1..1',
+			'# tests 1',
+			'# pass  0',
+			'# fail  1',
+			''
+		]);
+	}));
+
+	test('timeoutAfter', function (t) {
+		t.timeoutAfter(1);
+		var start = Date.now();
+		while (Date.now() < start + 2) {
+			// Busy-wait to block the event loop
+		}
+		t.end();
+	});
+});
