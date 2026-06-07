@@ -3,6 +3,8 @@
 var tape = require('../');
 var tap = require('tap');
 var concat = require('concat-stream');
+var mockProperty = require('mock-property');
+var now = require('@ljharb/now');
 
 var stripFullStack = require('./common').stripFullStack;
 
@@ -34,6 +36,224 @@ tap.test('timeoutAfter test', function (tt) {
 	test('timeoutAfter', function (t) {
 		t.plan(1);
 		t.timeoutAfter(1);
+	});
+});
+
+tap.test('timeoutAfter, blocking', function (tt) {
+	tt.plan(1);
+
+	var test = tape.createHarness();
+
+	test.createStream().pipe(concat({ encoding: 'string' }, function (rows) {
+		tt.same(stripFullStack(rows), [
+			'TAP version 13',
+			'# timeoutAfter, blocking',
+			'ok 1 slow success',
+			'not ok 2 timeoutAfter, blocking timed out after 1ms',
+			'  ---',
+			'    operator: fail',
+			'    at: Test.<anonymous> ($TEST/timeoutAfter.js:$LINE:$COL)',
+			'    stack: |-',
+			'      Error: timeoutAfter, blocking timed out after 1ms',
+			'          [... stack stripped ...]',
+			'          at Test.<anonymous> ($TEST/timeoutAfter.js:$LINE:$COL)',
+			'          [... stack stripped ...]',
+			'  ...',
+			'',
+			'1..2',
+			'# tests 2',
+			'# pass  1',
+			'# fail  1',
+			''
+		]);
+	}));
+
+	test('timeoutAfter, blocking', { ignoreSyncTimeout: false }, function (t) {
+		t.timeoutAfter(1);
+		var start = now();
+		var current = start;
+		while (current < start + 10) { current = now(); }
+		t.pass('slow success');
+		t.end();
+	});
+});
+
+tap.test('timeoutAfter, blocking, non-strict (default)', function (tt) {
+	tt.plan(1);
+
+	var test = tape.createHarness();
+
+	test.createStream().pipe(concat({ encoding: 'string' }, function (rows) {
+		tt.same(stripFullStack(rows), [
+			'TAP version 13',
+			'# timeoutAfter, blocking, non-strict',
+			'ok 1 slow success',
+			'',
+			'1..1',
+			'# tests 1',
+			'# pass  1',
+			'',
+			'# ok',
+			''
+		]);
+	}));
+
+	test('timeoutAfter, blocking, non-strict', function (t) {
+		t.timeoutAfter(1);
+		var start = now();
+		var current = start;
+		while (current < start + 10) { current = now(); }
+		t.pass('slow success');
+		t.end();
+	});
+});
+
+tap.test('opts.timeout, blocking', function (tt) {
+	tt.plan(1);
+
+	var test = tape.createHarness();
+
+	test.createStream().pipe(concat({ encoding: 'string' }, function (rows) {
+		tt.same(stripFullStack(rows), [
+			'TAP version 13',
+			'# opts.timeout, blocking',
+			'ok 1 slow success',
+			'not ok 2 opts.timeout, blocking timed out after 1ms',
+			'  ---',
+			'    operator: fail',
+			'    at: Test.<anonymous> ($TEST/timeoutAfter.js:$LINE:$COL)',
+			'    stack: |-',
+			'      Error: opts.timeout, blocking timed out after 1ms',
+			'          [... stack stripped ...]',
+			'          at Test.<anonymous> ($TEST/timeoutAfter.js:$LINE:$COL)',
+			'          [... stack stripped ...]',
+			'  ...',
+			'',
+			'1..2',
+			'# tests 2',
+			'# pass  1',
+			'# fail  1',
+			''
+		]);
+	}));
+
+	test('opts.timeout, blocking', { timeout: 1, ignoreSyncTimeout: false }, function (t) {
+		var start = now();
+		var current = start;
+		while (current < start + 10) { current = now(); }
+		t.pass('slow success');
+		t.end();
+	});
+});
+
+tap.test('NODE_TAPE_STRICT_TIMEOUT, blocking', function (tt) {
+	tt.plan(1);
+
+	var test = tape.createHarness();
+
+	test.createStream().pipe(concat({ encoding: 'string' }, function (rows) {
+		tt.same(stripFullStack(rows), [
+			'TAP version 13',
+			'# NODE_TAPE_STRICT_TIMEOUT, blocking',
+			'ok 1 slow success',
+			'not ok 2 NODE_TAPE_STRICT_TIMEOUT, blocking timed out after 1ms',
+			'  ---',
+			'    operator: fail',
+			'    at: Test.<anonymous> ($TEST/timeoutAfter.js:$LINE:$COL)',
+			'    stack: |-',
+			'      Error: NODE_TAPE_STRICT_TIMEOUT, blocking timed out after 1ms',
+			'          [... stack stripped ...]',
+			'          at Test.<anonymous> ($TEST/timeoutAfter.js:$LINE:$COL)',
+			'          [... stack stripped ...]',
+			'  ...',
+			'',
+			'1..2',
+			'# tests 2',
+			'# pass  1',
+			'# fail  1',
+			''
+		]);
+	}));
+
+	tt.teardown(mockProperty(process.env, 'NODE_TAPE_STRICT_TIMEOUT', { value: '1' }));
+
+	test('NODE_TAPE_STRICT_TIMEOUT, blocking', { timeout: 1 }, function (t) {
+		var start = now();
+		var current = start;
+		while (current < start + 10) { current = now(); }
+		t.pass('slow success');
+		t.end();
+	});
+});
+
+tap.test('NODE_TAPE_STRICT_TIMEOUT empty, blocking', function (tt) {
+	tt.plan(1);
+
+	var test = tape.createHarness();
+
+	test.createStream().pipe(concat({ encoding: 'string' }, function (rows) {
+		tt.same(stripFullStack(rows), [
+			'TAP version 13',
+			'# NODE_TAPE_STRICT_TIMEOUT empty, blocking',
+			'ok 1 slow success',
+			'',
+			'1..1',
+			'# tests 1',
+			'# pass  1',
+			'',
+			'# ok',
+			''
+		]);
+	}));
+
+	tt.teardown(mockProperty(process.env, 'NODE_TAPE_STRICT_TIMEOUT', { value: '' }));
+
+	test('NODE_TAPE_STRICT_TIMEOUT empty, blocking', { timeout: 1 }, function (t) {
+		var start = now();
+		var current = start;
+		while (current < start + 10) { current = now(); }
+		t.pass('slow success');
+		t.end();
+	});
+});
+
+tap.test('NODE_TAPE_STRICT_TIMEOUT zero, blocking', function (tt) {
+	tt.plan(1);
+
+	var test = tape.createHarness();
+
+	test.createStream().pipe(concat({ encoding: 'string' }, function (rows) {
+		tt.same(stripFullStack(rows), [
+			'TAP version 13',
+			'# NODE_TAPE_STRICT_TIMEOUT zero, blocking',
+			'ok 1 slow success',
+			'not ok 2 NODE_TAPE_STRICT_TIMEOUT zero, blocking timed out after 1ms',
+			'  ---',
+			'    operator: fail',
+			'    at: Test.<anonymous> ($TEST/timeoutAfter.js:$LINE:$COL)',
+			'    stack: |-',
+			'      Error: NODE_TAPE_STRICT_TIMEOUT zero, blocking timed out after 1ms',
+			'          [... stack stripped ...]',
+			'          at Test.<anonymous> ($TEST/timeoutAfter.js:$LINE:$COL)',
+			'          [... stack stripped ...]',
+			'  ...',
+			'',
+			'1..2',
+			'# tests 2',
+			'# pass  1',
+			'# fail  1',
+			''
+		]);
+	}));
+
+	tt.teardown(mockProperty(process.env, 'NODE_TAPE_STRICT_TIMEOUT', { value: '0' }));
+
+	test('NODE_TAPE_STRICT_TIMEOUT zero, blocking', { timeout: 1 }, function (t) {
+		var start = now();
+		var current = start;
+		while (current < start + 10) { current = now(); }
+		t.pass('slow success');
+		t.end();
 	});
 });
 

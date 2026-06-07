@@ -209,6 +209,7 @@ Tests execute serially.
 Available `opts` options are:
 - opts.skip = true/false. See test.skip.
 - opts.timeout = 500. Set a timeout for the test, after which it will fail. See test.timeoutAfter.
+- opts.ignoreSyncTimeout = true/false. Defaults to `true` (unless the `NODE_TAPE_STRICT_TIMEOUT` environment variable is set to a non-empty value). When `false`, a test that blocks the event loop past its timeout is failed once it ends, rather than being allowed to pass. See test.timeoutAfter.
 - opts.objectPrintDepth = 5. Configure max depth of expected / actual object printing. Environmental variable `NODE_TAPE_OBJECT_PRINT_DEPTH` can set the desired default depth for all tests; locally-set values will take precedence.
 - opts.todo = true/false. Test will be allowed to fail.
 
@@ -258,6 +259,8 @@ Generate a passing assertion with a message `msg`.
 ## t.timeoutAfter(ms)
 
 Automatically timeout the test after X ms.
+
+JavaScript is single-threaded, so a test that blocks the event loop (for example, with a long synchronous loop) can not be interrupted mid-run. By default (`ignoreSyncTimeout` is `true`) such a test is allowed to run to completion and pass, even if it runs past the timeout. Setting the `ignoreSyncTimeout` option to `false` - or the `NODE_TAPE_STRICT_TIMEOUT` environment variable (when set to a non-empty value), which flips the default for all tests - instead fails the test once it ends, if it took at least X ms. A per-test `ignoreSyncTimeout` value takes precedence over the environment variable.
 
 ## t.skip(msg)
 
