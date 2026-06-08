@@ -2,6 +2,9 @@ name: 'Tests: node.js < 10'
 
 on: [pull_request, push]
 
+permissions:
+  contents: read
+
 jobs:
   tests:
     uses: ljharb/actions/.github/workflows/node.yml@main
@@ -9,3 +12,10 @@ jobs:
       range: '< 10'
       type: minors
       command: npm run tests-only
+
+  node:
+    name: 'node < 10'
+    needs: [tests]
+    runs-on: ubuntu-latest
+    steps:
+      - run: true
