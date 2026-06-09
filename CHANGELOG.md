@@ -5,6 +5,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v5.10.0](https://github.com/tape-testing/tape/compare/v5.9.0...v5.10.0) - 2026-06-09
+
+### Fixed
+
+- [New] `opts.timeout`: add `ignoreSyncTimeout` to optionally fail blocking tests that exceed the timeout [`#623`](https://github.com/tape-testing/tape/issues/623)
+
+### Commits
+
+- [New] add types [`3bd17c3`](https://github.com/tape-testing/tape/commit/3bd17c3709e1b5baf221f2addbbbf7f575bef63a)
+- [Tests] use string encoding with concat-stream and exec [`d8d42b6`](https://github.com/tape-testing/tape/commit/d8d42b673627c8a05103423f8b63d0dfc5de5c88)
+- [Dev Deps] update `eslint` [`4447d26`](https://github.com/tape-testing/tape/commit/4447d26f0f0882b105b83fc04b9b719a934f6c33)
+- [actions] update workflows [`1d79ea3`](https://github.com/tape-testing/tape/commit/1d79ea34fd810f20cc0ac3cb8c2b493f6b4784e6)
+- [eslint] fix array bracket spacing [`011fa27`](https://github.com/tape-testing/tape/commit/011fa27f71250c0e6e1626fddd90838cfe244373)
+- [Refactor] minor cleanups [`39470e7`](https://github.com/tape-testing/tape/commit/39470e7d6adea7f44b3fbe380e242298b012b3b2)
+- [Tests] avoid relying on implicit toStrings [`ceca8d5`](https://github.com/tape-testing/tape/commit/ceca8d5ad88ac2f3dbe340fa4d3646346e7e38b5)
+- [Refactor] avoid needing a call-bound `push` [`0f12b31`](https://github.com/tape-testing/tape/commit/0f12b318e7ee48441fc2f2d2e94f6a579465c087)
+- [actions] split out node 10-20, and 20+ [`7b291f5`](https://github.com/tape-testing/tape/commit/7b291f5b07b1ea3181b86a588f891b2382957493)
+- [Refactor] use `es-object-atoms` [`6b20c90`](https://github.com/tape-testing/tape/commit/6b20c903a872037acc397070a4ded0b5f443f70d)
+- [Dev Deps] update `@ljharb/eslint-config`, `auto-changelog`, `eslint`, `npmignore` [`cf20e24`](https://github.com/tape-testing/tape/commit/cf20e24f90985394742193def2450a43e88aff39)
+- [Deps] update `call-bind`, `hasown`, `resolve`, `string.prototype.trim` [`ffce2c3`](https://github.com/tape-testing/tape/commit/ffce2c394a00c33dad54ea2a50bd794e25aab71e)
+- [Deps] update `call-bound`, `has-dynamic-import`, `is-regex`, `object.assign` [`f7630c3`](https://github.com/tape-testing/tape/commit/f7630c331744ff7c51a6eaa69604117f412c99d2)
+- [Deps] update `array.prototype.every`, `call-bind`, `string.prototype.trim` [`3d0107a`](https://github.com/tape-testing/tape/commit/3d0107a39acb2de77a7788bb7e5fe206fc31b941)
+- [Refactor] use `call-bound` directly [`658126c`](https://github.com/tape-testing/tape/commit/658126c6b254611c0e0f30767f09925f0f349011)
+- [patch] remove never-published helper file [`c28f3c7`](https://github.com/tape-testing/tape/commit/c28f3c73b4f4c674b75ea6ac5626515bd844da2b)
+- [Deps] update `for-each`, `object-inspect` [`be106fd`](https://github.com/tape-testing/tape/commit/be106fdcebbe8c666d35d129a89a4c720898ad09)
+- [Deps] update `@ljharb/now` [`2d757f0`](https://github.com/tape-testing/tape/commit/2d757f05175d380b1e57c11a3c9093ee6f984a97)
+- [Tests] actually invoke Math.random [`85ddba3`](https://github.com/tape-testing/tape/commit/85ddba323d8355167bbda091e34b30cccb90526f)
+- [Deps] update `call-bound` [`ec3faf9`](https://github.com/tape-testing/tape/commit/ec3faf9dc31cb64241845d98f3dd51c0df780fed)
+- [Deps] update `for-each` [`861c17c`](https://github.com/tape-testing/tape/commit/861c17ceae7bf2840dbf9e2a07aa4a14025cde97)
+- [Deps] update `@ljharb/through` [`f7d074e`](https://github.com/tape-testing/tape/commit/f7d074e0b67de98d2d189178c29fb357cecb3b23)
+- [Dev Deps] update `es-value-fixtures` [`5c133bb`](https://github.com/tape-testing/tape/commit/5c133bb0e75d83dfa241d49e38fb9563d2dd34cd)
+- [Dev Deps] update `array.prototype.flatmap` [`33a1036`](https://github.com/tape-testing/tape/commit/33a1036688bdba07922f39da3a3f1b2b4ec99517)
+- [Deps] update `is-regex` [`d7c9ad3`](https://github.com/tape-testing/tape/commit/d7c9ad375695ae2ee4d563f94558fa34c01a7458)
+- [Deps] update `object-inspect` [`ed50350`](https://github.com/tape-testing/tape/commit/ed5035027223432616f0248714595f40485ba912)
+- [Dev Deps] update `es-value-fixtures` [`4bcfc8b`](https://github.com/tape-testing/tape/commit/4bcfc8b0bd529550809544f33a1062a19c932cfb)
+
 ## [v5.9.0](https://github.com/tape-testing/tape/compare/v5.8.1...v5.9.0) - 2024-09-15
 
 ### Commits
