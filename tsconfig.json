@@ -1,0 +1,12 @@
+{
+  "extends": "@ljharb/tsconfig",
+  "compilerOptions": {
+    "target": "es2021",
+	"maxNodeModuleJsDepth": 0,
+    "strictBindCallApply": false,
+  },
+  "exclude": [
+	"coverage/**",
+	"test/import/syntax-error.*",
+  ],
+}

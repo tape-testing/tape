@@ -24,7 +24,7 @@ tap.test(
 		}, function (err, stdout, stderr) {
 			tt.same(stdout, '');
 			tt.match(stripFullStack(stderr).join('\n'), /Error: `only` tests are prohibited\n/);
-			tt.equal(err.code, expectedExitCodeOnError);
+			tt.equal(err && err.code, expectedExitCodeOnError);
 		});
 	}
 );
@@ -42,7 +42,7 @@ tap.test(
 		}, function (err, stdout, stderr) {
 			tt.same(stdout, '');
 			tt.match(stripFullStack(stderr).join('\n'), /Error: `only` tests are prohibited\n/);
-			tt.equal(err.code, expectedExitCodeOnError);
+			tt.equal(/** @type {NodeJS.ErrnoException} */ (err).code, expectedExitCodeOnError);
 		});
 	}
 );
@@ -60,7 +60,7 @@ tap.test(
 		}, function (err, stdout, stderr) {
 			tt.same(stdout, '');
 			tt.match(stripFullStack(stderr).join('\n'), /Error: `only` tests are prohibited\n/);
-			tt.equal(err.code, expectedExitCodeOnError);
+			tt.equal(/** @type {NodeJS.ErrnoException} */ (err).code, expectedExitCodeOnError);
 		});
 	}
 );

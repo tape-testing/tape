@@ -5,7 +5,7 @@ var test = require('../../');
 if (typeof Promise === 'function' && typeof Promise.resolve === 'function') {
 	test('promise', function (t) {
 		t.test('sub test that should fail', function () {
-			return new Promise(function (resolve, reject) {
+			return new Promise(function (_resolve, reject) {
 				reject(new Error('rejection message'));
 			});
 		});

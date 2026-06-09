@@ -20,17 +20,29 @@ test('deep loose equal', function (t) {
 
 test('requires 2 arguments', function (t) {
 	var err = /^TypeError: two arguments must be provided/;
+	// @ts-expect-error
 	t.throws(function () { t.deepEqual(); }, err, 'deepEqual: no args');
+	// @ts-expect-error
 	t.throws(function () { t.deepEqual(undefined); }, err, 'deepEqual: one arg');
+	// @ts-expect-error
 	t.throws(function () { t.deepLooseEqual(); }, err, 'deepLooseEqual: no args');
+	// @ts-expect-error
 	t.throws(function () { t.deepLooseEqual(undefined); }, err, 'deepLooseEqual: one arg');
+	// @ts-expect-error
 	t.throws(function () { t.notDeepEqual(); }, err, 'notDeepEqual: no args');
+	// @ts-expect-error
 	t.throws(function () { t.notDeepEqual(undefined); }, err, 'notDeepEqual: one arg');
+	// @ts-expect-error
 	t.throws(function () { t.notDeepLooseEqual(); }, err, 'notDeepLooseEqual: no args');
+	// @ts-expect-error
 	t.throws(function () { t.notDeepLooseEqual(undefined); }, err, 'notDeepLooseEqual: one arg');
+	// @ts-expect-error
 	t.throws(function () { t.equal(); }, err, 'equal: no args');
+	// @ts-expect-error
 	t.throws(function () { t.equal(undefined); }, err, 'equal: one arg');
+	// @ts-expect-error
 	t.throws(function () { t.notEqual(); }, err, 'notEqual: no args');
+	// @ts-expect-error
 	t.throws(function () { t.notEqual(undefined); }, err, 'notEqual: one arg');
 
 	t.end();

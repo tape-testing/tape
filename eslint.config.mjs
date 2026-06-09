@@ -27,6 +27,7 @@ export default [
 			'max-statements': 'warn',
 			'max-statements-per-line': ['error', { max: 2 }],
 			'multiline-comment-style': 'off',
+			'no-extra-parens': 'off',
 			'no-magic-numbers': 'off',
 			'no-negated-condition': 'off',
 			'no-underscore-dangle': 'warn',

@@ -1,5 +1,7 @@
 'use strict';
 
+/** @template {object} T @typedef {Record<keyof T, T[keyof T]>} AsRecord */
+
 var tape = require('../');
 var tap = require('tap');
 var concat = require('concat-stream');
@@ -175,7 +177,11 @@ tap.test('NODE_TAPE_STRICT_TIMEOUT, blocking', function (tt) {
 		]);
 	}));
 
-	tt.teardown(mockProperty(process.env, 'NODE_TAPE_STRICT_TIMEOUT', { value: '1' }));
+	tt.teardown(mockProperty(
+		/** @type {AsRecord<typeof process.env>} */ (process.env),
+		'NODE_TAPE_STRICT_TIMEOUT',
+		{ value: '1' }
+	));
 
 	test('NODE_TAPE_STRICT_TIMEOUT, blocking', { timeout: 1 }, function (t) {
 		var start = now();
@@ -206,7 +212,11 @@ tap.test('NODE_TAPE_STRICT_TIMEOUT empty, blocking', function (tt) {
 		]);
 	}));
 
-	tt.teardown(mockProperty(process.env, 'NODE_TAPE_STRICT_TIMEOUT', { value: '' }));
+	tt.teardown(mockProperty(
+		/** @type {AsRecord<typeof process.env>} */ (process.env),
+		'NODE_TAPE_STRICT_TIMEOUT',
+		{ value: '' }
+	));
 
 	test('NODE_TAPE_STRICT_TIMEOUT empty, blocking', { timeout: 1 }, function (t) {
 		var start = now();
@@ -246,7 +256,11 @@ tap.test('NODE_TAPE_STRICT_TIMEOUT zero, blocking', function (tt) {
 		]);
 	}));
 
-	tt.teardown(mockProperty(process.env, 'NODE_TAPE_STRICT_TIMEOUT', { value: '0' }));
+	tt.teardown(mockProperty(
+		/** @type {AsRecord<typeof process.env>} */ (process.env),
+		'NODE_TAPE_STRICT_TIMEOUT',
+		{ value: '0' }
+	));
 
 	test('NODE_TAPE_STRICT_TIMEOUT zero, blocking', { timeout: 1 }, function (t) {
 		var start = now();
@@ -298,22 +312,22 @@ tap.test('timeoutAfter with Promises', { skip: typeof Promise === 'undefined' },
 			st.plan(1);
 			st.timeoutAfter(1);
 
-			return new Promise(function (resolve) {
+			return /** @type {Promise<void>} */ (new Promise(function (resolve) {
 				setTimeout(function () {
 					resolve();
 				}, 10);
-			});
+			}));
 		});
 
 		t.test('rejected promise', function (st) {
 			st.plan(1);
 			st.timeoutAfter(1);
 
-			return new Promise(function (reject) {
+			return /** @type {Promise<void>} */ (new Promise(function (reject) {
 				setTimeout(function () {
 					reject();
 				}, 10);
-			});
+			}));
 		});
 	});
 });

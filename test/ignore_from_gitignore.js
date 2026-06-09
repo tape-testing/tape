@@ -38,7 +38,7 @@ tap.test('Should pass with ignoring', function (tt) {
 			''
 		]);
 	}));
-	ps.on('exit', function (code) {
+	ps.on('exit', /** @type {Parameters<typeof ps.on>[0]} */ function (code) {
 		tt.equal(code, 0); // code 0
 	});
 });
@@ -93,7 +93,7 @@ tap.test('Should pass', function (tt) {
 			''
 		]);
 	}));
-	ps.on('exit', function (code) {
+	ps.on('exit', /** @type {Parameters<typeof ps.on>[0]} */ function (code) {
 		tt.equal(code, 1);
 	});
 });
@@ -108,7 +108,7 @@ tap.test('Should fail when ignore file does not exist', function (tt) {
 	ps.stderr.pipe(concat({ encoding: 'string' }, function (rows) {
 		tt.ok((/^ENOENT[:,] no such file or directory,? (?:open )?'\$TEST\/ignore\/.gitignore'\n$/m).test(stripFullStack(rows).join('\n')));
 	}));
-	ps.on('exit', function (code) {
+	ps.on('exit', /** @type {Parameters<typeof ps.on>[0]} */ function (code) {
 		tt.equal(code, 2);
 	});
 });

@@ -18,9 +18,10 @@ var node17 = node15 && Number(majorVersion) >= 17;
 
 var lengthMessage = 'Cannot read property \'length\' of null';
 try {
+	// @ts-expect-error
 	lengthMessage = null.length;
 } catch (e) {
-	lengthMessage = e.message; // differs in v8 6.9+ (node 16.9+)
+	lengthMessage = /** @type {Error} */ (e).message; // differs in v8 6.9+ (node 16.9+)
 }
 
 tap.test('async1', function (t) {
@@ -205,6 +206,7 @@ tap.test('sync-error', function (t) {
 		var stderr = lines.join('\n');
 
 		t.same(stripFullStack(stripDeprecations(stderr)), [].concat(
+			// @ts-expect-error TS sucks with concat
 			'$TEST/async-await/sync-error.js:7',
 			'	throw new Error(\'oopsie\');',
 			'	^',

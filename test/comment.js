@@ -35,10 +35,11 @@ tap.test('missing argument', function (assert) {
 	test.createStream();
 	test('missing argument', function (t) {
 		try {
+			// @ts-expect-error
 			t.comment();
 			t.end();
 		} catch (err) {
-			assert.equal(err.constructor, TypeError);
+			assert.equal(/** @type {Error} */ (err).constructor, TypeError);
 		} finally {
 			assert.end();
 		}
@@ -52,10 +53,11 @@ tap.test('null argument', function (assert) {
 	test.createStream();
 	test('null argument', function (t) {
 		try {
+			// @ts-expect-error
 			t.comment(null);
 			t.end();
 		} catch (err) {
-			assert.equal(err.constructor, TypeError);
+			assert.equal(/** @type {Error} */ (err).constructor, TypeError);
 		} finally {
 			assert.end();
 		}
@@ -121,14 +123,23 @@ tap.test('non-string types', function (assert) {
 	}));
 
 	test('non-string types', function (t) {
+		// @ts-expect-error
 		t.comment(true);
+		// @ts-expect-error
 		t.comment(false);
+		// @ts-expect-error
 		t.comment(42);
+		// @ts-expect-error
 		t.comment(6.66);
+		// @ts-expect-error
 		t.comment({});
+		// @ts-expect-error
 		t.comment({ answer: 42 });
+		/** @constructor */
 		function ConstructorFunction() {}
+		// @ts-expect-error
 		t.comment(new ConstructorFunction());
+		// @ts-expect-error
 		t.comment(ConstructorFunction);
 		t.end();
 	});
@@ -172,7 +183,7 @@ tap.test('comment with createStream/objectMode', function (assert) {
 	assert.plan(1);
 
 	var test = tape.createHarness();
-	test.createStream({ objectMode: true }).on('data', function (row) {
+	test.createStream({ objectMode: true }).on('data', /** @param {unknown} row */ function (row) {
 		if (typeof row === 'string') {
 			assert.equal(row, 'comment message');
 		}

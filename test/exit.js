@@ -31,7 +31,8 @@ tap.test('exit ok', function (t) {
 			'' // if you can figure out how to remove them, please do!
 		].join('\n'));
 	}));
-	ps.on('exit', function (code) {
+
+	ps.on('exit', /** @param {number} code */ function (code) {
 		t.equal(code, 0);
 	});
 });
@@ -72,7 +73,8 @@ tap.test('exit fail', function (t) {
 			''
 		]);
 	}));
-	ps.on('exit', function (code) {
+
+	ps.on('exit', /** @param {number} code */ function (code) {
 		t.notEqual(code, 0);
 	});
 });
@@ -109,7 +111,8 @@ tap.test('too few exit', function (t) {
 			''
 		]);
 	}));
-	ps.on('exit', function (code) {
+
+	ps.on('exit', /** @param {number} code */ function (code) {
 		t.notEqual(code, 0);
 	});
 });
@@ -144,7 +147,7 @@ tap.test('more planned in a second test', function (t) {
 			''
 		]);
 	}));
-	ps.on('exit', function (code) {
+	ps.on('exit', /** @param {number} code */ function (code) {
 		t.notEqual(code, 0);
 	});
 });
@@ -168,7 +171,7 @@ tap.test('todo passing', function (t) {
 			''
 		]);
 	}));
-	ps.on('exit', function (code) {
+	ps.on('exit', /** @param {number} code */ function (code) {
 		t.equal(code, 0);
 	});
 });
@@ -198,7 +201,7 @@ tap.test('todo failing', function (t) {
 			''
 		]);
 	}));
-	ps.on('exit', function (code) {
+	ps.on('exit', /** @param {number} code */ function (code) {
 		t.equal(code, 0);
 	});
 });
@@ -231,7 +234,7 @@ tap.test('forgot to call t.end()', function (t) {
 			''
 		]);
 	}));
-	ps.on('exit', function (code) {
+	ps.on('exit', /** @param {number} code */ function (code) {
 		t.notEqual(code, 0);
 	});
 });

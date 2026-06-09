@@ -10,8 +10,8 @@ var concat = require('concat-stream');
  * this will change dependent on the environment
  * so no point hard-coding it in the test assertion
  * see: https://git.io/v6hGG for example
- * @param String rows - the tap output lines
- * @returns String stacktrace - just the error stack part
+ * @param {string} rows - the tap output lines
+ * @returns {string} stacktrace - just the error stack part
  */
 function getStackTrace(rows) {
 	var stacktrace = '  ---\n';
@@ -32,15 +32,18 @@ function getStackTrace(rows) {
 	return stacktrace;
 }
 
+/** @param {string} name @param {(err: unknown, data?: string) => void} cb*/
 function fakeAsyncTask(name, cb) {
 	cb(null, 'task' + name);
 }
 
-function fakeAsyncWrite(name, cb) {
+/** @param {string} _name @param {(err: unknown, data?: string) => void} cb*/
+function fakeAsyncWrite(_name, cb) {
 	cb(null);
 }
 
-function fakeAsyncWriteFail(name, cb) {
+/** @param {string} _name @param {(err: unknown, data?: string) => void} cb*/
+function fakeAsyncWriteFail(_name, cb) {
 	cb(new Error('fail'));
 }
 

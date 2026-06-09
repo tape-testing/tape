@@ -5,6 +5,9 @@ var spawn = require('child_process').spawn;
 var concat = require('concat-stream');
 var yaml = require('js-yaml');
 
+/** @import { Result } from '../lib/results' */
+
+/** @type {(body: string, includeStack?: boolean) => Result} */
 module.exports.getDiag = function (body, includeStack) {
 	var yamlStart = body.indexOf('  ---');
 	var yamlEnd = body.indexOf('  ...\n');
@@ -14,7 +17,7 @@ module.exports.getDiag = function (body, includeStack) {
 
 	// The stack trace and at variable will vary depending on where the code
 	// is run, so just strip it out.
-	var withStack = yaml.safeLoad(diag);
+	var withStack = /** @type {Result & { stack?: unknown }} */ (yaml.safeLoad(diag));
 	if (!includeStack) {
 		delete withStack.stack;
 	}
@@ -38,6 +41,7 @@ module.exports.getDiag = function (body, includeStack) {
 //    strip out all stack frames that aren't directly under our test directory,
 //    and replace them with placeholders.
 
+/** @type {(line: string) => null | string} */
 var stripChangingData = function (line) {
 	var withoutTestDir = line.replace(__dirname, '$TEST');
 	var withoutPackageDir = withoutTestDir.replace(path.dirname(__dirname), '$TAPE');
@@ -62,6 +66,7 @@ var stripChangingData = function (line) {
 };
 module.exports.stripChangingData = stripChangingData;
 
+/** @type {(output: string) => string[]} */
 module.exports.stripFullStack = function (output) {
 	var stripped = '          [... stack stripped ...]';
 	var withDuplicates = output.split(/\r?\n/g).map(stripChangingData).map(function (line) {
@@ -106,7 +111,11 @@ module.exports.stripFullStack = function (output) {
 		.split(/\r?\n/g);
 };
 
+/** @typedef {{ stdout: string; stderr: string; exitCode: number; }} ProgramResult */
+
+/** @type {(folderName: string, fileName: string, cb: (result: ProgramResult) => void) => void} */
 module.exports.runProgram = function (folderName, fileName, cb) {
+	/** @type {{ stdout: string | null, stderr: string | null, exitCode: number | null }} */
 	var result = {
 		stdout: null,
 		stderr: null,
@@ -123,12 +132,14 @@ module.exports.runProgram = function (folderName, fileName, cb) {
 		result.stderr = stderrRows;
 	}));
 
-	ps.on('exit', function (code) {
+	ps.on('exit', /** @type {Parameters<typeof ps.on>[0]} */ function (code) {
 		result.exitCode = code;
+		// @ts-expect-error i can't make the declared type `satisfies`
 		cb(result);
 	});
 };
 
+/** @param {string | Buffer} msg */
 module.exports.stripDeprecations = function (msg) {
 	return String(msg)
 		.replace(/^\s*\(node:\d+\) ExperimentalWarning: The ESM module loader is experimental\.\s*$/g, '')

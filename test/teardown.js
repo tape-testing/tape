@@ -16,6 +16,7 @@ tap.test('teardowns', function (tt) {
 	var test = tape.createHarness();
 	test.createStream().pipe(concat({ encoding: 'string' }, function (body) {
 		tt.same(stripFullStack(body), [].concat(
+			// @ts-expect-error TS sucks with concat
 			'TAP version 13',
 			'# success',
 			'ok 1 should be truthy',
@@ -84,6 +85,7 @@ tap.test('teardowns', function (tt) {
 			flatMap(v.nonFunctions, function (nonFunction, i) {
 				var offset = 10;
 				return [].concat(
+					// @ts-expect-error TS sucks with concat
 					'not ok ' + (offset + (i > 0 ? i + 1 : i)) + ' teardown: ' + inspect(nonFunction) + ' is not a function',
 					'  ---',
 					'    operator: fail',
@@ -230,6 +232,7 @@ tap.test('teardowns', function (tt) {
 		t.ok('non-function test');
 
 		forEach(v.nonFunctions, function (nonFunction) {
+			// @ts-expect-error
 			t.teardown(nonFunction);
 		});
 	});
@@ -291,7 +294,7 @@ tap.test('teardown only runs once', { skip: typeof Promise !== 'function', timeo
 
 	var test = tape.createHarness();
 	test.createStream().pipe(concat({ encoding: 'string' }, function (body) {
-		tt.same(stripFullStack(body), [].concat(
+		tt.same(stripFullStack(body), /** @type {const} */ ([
 			'TAP version 13',
 			'# teardown is only called once, even with a plan',
 			'ok 1 passes',
@@ -303,7 +306,7 @@ tap.test('teardown only runs once', { skip: typeof Promise !== 'function', timeo
 			'',
 			'# ok',
 			''
-		));
+		]));
 	}));
 
 	test('teardown is only called once, even with a plan', function (t) {

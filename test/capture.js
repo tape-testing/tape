@@ -16,6 +16,7 @@ tap.test('capture: output', function (tt) {
 	var count = 0;
 	test.createStream().pipe(concat({ encoding: 'string' }, function (body) {
 		tt.same(stripFullStack(body), [].concat(
+			// @ts-expect-error TS sucks with concat
 			'TAP version 13',
 			'# argument validation',
 			v.primitives.map(function (x) {
@@ -52,6 +53,7 @@ tap.test('capture: output', function (tt) {
 	test('argument validation', function (t) {
 		forEach(v.primitives, function (primitive) {
 			t.throws(
+				// @ts-expect-error
 				function () { t.capture(primitive, ''); },
 				TypeError,
 				inspect(primitive) + ' is not an Object'
@@ -60,6 +62,7 @@ tap.test('capture: output', function (tt) {
 
 		forEach(v.nonPropertyKeys, function (nonPropertyKey) {
 			t.throws(
+				// @ts-expect-error
 				function () { t.capture({}, nonPropertyKey); },
 				TypeError,
 				inspect(nonPropertyKey) + ' is not a valid property key'
@@ -69,6 +72,7 @@ tap.test('capture: output', function (tt) {
 		forEach(v.nonFunctions, function (nonFunction) {
 			if (typeof nonFunction !== 'undefined') {
 				t.throws(
+					// @ts-expect-error
 					function () { t.capture({}, '', nonFunction); },
 					TypeError,
 					inspect(nonFunction) + ' is not a function'
@@ -90,10 +94,14 @@ tap.test('capture: output', function (tt) {
 			var up = new SyntaxError('foo');
 			var resultsThrow = st.capture(o, 'fooThrow', function () { throw up; });
 
+			// @ts-expect-error
 			o.foo(1, 2, 3);
+			// @ts-expect-error
 			o.foo(3, 4, 5);
+			// @ts-expect-error
 			o.foo2.call(sentinel, 1);
 			st.throws(
+				// @ts-expect-error
 				function () { o.fooThrow(1, 2, 3); },
 				SyntaxError,
 				'throwing implementation throws'
@@ -105,6 +113,7 @@ tap.test('capture: output', function (tt) {
 			]);
 			st.deepEqual(results(), []);
 
+			// @ts-expect-error
 			o.foo(6, 7, 8);
 			st.deepEqual(results(), [
 				{ args: [6, 7, 8], receiver: o, returned: sentinel }
