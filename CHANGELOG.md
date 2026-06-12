@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v5.10.1](https://github.com/tape-testing/tape/compare/v5.10.0...v5.10.1) - 2026-06-11
+
+### Commits
+
+- [Fix] types: export `Test` and the callback types from the `tape` namespace [`7ebe323`](https://github.com/tape-testing/tape/commit/7ebe323cb375f0cb8798514632020add6d07b19a)
+
 ## [v5.10.0](https://github.com/tape-testing/tape/compare/v5.9.0...v5.10.0) - 2026-06-09
 
 ### Fixed
