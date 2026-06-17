@@ -180,11 +180,13 @@ declare class Test extends EventEmitter {
 		...args: Args,
 	): R;
 
-	static skip(
-		name: string,
-		opts: TestOptions,
-		cb: Test.TestCase,
-	): Test;
+	static skip(name: string, opts: TestOptions, cb: Test.TestCase): Test;
+	static skip(name: string, opts: TestOptions): Test;
+	static skip(name: string, cb: Test.TestCase): Test;
+	static skip(name: string): Test;
+	static skip(opts: TestOptions, cb: Test.TestCase): Test;
+	static skip(opts: TestOptions): Test;
+	static skip(cb: Test.TestCase): Test;
 
 	// "private" methods
 
