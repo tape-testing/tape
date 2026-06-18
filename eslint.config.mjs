@@ -106,6 +106,7 @@ export default [
 		rules: {
 			'array-bracket-newline': 'off',
 			'global-require': 'off',
+			'max-nested-callbacks': 'off',
 			'no-console': 'off',
 		},
 	},
