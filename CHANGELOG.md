@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v5.10.2](https://github.com/tape-testing/tape/compare/v5.10.1...v5.10.2) - 2026-06-18
+
+### Commits
+
+- [Fix] types: allow `skip` to be called with the same signatures as `test` [`aab00d8`](https://github.com/tape-testing/tape/commit/aab00d8d0f543800494a5bc3d581341ec03166a8)
+- [Dev Deps] update `eslint`; add missing DT packages [`9f9c23b`](https://github.com/tape-testing/tape/commit/9f9c23bd45c2a806f3db72d10ba1a7ad54859fb6)
+- [eslint] ignore linting errors in examples [`dec20b0`](https://github.com/tape-testing/tape/commit/dec20b0de356bc85252849b126b7ebe5e34cb1a2)
+
 ## [v5.10.1](https://github.com/tape-testing/tape/compare/v5.10.0...v5.10.1) - 2026-06-11
 
 ### Commits
