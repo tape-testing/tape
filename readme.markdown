@@ -139,7 +139,6 @@ By default, uncaught exceptions in your tests will not be intercepted, and will 
 ## other
 
 - CoffeeScript support with https://www.npmjs.com/package/coffeetape
-- ES6 support with https://www.npmjs.com/package/babel-tape-runner or https://www.npmjs.com/package/buble-tape-runner
 - Different test syntax with https://github.com/pguth/flip-tape (warning: mutates String.prototype)
 - Electron test runner with https://github.com/tundrax/electron-tap
 - Concurrency support with https://github.com/imsnif/mixed-tape
