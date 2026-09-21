@@ -7,6 +7,10 @@ var satisfies = require('semver').satisfies;
 
 var stripFullStack = require('./common').stripFullStack;
 
+/** @import { ThrowsExpected } from '../lib/test' */
+/** @import { AssertOptions } from '../' */
+/** @typedef {[fn: () => unknown, expected: ThrowsExpected, msg?: string, extra?: AssertOptions]} RejectsArgs */
+
 tap.test('using a custom assertion', function (tt) {
 	tt.plan(1);
 
@@ -74,10 +78,6 @@ tap.test('using a custom assertion', function (tt) {
 
 		t.end();
 	});
-
-	/** @import { ThrowsExpected } from '../lib/test' */
-	/** @import { AssertOptions } from '../' */
-	/** @typedef {[fn: () => unknown, expected: ThrowsExpected, msg?: string, extra?: AssertOptions]} RejectsArgs */
 
 	/** @type {import('../lib/test').AssertionFunction<RejectsArgs, Promise<void>>} */
 	var rejects = function assertRejects(fn, expected, msg, extra) {

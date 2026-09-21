@@ -132,7 +132,7 @@ module.exports.runProgram = function (folderName, fileName, cb) {
 		result.stderr = stderrRows;
 	}));
 
-	ps.on('exit', /** @type {Parameters<typeof ps.on>[0]} */ function (code) {
+	ps.on('exit', function (code) {
 		result.exitCode = code;
 		// @ts-expect-error i can't make the declared type `satisfies`
 		cb(result);

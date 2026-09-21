@@ -43,7 +43,7 @@ var tape = (function () {
 		return harness;
 	}
 
-	/** @type {(this: Harness, ...args: Parameters<Tape>) => ReturnType<Tape>} */
+	/** @type {(this: Harness, ...args: Parameters<typeof Tape>) => ReturnType<typeof Tape>} */
 	function lazyLoad() {
 		// eslint-disable-next-line no-invalid-this
 		return getHarness().apply(this, arguments);
@@ -74,10 +74,12 @@ var tape = (function () {
 		return harness.createStream(options);
 	};
 
+	/** @type {typeof Tape.onFinish} */
 	lazyLoad.onFinish = function () {
 		return getHarness().onFinish.apply(this, arguments);
 	};
 
+	/** @type {typeof Tape.onFailure} */
 	lazyLoad.onFailure = function () {
 		return getHarness().onFailure.apply(this, arguments);
 	};
@@ -87,7 +89,7 @@ var tape = (function () {
 	return lazyLoad;
 }());
 
-/** @type {CreateHarness} */
+/** @type {typeof CreateHarness} */
 function createHarness(conf_) {
 	var results = new Results({ todoIsOK: !!(process.env.TODO_IS_OK === '1') });
 	if (!conf_ || conf_.autoclose !== false) {
@@ -207,24 +209,26 @@ function createExitHarness(config, wait) {
 	return harness;
 }
 
+// `cjs-module-lexer` - used by node's ESM interop and by `attw` - only detects named exports
+// from literal `module.exports.x =` statements, so attaching these to `tape` before the export
+// assignment, as TS 7 wants, would break `import { test } from 'tape'`. see microsoft/typescript-go#1685.
+// @ts-ignore TODO FIXME TS2309
 module.exports = tape;
 
+// @ts-ignore TODO FIXME TS2551: attw errors without this line
 module.exports.createHarness = createHarness;
+// @ts-ignore TODO FIXME TS2339: attw errors without this line
 module.exports.Test = Test;
+// @ts-ignore TODO FIXME TS2339: attw errors without this line
 module.exports.test = tape; // tap compat
+// @ts-ignore TODO FIXME TS2339: attw errors without this line
 module.exports.skip = Test.skip;
 
-// @ts-expect-error TODO FIXME: attw errors without this line
-module.exports.createStream = tape.createStream;
-// @ts-expect-error TODO FIXME: attw errors without this line
-module.exports.only = tape.only;
-// @ts-expect-error TODO FIXME: attw errors without this line
-module.exports.getHarness = tape.getHarness;
-// @ts-expect-error TODO FIXME: attw errors without this line
-module.exports.run = tape.run;
-// @ts-expect-error TODO FIXME: attw errors without this line
-module.exports.wait = tape.wait;
-// @ts-expect-error TODO FIXME: attw errors without this line
-module.exports.onFinish = tape.onFinish;
-// @ts-expect-error TODO FIXME: attw errors without this line
-module.exports.onFailure = tape.onFailure;
+// the casts are load-bearing: without them TS 6 reports TS2303, a circular import alias
+module.exports.createStream = /** @type {typeof Tape.createStream} */ (tape.createStream);
+module.exports.only = /** @type {() => any} */ (tape.only);
+module.exports.getHarness = /** @type {typeof Tape.getHarness} */ (tape.getHarness);
+module.exports.run = /** @type {typeof Tape.run} */ (tape.run);
+module.exports.wait = /** @type {typeof Tape.wait} */ (tape.wait);
+module.exports.onFinish = /** @type {typeof Tape.onFinish} */ (tape.onFinish);
+module.exports.onFailure = /** @type {typeof Tape.onFailure} */ (tape.onFailure);
