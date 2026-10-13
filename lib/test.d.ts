@@ -43,10 +43,10 @@ declare class Test extends EventEmitter {
 	): Test.WrappedFn<X>;
 	capture<T extends Test.Callback>(
 		this: void | Test,
-		obj: Record<PropertyKey, unknown> | unknown[],
+		obj: Record<PropertyKey, unknown> | unknown[] | object,
 		method: PropertyKey,
 		implementation?: T,
-	): Test.WrapResults;
+	): Test.WrapResults & { restore: Test.RestoreFunction };
 	end(this: void | Test, err?: unknown): void;
 	fail(this: void | Test, msg?: string, extra?: AssertOptions): void;
 	intercept(
