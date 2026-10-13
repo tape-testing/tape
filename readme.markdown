@@ -417,6 +417,7 @@ The replacement will automatically be restored on test teardown.
 You can restore it manually, if desired, by calling `.restore()` on the returned results function.
 
 Capturing `console` methods (eg, `t.capture(console, 'log')`) does not capture tape's own TAP output, since the default output stream uses the `console.log` that existed when it was created.
+Capturing `process.stdout.write` (or anything else that `console.log` writes through) will still capture tape's output.
 
 Modeled after [tap](https://tapjs.github.io/tapjs/modules/_tapjs_intercept.html).
 
