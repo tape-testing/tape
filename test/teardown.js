@@ -41,8 +41,6 @@ tap.test('teardowns', function (tt) {
 			'          [... stack stripped ...]',
 			'          at Test.<anonymous> ($TEST/teardown.js:$LINE:$COL)',
 			'          [... stack stripped ...]',
-			'          at Test.<anonymous> ($TEST/teardown.js:$LINE:$COL)',
-			'          [... stack stripped ...]',
 			'  ...',
 			'# nested teardown (nested fail level)',
 			'# nested teardown (nested fail level) 2',

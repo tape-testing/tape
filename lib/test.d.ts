@@ -26,11 +26,13 @@ declare class Test extends EventEmitter {
 
 	// "private" properties
 	_cb: Test.TestCase | undefined;
+	_childEndedSync: boolean;
 	_objectPrintDepth: number | undefined;
 	_ok: boolean;
 	_plan: number | undefined;
 	_planError: boolean | undefined;
 	_progeny: Test[];
+	_runningChild: boolean;
 	_skip: boolean | string | undefined;
 	_teardown: Test.TeardownHandler[];
 	_timeout: number | undefined;
