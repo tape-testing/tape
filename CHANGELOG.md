@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v5.10.3](https://github.com/tape-testing/tape/compare/v5.10.2...v5.10.3) - 2026-10-14
+
+### Commits
+
+- [Fix] types: support TypeScript 7 [`57bffa9`](https://github.com/tape-testing/tape/commit/57bffa97d9c326a195ea09d81609ed7239016c3e)
+- [Fix] default stream: write TAP output with the original `console.log`, so capturing it does not swallow assertions [`b100c4c`](https://github.com/tape-testing/tape/commit/b100c4c32d1513edfc5678e0c8e89b7e09c3d3a6)
+- [Fix] `Test`: run synchronously-ending sibling subtests in a loop, so many of them do not overflow the stack [`dc941f2`](https://github.com/tape-testing/tape/commit/dc941f295c11c5b860d3c58a550e1e731b7506e5)
+- [Tests] default stream: cover falling back to `console.log` when `console` or `console.log` was missing at creation [`b7cd2ec`](https://github.com/tape-testing/tape/commit/b7cd2ecc5c38eb5b37775c1949d48097ba2978bc)
+- [Dev Deps] update `@arethetypeswrong/cli`, `@ljharb/eslint-config`, `auto-changelog`, `eslint` [`776b9d8`](https://github.com/tape-testing/tape/commit/776b9d8171a7a2ef4544c6d3afa38508b0bf9934)
+- [Tests] `capture-output`: expect node 0.10's inferred name for the anonymous test callback [`87c849a`](https://github.com/tape-testing/tape/commit/87c849af376f2f5873b443ea7392f393369c6b1e)
+- [Dev Deps] update `@ljharb/eslint-config`, `auto-changelog`, `eslint` [`1a5106f`](https://github.com/tape-testing/tape/commit/1a5106fee10db2e0f6d863cb8e833aa36dab710a)
+- [Fix] types: allow `t.capture` on any object (eg, `console`); its results always have `.restore` [`c128c4b`](https://github.com/tape-testing/tape/commit/c128c4b0b39bf69f96cba4d9d565d39b4e62d0fc)
+- [eslint] default stream: remove unused `no-console` disable directive [`f1f8253`](https://github.com/tape-testing/tape/commit/f1f8253dc7dac2e44371ea24fbbd1e0cacf5807f)
+- [Deps] update `mock-property` [`7c661d5`](https://github.com/tape-testing/tape/commit/7c661d5ed44fc6edc4464aada04788e4eb2d1ff7)
+- [actions] set least-privilege `cache-mode` [`5b93d00`](https://github.com/tape-testing/tape/commit/5b93d008a43d9063ae60e98fc7d6a63eb83d075d)
+- [readme] `t.capture`: note that capturing `process.stdout.write` still captures TAP output [`ee8722d`](https://github.com/tape-testing/tape/commit/ee8722d019a6e7824a80df0e5705f2a4b77382ec)
+
 ## [v5.10.2](https://github.com/tape-testing/tape/compare/v5.10.1...v5.10.2) - 2026-06-18
 
 ### Commits
@@ -164,18 +181,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
-- [Fix] `default_stream`: add handling for IE &lt; 9 [`13f23ed`](https://github.com/tape-testing/tape/commit/13f23edc2a63aa7c57997bb81886d74e9fce43df)
-- [Deps] update `@ljharb/through`, `resolve` [`9135b40`](https://github.com/tape-testing/tape/commit/9135b40f93adc6b8fbc31f48a96adf2339b00672)
-- Merge tag 'v4.17.0' [`e61cd40`](https://github.com/tape-testing/tape/commit/e61cd4095062f4b9afdfb11945a502390eaed30d)
 - [New] add `t.intercept()` [`e60aeca`](https://github.com/tape-testing/tape/commit/e60aeca688fe1d3a363f74f31c83d816035aca4c)
 - [New] add `t.capture` and `t.captureFn`, modeled after tap [`3d96d69`](https://github.com/tape-testing/tape/commit/3d96d6945ea1cda7780fb3fc6bc04c275ace594a)
 - [Deps] switch from `through` and `resumer` to `@ljharb/through` and `@ljharb/resumer` [`a8a7d67`](https://github.com/tape-testing/tape/commit/a8a7d67c9ffe1daa46407f35685a1ef8d53df66a)
 - [Tests] simplify tests [`83bc381`](https://github.com/tape-testing/tape/commit/83bc3810a930c60973e60a7a02b677c2fb1f444c)
+- [Fix] `default_stream`: add handling for IE &lt; 9 [`13f23ed`](https://github.com/tape-testing/tape/commit/13f23edc2a63aa7c57997bb81886d74e9fce43df)
 - [Performance] use inline `typeof` [`c45db4e`](https://github.com/tape-testing/tape/commit/c45db4e0978999cece915e7f1a223aa9eb445ae0)
 - [Deps] update `minimist`, `resolve`, `string.prototype.trim` [`feee094`](https://github.com/tape-testing/tape/commit/feee0949f1f23ef4f13c9847c20284f7864cd67e)
 - [Dev Deps] update `@ljharb/eslint-config`, `array.prototype.flatmap`, `aud` [`7123111`](https://github.com/tape-testing/tape/commit/71231114c92b4a093b468875c4d8f741ab1a49d4)
+- [Deps] update `@ljharb/through`, `resolve` [`9135b40`](https://github.com/tape-testing/tape/commit/9135b40f93adc6b8fbc31f48a96adf2339b00672)
 - Revert "[meta] ensure `not-in-publish`‘s absence does not fail anything" [`92aaa51`](https://github.com/tape-testing/tape/commit/92aaa5106b65824d82ce72c0d1dfcc6df6cff753)
 - [Dev Deps] pin `jackspeak` since 2.1.2+ depends on npm aliases, which kill the install process in npm &lt; 6 [`a576f8d`](https://github.com/tape-testing/tape/commit/a576f8d8b24e84324b7ee0498c37759423c7ca87)
+- Merge tag 'v4.17.0' [`e61cd40`](https://github.com/tape-testing/tape/commit/e61cd4095062f4b9afdfb11945a502390eaed30d)
 
 ## [v5.7.0](https://github.com/tape-testing/tape/compare/v5.6.6...v5.7.0) - 2023-09-21
 
@@ -218,9 +235,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [readme] Link to explain what TAP is [`26a75bb`](https://github.com/tape-testing/tape/commit/26a75bbb8b1854fa730eaaf1407aea1409640fd5)
 - [Deps] update `minimist` [`7e7c3d0`](https://github.com/tape-testing/tape/commit/7e7c3d054449ac44f18d90db790705db4bcef37c)
 - [readme] improve t.throws description for Function [`c1b619d`](https://github.com/tape-testing/tape/commit/c1b619db02f5b51e4c1379debeb0bac90daa3b93)
+- [meta] add missing npmrc config [`15e2175`](https://github.com/tape-testing/tape/commit/15e2175b927010657c66f0a30e44f5266147311f)
 - [Dev Deps] pin `jackspeak` since 2.1.2+ depends on npm aliases, which kill the install process in npm &lt; 6 [`0e80800`](https://github.com/tape-testing/tape/commit/0e80800b4d287e6cae7bd4f46b13fa8ac5aa1197)
 - Merge tag 'v4.16.2' [`d5d675d`](https://github.com/tape-testing/tape/commit/d5d675dbd841f411960dbe60946744fae4cd2bcb)
-- [meta] add missing npmrc config [`15e2175`](https://github.com/tape-testing/tape/commit/15e2175b927010657c66f0a30e44f5266147311f)
 
 ## [v5.6.3](https://github.com/tape-testing/tape/compare/v5.6.2...v5.6.3) - 2023-01-15
 
@@ -251,8 +268,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Dev Deps] update `array.prototype.flatmap` [`8b8bf07`](https://github.com/tape-testing/tape/commit/8b8bf07312adb248238238a0d810b0eedeb8b2b5)
 - [Dev Deps] update `aud` [`f0fe7c0`](https://github.com/tape-testing/tape/commit/f0fe7c0979ba5d7ea96c619fab5389979cd0a862)
 - [Dev Deps] update `tap-parser` [`2f61eac`](https://github.com/tape-testing/tape/commit/2f61eac3800d63fba65895bbfa947b8b82346cf0)
-- Merge tag 'v4.16.1' [`96ff863`](https://github.com/tape-testing/tape/commit/96ff863913b282e13bc5200179fcb1a757933449)
 - [readme] fix version badge [`20ea48d`](https://github.com/tape-testing/tape/commit/20ea48d53b6492bf648d02d53c41b324abbfb6e1)
+- Merge tag 'v4.16.1' [`96ff863`](https://github.com/tape-testing/tape/commit/96ff863913b282e13bc5200179fcb1a757933449)
 
 ## [v5.6.1](https://github.com/tape-testing/tape/compare/v5.6.0...v5.6.1) - 2022-09-19
 
@@ -300,8 +317,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Dev Deps] update `es-value-fixtures` [`6b8e118`](https://github.com/tape-testing/tape/commit/6b8e118b19ff08d54509f54aab5fad3b25260e2b)
 - [Fix] in node v0.4, `stream.pipe` returns `undefined` [`83d4da8`](https://github.com/tape-testing/tape/commit/83d4da8ed49acd1c0478a551bc64f05a67c44e99)
 - [Deps] update `string.prototype.trim` [`1a245c6`](https://github.com/tape-testing/tape/commit/1a245c6b690ab7e2db346c3caf1c34eab8db456c)
-- Merge tag 'v4.15.1' [`b2d547a`](https://github.com/tape-testing/tape/commit/b2d547a1b06653a5cff22a8113da0f5dd392470b)
 - [Deps] update `minimist` [`64677e0`](https://github.com/tape-testing/tape/commit/64677e06006e1a1e4e36dc318cc4a36b2152ed95)
+- Merge tag 'v4.15.1' [`b2d547a`](https://github.com/tape-testing/tape/commit/b2d547a1b06653a5cff22a8113da0f5dd392470b)
 
 ## [v5.5.3](https://github.com/tape-testing/tape/compare/v5.5.2...v5.5.3) - 2022-04-08
 
@@ -333,7 +350,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
-- Merge tag 'v4.15.0' [`a5a1434`](https://github.com/tape-testing/tape/commit/a5a14344f4f06518c2fe599b49a92633777986cc)
 - [New] `t.match`/`t.doesNotMatch: fail the test instead of throw on wrong input types. [`a1c266b`](https://github.com/tape-testing/tape/commit/a1c266bf9577420702e1067c40a4a65677add63a)
 - [actions] reuse common workflows [`d3b4f46`](https://github.com/tape-testing/tape/commit/d3b4f467445bb6da3a2e617c4b29e71528f32425)
 - [readme] port changes from v5 [`87f9b29`](https://github.com/tape-testing/tape/commit/87f9b293baeb48b507a4e9e16bba62c7ffcc4eb7)
@@ -353,6 +369,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [meta] fix `prelint` so it does not fail outside of a git repo [`a09133e`](https://github.com/tape-testing/tape/commit/a09133e71d3925bf830f721d05bad72550dd3517)
 - [meta] fix `prelint` so it does not fail outside of a git repo [`b9959f8`](https://github.com/tape-testing/tape/commit/b9959f8c132874eff32497b9189d0a7cf74e8c14)
 - [Robustness] use cached `.test` [`86ec0b2`](https://github.com/tape-testing/tape/commit/86ec0b262e0405ef0616201c1ffebbc5f278a217)
+- Merge tag 'v4.15.0' [`a5a1434`](https://github.com/tape-testing/tape/commit/a5a14344f4f06518c2fe599b49a92633777986cc)
 
 ## [v5.4.1](https://github.com/tape-testing/tape/compare/v5.4.0...v5.4.1) - 2022-01-15
 
@@ -433,22 +450,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [New] Include name of test in log when test times out (#524) [`78b4d98`](https://github.com/tape-testing/tape/commit/78b4d9833a2df7593f653b263588b9a49ca3fe08)
 - [Dev Deps] update `eslint` [`6d5e4ad`](https://github.com/tape-testing/tape/commit/6d5e4ad3cb1f25ea03b59db4e894d51fa5b86c11)
 - [Refactor] Avoid setting message property on primitives; use strict mode to catch this [`9dfb680`](https://github.com/tape-testing/tape/commit/9dfb680e7543a3a701b3e410bfccbcce3b274d9f)
-- [Deps] update `is-regex` [`a7ca7a3`](https://github.com/tape-testing/tape/commit/a7ca7a308269bc3a250170441553d0321e0d8044)
-- Merge tag 'v4.14.0' [`1f1a4a7`](https://github.com/tape-testing/tape/commit/1f1a4a7c7c9ea3632074e4a008d430bbd275b231)
 - [meta] add `safe-publish-latest`; use `prepublishOnly` script for npm 7+ [`c3d434d`](https://github.com/tape-testing/tape/commit/c3d434d8b86a0be162efb7fb548f0405239a2688)
+- [Deps] update `is-regex` [`a7ca7a3`](https://github.com/tape-testing/tape/commit/a7ca7a308269bc3a250170441553d0321e0d8044)
 - [meta] ensure `not-in-publish`‘s absence does not fail anything [`2a0619d`](https://github.com/tape-testing/tape/commit/2a0619d3193287aaa948fc4edf0bb2ccb4150a7b)
 - [readme] remove long-dead testling-ci badge [`1461611`](https://github.com/tape-testing/tape/commit/1461611bce87b190179d1ac0e2c69438f2b12f31)
 - [Tests] ensure bin/tape is linted [`faa51b5`](https://github.com/tape-testing/tape/commit/faa51b5baa709ba2e72f78be7cb7ce243c02a771)
 - [Dev Deps] update `eslint` [`fad6165`](https://github.com/tape-testing/tape/commit/fad6165ae85ebff132daedd1a1bdf3ee307c4ea1)
 - [Dev Deps] update `eslint` [`79a0f4b`](https://github.com/tape-testing/tape/commit/79a0f4b7b1d0c6db9228cdedf918f20a34dd7762)
 - [meta] add missing `safe-publish-latest` dep [`d0a3888`](https://github.com/tape-testing/tape/commit/d0a3888ee1b1481ef9ca13695414022164fbc3c2)
+- Merge tag 'v4.14.0' [`1f1a4a7`](https://github.com/tape-testing/tape/commit/1f1a4a7c7c9ea3632074e4a008d430bbd275b231)
 - [Tests] exclude examples from coverage [`283f537`](https://github.com/tape-testing/tape/commit/283f537f56885d18afbc2328c0c52ee60d528332)
 
 ## [v5.3.0](https://github.com/tape-testing/tape/compare/v5.2.2...v5.3.0) - 2021-07-26
 
 ### Commits
 
-- [eslint] fully enable `@ljharb` eslint config [`9d3c5b4`](https://github.com/tape-testing/tape/commit/9d3c5b4e84dbeb1272b450e74ce022cb70c56e2a)
 - [New] Use import() on esm files in supported node versions [`28d6e51`](https://github.com/tape-testing/tape/commit/28d6e51b9beb7252d7ad130424fdb0062425f7a0)
 - [eslint] fully enable `@ljharb` eslint config [`ae8b5c0`](https://github.com/tape-testing/tape/commit/ae8b5c0639be6c3b2fd0b2e132ca50ee9f760e94)
 - [eslint] enable `no-shadow` [`f0756f3`](https://github.com/tape-testing/tape/commit/f0756f3b12329a122498f99f6448ec8c9eafec50)
@@ -487,6 +503,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Deps] update `object-inspect` [`771c8c4`](https://github.com/tape-testing/tape/commit/771c8c43fda1907f61b6e9fd462a4e6c747f3527)
 - [meta] add `safe-publish-latest`; use `prepublishOnly` script for npm 7+ [`379115d`](https://github.com/tape-testing/tape/commit/379115dc77717ff7611d156c36da5452a5b217e2)
 - [Tests] exclude examples from coverage [`75decb3`](https://github.com/tape-testing/tape/commit/75decb37ef2661f960adf9ff44dc76e2885d10d2)
+- [eslint] fully enable `@ljharb` eslint config [`9d3c5b4`](https://github.com/tape-testing/tape/commit/9d3c5b4e84dbeb1272b450e74ce022cb70c56e2a)
 
 ## [v5.2.2](https://github.com/tape-testing/tape/compare/v5.2.1...v5.2.2) - 2021-03-03
 
@@ -579,7 +596,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
-- Merge tag 'v4.13.3' [`b7af113`](https://github.com/tape-testing/tape/commit/b7af113832ae5f3a2b379d859abf8f1513036961)
 - [Dev Deps] update `eslint`, `falafel`, `js-yaml` [`9676a21`](https://github.com/tape-testing/tape/commit/9676a21784a90a13e29505d86901cd1cd0c1c7db)
 - [Deps] update `minimist`, `resolve` [`8887189`](https://github.com/tape-testing/tape/commit/8887189c60d956f13f7b54497443bb4be2726748)
 - [Dev Deps] update `eslint` [`c421eb3`](https://github.com/tape-testing/tape/commit/c421eb36b4f6c3c51db329e2e2f03139ffa803af)
@@ -588,6 +604,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [examples] add `ecstatic` [`9b87675`](https://github.com/tape-testing/tape/commit/9b876753153e0a8f94894fbbe9e08d78df12b039)
 - [readme] Add link to tape-player (in-process reporter) (#496) [`bc1334b`](https://github.com/tape-testing/tape/commit/bc1334bc008e5d5aecd61c580aad1657932da146)
 - [Docs] add an optional emoji version for tap-spec consumer (#501) [`6326dc6`](https://github.com/tape-testing/tape/commit/6326dc62e761b92b87377b30c539f762ed2e9052)
+- Merge tag 'v4.13.3' [`b7af113`](https://github.com/tape-testing/tape/commit/b7af113832ae5f3a2b379d859abf8f1513036961)
 
 ## [v5.0.0](https://github.com/tape-testing/tape/compare/v5.0.0-next.5...v5.0.0) - 2020-04-24
 
@@ -648,7 +665,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
-- Merge tag 'v4.13.0' [`bf07cf8`](https://github.com/tape-testing/tape/commit/bf07cf8fd739d48433be1cae9be75d1ac45bc4d2)
 - [New] add `t.match()` and `t.doesNotMatch()`, new in `node` `v13.6` [`0330d82`](https://github.com/tape-testing/tape/commit/0330d8254d361b5b47d1ca427447a2ba84f6c2b6)
 - [New] add `t.match()` and `t.doesNotMatch()`, new in `node` `v13.6` [`36a30eb`](https://github.com/tape-testing/tape/commit/36a30ebf119ab33f07b4c539d7fc140ba812082a)
 - [New] `tape` binary: Add -i flag to ignore files from gitignore (#492) [`e0e2542`](https://github.com/tape-testing/tape/commit/e0e2542240875e5dad2ba12b1edc4be3251ae571)
@@ -657,6 +673,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Tests] handle stack trace variation in node &lt;= 0.8 [`21ac403`](https://github.com/tape-testing/tape/commit/21ac4036eb99af0eb41d88f038af0d4d9623112c)
 - [Deps] update `resolve` [`0f15085`](https://github.com/tape-testing/tape/commit/0f15085b090ef52176564cbc2a6b7994d38173f5)
 - [readme] remove long-dead testling-ci badge [`08fae38`](https://github.com/tape-testing/tape/commit/08fae38fb88c7d1d6410e230b908ad3375421cb3)
+- Merge tag 'v4.13.0' [`bf07cf8`](https://github.com/tape-testing/tape/commit/bf07cf8fd739d48433be1cae9be75d1ac45bc4d2)
 
 ## [v5.0.0-next.1](https://github.com/tape-testing/tape/compare/v5.0.0-next.0...v5.0.0-next.1) - 2020-01-01
 
@@ -682,22 +699,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Tests] ensure bin/tape is linted [`b5b40ae`](https://github.com/tape-testing/tape/commit/b5b40aeac993a25243e80aa33ff18f6961ca1da1)
 - [eslint] Fix leaking variable in tests [`07e13a8`](https://github.com/tape-testing/tape/commit/07e13a8f05f26a75fc6a377711fe85b082e672fb)
 - [Refactor] Avoid setting message property on primitives; use strict mode to catch this [`0715294`](https://github.com/tape-testing/tape/commit/071529417254377da425a457b3fc1b1faa1d622d)
-- Merge tag 'v4.12.1' [`a11e272`](https://github.com/tape-testing/tape/commit/a11e27291b4457f816c9393abb9e9cdd2bf3ad64)
 - [Deps] update `resolve` [`b765bba`](https://github.com/tape-testing/tape/commit/b765bba1ea56075d5382b203b6902c8fc5f2d5a6)
 - [Dev Deps] update `eslint` [`949781f`](https://github.com/tape-testing/tape/commit/949781faf753d5481085f993210738e7b93b3172)
+- Merge tag 'v4.12.1' [`a11e272`](https://github.com/tape-testing/tape/commit/a11e27291b4457f816c9393abb9e9cdd2bf3ad64)
 
 ## [v5.0.0-next.0](https://github.com/tape-testing/tape/compare/v4.17.0...v5.0.0-next.0) - 2019-12-20
 
 ### Commits
 
+- [Breaking] support exceptions in async functions [`8d3f03a`](https://github.com/tape-testing/tape/commit/8d3f03afede1fef1e73d3ce2ce9ff2c7c2e47319)
 - [Breaking] if a test callback returns a rejected thenable, fail the test. [`f248610`](https://github.com/tape-testing/tape/commit/f248610eedc9e7236e7e6a2c4a5c0d4415dcde95)
 - [Breaking] `error` should not emit `expected`/`actual` diags [`f6dc34e`](https://github.com/tape-testing/tape/commit/f6dc34e4531fd279cb985166bceec160929658f1)
-- [Deps] update `resolve` [`dff5f1f`](https://github.com/tape-testing/tape/commit/dff5f1f4b12be558bcf4b6547eaebba162afde6d)
-- [Breaking] support passing in an async function for the test callback [`5f88895`](https://github.com/tape-testing/tape/commit/5f8889513f68bc545768ade50a862796c92e36b0)
-- [Breaking] support exceptions in async functions [`8d3f03a`](https://github.com/tape-testing/tape/commit/8d3f03afede1fef1e73d3ce2ce9ff2c7c2e47319)
 - [Tests] update tests for more async/await cases [`197019c`](https://github.com/tape-testing/tape/commit/197019c78c0e452852806f330e573f5023eba91c)
 - [meta] change dep semver prefix from ~ to ^ [`c3924d3`](https://github.com/tape-testing/tape/commit/c3924d34476247e2ba0d6e0781ca89b7d25f2a2b)
+- [Deps] update `resolve` [`dff5f1f`](https://github.com/tape-testing/tape/commit/dff5f1f4b12be558bcf4b6547eaebba162afde6d)
 - [Breaking] update `deep-equal` to v2 [`898a6e7`](https://github.com/tape-testing/tape/commit/898a6e70aadff95f23eb6f7b4e7a1fd24baacc7d)
+- [Breaking] support passing in an async function for the test callback [`5f88895`](https://github.com/tape-testing/tape/commit/5f8889513f68bc545768ade50a862796c92e36b0)
 
 ## [v4.17.0](https://github.com/tape-testing/tape/compare/v4.16.2...v4.17.0) - 2023-09-21
 
@@ -963,7 +980,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
-- Merge all orphaned tags: 'v1.1.2', 'v2.0.2', 'v2.1.1', 'v2.2.2', 'v2.3.3', 'v2.4.3', 'v2.5.1', 'v2.6.1', 'v2.7.3', 'v2.8.1', 'v2.9.1', 'v2.10.3', 'v2.11.1', 'v2.13.4', 'v2.14.0', 'v2.14.1', 'v3.6.1' [`6209882`](https://github.com/tape-testing/tape/commit/6209882aaf646c787ccf72244e8ebb04a9c95556)
 - [New] Implements TAP TODO directive [`5cdaf54`](https://github.com/tape-testing/tape/commit/5cdaf548b9b1d19c638e937ada10d550290a07c0)
 - Minor test tweaks due to output differences in v1 vs v4. [`d22b5fc`](https://github.com/tape-testing/tape/commit/d22b5fc48f7053dbf3bc1f4804783a61534edf33)
 - Minor test tweaks due to whitespace differences in v3 vs v4. [`7ed6651`](https://github.com/tape-testing/tape/commit/7ed6651b984fa8da66e3014b93bc1beda57bee9b)
@@ -997,6 +1013,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Docs] link to mixed tape [`8a7567a`](https://github.com/tape-testing/tape/commit/8a7567ae54a7f057f7016f76b5f7cef354e011b4)
 - [Docs] Add electron-tap [`5c36aa8`](https://github.com/tape-testing/tape/commit/5c36aa862b7b356cd773ae09016039d4b523f304)
 - [Docs] Mention [`flip-tape`](https://github.com/pguth/flip-tape/blob/master/README.md) in the section "other". [`1693c34`](https://github.com/tape-testing/tape/commit/1693c341abf44462dc0a83aed68ed976a7fc1ad5)
+- Merge all orphaned tags: 'v1.1.2', 'v2.0.2', 'v2.1.1', 'v2.2.2', 'v2.3.3', 'v2.4.3', 'v2.5.1', 'v2.6.1', 'v2.7.3', 'v2.8.1', 'v2.9.1', 'v2.10.3', 'v2.11.1', 'v2.13.4', 'v2.14.0', 'v2.14.1', 'v3.6.1' [`6209882`](https://github.com/tape-testing/tape/commit/6209882aaf646c787ccf72244e8ebb04a9c95556)
 
 ## [v4.9.2](https://github.com/tape-testing/tape/compare/v4.9.1...v4.9.2) - 2018-12-29
 
@@ -1921,10 +1938,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
-- fix merge conflicts [`5e53c14`](https://github.com/tape-testing/tape/commit/5e53c14c4ee8caec01714f943c7b153478a0002f)
 - Do not close renderer twice. [`ad90739`](https://github.com/tape-testing/tape/commit/ad90739e9f1d6824ec55c990748f4c61c6d856c6)
 - whitespace back [`2666849`](https://github.com/tape-testing/tape/commit/266684958a3f8e5ed9ed9436107a5940a2e1bb29)
 - fix close bug [`bd1db4e`](https://github.com/tape-testing/tape/commit/bd1db4ee2d6129dfad57187ea7ccdc1522178f6b)
+- fix merge conflicts [`5e53c14`](https://github.com/tape-testing/tape/commit/5e53c14c4ee8caec01714f943c7b153478a0002f)
 
 ## [v0.2.1](https://github.com/tape-testing/tape/compare/v0.2.0...v0.2.1) - 2013-01-18
 
@@ -1952,14 +1969,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- Count the number of times `test` is invoked [`e436a61`](https://github.com/tape-testing/tape/commit/e436a61cee255579521538bce7f68851f8065e75)
 - put back whitespace to annoy @Raynos [`ce84d89`](https://github.com/tape-testing/tape/commit/ce84d891e86a20a2bcf8a6bd1f31226d745e0a8c)
 - failing order test [`c3b7dda`](https://github.com/tape-testing/tape/commit/c3b7ddaf2f58d487673c91a3fb9b24e5510db9ed)
 - failing order test [`ea0eff9`](https://github.com/tape-testing/tape/commit/ea0eff904121d8be2348e0a9313afeae86f721c4)
-- NO MERGE CONFLICT [`9241450`](https://github.com/tape-testing/tape/commit/9241450e865b0aed098663f16edec01f96ebae1b)
-- Count the number of times `test` is invoked [`e436a61`](https://github.com/tape-testing/tape/commit/e436a61cee255579521538bce7f68851f8065e75)
 - fixed bug [`c32b131`](https://github.com/tape-testing/tape/commit/c32b13155708f8084f585f793a1995ce4a2e598d)
 - Synchronous race conditions [`19d7f88`](https://github.com/tape-testing/tape/commit/19d7f885bae8bc8e067d4ffcbb6d696acebca3f8)
 - dont log [`359a67f`](https://github.com/tape-testing/tape/commit/359a67f9a00d101581da2f7b16bb0417f2acbada)
+- NO MERGE CONFLICT [`9241450`](https://github.com/tape-testing/tape/commit/9241450e865b0aed098663f16edec01f96ebae1b)
 
 ## [v0.1.3](https://github.com/tape-testing/tape/compare/v0.1.2...v0.1.3) - 2012-12-19
 
