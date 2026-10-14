@@ -7,6 +7,9 @@ var concat = require('concat-stream');
 
 var stripFullStack = require('./common').stripFullStack;
 
+// node 0.10 names the anonymous test callback after a variable declared later in the fixture
+var callbackName = (/^0\.10\./).test(process.versions.node) ? 'original' : '<anonymous>';
+
 tap.test('capturing `console` methods does not capture TAP output', function (tt) {
 	tt.plan(2);
 
@@ -20,11 +23,11 @@ tap.test('capturing `console` methods does not capture TAP output', function (tt
 			'not ok 3 failure while capturing',
 			'  ---',
 			'    operator: fail',
-			'    at: Test.<anonymous> ($TEST/capture-output/console.js:$LINE:$COL)',
+			'    at: Test.' + callbackName + ' ($TEST/capture-output/console.js:$LINE:$COL)',
 			'    stack: |-',
 			'      Error: failure while capturing',
 			'          [... stack stripped ...]',
-			'          at Test.<anonymous> ($TEST/capture-output/console.js:$LINE:$COL)',
+			'          at Test.' + callbackName + ' ($TEST/capture-output/console.js:$LINE:$COL)',
 			'          [... stack stripped ...]',
 			'  ...',
 			'ok 4 user output is captured',
