@@ -12,7 +12,6 @@ jobs:
       range: '< 10'
       type: minors
       command: npm run tests-only
-      skip-ls-check: true
 
   node:
     name: 'node < 10'
