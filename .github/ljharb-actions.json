@@ -1,0 +1,10 @@
+{
+  "keep": {
+    "node-pretest.yml": [
+      "skip-engines"
+    ],
+    "node-aught.yml": [
+      "skip-ls-check"
+    ]
+  }
+}
