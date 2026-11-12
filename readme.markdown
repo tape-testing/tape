@@ -214,6 +214,7 @@ Available `opts` options are:
 - opts.todo = true/false. Test will be allowed to fail.
 
 If you forget to `t.plan()` out how many assertions you are going to run and you don't call `t.end()` explicitly, or return a Promise that eventually settles, your test will hang.
+In node v0.11.12 and later, once nothing else is left for the process to do, tape fails that test as "test exited without ending" (or "plan != count") and goes on to run the tests after it.
 
 If `cb` returns a Promise, it will be implicitly awaited. If that promise rejects, the test will be failed; if it fulfills, the test will end. Explicitly calling `t.end()` while also returning a Promise that fulfills is an error.
 

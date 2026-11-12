@@ -185,6 +185,57 @@ function createExitHarness(config, wait) {
 	if (exit === false) { return harness; }
 	if (!canEmitExit || !canExit) { return harness; }
 
+	// tests (and subtests) that have started but not ended yet; the last one is the innermost
+	/** @type {Test[]} */
+	var started = [];
+	/** @param {Test} t */
+	function track(t) {
+		t.once('prerun', function () {
+			started[started.length] = t;
+		});
+		t.once('end', function () {
+			/** @type {Test[]} */
+			var stillRunning = [];
+			for (var i = 0; i < started.length; i++) {
+				if (started[i] !== t) {
+					stillRunning[stillRunning.length] = started[i];
+				}
+			}
+			started = stillRunning;
+		});
+		t.on('test', track);
+	}
+	harness._results.on('_push', track);
+
+	// node emits `beforeExit` when the event loop is empty. other `beforeExit` listeners (user code,
+	// a library, or the test itself) may still schedule work that finishes the running test, so the
+	// first time we only note the innermost running test and its assertion count, and keep the loop
+	// alive for one more turn. if `beforeExit` fires again with the same test and no new assertions,
+	// it has stalled: fail it and end it, so that the tests after it still run.
+	/** @type {Test | undefined} */
+	var lastTest;
+	var lastCount = 0;
+	process.on('beforeExit', function () {
+		var t = started[started.length - 1];
+		if (ended || !t || t.calledEnd) {
+			lastTest = undefined;
+			return;
+		}
+		if (t === lastTest && t.assertCount === lastCount) {
+			lastTest = undefined;
+			t._exit();
+			// with a plan, `_exit()` can start a queued subtest; then `t` ends when its subtests do
+			if (!t.ended && started[started.length - 1] === t) {
+				t.end();
+			}
+		} else {
+			lastTest = t;
+			lastCount = t.assertCount;
+		}
+		// ending a stalled test can start the next one synchronously, and it may stall too
+		setImmediate(function () {});
+	});
+
 	process.on('exit', /** @param {number | undefined} code */ function (code) {
 		// let the process exit cleanly.
 		if (typeof code === 'number' && code !== 0) {
