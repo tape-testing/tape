@@ -87,6 +87,11 @@ var tape = (function () {
 		return getHarness().only.apply(this, arguments);
 	};
 
+	/** @type {typeof Test.skip} */
+	lazyLoad.skip = function () {
+		return getHarness().skip.apply(this, arguments);
+	};
+
 	/** @type {CreateStream} */
 	lazyLoad.createStream = function (opts) {
 		var options = opts || {};
@@ -122,7 +127,12 @@ function createHarness(conf_) {
 
 	/** @type {(name: string, conf: TestOptions, cb: Test.TestCase) => Test} */
 	function test(name, conf, cb) {
-		var t = new Test(name, conf, cb);
+		// eslint-disable-next-line no-use-before-define
+		return register(new Test(name, conf, cb));
+	}
+
+	/** @type {(t: Test) => Test} */
+	function register(t) {
 		test._tests.push(t);
 
 		(function inspectCode(st) {
@@ -138,6 +148,11 @@ function createHarness(conf_) {
 		return t;
 	}
 	test._results = results;
+
+	/** @type {typeof Test.skip} */
+	test.skip = function () {
+		return register(Test.skip.apply(null, arguments));
+	};
 
 	/** @type {Test[]} */ test._tests = [];
 
@@ -351,12 +366,11 @@ module.exports.createHarness = createHarness;
 module.exports.Test = Test;
 // @ts-ignore TODO FIXME TS2339: attw errors without this line
 module.exports.test = tape; // tap compat
-// @ts-ignore TODO FIXME TS2339: attw errors without this line
-module.exports.skip = Test.skip;
 
 // the casts are load-bearing: without them TS 6 reports TS2303, a circular import alias
 module.exports.createStream = /** @type {typeof Tape.createStream} */ (tape.createStream);
 module.exports.only = /** @type {() => any} */ (tape.only);
+module.exports.skip = /** @type {typeof Test.skip} */ (tape.skip);
 module.exports.getHarness = /** @type {typeof Tape.getHarness} */ (tape.getHarness);
 module.exports.run = /** @type {typeof Tape.run} */ (tape.run);
 module.exports.wait = /** @type {typeof Tape.wait} */ (tape.wait);

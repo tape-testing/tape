@@ -70,6 +70,7 @@ declare namespace tape {
     export type Harness = typeof harnessFunction & {
         run?: () => void;
         only: typeof only;
+        skip: typeof Test.skip;
         _exitCode: number;
         _results: Results;
         _tests: Test[];

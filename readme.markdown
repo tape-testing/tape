@@ -467,7 +467,7 @@ test('is this the answer?', (t) => {
 
 ## var htest = test.createHarness()
 
-Create a new test harness instance, which is a function like `test()`, but with a new pending stack and test state.
+Create a new test harness instance, which is a function like `test()`, but with a new pending stack and test state. Like `test`, it has `.skip()`, `.only()`, `.onFinish()`, `.onFailure()`, and `.createStream()` methods.
 
 By default the TAP output goes to `console.log()`. You can pipe the output to someplace else if you `htest.createStream().pipe()` to a destination stream on the first tick.
 
