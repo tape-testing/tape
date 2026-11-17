@@ -1,11 +1,14 @@
 'use strict';
 
+var callBound = require('call-bound');
 var defined = require('defined');
 var through = require('@ljharb/through');
 
 var createDefaultStream = require('./lib/default_stream');
 var Test = require('./lib/test');
 var Results = require('./lib/results');
+
+var $indexOf = callBound('Array.prototype.indexOf');
 
 var canEmitExit = typeof process !== 'undefined'
 	&& process
@@ -14,6 +17,27 @@ var canEmitExit = typeof process !== 'undefined'
 var canExit = typeof process !== 'undefined'
 	&& process
 	&& typeof process.exit === 'function';
+
+/** @typedef {{ getActiveResourcesInfo?: () => string[] }} ResourcesProcess */
+var $getResources = canEmitExit
+	? /** @type {ResourcesProcess} */ (/** @type {unknown} */ (process)).getActiveResourcesInfo
+	: undefined;
+
+// timers, immediates, sockets, fs requests, etc, that keep the event loop alive, ignoring writes, which tape's own output makes.
+// node < 16.14 can not tell us, so there, work scheduled by `beforeExit` listeners is only noticed once it asserts or ends the test
+function countPendingWork() {
+	if (typeof $getResources !== 'function') {
+		return 0;
+	}
+	var resources = $getResources();
+	var count = 0;
+	for (var i = 0; i < resources.length; i++) {
+		if (resources[i] !== 'WriteWrap' && resources[i] !== 'ShutdownWrap') {
+			count += 1;
+		}
+	}
+	return count;
+}
 
 /**
  * @import Tape, {
@@ -185,64 +209,111 @@ function createExitHarness(config, wait) {
 	if (exit === false) { return harness; }
 	if (!canEmitExit || !canExit) { return harness; }
 
-	// tests (and subtests) that have started but not ended yet; the last one is the innermost
-	/** @type {Test[]} */
+	// tests (and subtests) that have started but not ended yet, each with its ancestors; the last one is the innermost
+	/** @type {{ test: Test, ancestors: Test[] }[]} */
 	var started = [];
 	/** @param {Test} t */
-	function track(t) {
+	function isStarted(t) {
+		for (var i = 0; i < started.length; i++) {
+			if (started[i].test === t) { return true; }
+		}
+		return false;
+	}
+	/** @type {(t: Test, ancestors: Test[]) => void} */
+	function track(t, ancestors) {
 		t.once('prerun', function () {
-			started[started.length] = t;
+			// a subtest whose parent has already ended (eg, the subtest called `.end()` on its parent) is orphaned: nothing waits on it
+			if (ancestors.length === 0 || isStarted(ancestors[ancestors.length - 1])) {
+				started[started.length] = { test: t, ancestors: ancestors };
+			}
 		});
 		t.once('end', function () {
-			/** @type {Test[]} */
+			/** @type {typeof started} */
 			var stillRunning = [];
 			for (var i = 0; i < started.length; i++) {
-				if (started[i] !== t) {
+				if (started[i].test !== t && $indexOf(started[i].ancestors, t) < 0) {
 					stillRunning[stillRunning.length] = started[i];
 				}
 			}
 			started = stillRunning;
 		});
-		t.on('test', track);
+		t.on('test', /** @param {Test} st */ function (st) {
+			track(st, ancestors.concat(t));
+		});
 	}
-	harness._results.on('_push', track);
+	harness._results.on('_push', /** @param {Test} t */ function (t) {
+		track(t, []);
+	});
 
-	// node emits `beforeExit` when the event loop is empty. other `beforeExit` listeners (user code,
-	// a library, or the test itself) may still schedule work that finishes the running test, so the
-	// first time we only note the innermost running test and its assertion count, and keep the loop
-	// alive for one more turn. if `beforeExit` fires again with the same test and no new assertions,
-	// it has stalled: fail it and end it, so that the tests after it still run.
-	// the check runs in an immediate, so the other listeners of the same `beforeExit` run first.
+	// node emits `beforeExit` when the event loop is empty. other `beforeExit` listeners (user code, a library, or the test
+	// itself) may still do or schedule work that finishes the running test. so, once every listener has run, if they scheduled
+	// no work, we note the innermost running test and its assertion count, and keep the loop alive for one more turn. if the
+	// loop empties again with the same test, no new assertions before the listeners ran, and the listeners neither ended it nor
+	// scheduled work, it has stalled: fail it and end it, so that the tests after it still run. assertions the listeners make
+	// do not count, so a listener that asserts every time can not keep the process alive forever; in node < 6, which can not
+	// run our listener first, the round limit does that.
 	/** @type {Test | undefined} */
-	var lastTest;
-	var lastCount = 0;
-	/** @return {Test | undefined} */
-	function innermostRunning() {
-		var t = started[started.length - 1];
-		return ended || !t || t.calledEnd ? void undefined : t;
+	var stallCandidate;
+	var candidateCount = 0;
+	var roundsKeptAlive = 0;
+	var maxRoundsKeptAlive = 10;
+	function innermost() {
+		var entry = started[started.length - 1];
+		return entry && entry.test;
 	}
-	function checkStalled() {
-		var t = innermostRunning();
-		if (!t) {
-			lastTest = undefined;
-		} else if (t === lastTest && t.assertCount === lastCount) {
-			lastTest = undefined;
-			t._exit();
-			// with a plan, `_exit()` can start a queued subtest; then `t` ends when its subtests do
-			if (!t.ended && started[started.length - 1] === t) {
-				t.end();
-			}
-		} else {
-			lastTest = t;
-			lastCount = t.assertCount;
-		}
-	}
-	process.on('beforeExit', function () {
-		if (!innermostRunning()) {
-			lastTest = undefined;
+	function keepAlive() {}
+
+	/** @type {Test | undefined} */
+	var testBeforeListeners;
+	var countBeforeListeners = 0;
+	var workBeforeListeners = 0;
+
+	function checkForStall() {
+		var t = ended ? undefined : innermost();
+		if (!t || countPendingWork() > workBeforeListeners) {
+			stallCandidate = undefined;
 			return;
 		}
-		setImmediate(checkStalled);
+		if (
+			t === testBeforeListeners
+			&& t === stallCandidate
+			&& (countBeforeListeners === candidateCount || roundsKeptAlive >= maxRoundsKeptAlive)
+		) {
+			if (!t._stalled) {
+				t._stalled = true;
+				t._exit();
+			}
+			// with a plan, `_exit()` can start a queued subtest; then `t` ends when its subtests do
+			if (!t.ended && innermost() === t) {
+				// a test that already called `.end()` is stuck on a teardown that never settles; skip past it
+				if (t.calledEnd) {
+					t._end();
+				} else {
+					t.end();
+				}
+			}
+			// ending `t` can start the next test synchronously, and it may stall too
+			t = ended ? undefined : innermost();
+			if (!t) {
+				stallCandidate = undefined;
+				return;
+			}
+		}
+		roundsKeptAlive = t === stallCandidate ? roundsKeptAlive + 1 : 1;
+		stallCandidate = t;
+		candidateCount = t.assertCount;
+		setImmediate(keepAlive);
+	}
+
+	// run before every other `beforeExit` listener, so that the assertions they make count as theirs
+	/** @type {'prependListener' | 'on'} */
+	var addListener = typeof process.prependListener === 'function' ? 'prependListener' : 'on';
+	process[addListener]('beforeExit', function () {
+		testBeforeListeners = ended ? undefined : innermost();
+		countBeforeListeners = testBeforeListeners ? testBeforeListeners.assertCount : 0;
+		workBeforeListeners = countPendingWork();
+		// `nextTick` callbacks run after every `beforeExit` listener has
+		process.nextTick(checkForStall);
 	});
 
 	process.on('exit', /** @param {number | undefined} code */ function (code) {
