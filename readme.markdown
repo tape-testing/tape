@@ -158,6 +158,18 @@ Available configurations are listed below:
 
 This is used to load modules before running tests and is explained extensively in the [preloading modules](#preloading-modules) section.
 
+## --import
+
+This is like `--require`, but loads each module with `import()`, so it works with ES modules. It can be passed more than once, and mixed with `--require`; the modules are loaded in the order the flags are given, before the test files.
+
+```sh
+tape --import ./test/setup.mjs 'test/**/*.js'
+```
+
+Modules are resolved exactly as they are for `--require`, from the current working directory: a relative path must start with `./` or `../`, and anything else is the name of a package.
+
+`--import` requires a version of node that supports dynamic `import()`.
+
 ## --ignore
 
 **Alias**: `-i`

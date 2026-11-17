@@ -50,7 +50,7 @@ export default [
 		},
 	},
 	{
-		files: ['bin/import-or-require.js'],
+		files: ['bin/import-module.js', 'bin/import-or-require.js'],
 		languageOptions: {
 			ecmaVersion: 2020,
 		},

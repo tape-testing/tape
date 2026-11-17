@@ -8,10 +8,14 @@ var objectKeys = require('object-keys');
 
 var opts = parseOpts(process.argv.slice(2), {
 	alias: { r: 'require', i: 'ignore' },
-	string: ['require', 'ignore', 'ignore-pattern'],
+	string: ['require', 'import', 'ignore', 'ignore-pattern'],
 	boolean: ['only', 'strict'],
-	default: { r: [], i: null, 'ignore-pattern': null, only: null, strict: false }
+	default: { r: [], import: [], i: null, 'ignore-pattern': null, only: null, strict: false }
 });
+
+if (typeof opts['import'] === 'string') {
+	opts['import'] = [opts['import']];
+}
 
 if (typeof opts.only === 'boolean') {
 	process.env.NODE_TAPE_NO_ONLY_TEST = !opts.only;
@@ -23,14 +27,63 @@ if (typeof opts.require === 'string') {
 	opts.require = [opts.require];
 }
 
-var resolveModule;
-opts.require.forEach(function (module) {
-	var options = { basedir: cwd, extensions: objectKeys(require.extensions) };
-	if (module) {
-		if (!resolveModule) { resolveModule = require('resolve').sync; }
-		// This check ensures we ignore `-r ""`, trailing `-r`, or other silly things the user might (inadvertently) be doing.
-		require(resolveModule(module, options));
+/** @type {(arg: string) => 'require' | 'import' | null} */
+function preloadType(arg) {
+	if ((/^--import(?:=|$)/).test(arg)) { return 'import'; }
+	if ((/^(?:--require(?:=|$)|-r)/).test(arg)) { return 'require'; }
+	return null;
+}
+
+// minimist collects each flag's values separately, so recover the order in which `--require` and `--import` were given
+/** @type {{ type: 'require' | 'import', specifier: string }[]} */
+var preloads = [];
+var args = process.argv.slice(2);
+var requireCount = 0;
+var importCount = 0;
+for (var a = 0; a < args.length && args[a] !== '--'; a += 1) {
+	var type = preloadType(args[a]);
+	if (type) {
+		preloads[preloads.length] = {
+			type: type,
+			specifier: type === 'import' ? opts['import'][importCount] : opts.require[requireCount]
+		};
+		if (type === 'import') {
+			importCount += 1;
+		} else {
+			requireCount += 1;
+		}
+		if ((/^(?:-r|--require|--import)$/).test(args[a]) && a + 1 < args.length && args[a + 1].charAt(0) !== '-') {
+			a += 1;
+		}
 	}
+}
+if (requireCount !== opts.require.length || importCount !== opts['import'].length) {
+	// the flags were given in a form this scan does not recognize, so fall back to loading every `--require` first
+	preloads = opts.require.map(function (specifier) {
+		return { type: /** @type {const} */ ('require'), specifier: specifier };
+	}).concat(opts['import'].map(function (specifier) {
+		return { type: /** @type {const} */ ('import'), specifier: specifier };
+	}));
+}
+// This ignores `-r ""`, a trailing `-r`, or other silly things the user might (inadvertently) be doing.
+preloads = preloads.filter(function (preload) { return !!preload.specifier; });
+
+var resolveModule;
+/** @type {(module: string) => string} */
+function resolvePreload(module) {
+	var options = { basedir: cwd, extensions: objectKeys(require.extensions) };
+	if (!resolveModule) { resolveModule = require('resolve').sync; }
+	return resolveModule(module, options);
+}
+
+// `--require` modules given before any `--import` are loaded right away, as they always have been
+while (preloads.length > 0 && preloads[0].type === 'require') {
+	require(resolvePreload(preloads.shift().specifier));
+}
+
+// `--import` resolves the same way as `--require`; resolve the rest now, so that a missing module fails right away
+var laterPreloads = preloads.map(function (preload) {
+	return { type: preload.type, file: resolvePreload(preload.specifier) };
 });
 
 var resolvePath = require('path').resolve;
@@ -104,16 +157,31 @@ var tape = require('../');
 function importFiles(hasSupport) {
 	tape.wait();
 
+	// any later preloads start with an `--import`
+	if (laterPreloads.length > 0 && !hasSupport) {
+		console.error('`--import` requires a version of node that supports dynamic `import()`');
+		process.exit(1);
+	}
+
 	/** @type {null | undefined | Promise<unknown>} */
 	var filesPromise;
 	if (hasSupport) {
+		var importModule = require('./import-module');
 		var importOrRequire = require('./import-or-require');
+
+		filesPromise = laterPreloads.reduce(function (promise, preload) {
+			/** @type {() => unknown} */
+			function load() {
+				return preload.type === 'import' ? importModule(preload.file) : require(preload.file);
+			}
+			return promise ? promise.then(load) : /** @type {Promise<unknown>} */ (load());
+		}, /** @type {null | Promise<unknown>} */ (null));
 
 		filesPromise = files.reduce(function (promise, file) {
 			return promise ? promise.then(function () {
 				return importOrRequire(file);
 			}) : importOrRequire(file);
-		}, null);
+		}, filesPromise);
 	} else {
 		files.forEach(function (x) { require(x); });
 	}
