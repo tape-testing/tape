@@ -11,6 +11,19 @@ var stripFullStack = require('./common').stripFullStack;
 // node added the `beforeExit` event in v0.11.12; before that, a test that never ends still blocks the tests after it
 var noBeforeExit = !satisfies(process.version, '>= 0.11.12') && 'node < 0.11.12 has no `beforeExit` event';
 
+// where a stalled test fails: the `beforeExit` check, or the `exit` handler when there is no `beforeExit`
+var stalledAt = noBeforeExit
+	? '    at: process.<anonymous> ($TAPE/index.js:$LINE:$COL)'
+	: '    at: Immediate.checkStalled ($TAPE/index.js:$LINE:$COL)';
+
+/** @param {string} rows */
+function stripStack(rows) {
+	return stripFullStack(rows).map(function (line) {
+		// node >= 1 adds `[as _onImmediate]`
+		return line.replace(' [as _onImmediate] (', ' (');
+	});
+}
+
 tap.test('exit ok', function (t) {
 	t.plan(2);
 
@@ -46,7 +59,7 @@ tap.test('exit fail', function (t) {
 
 	var ps = spawn(process.execPath, [path.join(__dirname, 'exit', 'fail.js')]);
 	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
-		t.same(stripFullStack(rows), [
+		t.same(stripStack(rows), [
 			'TAP version 13',
 			'# array',
 			'ok 1 should be deeply equivalent',
@@ -88,7 +101,7 @@ tap.test('too few exit', function (t) {
 
 	var ps = spawn(process.execPath, [path.join(__dirname, '/exit/too_few.js')]);
 	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
-		t.same(stripFullStack(rows), [
+		t.same(stripStack(rows), [
 			'TAP version 13',
 			'# array',
 			'ok 1 should be deeply equivalent',
@@ -101,7 +114,7 @@ tap.test('too few exit', function (t) {
 			'    operator: fail',
 			'    expected: 6',
 			'    actual:   5',
-			'    at: process.<anonymous> ($TAPE/index.js:$LINE:$COL)',
+			stalledAt,
 			'    stack: |-',
 			'      Error: plan != count',
 			'          [... stack stripped ...]',
@@ -126,7 +139,7 @@ tap.test('more planned in a second test', function (t) {
 
 	var ps = spawn(process.execPath, [path.join(__dirname, '/exit/second.js')]);
 	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
-		t.same(stripFullStack(rows), [
+		t.same(stripStack(rows), [
 			'TAP version 13',
 			'# first',
 			'ok 1 should be truthy',
@@ -137,7 +150,7 @@ tap.test('more planned in a second test', function (t) {
 			'    operator: fail',
 			'    expected: 2',
 			'    actual:   1',
-			'    at: process.<anonymous> ($TAPE/index.js:$LINE:$COL)',
+			stalledAt,
 			'    stack: |-',
 			'      Error: plan != count',
 			'          [... stack stripped ...]',
@@ -161,7 +174,7 @@ tap.test('todo passing', function (t) {
 
 	var ps = spawn(process.execPath, [path.join(__dirname, '/exit/todo.js')]);
 	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
-		t.same(stripFullStack(rows), [
+		t.same(stripStack(rows), [
 			'TAP version 13',
 			'# TODO todo pass',
 			'ok 1 should be truthy # TODO',
@@ -185,7 +198,7 @@ tap.test('todo failing', function (t) {
 
 	var ps = spawn(process.execPath, [path.join(__dirname, '/exit/todo_fail.js')]);
 	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
-		t.same(stripFullStack(rows), [
+		t.same(stripStack(rows), [
 			'TAP version 13',
 			'# TODO todo fail',
 			'not ok 1 should be truthy # TODO',
@@ -215,7 +228,7 @@ tap.test('forgot to call t.end()', function (t) {
 
 	var ps = spawn(process.execPath, [path.join(__dirname, '/exit/missing_end.js')]);
 	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
-		t.same(stripFullStack(rows), [
+		t.same(stripStack(rows), [
 			'TAP version 13',
 			'# first',
 			'ok 1 should be truthy',
@@ -224,7 +237,7 @@ tap.test('forgot to call t.end()', function (t) {
 			'not ok 3 test exited without ending: oops forgot end',
 			'  ---',
 			'    operator: fail',
-			'    at: process.<anonymous> ($TAPE/index.js:$LINE:$COL)',
+			stalledAt,
 			'    stack: |-',
 			'      Error: test exited without ending: oops forgot end',
 			'          [... stack stripped ...]',
@@ -248,14 +261,14 @@ tap.test('forgot to call t.end(), later tests still run', { skip: noBeforeExit }
 
 	var ps = spawn(process.execPath, [path.join(__dirname, '/exit/missing_end_then_more.js')]);
 	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
-		t.same(stripFullStack(rows), [
+		t.same(stripStack(rows), [
 			'TAP version 13',
 			'# oops forgot end',
 			'ok 1 should be truthy',
 			'not ok 2 test exited without ending: oops forgot end',
 			'  ---',
 			'    operator: fail',
-			'    at: process.<anonymous> ($TAPE/index.js:$LINE:$COL)',
+			stalledAt,
 			'    stack: |-',
 			'      Error: test exited without ending: oops forgot end',
 			'          [... stack stripped ...]',
@@ -281,7 +294,7 @@ tap.test('too few assertions for the plan, later tests still run', { skip: noBef
 
 	var ps = spawn(process.execPath, [path.join(__dirname, '/exit/too_few_then_more.js')]);
 	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
-		t.same(stripFullStack(rows), [
+		t.same(stripStack(rows), [
 			'TAP version 13',
 			'# too few',
 			'ok 1 should be truthy',
@@ -290,7 +303,7 @@ tap.test('too few assertions for the plan, later tests still run', { skip: noBef
 			'    operator: fail',
 			'    expected: 2',
 			'    actual:   1',
-			'    at: process.<anonymous> ($TAPE/index.js:$LINE:$COL)',
+			stalledAt,
 			'    stack: |-',
 			'      Error: plan != count',
 			'          [... stack stripped ...]',
@@ -316,7 +329,7 @@ tap.test('subtest forgot to call st.end(), later tests still run', { skip: noBef
 
 	var ps = spawn(process.execPath, [path.join(__dirname, '/exit/missing_end_subtest.js')]);
 	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
-		t.same(stripFullStack(rows), [
+		t.same(stripStack(rows), [
 			'TAP version 13',
 			'# parent',
 			'# child forgot end',
@@ -324,7 +337,7 @@ tap.test('subtest forgot to call st.end(), later tests still run', { skip: noBef
 			'not ok 2 test exited without ending: child forgot end',
 			'  ---',
 			'    operator: fail',
-			'    at: process.<anonymous> ($TAPE/index.js:$LINE:$COL)',
+			stalledAt,
 			'    stack: |-',
 			'      Error: test exited without ending: child forgot end',
 			'          [... stack stripped ...]',
@@ -352,9 +365,35 @@ tap.test('a test finished from another `beforeExit` listener still passes', { sk
 
 	var ps = spawn(process.execPath, [path.join(__dirname, '/exit/finished_in_before_exit.js')]);
 	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
-		t.same(stripFullStack(rows), [
+		t.same(stripStack(rows), [
 			'TAP version 13',
 			'# finished from another beforeExit listener',
+			'ok 1 late',
+			'# next',
+			'ok 2 should be truthy',
+			'',
+			'1..2',
+			'# tests 2',
+			'# pass  2',
+			'',
+			'# ok',
+			'',
+			''
+		]);
+	}));
+	ps.on('exit', /** @param {number} code */ function (code) {
+		t.equal(code, 0);
+	});
+});
+
+tap.test('a test ended by a beforeExit listener added in a later round still passes', { skip: noBeforeExit }, function (t) {
+	t.plan(2);
+
+	var ps = spawn(process.execPath, [path.join(__dirname, '/exit/finished_in_second_before_exit.js')]);
+	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
+		t.same(stripStack(rows), [
+			'TAP version 13',
+			'# finished from a beforeExit listener added in a later round',
 			'ok 1 late',
 			'# next',
 			'ok 2 should be truthy',
@@ -378,7 +417,7 @@ tap.test('planned parent with a queued subtest waits for the subtest', { skip: n
 
 	var ps = spawn(process.execPath, [path.join(__dirname, '/exit/planned_parent_stalled_child.js')]);
 	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
-		t.same(stripFullStack(rows), [
+		t.same(stripStack(rows), [
 			'TAP version 13',
 			'# parent',
 			'ok 1 should be truthy',
@@ -387,7 +426,7 @@ tap.test('planned parent with a queued subtest waits for the subtest', { skip: n
 			'    operator: fail',
 			'    expected: 3',
 			'    actual:   1',
-			'    at: process.<anonymous> ($TAPE/index.js:$LINE:$COL)',
+			stalledAt,
 			'    stack: |-',
 			'      Error: plan != count',
 			'          [... stack stripped ...]',
@@ -397,7 +436,7 @@ tap.test('planned parent with a queued subtest waits for the subtest', { skip: n
 			'not ok 4 test exited without ending: child',
 			'  ---',
 			'    operator: fail',
-			'    at: process.<anonymous> ($TAPE/index.js:$LINE:$COL)',
+			stalledAt,
 			'    stack: |-',
 			'      Error: test exited without ending: child',
 			'          [... stack stripped ...]',
@@ -423,7 +462,7 @@ tap.test('two stalled subtests in a row, later tests still run', { skip: noBefor
 
 	var ps = spawn(process.execPath, [path.join(__dirname, '/exit/stalled_subtests_in_a_row.js')]);
 	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
-		t.same(stripFullStack(rows), [
+		t.same(stripStack(rows), [
 			'TAP version 13',
 			'# parent',
 			'# child',
@@ -431,7 +470,7 @@ tap.test('two stalled subtests in a row, later tests still run', { skip: noBefor
 			'not ok 2 test exited without ending: child',
 			'  ---',
 			'    operator: fail',
-			'    at: process.<anonymous> ($TAPE/index.js:$LINE:$COL)',
+			stalledAt,
 			'    stack: |-',
 			'      Error: test exited without ending: child',
 			'          [... stack stripped ...]',
@@ -441,7 +480,7 @@ tap.test('two stalled subtests in a row, later tests still run', { skip: noBefor
 			'not ok 4 test exited without ending: child2',
 			'  ---',
 			'    operator: fail',
-			'    at: process.<anonymous> ($TAPE/index.js:$LINE:$COL)',
+			stalledAt,
 			'    stack: |-',
 			'      Error: test exited without ending: child2',
 			'          [... stack stripped ...]',
@@ -467,7 +506,7 @@ tap.test('planned parent whose only subtest stalls, later tests still run', { sk
 
 	var ps = spawn(process.execPath, [path.join(__dirname, '/exit/planned_parent_only_child_stalls.js')]);
 	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
-		t.same(stripFullStack(rows), [
+		t.same(stripStack(rows), [
 			'TAP version 13',
 			'# parent',
 			'not ok 1 plan != count',
@@ -475,7 +514,7 @@ tap.test('planned parent whose only subtest stalls, later tests still run', { sk
 			'    operator: fail',
 			'    expected: 3',
 			'    actual:   0',
-			'    at: process.<anonymous> ($TAPE/index.js:$LINE:$COL)',
+			stalledAt,
 			'    stack: |-',
 			'      Error: plan != count',
 			'          [... stack stripped ...]',
@@ -485,7 +524,7 @@ tap.test('planned parent whose only subtest stalls, later tests still run', { sk
 			'not ok 3 test exited without ending: child',
 			'  ---',
 			'    operator: fail',
-			'    at: process.<anonymous> ($TAPE/index.js:$LINE:$COL)',
+			stalledAt,
 			'    stack: |-',
 			'      Error: test exited without ending: child',
 			'          [... stack stripped ...]',

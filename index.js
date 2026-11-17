@@ -212,16 +212,20 @@ function createExitHarness(config, wait) {
 	// first time we only note the innermost running test and its assertion count, and keep the loop
 	// alive for one more turn. if `beforeExit` fires again with the same test and no new assertions,
 	// it has stalled: fail it and end it, so that the tests after it still run.
+	// the check runs in an immediate, so the other listeners of the same `beforeExit` run first.
 	/** @type {Test | undefined} */
 	var lastTest;
 	var lastCount = 0;
-	process.on('beforeExit', function () {
+	/** @return {Test | undefined} */
+	function innermostRunning() {
 		var t = started[started.length - 1];
-		if (ended || !t || t.calledEnd) {
+		return ended || !t || t.calledEnd ? void undefined : t;
+	}
+	function checkStalled() {
+		var t = innermostRunning();
+		if (!t) {
 			lastTest = undefined;
-			return;
-		}
-		if (t === lastTest && t.assertCount === lastCount) {
+		} else if (t === lastTest && t.assertCount === lastCount) {
 			lastTest = undefined;
 			t._exit();
 			// with a plan, `_exit()` can start a queued subtest; then `t` ends when its subtests do
@@ -232,8 +236,13 @@ function createExitHarness(config, wait) {
 			lastTest = t;
 			lastCount = t.assertCount;
 		}
-		// ending a stalled test can start the next one synchronously, and it may stall too
-		setImmediate(function () {});
+	}
+	process.on('beforeExit', function () {
+		if (!innermostRunning()) {
+			lastTest = undefined;
+			return;
+		}
+		setImmediate(checkStalled);
 	});
 
 	process.on('exit', /** @param {number | undefined} code */ function (code) {
