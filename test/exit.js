@@ -849,3 +849,38 @@ tap.test('a stalled test that finishes late names itself in its late failures', 
 		t.notEqual(code, 0);
 	});
 });
+
+tap.test('a subtest that throws does not stop its parent from running its other subtests', { skip: noBeforeExit }, function (t) {
+	t.plan(2);
+
+	var ps = spawn(process.execPath, [path.join(__dirname, '/exit/subtest_throws.js')]);
+	ps.stdout.pipe(concat({ encoding: 'string' }, function (rows) {
+		t.same(stripFullStack(rows), [
+			'TAP version 13',
+			'# parent',
+			'# child',
+			'not ok 1 test exited without ending: child',
+			'  ---',
+			'    operator: fail',
+			stalledAt,
+			'    stack: |-',
+			'      Error: test exited without ending: child',
+			'          [... stack stripped ...]',
+			'  ...',
+			'# sibling',
+			'ok 2 (unnamed assert)',
+			'# next',
+			'ok 3 (unnamed assert)',
+			'',
+			'1..3',
+			'# tests 3',
+			'# pass  2',
+			'# fail  1',
+			'',
+			''
+		]);
+	}));
+	ps.on('exit', /** @param {number} code */ function (code) {
+		t.notEqual(code, 0);
+	});
+});
