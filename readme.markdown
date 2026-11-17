@@ -510,6 +510,27 @@ Like `test([name], [opts], cb)` except if you use `.only` this is the only test 
 
 Check out how the usage of [the --no-only flag](#--no-only) could help ensure there is no `.only` test running in a specified environment.
 
+## test.wait()
+
+Defer running tests until `test.run()` is called, so that tests can be defined asynchronously, e.g. from test files that are loaded with `import()`, or from `<script>` tags in a browser. Call it before defining any tests, and before `test.createStream()`.
+
+## test.run()
+
+Start running the tests, after `test.wait()` was called.
+
+```js
+var test = require('tape');
+
+test.wait();
+test.createStream({ objectMode: true }).on('data', function (row) {
+    console.log(row);
+});
+
+Promise.all(files.map(function (file) { return import(file); })).then(function () {
+    test.run();
+});
+```
+
 ## var stream = test.createStream(opts)
 
 Create a stream of output, bypassing the default output stream that writes messages to `console.log()`. By default `stream` will be a text stream of TAP output, but you can get an object stream instead by setting `opts.objectMode` to `true`.
