@@ -277,7 +277,20 @@ Generate a passing assertion with a message `msg`.
 
 ## t.timeoutAfter(ms)
 
-Automatically timeout the test after X ms.
+Automatically timeout the test after X ms: if the test has not ended within X ms of calling `t.timeoutAfter(X)`, it fails with a `timed out after Xms` assertion and ends. Passing `{ timeout: X }` as a test option does the same thing, starting when the test starts.
+
+Use it for asynchronous tests that might otherwise never end, e.g. if a callback is never called:
+
+```js
+test('the server responds', { timeout: 1000 }, function (t) {
+    t.plan(1);
+    request(server, function (err, res) {
+        t.equal(res.statusCode, 200);
+    });
+});
+```
+
+A timeout makes no assertion if the test ends in time, so it does not count toward the test's plan.
 
 When the timeout fires, the test fails and ends, and the next test starts. Work the test had already scheduled keeps running, though: if it later calls `t.end()`, that call is ignored, and any assertions it makes fail with a message naming the timed-out test, rather than counting toward whichever test is running at the time.
 
