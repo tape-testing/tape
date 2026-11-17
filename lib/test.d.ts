@@ -35,6 +35,7 @@ declare class Test extends EventEmitter {
 	_runningChild: boolean;
 	_skip: boolean | string | undefined;
 	_stalled: boolean;
+	_timedOut: boolean;
 	_teardown: Test.TeardownHandler[];
 	_timeout: number | undefined;
 	_ignoreSyncTimeout?: boolean;

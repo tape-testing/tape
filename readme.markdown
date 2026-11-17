@@ -279,6 +279,8 @@ Generate a passing assertion with a message `msg`.
 
 Automatically timeout the test after X ms.
 
+When the timeout fires, the test fails and ends, and the next test starts. Work the test had already scheduled keeps running, though: if it later calls `t.end()`, that call is ignored, and any assertions it makes fail with a message naming the timed-out test, rather than counting toward whichever test is running at the time.
+
 JavaScript is single-threaded, so a test that blocks the event loop (for example, with a long synchronous loop) can not be interrupted mid-run. By default (`ignoreSyncTimeout` is `true`) such a test is allowed to run to completion and pass, even if it runs past the timeout. Setting the `ignoreSyncTimeout` option to `false` - or the `NODE_TAPE_STRICT_TIMEOUT` environment variable (when set to a non-empty value), which flips the default for all tests - instead fails the test once it ends, if it took at least X ms. A per-test `ignoreSyncTimeout` value takes precedence over the environment variable.
 
 ## t.skip(msg)
