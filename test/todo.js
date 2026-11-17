@@ -27,6 +27,7 @@ tap.test('tape todo test', function (assert) {
 			'1..2',
 			'# tests 2',
 			'# pass  2',
+			'# todo  1',
 			'',
 			'# ok',
 			''
@@ -64,6 +65,7 @@ tap.test('tape todo test with TODO_IS_OK', function (assert) {
 			'1..2',
 			'# tests 2',
 			'# pass  2',
+			'# todo  1',
 			'',
 			'# ok',
 			''

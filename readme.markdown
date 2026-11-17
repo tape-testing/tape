@@ -211,7 +211,7 @@ Available `opts` options are:
 - opts.timeout = 500. Set a timeout for the test, after which it will fail. See test.timeoutAfter.
 - opts.ignoreSyncTimeout = true/false. Defaults to `true` (unless the `NODE_TAPE_STRICT_TIMEOUT` environment variable is set to a non-empty value). When `false`, a test that blocks the event loop past its timeout is failed once it ends, rather than being allowed to pass. See test.timeoutAfter.
 - opts.objectPrintDepth = 5. Configure max depth of expected / actual object printing. Environmental variable `NODE_TAPE_OBJECT_PRINT_DEPTH` can set the desired default depth for all tests; locally-set values will take precedence.
-- opts.todo = true/false. Test will be allowed to fail.
+- opts.todo = true/false. Test will be allowed to fail. Its assertions count toward `# pass`, and the summary's `# todo` line counts them.
 
 If you forget to `t.plan()` out how many assertions you are going to run and you don't call `t.end()` explicitly, or return a Promise that eventually settles, your test will hang.
 In node v0.11.12 and later, once nothing else is left for the process to do, tape fails that test as "test exited without ending" (or "plan != count") and goes on to run the tests after it; any assertions that test makes later fail, and name it.

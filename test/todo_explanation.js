@@ -42,6 +42,7 @@ tap.test('tape todo test', { todo: process.versions.node.match(/0\.8\.\d+/) ? 'F
 			'1..4',
 			'# tests 4',
 			'# pass  4',
+			'# todo  3',
 			'',
 			'# ok',
 			''

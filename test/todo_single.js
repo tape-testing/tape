@@ -26,6 +26,7 @@ tap.test('tape todo test', function (assert) {
 			'1..1',
 			'# tests 1',
 			'# pass  1',
+			'# todo  1',
 			'',
 			'# ok',
 			''
