@@ -12,7 +12,7 @@ var stripFullStack = require('./common').stripFullStack;
 var noBeforeExit = !satisfies(process.version, '>= 0.11.12') && 'node < 0.11.12 has no `beforeExit` event';
 
 var noPendingWorkInfo = noBeforeExit || (
-	typeof /** @type {{ getActiveResourcesInfo?: unknown }} */ (/** @type {unknown} */ (process)).getActiveResourcesInfo !== 'function'
+	typeof /** @type {{ getActiveResourcesInfo?: unknown }} */ (process).getActiveResourcesInfo !== 'function'
 	&& 'node < 16.14 can not report the work that `beforeExit` listeners schedule'
 );
 

@@ -20,7 +20,7 @@ var canExit = typeof process !== 'undefined'
 
 /** @typedef {{ getActiveResourcesInfo?: () => string[] }} ResourcesProcess */
 var $getResources = canEmitExit
-	? /** @type {ResourcesProcess} */ (/** @type {unknown} */ (process)).getActiveResourcesInfo
+	? /** @type {ResourcesProcess} */ (process).getActiveResourcesInfo
 	: undefined;
 
 // timers, immediates, sockets, fs requests, etc, that keep the event loop alive, ignoring writes, which tape's own output makes.
@@ -228,7 +228,6 @@ function createExitHarness(config, wait) {
 			}
 		});
 		t.once('end', function () {
-			/** @type {typeof started} */
 			var stillRunning = [];
 			for (var i = 0; i < started.length; i++) {
 				if (started[i].test !== t && $indexOf(started[i].ancestors, t) < 0) {
