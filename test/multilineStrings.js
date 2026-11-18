@@ -6,19 +6,20 @@ var concat = require('concat-stream');
 
 var stripFullStack = require('./common').stripFullStack;
 
-/** @type {(n: number, ex: string[], ac: string[]) => string[]} */
-function failure(n, ex, ac) {
+/** @type {(n: number, ex: string[], ac: string[], callbackName?: string) => string[]} */
+function failure(n, ex, ac, callbackName) {
+	var frame = 'Test.' + (callbackName || '<anonymous>') + ' ($TEST/multilineStrings.js:$LINE:$COL)';
 	return [
 		'not ok ' + n + ' should be strictly equal',
 		'  ---',
 		'    operator: equal',
 		'    expected: |-'
 	].concat(ex.map(function (line) { return '      ' + line; }), '    actual: |-', ac.map(function (line) { return '      ' + line; }), [
-		'    at: Test.<anonymous> ($TEST/multilineStrings.js:$LINE:$COL)',
+		'    at: ' + frame,
 		'    stack: |-',
 		'      Error: should be strictly equal',
 		'          [... stack stripped ...]',
-		'          at Test.<anonymous> ($TEST/multilineStrings.js:$LINE:$COL)',
+		'          at ' + frame,
 		'          [... stack stripped ...]',
 		'  ...'
 	]);
@@ -95,7 +96,8 @@ tap.test('NODE_TAPE_MULTILINE_STRINGS sets the default, and the option overrides
 	var test = tape.createHarness();
 	test.createStream().pipe(concat({ encoding: 'string' }, function (body) {
 		tt.same(stripFullStack(body), ['TAP version 13', '# from env'].concat(
-			failure(1, ['\'a', 'c\''], ['\'a', 'b\'']),
+			// node 0.8's V8 infers a name for the anonymous `from env` test callback
+			failure(1, ['\'a', 'c\''], ['\'a', 'b\''], (/^0\.8\./).test(process.versions.node) ? 'test.multilineStrings' : '<anonymous>'),
 			[
 				'# opted out',
 				'not ok 2 should be strictly equal',
