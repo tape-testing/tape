@@ -32,6 +32,7 @@ tap.test('test skip explanations', function (assert) {
 			'1..9',
 			'# tests 9',
 			'# pass  9',
+			'# skip  5',
 			'',
 			'# ok',
 			''

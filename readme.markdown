@@ -312,6 +312,8 @@ JavaScript is single-threaded, so a test that blocks the event loop (for example
 
 Generate an assertion that will be skipped over.
 
+Skipped assertions, including ones made with a `skip` option, count toward `# pass`, and the summary's `# skip` line counts them. Skipped tests (see `test.skip`) make no assertions, so they are not counted.
+
 ## t.ok(value, msg)
 
 Assert that `value` is truthy with an optional description of the assertion `msg`.

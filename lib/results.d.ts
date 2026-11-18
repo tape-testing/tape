@@ -11,6 +11,7 @@ declare class Results extends EventEmitter {
     fail: number;
     pass: number;
     tests: Test[];
+    skip: number;
     todo: number;
     todoIsOK: boolean;
     closed?: boolean;

@@ -82,6 +82,7 @@ tap.test('intercept: output', function (tt) {
 			'1..' + count,
 			'# tests ' + count,
 			'# pass  ' + count,
+			v.hasSymbols ? [] : '# skip  1',
 			'',
 			'# ok',
 			''
