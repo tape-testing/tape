@@ -150,7 +150,12 @@
 	},
 	"publishConfig": {
 		"ignore": [
+			".github/ljharb-actions.json",
 			".github/workflows",
+			".nycrc",
+			"eslint.config.mjs",
+			"example/",
+			"test",
 			"types"
 		]
 	}
