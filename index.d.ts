@@ -37,6 +37,7 @@ declare namespace tape {
 
     export type TestOptions = {
         objectPrintDepth?: number | undefined;
+        multilineStrings?: boolean | undefined;
         skip?: boolean | string | undefined;
         timeout?: number | undefined;
         ignoreSyncTimeout?: boolean;

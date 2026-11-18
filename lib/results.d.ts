@@ -39,6 +39,7 @@ declare namespace Results {
         name?: string;
         operator: undefined | Operator;
         objectPrintDepth?: number;
+        multilineStrings?: boolean;
         actual?: unknown;
         expected?: unknown;
         error?: unknown;

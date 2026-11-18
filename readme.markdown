@@ -223,6 +223,7 @@ Available `opts` options are:
 - opts.timeout = 500. Set a timeout for the test, after which it will fail. See test.timeoutAfter.
 - opts.ignoreSyncTimeout = true/false. Defaults to `true` (unless the `NODE_TAPE_STRICT_TIMEOUT` environment variable is set to a non-empty value). When `false`, a test that blocks the event loop past its timeout is failed once it ends, rather than being allowed to pass. See test.timeoutAfter.
 - opts.objectPrintDepth = 5. Configure max depth of expected / actual object printing. Environmental variable `NODE_TAPE_OBJECT_PRINT_DEPTH` can set the desired default depth for all tests; locally-set values will take precedence.
+- opts.multilineStrings = true/false. Defaults to `false`. When `true`, newlines in strings in a failure's expected / actual values are printed as line breaks, rather than as `\n`, which makes multiline strings much easier to compare. Setting the environment variable `NODE_TAPE_MULTILINE_STRINGS` to a non-empty value flips the default for all tests; locally-set values will take precedence.
 - opts.todo = true/false. Test will be allowed to fail. Its assertions count toward `# pass`, and the summary's `# todo` line counts them.
 
 If you forget to `t.plan()` out how many assertions you are going to run and you don't call `t.end()` explicitly, or return a Promise that eventually settles, your test will hang.
