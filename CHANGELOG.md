@@ -5,6 +5,36 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v5.11.0](https://github.com/tape-testing/tape/compare/v5.10.3...v5.11.0) - 2026-11-18
+
+### Fixed
+
+- [New] add `multilineStrings` option and `NODE_TAPE_MULTILINE_STRINGS`, to print newlines in failure values as line breaks [`#294`](https://github.com/tape-testing/tape/issues/294)
+- [New] `bin/tape`: add `--import`, to load ES modules before the test files [`#615`](https://github.com/tape-testing/tape/issues/615)
+- [Fix] objectMode `createStream`: end the stream when the results close without finishing [`#81`](https://github.com/tape-testing/tape/issues/81)
+- [Fix] objectMode `createStream`: include tests queued before the stream was created [`#585`](https://github.com/tape-testing/tape/issues/585)
+- [readme] document how `timeout` and `t.timeoutAfter` work, with an example [`#188`](https://github.com/tape-testing/tape/issues/188)
+- [Fix] `timeoutAfter`: a timed-out test that finishes late does not fail the next test [`#313`](https://github.com/tape-testing/tape/issues/313)
+- [readme] `t.doesNotThrow`: any exception fails, regardless of `expected`; explain how subtests count toward a plan [`#553`](https://github.com/tape-testing/tape/issues/553) [`#122`](https://github.com/tape-testing/tape/issues/122)
+- [Fix] `tape.skip`: report the skipped test; add `.skip` to harnesses [`#111`](https://github.com/tape-testing/tape/issues/111)
+- [Fix] when a test never ends, fail it and still run the tests after it [`#550`](https://github.com/tape-testing/tape/issues/550) [`#383`](https://github.com/tape-testing/tape/issues/383)
+
+### Commits
+
+- [Fix] stall detection: do not hang, or fail tests that are still making progress [`e8ded7a`](https://github.com/tape-testing/tape/commit/e8ded7a086763d124881532f15907bead781e40c)
+- [Fix] check for a stalled test after the other `beforeExit` listeners run [`0ee16b1`](https://github.com/tape-testing/tape/commit/0ee16b1efbc117d4e4f079bfc8713ce6d3ca017b)
+- [Fix] `Test`: a subtest that throws no longer leaves its parent unable to run its other subtests [`e65a388`](https://github.com/tape-testing/tape/commit/e65a3881fedaaa37235c7f5654aa04a461b7653a)
+- [Fix] a late assertion from a stalled or timed-out test does not also report `plan != count` [`10fb344`](https://github.com/tape-testing/tape/commit/10fb34415315fd96a4c49ac038270d191318bd24)
+- [Fix] `Results`: print the `# todo` count in the summary [`7730531`](https://github.com/tape-testing/tape/commit/7730531ad825ffa396143d8fc32473fe1bef125b)
+- [Tests] `multilineStrings`: expect node 0.8's inferred name for the anonymous test callback [`d15eb4f`](https://github.com/tape-testing/tape/commit/d15eb4f3b7252dc1cf758978f6b9cbccbbd40268)
+- [New] `Results`: print a `# skip` count in the summary [`4dcc95f`](https://github.com/tape-testing/tape/commit/4dcc95f0859e7a89c81dea5b8bc227f9d66f1bbd)
+- [actions] update workflow files to match ljharb/actions’ templates [`9e1a4f7`](https://github.com/tape-testing/tape/commit/9e1a4f760174951f1dd78597246f831fa414a898)
+- [Fix] `bin/tape`: with `--import`, tests defined by earlier `--require`d modules wait for the imports [`93bb3ea`](https://github.com/tape-testing/tape/commit/93bb3ea1c602a72614d924cdecacdffbafd4dc74)
+- [Dev Deps] update `@types/readable-stream`, `eslint`, `npmignore` [`10ff295`](https://github.com/tape-testing/tape/commit/10ff2953b863462ae9bee9510e98fdfa34cdc6bf)
+- [meta] npmignore some files [`b8fcd84`](https://github.com/tape-testing/tape/commit/b8fcd840888efbc5e24e63e75cafcd1ab77c3c1c)
+- [Refactor] remove unneeded type casts and annotation in stall detection [`5f31cf7`](https://github.com/tape-testing/tape/commit/5f31cf774f627b5fe73f7840b0563357e97b5eb2)
+- [Deps] update `object-inspect` [`b7d5be8`](https://github.com/tape-testing/tape/commit/b7d5be88ddc57f20856ac376c44a496bb81fee2d)
+
 ## [v5.10.3](https://github.com/tape-testing/tape/compare/v5.10.2...v5.10.3) - 2026-10-14
 
 ### Commits
