@@ -76,6 +76,13 @@ function resolvePreload(module) {
 	return resolveModule(module, options);
 }
 
+var tape = require('../');
+
+if (opts['import'].length > 0) {
+	// `--import`ed modules load asynchronously, so tests that any earlier `--require`d modules define must wait for them
+	tape.wait();
+}
+
 // `--require` modules given before any `--import` are loaded right away, as they always have been
 while (preloads.length > 0 && preloads[0].type === 'require') {
 	require(resolvePreload(preloads.shift().specifier));
@@ -150,8 +157,6 @@ if (opts.strict && files.length === 0) {
 }
 
 var hasImport = require('has-dynamic-import');
-
-var tape = require('../');
 
 /** @type {(hasSupport: boolean) => Promise<void> | void} */
 function importFiles(hasSupport) {
